@@ -5,20 +5,25 @@
 #include <iostream>
 #include <stack>
 
+
+class Litteral {
+public:
+    virtual void print(std::ostream& f)const=0;
+    virtual ~Litteral(){}
+};
 class Item {
     Litteral * lit;
 public:
     Item(): lit(nullptr){}
-    void setLit(Litteral l){lit = &l;}
-    Litteral getLit()const{return &lit;}
+    void setLit(Litteral* l){lit = l;}
+    Litteral* getPLit()const{return lit;}
 };
 
-
-class Litteral {
+class ExpressionMaterial : public Litteral {
 public:
-    void print(ostream& f)const=0;
+    virtual void print(std::ostream& f)const=0;
+    virtual ~ExpressionMaterial(){}
 };
-
 
 class Expression : public Litteral {
     ExpressionMaterial ** tab;
@@ -28,15 +33,15 @@ public:
     Expression(): tab(nullptr), nb(0),max(0){}
     ~Expression(){nb = 0; max = 0; delete[] tab;}
     void increaseCap();
-    void operator<<(Expression e);
-    void print(ostream& f)const;
+    void operator<<(ExpressionMaterial* e);
+    void print(std::ostream& f)const;
 };
 
 class Program : public Litteral {
     std::string instructions;
 public:
     Program(std::string s):instructions(s){}
-    void print(ostream& f)const;
+    void print(std::ostream& f)const;
 };
 /*
 class GeneralManager {
@@ -50,7 +55,7 @@ class ProgramManager {
     unsigned int max;
     void increaseCap();
     ProgramManager():programs(nullptr),nb(0),max(0){}
-    ~ProgramManager();
+    ~ProgramManager(){}
     ProgramManager(const ProgramManager& m);
     ProgramManager& operator=(const ProgramManager& m);
     //friend class QComputer;
@@ -75,13 +80,13 @@ public:
         bool isDone() const { return nbRemain==0; }
         void next() {
             if (isDone())
-                throw ComputerException("error, next on an iterator which is done");
+                throw "error, next on an iterator which is done";
             nbRemain--;
             current++;
         }
-        Program& current() const {
+        Program& getCurrent() const {
             if (isDone())
-                throw ComputerException("error, indirection on an iterator which is done");
+                throw "error, indirection on an iterator which is done";
             return **current;
         }
     };
@@ -90,15 +95,12 @@ public:
     }
 };
 
-class ExpressionMaterial : public Litteral {
-public:
-    void print(ostream& f)const=0;
-};
 class Atom : public ExpressionMaterial {
     std::string lib;
 public:
     Atom(std::string s):lib(s){}
-    void print(ostream &f) const {f<<lib;}
+    void print(std::ostream &f) const {f<<lib;}
+    ~Atom(){}
 };
 
 class Identifier {
@@ -107,9 +109,9 @@ class Identifier {
 public:
     Identifier():lib(nullptr),value(nullptr){}
     void setLib(Atom a){lib=&a;}
-    void setValue(Litteral l){value = &l;}
-    void print(ostream& f)const{lib->print(f);}
-    Litteral getValue()const{return *value;}
+    void setValue(Litteral* l){value = l;}
+    void print(std::ostream& f)const{lib->print(f);}
+    Litteral* getPValue()const{return value;}
 };
 
 class IdentifierManager {
@@ -117,8 +119,7 @@ class IdentifierManager {
     unsigned int nb;
     unsigned int max;
     void increaseCap();
-    IdentifierManager():identifiers(nullptr),nb(0),max(0){}
-    ~IdentifierManager();
+    ~IdentifierManager(){}
     IdentifierManager(const IdentifierManager& m);
     IdentifierManager& operator=(const IdentifierManager& m);
     //friend class QComputer;
@@ -129,7 +130,8 @@ class IdentifierManager {
     };
     static Singleton sing;
 public:
-    void addIdentifier(Identifier p);
+    IdentifierManager():identifiers(nullptr),nb(0),max(0){}
+    void addIdentifier(std::string s, Litteral* l);
     void removeIdentifier(Identifier& e);
     static IdentifierManager& getInstance();
     static void freeInstance();
@@ -143,13 +145,13 @@ public:
         bool isDone() const { return nbRemain==0; }
         void next() {
             if (isDone())
-                throw ComputerException("error, next on an iterator which is done");
+                throw "error, next on an iterator which is done";
             nbRemain--;
             current++;
         }
-        Identifier& current() const {
+        Identifier& getCurrent() const {
             if (isDone())
-                throw ComputerException("error, indirection on an iterator which is done");
+                throw "error, indirection on an iterator which is done";
             return **current;
         }
     };

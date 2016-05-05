@@ -1,29 +1,30 @@
 #include "litteral.h"
 
-void Expression::print(ostream& f)const{
+void Expression::print(std::ostream& f)const{
     for(unsigned int i=0;i<nb;i++)
-        f<<*tab[i]<<" ";
+        (*tab[i]).print(f);
+        f<<" ";
 }
 
-void Program::print(ostream& f)const{
+void Program::print(std::ostream& f)const{
     f<<instructions;
 }
 
 void Expression::increaseCap()
 {
     max = max*2+1;
-    Expression ** newtab = new Expression*[max];
+    ExpressionMaterial ** newtab = new ExpressionMaterial*[max];
     for(unsigned int i=0;i<nb;i++)
         newtab[i]=tab[i];
-    Expression ** old = tab;
+    ExpressionMaterial ** old = tab;
     tab = newtab;
     delete[] old;
 }
-void operator<<(Expression e)
+void Expression::operator<<(ExpressionMaterial* e)
 {
     if(nb==max)
        increaseCap();
-    tab[nb++]=&e;
+    tab[nb++]=e;
 }
 void ProgramManager::increaseCap()
 {
@@ -49,15 +50,22 @@ void ProgramManager::removeProgram(Program& p){
         throw "Suppression Impossible";
     delete programs[i];
 
-    for(i;(i<--nb);i++)
+    do
+    {
         programs[i]=programs[i+1];
+        i++;
+    }while(i<--nb);
+
 }
-static ProgramManager& getInstance(){
+
+ProgramManager::Singleton ProgramManager::sing=ProgramManager::Singleton();
+
+ProgramManager& ProgramManager::getInstance(){
     if(sing.instance==nullptr) sing.instance = new ProgramManager;
     return *sing.instance;
 }
 
-static void ProgramManager::freeInstance(){
+void ProgramManager::freeInstance(){
     delete sing.instance;
     sing.instance = nullptr;
 }
@@ -73,13 +81,13 @@ void IdentifierManager::increaseCap()
     identifiers = newtab;
     delete[] old;
 }
-void IdentifierManager::addIdentifier(std::string s, litteral* l){
+void IdentifierManager::addIdentifier(std::string s, Litteral* l){
     if(nb==max)
        increaseCap();
-    Atom * at = new Atom(chaine);
+    Atom * at = new Atom(s);
     Identifier* ident = new Identifier;
-    ident->setLib(at);
-    ident->setValue(*l);
+    ident->setLib(*at);
+    ident->setValue(l);
     identifiers[nb++]=ident;
 }
 void IdentifierManager::removeIdentifier(Identifier& p){
@@ -89,16 +97,20 @@ void IdentifierManager::removeIdentifier(Identifier& p){
     if(i==nb)
         throw "Suppression Impossible";
     delete identifiers[i];
-
-    for(i;(i<--nb);i++)
+    do
+    {
         identifiers[i]=identifiers[i+1];
+        i++;
+    }while(i<--nb);
+
 }
-static IdentifierManager& getInstance(){
+IdentifierManager::Singleton IdentifierManager::sing=IdentifierManager::Singleton();
+IdentifierManager& IdentifierManager::getInstance(){
     if(sing.instance==nullptr) sing.instance = new IdentifierManager;
     return *sing.instance;
 }
 
-static void IdentifierManager::freeInstance(){
+void IdentifierManager::freeInstance(){
     delete sing.instance;
     sing.instance = nullptr;
 }
