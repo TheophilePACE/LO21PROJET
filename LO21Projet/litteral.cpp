@@ -120,6 +120,7 @@ GeneralManager& GeneralManager::getInstance(){
     return *sing.instance;
 }
 
+<<<<<<< HEAD
 void GeneralManager::freeInstance(){
     delete sing.instance;
     sing.instance = nullptr;
@@ -173,3 +174,111 @@ void Controleur::commande(const QString& c){
     }
 }
 
+=======
+
+//Fonction mathématiques
+int PGCD(int a, int b)
+{
+    int r;
+    while (b != 0)
+    {
+        r = a%b;
+        a = b;
+        b = r;
+    }
+    return a;
+}
+//INTEGER
+void Integer::print (std::ostream& f)const
+{
+    f<<(Integer::getSignedValue());
+}
+int Integer::setValue(int entier) {
+    this->val=(abs(entier));
+    sign=(entier>=0);
+    return getSignedValue();
+}
+Integer Integer::operator +(Integer entier) const
+{
+    Integer rslt(this->getSignedValue()+entier.getSignedValue()); //creation de a+b
+    return rslt; //passage par valeur. Necessaire car rslt sera locale à la boucle sinon.
+    
+}
+Integer Integer::operator-  (Integer entier) const {
+    Integer rslt(this->getSignedValue()-entier.getSignedValue());
+    return rslt;
+    
+}
+Integer Integer::operator * (Integer entier) const {
+    
+    Integer rslt (this->getSignedValue()*entier.getSignedValue());
+    return rslt;
+}
+Rationnal Integer::operator / (Integer entier) const {
+    Rationnal R(*this,entier);
+    return R;
+}
+
+
+//Rationnal
+Numerique* Rationnal::Simplify(){
+
+    int p=PGCD(Num->getAbsoluteValue(),Denum->getAbsoluteValue());
+    if(p==Denum->getAbsoluteValue()){
+        Integer* N = new Integer(Num->getSignedValue()/Denum->getSignedValue());
+        return N;}
+   // if (p>1) //simplifiable
+    
+        Num->setValue(Num->getAbsoluteValue()/p);
+        Denum->setValue(Denum->getAbsoluteValue()/p);
+    return this;
+}
+Rationnal::Rationnal(int a, int b) //Attention au simplicification
+{
+    Num= new Integer(a);
+    Denum = new Integer(b);
+    Simplify();
+    
+}
+
+void Rationnal::print(std::ostream& f)const{
+    Num->print(f);
+    f<<"/";
+    Denum->print(f);
+}
+
+Rationnal Rationnal::operator +(Rationnal frac) const
+{
+    int NvNum= Num->getSignedValue()*frac.Denum->getSignedValue()+frac.Num->getSignedValue()*Denum->getSignedValue();
+    int NvDenum = Denum->getSignedValue()*frac.Denum->getSignedValue();
+    Rationnal Rslt(NvNum,NvDenum);
+    return Rslt;
+}
+Rationnal Rationnal::operator- (Rationnal frac)const
+{
+    int NvNum= Num->getSignedValue()*frac.Denum->getSignedValue()-frac.Num->getSignedValue()*Denum->getSignedValue();
+    int NvDenum = Denum->getSignedValue()*frac.Denum->getSignedValue();
+    Rationnal Rslt(NvNum,NvDenum);
+    return Rslt;
+
+}
+Rationnal Rationnal::operator * (Rationnal frac) const
+{
+    Rationnal Rslt(Num->getSignedValue()*frac.Num->getSignedValue(),Denum->getSignedValue()*frac.Denum->getSignedValue());
+    return Rslt;
+}
+Rationnal Rationnal::operator / (Rationnal frac) const //multiplier par l'inverse
+{
+    int NvNum=Num->getSignedValue()*frac.Denum->getSignedValue();
+    int NvDenum=Denum->getSignedValue()*frac.Num->getSignedValue();
+    Rationnal Rslt(NvNum,NvDenum);
+    return Rslt;
+}
+
+
+
+
+
+
+
+>>>>>>> 4ba9621b7ff6c28ebfc276dfa2a6037876222d9b
