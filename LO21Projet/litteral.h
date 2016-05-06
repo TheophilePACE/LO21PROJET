@@ -19,6 +19,8 @@ public:
     Litteral* getPLit()const{return lit;}
 };
 
+
+
 class ExpressionMaterial : public Litteral {
 public:
     virtual void print(std::ostream& f)const=0;
@@ -159,6 +161,62 @@ public:
         return Iterator(identifiers,nb);
     }
 };
+
+
+//ressemble fortement à la classe ExpressionMaterial. Egalement virtuelle.
+int PGCD(int a, int b);
+class Numerique : public ExpressionMaterial
+{
+public:
+    virtual void print(std::ostream& f)const=0;
+    virtual ~Numerique(){};
+};
+
+
+//Classes concrètes
+class Rationnal;
+class Integer: public Numerique{
+private:
+    unsigned int val;
+    bool sign ; //0 --> negatif, 1 --> positif. 0 considéré comme positif
+public:
+    bool getSign() const {return sign;} //négatif
+    
+    unsigned int getAbsoluteValue() const {return val;}
+    int getSignedValue() const {return (getSign()*getAbsoluteValue());}
+    Integer(int entier=0): sign(entier>=0), val(std::abs(entier)) {} //abs pour absolute value, c'est dans STD
+    ~Integer() {};
+    void print (std::ostream& f)const;
+    int setValue(int entier) ;
+    Integer operator +(Integer entier) const;
+    Integer operator- (Integer entier)const ;
+    Integer operator * (Integer entier) const ;
+    Rationnal operator / (Integer entier) const;
+    Integer NEG(){sign= !sign;
+        return *this;} //le retour permet une opération du type A+NEG(B)
+};
+
+
+class Rationnal : public Numerique {
+private:
+    Integer* Num ;
+    Integer* Denum;
+public:
+    Rationnal(Integer N, Integer D ): Num(&N), Denum(&D) {Simplify();} //utile en cas de division. Comment gérer le retour?
+    Rationnal(int a, int b); //Attention au simplicification
+    void print(std::ostream& f)const;
+    Numerique* Simplify() ; //retour de type pointeur sur classe mere
+    Rationnal operator +(Rationnal frac) const;
+    Rationnal operator- (Rationnal frac)const ;
+    Rationnal operator * (Rationnal frac) const ;
+    Rationnal operator / (Rationnal frac) const;
+    bool getSign() const {return (Num->getSign()==Denum->getSign());}
+
+    
+};
+
+
+
 
 
 
