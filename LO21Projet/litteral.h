@@ -4,7 +4,10 @@
 #include <string>
 #include <iostream>
 #include <stack>
-
+#include <QString>
+#include <QTextStream>
+#include <QObject>
+#include <QDebug>
 
 class Litteral {
 public:
@@ -43,10 +46,17 @@ public:
     Program(std::string s):instructions(s){}
     void print(std::ostream& f)const;
 };
-/*
-class GeneralManager {
-public:
 
+/*class GeneralManager {
+    struct Singleton{
+        GeneralManager* instance;
+        Singleton():instance(nullptr){}
+        ~Singleton(){ delete instance; }
+    };
+    static Singleton sing;
+public:
+    static GeneralManager& getInstance();
+    static void freeInstance();
 };*/
 
 class ProgramManager {
@@ -160,7 +170,17 @@ public:
     }
 };
 
+class Controleur {
+    //ExpressionManager& expMng;
+    std::stack<Litteral>& expAff;
+public:
+    Controleur(/*ExpressionManager& m,*/std::stack<Litteral>& v):/*expMng(m),*/ expAff(v){}
+    void commande(const QString& c);
 
+};
+
+bool estUnOperateur(const QString s);
+bool estUnNombre(const QString s);
 
 
 #endif // LITTERAL_H

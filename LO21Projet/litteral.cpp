@@ -113,4 +113,63 @@ IdentifierManager& IdentifierManager::getInstance(){
 void IdentifierManager::freeInstance(){
     delete sing.instance;
     sing.instance = nullptr;
+}/*
+GeneralManager::Singleton GeneralManager::sing=GeneralManager::Singleton();
+GeneralManager& GeneralManager::getInstance(){
+    if(sing.instance==nullptr) sing.instance = new GeneralManager;
+    return *sing.instance;
 }
+
+void GeneralManager::freeInstance(){
+    delete sing.instance;
+    sing.instance = nullptr;
+}*/
+
+bool estUnOperateur(const QString s){
+    if (s=="+") return true;
+    if (s=="-") return true;
+    if (s=="*") return true;
+    if (s=="/") return true;
+    return false;
+}
+
+bool estUnNombre(const QString s){
+   bool ok=false;
+   s.toInt(&ok);
+   return ok;
+}
+
+
+void Controleur::commande(const QString& c){
+    if (estUnNombre(c)){
+        //expAff.push(/*expMng.addExpression(c.toInt())*/);
+    }else{
+
+        if (estUnOperateur(c)){
+            if (expAff.size()>=2) {
+                int v2=2;//expAff.top().getValue();
+                //expMng.removeExpression(expAff.top());
+                expAff.pop();
+                int v1=2;//expAff.top().getValue();
+                //expMng.removeExpression(expAff.top());
+                expAff.pop();
+                int res;
+                if (c=="+") res=v1+v2;
+                if (c=="-") res=v1-v2;
+                if (c=="*") res=v1*v2;
+                if (c=="/") {
+                    if (v2!=0) res=v1/v2;
+                    else {
+                        //expAff.setMessage("Erreur : division par zéro");
+                        res=v1;
+                    }
+                }
+                /*Expression& e=expMng.addExpression(res);
+                expAff.push(e);*/
+            }else{
+                /*expAff.setMessage("Erreur : pas assez d'arguments");*/
+            }
+        }//else expAff.setMessage("Erreur : commande inconnue");
+    }
+}
+
