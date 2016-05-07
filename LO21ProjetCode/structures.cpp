@@ -151,7 +151,7 @@ void GeneralManager::freeInstance(){
 }*/
 void Controller::command(const QString& c){
     if (estUnNombre(c)){
-        stack.push(/*expMng.addExpression(c.toInt())*/);
+        //stack.push(/*expMng.addExpression(c.toInt())*/);
     }else{
 
         if (estUnOperateur(c)){

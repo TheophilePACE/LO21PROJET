@@ -38,8 +38,6 @@ void Expression::operator<<(ExpressionMaterial* e)
        increaseCap();
     tab[nb++]=e;
 }
-
-
 bool estUnOperateur(const QString s){
     if (s=="+") return true;
     if (s=="-") return true;
@@ -55,7 +53,7 @@ bool estUnNombre(const QString s){
 }
 
 //Fonction mathématiques
-int PGCD(int a, int b)
+unsigned int PGCD(int a, int b)
 {
     int r;
     while (b != 0)
@@ -69,7 +67,10 @@ int PGCD(int a, int b)
 //INTEGER
 void Integer::print (QTextStream& f)const
 {
-    f<<(Integer::getSignedValue());
+    f<<getSignedValue();
+}
+std::string Integer::toString()const{
+    return std::to_string(getSignedValue());
 }
 int Integer::setValue(int entier) {
     this->val=(abs(entier));
@@ -99,56 +100,60 @@ Rationnal Integer::operator / (Integer entier) const {
 
 
 //Rationnal
-Numerique* Rationnal::Simplify(){
+Numerique* Rationnal::simplify(){
 
-    int p=PGCD(Num->getAbsoluteValue(),Denum->getAbsoluteValue());
-    if(p==Denum->getAbsoluteValue()){
-        Integer* N = new Integer(Num->getSignedValue()/Denum->getSignedValue());
+    unsigned int p=PGCD(num.getAbsoluteValue(),denum.getAbsoluteValue());
+    if(p==denum.getAbsoluteValue()){
+        Integer* N = new Integer(num.getSignedValue()/denum.getSignedValue());
         return N;}
    // if (p>1) //simplifiable
     
-        Num->setValue(Num->getAbsoluteValue()/p);
-        Denum->setValue(Denum->getAbsoluteValue()/p);
+        num.setValue(num.getAbsoluteValue()/p);
+        denum.setValue(denum.getAbsoluteValue()/p);
     return this;
 }
 Rationnal::Rationnal(int a, int b) //Attention au simplicification
 {
-    Num= new Integer(a);
-    Denum = new Integer(b);
-    Simplify();
+    num= Integer(a);
+    denum = Integer(b);
+    simplify();
     
 }
 
 void Rationnal::print(QTextStream& f)const{
-    Num->print(f);
+    num.print(f);
     f<<"/";
-    Denum->print(f);
+    denum.print(f);
 }
-
+std::string Rationnal::toString()const{
+    std::stringstream f;
+    f<<num.toString()<<"/"<<denum.toString();
+    return f.str();
+}
 Rationnal Rationnal::operator +(Rationnal frac) const
 {
-    int NvNum= Num->getSignedValue()*frac.Denum->getSignedValue()+frac.Num->getSignedValue()*Denum->getSignedValue();
-    int NvDenum = Denum->getSignedValue()*frac.Denum->getSignedValue();
-    Rationnal Rslt(NvNum,NvDenum);
+    int NvNum= num.getSignedValue()*frac.denum.getSignedValue()+frac.num.getSignedValue()*denum.getSignedValue();
+    int Nvdenum = denum.getSignedValue()*frac.denum.getSignedValue();
+    Rationnal Rslt(NvNum,Nvdenum);
     return Rslt;
 }
 Rationnal Rationnal::operator- (Rationnal frac)const
 {
-    int NvNum= Num->getSignedValue()*frac.Denum->getSignedValue()-frac.Num->getSignedValue()*Denum->getSignedValue();
-    int NvDenum = Denum->getSignedValue()*frac.Denum->getSignedValue();
-    Rationnal Rslt(NvNum,NvDenum);
+    int NvNum= num.getSignedValue()*frac.denum.getSignedValue()-frac.num.getSignedValue()*denum.getSignedValue();
+    int Nvdenum = denum.getSignedValue()*frac.denum.getSignedValue();
+    Rationnal Rslt(NvNum,Nvdenum);
     return Rslt;
 
 }
 Rationnal Rationnal::operator * (Rationnal frac) const
 {
-    Rationnal Rslt(Num->getSignedValue()*frac.Num->getSignedValue(),Denum->getSignedValue()*frac.Denum->getSignedValue());
+    Rationnal Rslt(num.getSignedValue()*frac.num.getSignedValue(),denum.getSignedValue()*frac.denum.getSignedValue());
     return Rslt;
 }
 Rationnal Rationnal::operator / (Rationnal frac) const //multiplier par l'inverse
 {
-    int NvNum=Num->getSignedValue()*frac.Denum->getSignedValue();
-    int NvDenum=Denum->getSignedValue()*frac.Num->getSignedValue();
-    Rationnal Rslt(NvNum,NvDenum);
+    int NvNum=num.getSignedValue()*frac.denum.getSignedValue();
+    int Nvdenum=denum.getSignedValue()*frac.num.getSignedValue();
+    Rationnal Rslt(NvNum,Nvdenum);
     return Rslt;
 }

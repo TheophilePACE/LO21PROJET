@@ -12,6 +12,8 @@
 
 /*Fichier contenant les définitions des littérales selon l'énoncé*/
 
+QString toQString(std::string s);
+
 class Litteral {
 public:
     virtual void print(QTextStream& f)const=0;
@@ -44,15 +46,15 @@ class Program : public Litteral {
 public:
     Program(std::string s):instructions(s){}
     void print(QTextStream& f)const;
-    std::string toString()const;
+    std::string toString()const{return instructions;}
 };
 
 class Atom : public ExpressionMaterial {
     std::string lib;
 public:
     Atom(std::string& s):lib(s){}
-    void print(QTextStream& f) const {f<<QString::fromStdString(lib);}
-    std::string toString()const;
+    void print(QTextStream& f) const {f<<toQString(lib);}
+    std::string toString()const{return lib;}
     ~Atom(){}
 };
 
@@ -60,7 +62,7 @@ bool estUnOperateur(const QString s);
 bool estUnNombre(const QString s);
 
 //ressemble fortement à la classe ExpressionMaterial. Egalement virtuelle.
-int PGCD(int a, int b);
+unsigned int PGCD(int a, int b);
 class Numerique : public ExpressionMaterial
 {
 public:
@@ -72,17 +74,17 @@ public:
 
 //Classes concrètes
 class Rationnal;
+
 class Integer: public Numerique{
 private:
     unsigned int val;
-    bool sign ; //0 --> negatif, 1 --> positif. 0 considéré comme positif
+    bool sign; //0 --> negatif, 1 --> positif. 0 considéré comme positif
 public:
-    bool getSign() const {return sign;} //négatif
-    
+    Integer(int entier=0): val(std::abs(entier)),sign(entier>=0) {} //abs pour absolute value, c'est dans STD
+    ~Integer() {}
+    bool getSign() const {return sign;} //négatif 
     unsigned int getAbsoluteValue() const {return val;}
     int getSignedValue() const {return (getSign()*getAbsoluteValue());}
-    Integer(int entier=0): sign(entier>=0), val(std::abs(entier)) {} //abs pour absolute value, c'est dans STD
-    ~Integer() {}
     void print (QTextStream& f)const;
     std::string toString()const;
     int setValue(int entier) ;
@@ -97,24 +99,22 @@ public:
 
 class Rationnal : public Numerique {
 private:
-    Integer* Num ;
-    Integer* Denum;
+    Integer num;
+    Integer denum;
 public:
-    Rationnal(Integer N, Integer D ): Num(&N), Denum(&D) {Simplify();} //utile en cas de division. Comment gérer le retour?
+    Rationnal(Integer N, Integer D ): num(N), denum(D) {simplify();} //utile en cas de division. Comment gérer le retour?
     Rationnal(int a, int b); //Attention au simplicification
     void print(QTextStream& f)const;
     std::string toString()const;
-    Numerique* Simplify() ; //retour de type pointeur sur classe mere
+    Numerique* simplify() ; //retour de type pointeur sur classe mere
     Rationnal operator +(Rationnal frac) const;
     Rationnal operator- (Rationnal frac)const ;
     Rationnal operator * (Rationnal frac) const ;
     Rationnal operator / (Rationnal frac) const;
-    bool getSign() const {return (Num->getSign()==Denum->getSign());}
+    bool getSign() const {return (num.getSign()==denum.getSign());}
 
     
 };
-
-QString toQString(std::string s);
 
 
 #endif // LITTERAL_H
