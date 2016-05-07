@@ -5,12 +5,12 @@
 QComputer::QComputer(QWidget *parent) : QWidget(parent)
 {
     message = new QLineEdit(this);
-    pile = new <Litteral>stack;
-    vuePile = new QTableWidget(pile->getNbItemsToAffiche(),1,this);
+    pile = new Pile;
+    vuePile = new QTableWidget(pile->getNbItemsDisplayed(),1,this);
     couche = new QVBoxLayout(this);
     commande = new QLineEdit(this);
 
-    controleur = new Controleur(GeneralManager::getInstance(), *pile);
+    controleur = new Controller(/*GeneralManager::getInstance(),*/*pile);
 
     couche->addWidget(message);
     couche->addWidget(vuePile);
@@ -34,7 +34,7 @@ QComputer::QComputer(QWidget *parent) : QWidget(parent)
 
     //liste de labels
     QStringList numberList;
-    for(unsigned int i=4;i>0;i--)
+    for(unsigned int i=pile->getNbItemsDisplayed();i>0;i--)
     {
         QString str = QString::number(i);
         str += ":";
@@ -43,14 +43,14 @@ QComputer::QComputer(QWidget *parent) : QWidget(parent)
     //affectation de la liste de labels au header vertical
 
     vuePile->setVerticalHeaderLabels(numberList);
-    vuePile->setFixedHeight(4*vuePile->rowHeight(0)+2);
+    vuePile->setFixedHeight(pile->getNbItemsDisplayed()*vuePile->rowHeight(0)+2);
 
        //Affectation sinaux-slots
        connect(pile,SIGNAL(modificationEtat()),this,SLOT(refresh()));
        connect(commande,SIGNAL(returnPressed()),this,SLOT(getNextCommande()));
 
     //Message
-    //pile->setMessage("Bienvenue !");
+    pile->setMessage("Bienvenue !");
 
     //focus a la barre de cmd
     commande->setFocus();
@@ -64,19 +64,19 @@ QComputer::QComputer(QWidget *parent) : QWidget(parent)
 }
 void QComputer::refresh()
 {
-   // message->setText(pile->getMessage());
+    message->setText(pile->getMessage());
     //effacer tout
-    for(unsigned int i=0;i<4;i++)
+    for(unsigned int i=0;i<pile->getNbItemsDisplayed();i++)
         vuePile->item(i,0)->setText("");
     //mettre a jour
     unsigned int NbElements =0;
-    for(Pile::iterator it = pile->begin(); it!=pile->end() && NbElements<pile->getNbItemsToAffiche(); ++it, ++NbElements)
-        vuePile->item(pile->getNbItemsToAffiche()-1-NbElements,0)->setText((*it).toString());
+    for(Pile::iterator it = pile->begin(); it!=pile->end() && NbElements<pile->getNbItemsDisplayed(); ++it, ++NbElements)
+        vuePile->item(pile->getNbItemsDisplayed()-1-NbElements,0)->setText(toQString((*it)->toString()));
 }
 
 void QComputer::getNextCommande()
 {
-    //pile->setMessage("");
+    pile->setMessage("");
     //recuperation du texte de la ligne de commande
     QString c = commande->text();
     //extraction de chaqye element de la ligne
@@ -85,7 +85,7 @@ void QComputer::getNextCommande()
     do {
         stream >> com; //extraction d'un elem
         //envoyer la commande au controller
-        if(com!="") controleur->commande(com);
+        if(com!="") controleur->command(com);
     } while(com!="");
     commande->setText("");
 }

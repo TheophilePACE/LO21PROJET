@@ -1,5 +1,5 @@
-#ifndef LITTERAL_H
-#define LITTERAL_H
+#ifndef STRUCTURES_H
+#define STRUCTURES_H
 
 #include <string>
 #include <iostream>
@@ -8,45 +8,68 @@
 #include <QTextStream>
 #include <QObject>
 #include <QDebug>
+#include "litteral.h"
+#include "intermediary.h"
 
-class Litteral {
+/*Fichier contenant les structures de controle*/
+
+class ComputerException {
+    QString info;
 public:
-    virtual void print(std::ostream& f)const=0;
-    virtual ~Litteral(){}
-};
-class Item {
-    Litteral * lit;
-public:
-    Item(): lit(nullptr){}
-    void setLit(Litteral* l){lit = l;}
-    Litteral* getPLit()const{return lit;}
+    ComputerException(const QString& str):info(str){}
+    QString getInfo() const { return info; }
 };
 
+class Pile : public QObject {
+    Q_OBJECT
 
-
-class ExpressionMaterial : public Litteral {
-public:
-    virtual void print(std::ostream& f)const=0;
-    virtual ~ExpressionMaterial(){}
-};
-
-class Expression : public Litteral {
-    ExpressionMaterial ** tab;
+    Item* items;
     unsigned int nb;
-    unsigned int max;
-public:
-    Expression(): tab(nullptr), nb(0),max(0){}
-    ~Expression(){nb = 0; max = 0; delete[] tab;}
+    unsigned int nbMax;
+    QString message;
     void increaseCap();
-    void operator<<(ExpressionMaterial* e);
-    void print(std::ostream& f)const;
-};
-
-class Program : public Litteral {
-    std::string instructions;
+    unsigned int nbItemsDisplayed;
 public:
-    Program(std::string s):instructions(s){}
-    void print(std::ostream& f)const;
+    Pile():items(nullptr),nb(0),nbMax(0),message(""),nbItemsDisplayed(4){}
+    ~Pile();
+    void push(Litteral* e);
+    void pop();
+    bool empty() const { return nb==0; }
+    unsigned int size() const { return nb; }
+    void display(QTextStream& f) const;
+    Litteral* top() const;
+    void setNbItemsDisplayed(unsigned int n) { nbItemsDisplayed=n; }
+    unsigned int getNbItemsDisplayed() const { return nbItemsDisplayed; }
+    void setMessage(const QString& m) { message=m; stateModification(); }
+    QString getMessage() const { return message; }
+    class iterator {
+        Item* current;
+        iterator(Item* u):current(u){}
+        friend class Pile;
+    public:
+        iterator():current(nullptr){}
+        Litteral* operator*() const { return current->getPLit(); }
+        bool operator!=(iterator it) const { return current!=it.current; }
+        iterator& operator++(){ --current; return *this; }
+    };
+    iterator begin() { return iterator(items+nb-1); }
+    iterator end() { return iterator(items-1); }
+
+    class const_iterator {
+        Item* current;
+        const_iterator(Item* u):current(u){}
+        friend class Pile;
+    public:
+        const_iterator():current(nullptr){}
+        const Litteral* operator*() const { return current->getPLit(); }
+        bool operator!=(const_iterator it) const { return current!=it.current; }
+        const_iterator& operator++(){ --current; return *this; }
+    };
+    const_iterator begin() const { return const_iterator(items+nb-1); }
+    const_iterator end() const { return const_iterator(items-1); }
+
+signals:
+    void stateModification();
 };
 
 /*class GeneralManager {
@@ -107,25 +130,6 @@ public:
     }
 };
 
-class Atom : public ExpressionMaterial {
-    std::string lib;
-public:
-    Atom(std::string s):lib(s){}
-    void print(std::ostream &f) const {f<<lib;}
-    ~Atom(){}
-};
-
-class Identifier {
-    Atom* lib;
-    Litteral* value;
-public:
-    Identifier():lib(nullptr),value(nullptr){}
-    void setLib(Atom a){lib=&a;}
-    void setValue(Litteral* l){value = l;}
-    void print(std::ostream& f)const{lib->print(f);}
-    Litteral* getPValue()const{return value;}
-};
-
 class IdentifierManager {
     Identifier** identifiers;
     unsigned int nb;
@@ -172,71 +176,13 @@ public:
     }
 };
 
-class Controleur {
+class Controller {
     //ExpressionManager& expMng;
-    std::stack<Litteral>& expAff;
+    Pile& stack;
 public:
-    Controleur(/*ExpressionManager& m,*/std::stack<Litteral>& v):/*expMng(m),*/ expAff(v){}
-    void commande(const QString& c);
+    Controller(/*ExpressionManager& m,*/Pile& p):/*expMng(m),*/ stack(p){}
+    void command(const QString& c);
 
 };
 
-
-bool estUnOperateur(const QString s);
-bool estUnNombre(const QString s);
-
-//ressemble fortement à la classe ExpressionMaterial. Egalement virtuelle.
-int PGCD(int a, int b);
-class Numerique : public ExpressionMaterial
-{
-public:
-    virtual void print(std::ostream& f)const=0;
-    virtual ~Numerique(){};
-};
-
-
-//Classes concrètes
-class Rationnal;
-class Integer: public Numerique{
-private:
-    unsigned int val;
-    bool sign ; //0 --> negatif, 1 --> positif. 0 considéré comme positif
-public:
-    bool getSign() const {return sign;} //négatif
-    
-    unsigned int getAbsoluteValue() const {return val;}
-    int getSignedValue() const {return (getSign()*getAbsoluteValue());}
-    Integer(int entier=0): sign(entier>=0), val(std::abs(entier)) {} //abs pour absolute value, c'est dans STD
-    ~Integer() {};
-    void print (std::ostream& f)const;
-    int setValue(int entier) ;
-    Integer operator +(Integer entier) const;
-    Integer operator- (Integer entier)const ;
-    Integer operator * (Integer entier) const ;
-    Rationnal operator / (Integer entier) const;
-    Integer NEG(){sign= !sign;
-        return *this;} //le retour permet une opération du type A+NEG(B)
-};
-
-
-class Rationnal : public Numerique {
-private:
-    Integer* Num ;
-    Integer* Denum;
-public:
-    Rationnal(Integer N, Integer D ): Num(&N), Denum(&D) {Simplify();} //utile en cas de division. Comment gérer le retour?
-    Rationnal(int a, int b); //Attention au simplicification
-    void print(std::ostream& f)const;
-    Numerique* Simplify() ; //retour de type pointeur sur classe mere
-    Rationnal operator +(Rationnal frac) const;
-    Rationnal operator- (Rationnal frac)const ;
-    Rationnal operator * (Rationnal frac) const ;
-    Rationnal operator / (Rationnal frac) const;
-    bool getSign() const {return (Num->getSign()==Denum->getSign());}
-
-    
-};
-
-
-
-#endif // LITTERAL_H
+#endif // STRUCTURES_H
