@@ -1,6 +1,7 @@
 #include "litteral.h"
 #include <QString>
 #include <sstream>
+#include <QRegExp>
 
 QString toQString(std::string s) {
     return QString::fromStdString(s);
@@ -45,12 +46,52 @@ bool estUnOperateur(const QString s){
     if (s=="/") return true;
     return false;
 }
+bool isRationnal(const QString s)
+{
+    QRegExp regExp ("^[-|[1-9]]\d*/[-|[1-9]]\d*$");
+    return s.contains(regExp);
+}
+bool isInteger(const QString s)
+{
+    QRegExp regExp ("^[-|[1-9]]\d*$");
+    return s.contains(regExp);
+}
+bool isReal(const QString s)
+{
+    QRegExp regExp ("^[-|[1-9]]\d*\.[-|[0-9]]\d*$");
+    return s.contains(regExp);
+}/*
+bool isComplex(const QString s)
+{
 
+}
+*/
 bool estUnNombre(const QString s){
    bool ok=false;
    s.toInt(&ok);
    return ok;
 }
+/*
+bool isExression(const QString s) {
+    QRegExp regExp ("\"")
+    unsigned int size = s.size();
+    if(((s.data[size-1]=="\"") && (s.data[0]=="\"")) && (s.count("\"")==2))
+        return true;
+   return false;
+}*/
+/*
+bool isProgram(const QString s) {
+    unsigned int size = s.size();
+    if((((s.data[size-1]=="[") && (s.data[0]=="]")) && (s.count("[")==1))&&(s.count("]")==1))
+        return true;
+   return false;
+}
+bool isAtom(const QString s) {
+    if (s.data[0]//nonmaj)
+            )
+        return false;
+
+}*/
 
 //Fonction mathématiques
 unsigned int PGCD(int a, int b)

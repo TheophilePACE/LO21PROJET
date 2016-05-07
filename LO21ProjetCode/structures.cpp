@@ -149,6 +149,8 @@ void GeneralManager::freeInstance(){
     delete sing.instance;
     sing.instance = nullptr;
 }*/
+
+
 void Controller::command(const QString& c){
     if (estUnNombre(c)){
         //stack.push(/*expMng.addExpression(c.toInt())*/);
