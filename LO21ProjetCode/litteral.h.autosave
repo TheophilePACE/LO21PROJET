@@ -75,6 +75,7 @@ public:
 
 //Classes concrètes
 
+class Rationnal;
 class Integer: public Numerique{
 private:
     unsigned int val;
@@ -91,7 +92,7 @@ public:
     Integer operator +(Integer entier) const;
     Integer operator- (Integer entier)const ;
     Integer operator * (Integer entier) const ;
-    //Rationnal operator / (Integer entier) const;
+    Rationnal operator / (Integer entier) const;
     Integer NEG(){sign= !sign;
         return *this;} //le retour permet une opération du type A+NEG(B)
 };

@@ -10,7 +10,7 @@ QComputer::QComputer(QWidget *parent) : QWidget(parent)
     couche = new QVBoxLayout(this);
     commande = new QLineEdit(this);
 
-    controleur = new Controller(/*GeneralManager::getInstance(),*/*pile);
+    controleur = new Controller(GeneralManager::getInstance(),*pile);
 
     couche->addWidget(message);
     couche->addWidget(vuePile);
@@ -88,5 +88,6 @@ void QComputer::getNextCommande()
         if(com!="") controleur->command(com);
     } while(com!="");
     commande->setText("");
+    refresh();
 }
 
