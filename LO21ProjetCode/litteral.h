@@ -9,6 +9,7 @@
 #include <QTextStream>
 #include <QObject>
 #include <QDebug>
+#include <math.h>
 
 /*Fichier contenant les définitions des littérales selon l'énoncé*/
 
@@ -82,7 +83,7 @@ private:
 public:
     Integer(int entier=0): val(std::abs(entier)),sign(entier>=0) {} //abs pour absolute value, c'est dans STD
     ~Integer() {}
-    bool getSign() const {return sign;} //négatif 
+    bool getSign() const {return sign;} //négatif == 0
     unsigned int getAbsoluteValue() const {return val;}
     int getSignedValue() const {return (getSign()*getAbsoluteValue());}
     void print (QTextStream& f)const;
@@ -106,15 +107,51 @@ public:
     Rationnal(int a, int b); //Attention au simplicification
     void print(QTextStream& f)const;
     std::string toString()const;
-    Numerique* simplify() ; //retour de type pointeur sur classe mere
+    Rationnal simplify() ; //retour de type pointeur sur classe mere
     Rationnal operator +(Rationnal frac) const;
     Rationnal operator- (Rationnal frac)const ;
     Rationnal operator * (Rationnal frac) const ;
     Rationnal operator / (Rationnal frac) const;
-    bool getSign() const {return (num.getSign()==denum.getSign());}
+    bool getSign() const {return (num.getSign()==denum.getSign());
+}
+    bool IsInteger () const;
+
 
     
 };
 
+class Real : public Numerique {
+private:
+    Integer entier;
+    float mantisse; //toujours entre 0 et 1.
+public:
+    bool Simplify() ;
+
+    float getSignedValue() const ;
+    Real(float a): entier(static_cast<int>(truncf(a))), mantisse(a-truncf(a)){} ;
+    bool getSign() const {return entier.getSign();} //négatif
+    bool IsInteger() const;
+    void print(QTextStream& f)const;
+    std::string toString()const;
+    Real operator +(Real re) const;
+    Real operator  - (Real re)const ;
+    Real operator * (Real re) const ;
+    Real operator / (Real re) const;
+    ~Real() {delete entier; delete mantisse}
+};
+
+class Complex : ExpressionMaterial {
+private:
+    Numerique* real;
+    Numerique* imag;
+
+public:
+    void print(QTextStream& f)const;
+    std::string toString()const;
+    ~Complex(){};
+
+
+};
+};
 
 #endif // LITTERAL_H
