@@ -133,11 +133,11 @@ Integer Integer::operator * (Integer entier) const {
     
     Integer rslt (this->getSignedValue()*entier.getSignedValue());
     return rslt;
-}
+}/*
 Rationnal Integer::operator / (Integer entier) const {
     Rationnal R(*this,entier);
     return R;
-}
+}*/
 
 
 //Rationnal

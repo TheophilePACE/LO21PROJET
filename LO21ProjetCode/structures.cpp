@@ -12,9 +12,9 @@ void Pile::increaseCap() {
     delete[] old;
 }
 
-void Pile::push(Litteral* e){
+void Pile::push(Item e){
     if (nb==nbMax) increaseCap();
-    items[nb].setLit(e);
+    items[nb]=e;
     nb++;
     stateModification();
 }
@@ -138,7 +138,7 @@ IdentifierManager& IdentifierManager::getInstance(){
 void IdentifierManager::freeInstance(){
     delete sing.instance;
     sing.instance = nullptr;
-}/*
+}
 GeneralManager::Singleton GeneralManager::sing=GeneralManager::Singleton();
 GeneralManager& GeneralManager::getInstance(){
     if(sing.instance==nullptr) sing.instance = new GeneralManager;
@@ -148,13 +148,50 @@ GeneralManager& GeneralManager::getInstance(){
 void GeneralManager::freeInstance(){
     delete sing.instance;
     sing.instance = nullptr;
-}*/
+}
+
+Item GeneralManager::createItem(QString s) {
+    Parser p = Parser::getInstance();
+    std::string type = p.getType(s);
+    if (type=="Integer")
+            {
+                Integer * newInt = new Integer(s.toInt());
+                Item * It = new Item;
+                It->setLit(newInt);
+                return *It;
+            }
+    else if(type=="Rationnal")
+            {
+                Rationnal * newInt = new Rationnal(p.getNum(s),p.getDenum(s));
+                Item * It = new Item;
+                It->setLit(newInt);
+                return *It;
+            }
+    else
+            throw ComputerException("Erreur de type");
+}
+
+Parser::Singleton Parser::sing=Parser::Singleton();
+Parser& Parser::getInstance(){
+    if(sing.instance==nullptr) sing.instance = new Parser;
+    return *sing.instance;
+}
+std::string Parser::getType(QString s)
+{
+    return "Rationnal";
+}
+Integer Parser::getNum(QString s){
+    return Integer(s.mid(0,2).toInt());
+}
+Integer Parser::getDenum(QString s){
+    return Integer(s.mid(3,2).toInt());
+}
 
 
 void Controller::command(const QString& c){
-    if (estUnNombre(c)){
-        //stack.push(/*expMng.addExpression(c.toInt())*/);
-    }else{
+    //if (estUnNombre(c)){
+        stack.push(genMng.createItem(c));
+   /* }else{
 
         if (estUnOperateur(c)){
             if (stack.size()>=2) {
@@ -176,10 +213,10 @@ void Controller::command(const QString& c){
                     }
                 }
                 /*Expression& e=expMng.addExpression(res);
-                expAff.push(e);*/
+                expAff.push(e);
             }else{
-                /*expAff.setMessage("Erreur : pas assez d'arguments");*/
+                /*expAff.setMessage("Erreur : pas assez d'arguments");
             }
         }//else expAff.setMessage("Erreur : commande inconnue");
-    }
+    }*/
 }

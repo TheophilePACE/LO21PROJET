@@ -73,7 +73,6 @@ public:
 
 
 //Classes concrètes
-class Rationnal;
 
 class Integer: public Numerique{
 private:
@@ -91,7 +90,7 @@ public:
     Integer operator +(Integer entier) const;
     Integer operator- (Integer entier)const ;
     Integer operator * (Integer entier) const ;
-    Rationnal operator / (Integer entier) const;
+    //Rationnal operator / (Integer entier) const;
     Integer NEG(){sign= !sign;
         return *this;} //le retour permet une opération du type A+NEG(B)
 };
@@ -103,7 +102,7 @@ private:
     Integer denum;
 public:
     Rationnal(Integer N, Integer D ): num(N), denum(D) {simplify();} //utile en cas de division. Comment gérer le retour?
-    Rationnal(int a, int b); //Attention au simplicification
+    Rationnal(int a, int b); //Attention au simplicifications
     void print(QTextStream& f)const;
     std::string toString()const;
     Numerique* simplify() ; //retour de type pointeur sur classe mere

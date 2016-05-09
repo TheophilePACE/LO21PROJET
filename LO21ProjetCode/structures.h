@@ -32,7 +32,7 @@ class Pile : public QObject {
 public:
     Pile():items(nullptr),nb(0),nbMax(0),message(""),nbItemsDisplayed(4){}
     ~Pile();
-    void push(Litteral* e);
+    void push(Item e);
     void pop();
     bool empty() const { return nb==0; }
     unsigned int size() const { return nb; }
@@ -72,7 +72,7 @@ signals:
     void stateModification();
 };
 
-/*class GeneralManager {
+class GeneralManager {
     struct Singleton{
         GeneralManager* instance;
         Singleton():instance(nullptr){}
@@ -82,7 +82,24 @@ signals:
 public:
     static GeneralManager& getInstance();
     static void freeInstance();
-};*/
+    Item createItem(QString s);
+    std::string getTypeLit(QString s);
+};
+
+class Parser {
+    struct Singleton{
+        Parser* instance;
+        Singleton():instance(nullptr){}
+        ~Singleton(){ delete instance; }
+    };
+    static Singleton sing;
+public:
+    static Parser& getInstance();
+    static void freeInstance();
+    std::string getType(QString s);
+    Integer getNum(QString s);
+    Integer getDenum(QString s);
+};
 
 class ProgramManager {
     Program** programs;
@@ -177,10 +194,10 @@ public:
 };
 
 class Controller {
-    //ExpressionManager& expMng;
+    GeneralManager& genMng;
     Pile& stack;
 public:
-    Controller(/*ExpressionManager& m,*/Pile& p):/*expMng(m),*/ stack(p){}
+    Controller(GeneralManager& m,Pile& p):genMng(m), stack(p){}
     void command(const QString& c);
 
 };
