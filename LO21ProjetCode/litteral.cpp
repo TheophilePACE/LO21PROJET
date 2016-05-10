@@ -112,7 +112,8 @@ unsigned int PGCD(int a, int b)
     }
     return a;
 }
-//INTEGER
+//INTEGER ABANDONÉE
+/*
 void Integer::print (QTextStream& f)const
 {
     f<<getSignedValue();
@@ -140,53 +141,54 @@ Integer Integer::operator * (Integer entier) const {
     
     Integer rslt (this->getSignedValue()*entier.getSignedValue());
     return rslt;
-}/*
+}
 Rationnal Integer::operator / (Integer entier) const {
     Rationnal R(*this,entier);
     return R;
-}*/
+}
 
-
+*/
 //Rationnal
 Rationnal Rationnal::simplify(){
 //ne fait que simplifier, ne prend pas en compte les chgt de types
-    unsigned int p=PGCD(num.getAbsoluteValue(),denum.getAbsoluteValue());        
+    unsigned int p=PGCD(abs(num),abs(denum));
    // if (p>1) //simplifiable
     
-        num.setValue(num.getAbsoluteValue()/p);
-        denum.setValue(denum.getAbsoluteValue()/p);
+        num=(num/p);
+        denum=(denum/p);
     return *this;
 }
-
+/* DOUBLE DEFINITION
 Rationnal::Rationnal(int a, int b) //Attention au simplicification
 {
     num= Integer(a);
     denum = Integer(b);
     simplify();
     
-}
+}*/
 
 void Rationnal::print(QTextStream& f)const{
-    num.print(f);
-    f<<"/";
-    denum.print(f);
+    f<<(toQString(toString()));
+
 }
 std::string Rationnal::toString()const{
-    std::stringstream f;
-    f<<num.toString()<<"/"<<denum.toString();
-    return f.str();
+    std::stringstream sf;
+    sf<<num<<"/"<<denum;
+
+    return sf.str();
 }
 Rationnal Rationnal::operator +(Rationnal frac) const
 {
-    int NvNum= num.getSignedValue()*frac.denum.getSignedValue()+frac.num.getSignedValue()*denum.getSignedValue();
-    int Nvdenum = denum.getSignedValue()*frac.denum.getSignedValue();
+    int NvNum= num*frac.denum+frac.num*denum;
+    int Nvdenum = denum*frac.denum;
     Rationnal Rslt(NvNum,Nvdenum);
+    Rslt.simplify();
     return Rslt;
 }
 Rationnal Rationnal::operator- (Rationnal frac)const
 {
-    int NvNum= num.getSignedValue()*frac.denum.getSignedValue()-frac.num.getSignedValue()*denum.getSignedValue();
-    int Nvdenum = denum.getSignedValue()*frac.denum.getSignedValue();
+    int NvNum= num*frac.denum-frac.num*denum;
+    int Nvdenum = denum*frac.denum;
     Rationnal Rslt(NvNum,Nvdenum);
     Rslt.simplify();
     return Rslt;
@@ -194,31 +196,32 @@ Rationnal Rationnal::operator- (Rationnal frac)const
 }
 Rationnal Rationnal::operator * (Rationnal frac) const
 {
-    Rationnal Rslt(num.getSignedValue()*frac.num.getSignedValue(),denum.getSignedValue()*frac.denum.getSignedValue());
+    Rationnal Rslt(num*frac.num,denum*frac.denum);
     Rslt.simplify();
     return Rslt;
 }
 Rationnal Rationnal::operator / (Rationnal frac) const //multiplier par l'inverse
 {
-    int NvNum=num.getSignedValue()*frac.denum.getSignedValue();
-    int Nvdenum=denum.getSignedValue()*frac.num.getSignedValue();
+    int NvNum=num*frac.denum;
+    int Nvdenum=denum*frac.num;
     Rationnal Rslt(NvNum,Nvdenum);
     Rslt.simplify();
     return Rslt;
 }
 
+bool Rationnal::IsInteger () const{return(denum==1);}
+
+
 
 //REAL
 float Real::getSignedValue() const{
-    int a = entier.getSignedValue();
-    int b = static_cast<float>(a);
-    return mantisse+b;
+    return (abs(entier)+mantisse)*(entier/abs(entier)); //entier*abs()entier ==> signe de entier
 }
 bool Real::Simplify() {
     if(mantisse>=1)
     {
         mantisse --;
-        entier.setValue(entier.getAbsoluteValue()+1);
+        entier++;
         return 1;
     }
     return 0;
@@ -228,7 +231,7 @@ bool Real::IsInteger() const{
 }
 std::string Real::toString()const{
     std::string s="";
-    s=s+entier.toString()+"."+FloatToString(mantisse);
+    s=s+std::to_string(entier)+"."+FloatToString(mantisse);
     return s;
 }
 void Real::print(QTextStream& f)const

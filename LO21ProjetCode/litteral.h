@@ -10,6 +10,7 @@
 #include <QObject>
 #include <QDebug>
 #include <math.h>
+#include <cmath>        // pour std::abs
 
 /*Fichier contenant les définitions des littérales selon l'énoncé*/
 
@@ -75,6 +76,10 @@ public:
 
 //Classes concrètes
 
+
+//Abandon de la classe Integer au profit de int :
+/*
+class Rationnal;
 class Integer: public Numerique{
 private:
     unsigned int val;
@@ -91,19 +96,19 @@ public:
     Integer operator +(Integer entier) const;
     Integer operator- (Integer entier)const ;
     Integer operator * (Integer entier) const ;
-    //Rationnal operator / (Integer entier) const;
+    Rationnal operator / (Integer entier) const;
     Integer NEG(){sign= !sign;
         return *this;} //le retour permet une opération du type A+NEG(B)
-};
+};*/
 
 
 class Rationnal : public Numerique {
 private:
-    Integer num;
-    Integer denum;
+    int num;
+    int denum;
 public:
-    Rationnal(Integer N, Integer D ): num(N), denum(D) {simplify();} //utile en cas de division. Comment gérer le retour?
-    Rationnal(int a, int b); //Attention au simplicifications
+    Rationnal(int N, int D ): num(N), denum(D) {simplify();} //utile en cas de division. Comment gérer le retour?
+    //Rationnal(int a, int b); //Attention au simplicifications
     void print(QTextStream& f)const;
     std::string toString()const;
     Rationnal simplify() ; //retour de type pointeur sur classe mere
@@ -111,8 +116,7 @@ public:
     Rationnal operator- (Rationnal frac)const ;
     Rationnal operator * (Rationnal frac) const ;
     Rationnal operator / (Rationnal frac) const;
-    bool getSign() const {return (num.getSign()==denum.getSign());
-}
+    bool getSign() const {return ((num>=0)==(denum>=0));}
     bool IsInteger () const;
 
 
@@ -121,14 +125,14 @@ public:
 
 class Real : public Numerique {
 private:
-    Integer entier;
+    int entier;
     float mantisse; //toujours entre 0 et 1.
 public:
     bool Simplify() ;
 
     float getSignedValue() const ;
     Real(float a): entier(static_cast<int>(truncf(a))), mantisse(a-truncf(a)){} ;
-    bool getSign() const {return entier.getSign();} //négatif
+    bool getSign() const {return entier>=0;} //négatif
     bool IsInteger() const;
     void print(QTextStream& f)const;
     std::string toString()const;
@@ -136,21 +140,26 @@ public:
     Real operator  - (Real re)const ;
     Real operator * (Real re) const ;
     Real operator / (Real re) const;
-    ~Real() {delete entier; delete mantisse}
+    //~Real() {delete entier; delete ;} inutile
 };
 
-class Complex : ExpressionMaterial {
+class Complex : public ExpressionMaterial {
 private:
-    Numerique* real;
-    Numerique* imag;
-
+    Numerique* Preal;
+    Numerique* Pimag;
 public:
+    Complex (Numerique* Re, Numerique* Im): Preal(Re), Pimag(Im) {} //correspond à la construction avec  $ (voir sujet)
     void print(QTextStream& f)const;
     std::string toString()const;
     ~Complex(){};
+    Complex operator +(Complex re) const;
+    Complex operator  - (Complex re)const ;
+    Complex operator * (Complex re) const ;
+    Complex operator / (Complex re) const;
+    //bool IsReal() const {return (Pimag->getSignedValue);}
 
 
 };
-};
+
 
 #endif // LITTERAL_H
