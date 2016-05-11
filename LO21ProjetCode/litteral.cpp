@@ -360,11 +360,11 @@ Real operator/( Rationnal Ra,Real Re) {
 
 
 //Complex
-/*
-Complex complex::operator +(Complex re) const{
-    Complex(re.Preal+Preal,re.Pimag+Pimag);
+
+
+Complex Complex::operator +(Complex Cx) const{
+    return Complex(&(*(Cx.Preal)+*(Preal)),  &(*(Cx.Pimag)+*(Preal)));
 }
-Complex operator  - (Complex re)const ;
-Complex operator * (Complex re) const ;
-Complex operator / (Complex re) const;
-*/
+Complex operator  - (Complex Cx)const ;
+Complex operator * (Complex Cx) const ;
+Complex operator / (Complex Cx) const;

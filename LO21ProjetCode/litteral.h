@@ -68,6 +68,7 @@ unsigned int PGCD(int a, int b);
 class Numerique : public ExpressionMaterial
 {
 public:
+    //virtual Numerique operator+ (Numerique N) const =0;
     virtual void print(QTextStream& f)const=0;
     virtual std::string toString()const=0;
     virtual ~Numerique(){}
@@ -171,6 +172,13 @@ Real operator/(int a, Real Re) ;
 Real operator/( Real Re,int a) ;
 
 
+//TEMPLATE POUR ADDITION NUMERIQUE
+template <class T1> template <class T2>
+Numerique* operator+ (<T1> N1,<T2> N2)
+{
+    Numerique * Rslt;
+    Rslt=dynamic_cast<Numerique*>*(N1+N2);
+}
 
 
 
