@@ -71,6 +71,9 @@ public:
     virtual void print(QTextStream& f)const=0;
     virtual std::string toString()const=0;
     virtual ~Numerique(){}
+    //virtual Numerique& operator+ (Numerique* N1) =0;
+
+
 };
 
 
@@ -107,6 +110,8 @@ private:
     int num;
     int denum;
 public:
+    const int&  getnum() const { return num;}
+    const int&  getdenum() const { return denum;}
     Rationnal(int N, int D ): num(N), denum(D) {simplify();} //utile en cas de division. Comment gérer le retour?
     //Rationnal(int a, int b); //Attention au simplicifications
     void print(QTextStream& f)const;
@@ -118,9 +123,8 @@ public:
     Rationnal operator / (Rationnal frac) const;
     bool getSign() const {return ((num>=0)==(denum>=0));}
     bool IsInteger () const;
+    float getSignedValue() const {return num/denum;}
 
-
-    
 };
 
 class Real : public Numerique {
@@ -129,7 +133,6 @@ private:
     float mantisse; //toujours entre 0 et 1.
 public:
     bool Simplify() ;
-
     float getSignedValue() const ;
     Real(float a): entier(static_cast<int>(truncf(a))), mantisse(a-truncf(a)){} ;
     bool getSign() const {return entier>=0;} //négatif
@@ -143,6 +146,34 @@ public:
     //~Real() {delete entier; delete ;} inutile
 };
 
+//OPERATIONS ENTRE NUMERIQUES DEFINIES
+
+Rationnal operator+(int a, Rationnal Ra) ;
+Rationnal operator-(int a, Rationnal Ra) ;
+Rationnal operator-(Rationnal Ra,int a);
+Rationnal operator*(int a, Rationnal Ra) ;
+Rationnal operator/(int a, Rationnal Ra) ;
+Rationnal operator/(Rationnal Ra,int a);
+
+
+Real operator+(Real Re, Rationnal Ra) ;
+Real operator-(Real Re, Rationnal Ra) ;
+Real operator-(Rationnal Ra,Real Re) ;
+Real operator*(Real Re, Rationnal Ra) ;
+Real operator/(Real Re, Rationnal Ra) ;
+Real operator/( Rationnal Ra,Real Re) ;
+
+Real operator+(int a, Real Re) ;
+Real operator-(int a, Real Re) ;
+Real operator-(Real Re, int a) ;
+Real operator*(int a, Real Re) ;
+Real operator/(int a, Real Re) ;
+Real operator/( Real Re,int a) ;
+
+
+
+
+
 class Complex : public ExpressionMaterial {
 private:
     Numerique* Preal;
@@ -152,14 +183,16 @@ public:
     void print(QTextStream& f)const;
     std::string toString()const;
     ~Complex(){};
-    Complex operator +(Complex re) const;
-    Complex operator  - (Complex re)const ;
-    Complex operator * (Complex re) const ;
-    Complex operator / (Complex re) const;
-    //bool IsReal() const {return (Pimag->getSignedValue);}
-
+    Complex operator +(Complex Cx) const;
+    Complex operator  - (Complex Cx)const ;
+    Complex operator * (Complex Cx) const ;
+    Complex operator / (Complex Cx) const;
+    bool IsReal() const {return !(Pimag);} //check si la partie imaginaire est nulle
+    bool IsImag() const {return !(Preal);}
 
 };
+
+
 
 
 #endif // LITTERAL_H

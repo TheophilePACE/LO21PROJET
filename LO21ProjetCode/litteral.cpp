@@ -211,6 +211,37 @@ Rationnal Rationnal::operator / (Rationnal frac) const //multiplier par l'invers
 
 bool Rationnal::IsInteger () const{return(denum==1);}
 
+//RATIO ET INT
+Rationnal operator+(int a, Rationnal Ra)
+{
+    Rationnal Rslt(a*Ra.getdenum()+Ra.getnum(),Ra.getdenum());
+    return Rslt;
+}
+Rationnal operator-(int a, Rationnal Ra)
+{
+    Rationnal Rslt(a*Ra.getdenum()-Ra.getnum(),Ra.getdenum());
+    return Rslt;
+}
+Rationnal operator-(Rationnal Ra, int a)
+{
+    Rationnal Rslt(-a*Ra.getdenum()+Ra.getnum(),Ra.getdenum());
+    return Rslt;
+}
+Rationnal operator*(int a, Rationnal Ra)
+{
+    Rationnal Rslt(a*Ra.getnum(),Ra.getdenum());
+    return Rslt;
+}
+Rationnal operator/(int a, Rationnal Ra)
+{
+    Rationnal Rslt(Ra.getnum(),Ra.getdenum()*a);
+    return Rslt;
+}
+Rationnal operator/(Rationnal Ra,int a)
+{
+    Rationnal Rslt(Ra.getdenum()*a,Ra.getnum());
+    return Rslt;
+}
 
 
 //REAL
@@ -261,3 +292,79 @@ Real Real::operator / (Real re) const{
     rslt.Simplify();
     return rslt;
 }
+
+
+//REAL INT
+Real operator+(int a, Real Re){
+    float af = static_cast<float>(a);
+    Real Rslt(af+Re.getSignedValue());
+    return Rslt;
+}
+Real operator-(int a, Real Re){
+    float af = static_cast<float>(a);
+    Real Rslt(af-Re.getSignedValue());
+    return Rslt;
+}
+Real operator-( Real Re,int a){
+    float af = static_cast<float>(a);
+    Real Rslt(-af+Re.getSignedValue());
+    return Rslt;
+}
+Real operator*(int a, Real Re){
+    float af = static_cast<float>(a);
+    Real Rslt(af+Re.getSignedValue());
+    return Rslt;
+}
+Real operator/(int a, Real Re){
+    float af = static_cast<float>(a);
+    Real Rslt(af/Re.getSignedValue());
+    return Rslt;
+}
+Real operator/( Real Re, int a){
+    float af = static_cast<float>(a);
+    Real Rslt(Re.getSignedValue()/af);
+    return Rslt;
+}
+
+
+//REAL RATIONNAL
+Real operator+(Real Re, Rationnal Ra) {
+    Real Rslt(Re.getSignedValue()+Ra.getSignedValue());
+    return Rslt;
+}
+
+Real operator-(Real Re, Rationnal Ra) {
+    Real Rslt(Re.getSignedValue()-Ra.getSignedValue());
+    return Rslt;
+}
+
+Real operator-(Rationnal Ra,Real Re) {
+    Real Rslt(-Re.getSignedValue()+Ra.getSignedValue());
+    return Rslt;
+}
+
+Real operator*(Real Re, Rationnal Ra) {
+    Real Rslt(Re.getSignedValue()*Ra.getSignedValue());
+    return Rslt;
+}
+
+Real operator/(Real Re, Rationnal Ra) {
+    Real Rslt(Re.getSignedValue()/Ra.getSignedValue());
+    return Rslt;
+}
+
+Real operator/( Rationnal Ra,Real Re) {
+    Real Rslt(Ra.getSignedValue()/Re.getSignedValue());
+    return Rslt;
+}
+
+
+//Complex
+/*
+Complex complex::operator +(Complex re) const{
+    Complex(re.Preal+Preal,re.Pimag+Pimag);
+}
+Complex operator  - (Complex re)const ;
+Complex operator * (Complex re) const ;
+Complex operator / (Complex re) const;
+*/
