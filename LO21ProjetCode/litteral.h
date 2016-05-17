@@ -178,6 +178,7 @@ Numerique* operator+ (<T1> N1,<T2> N2)
 {
     Numerique * Rslt;
     Rslt=dynamic_cast<Numerique*>*(N1+N2);
+    return Rslt;
 }
 
 
