@@ -219,13 +219,17 @@ void Controller::command(const QString& c){
                         res=v1;
                     }
                 }
-                /*Expression& e=expMng.addExpression(res);
+                Expression& e=expMng.addExpression(res);
                 expAff.push(e);
             }else{
-                /*expAff.setMessage("Erreur : pas assez d'arguments");
-            }*/
-        }
-        else {
+                expAff.setMessage("Erreur : pas assez d'arguments");
+            }
+        }//else expAff.setMessage("Erreur : commande inconnue");
+    }*/
+}
+
+/*
+ * else {
             Item * I = genMng.createItem(c);
                     if(I)
                         stack.push(*I);
@@ -236,4 +240,4 @@ void Controller::command(const QString& c){
                     }
         }
     }
-}
+ */

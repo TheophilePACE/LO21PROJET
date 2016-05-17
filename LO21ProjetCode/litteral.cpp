@@ -113,7 +113,7 @@ unsigned int PGCD(int a, int b)
     return a;
 }
 //INTEGER ABANDONÉE
-/*
+
 void Integer::print (QTextStream& f)const
 {
     f<<getSignedValue();
@@ -122,8 +122,7 @@ std::string Integer::toString()const{
     return std::to_string(getSignedValue());
 }
 int Integer::setValue(int entier) {
-    this->val=(abs(entier));
-    sign=(entier>=0);
+    this->val=entier;
     return getSignedValue();
 }
 Integer Integer::operator +(Integer entier) const
@@ -143,11 +142,11 @@ Integer Integer::operator * (Integer entier) const {
     return rslt;
 }
 Rationnal Integer::operator / (Integer entier) const {
-    Rationnal R(*this,entier);
+    Rationnal R(getSignedValue(),entier.getSignedValue());
     return R;
 }
 
-*/
+
 //Rationnal
 Rationnal Rationnal::simplify(){
 //ne fait que simplifier, ne prend pas en compte les chgt de types
@@ -158,14 +157,14 @@ Rationnal Rationnal::simplify(){
         denum=(denum/p);
     return *this;
 }
-/* DOUBLE DEFINITION
-Rationnal::Rationnal(int a, int b) //Attention au simplicification
+
+Rationnal::Rationnal(Integer a, Integer b) //Attention au simplicification
 {
-    num= Integer(a);
-    denum = Integer(b);
+    num= a.getSignedValue();
+    denum = b.getSignedValue();
     simplify();
     
-}*/
+}
 
 void Rationnal::print(QTextStream& f)const{
     f<<(toQString(toString()));
@@ -361,10 +360,14 @@ Real operator/( Rationnal Ra,Real Re) {
 
 //Complex
 
-
+/*
 Complex Complex::operator +(Complex Cx) const{
-    return Complex(&(*(Cx.Preal)+*(Preal)),  &(*(Cx.Pimag)+*(Preal)));
-}
-Complex operator  - (Complex Cx)const ;
+    return Complex(addNum(Cx.Preal,Preal),addNum(Cx.Pimag,Pimag));
+}*/
+
+
+/*
+Complex operator - (Complex Cx)const ;
 Complex operator * (Complex Cx) const ;
 Complex operator / (Complex Cx) const;
+*/

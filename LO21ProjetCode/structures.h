@@ -98,8 +98,8 @@ public:
     static void freeInstance();
     std::string getType(QString s);
     bool isOperator(QString s);
-    int getNum(QString s);
-    int getDenum(QString s);
+    Integer getNum(QString s);
+    Integer getDenum(QString s);
 };
 
 class ProgramManager {
