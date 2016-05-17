@@ -1,7 +1,7 @@
 #include "litteral.h"
 #include "structures.h"
 #include <QString>
-
+#include <QStringList>
 
 void Pile::increaseCap() {
     Item* newtab=new Item[(nbMax+1)*2];
@@ -150,7 +150,7 @@ void GeneralManager::freeInstance(){
     sing.instance = nullptr;
 }
 
-Item GeneralManager::createItem(QString s) {
+Item * GeneralManager::createItem(QString s) {
     Parser p = Parser::getInstance();
     std::string type = p.getType(s);
     if (type=="Integer")
@@ -158,14 +158,14 @@ Item GeneralManager::createItem(QString s) {
                 Integer * newInt = new Integer(s.toInt());
                 Item * It = new Item;
                 It->setLit(newInt);
-                return *It;
+                return It;
             }
     else if(type=="Rationnal")
             {
                 Rationnal * newInt = new Rationnal(p.getNum(s),p.getDenum(s));
                 Item * It = new Item;
                 It->setLit(newInt);
-                return *It;
+                return It;
             }
     else
             throw ComputerException("Erreur de type");
@@ -176,6 +176,14 @@ Parser& Parser::getInstance(){
     if(sing.instance==nullptr) sing.instance = new Parser;
     return *sing.instance;
 }
+bool Parser::isOperator(QString s) {
+    if (c=="+") return true;
+    if (c=="-") return true;
+    if (c=="*") return true;
+    if (c=="/") return true;
+    return false;
+}
+
 std::string Parser::getType(QString s)
 {
     return "Rationnal";
@@ -189,12 +197,11 @@ Integer Parser::getDenum(QString s){
 
 
 void Controller::command(const QString& c){
-    //if (estUnNombre(c)){
-        stack.push(genMng.createItem(c));
-   /* }else{
-
-        if (estUnOperateur(c)){
-            if (stack.size()>=2) {
+    Parser p = Parser::getInstance();
+    QStringList list = c.split(" ");
+    for (int i = 0; i < list.size(); ++i) {
+        if(p.isOperator(c)) {
+            /*if (stack.size()>=2) {
                 int v2=2;//expAff.top().getValue();
                 //expMng.removeExpression(expAff.top());
                 stack.pop();
@@ -216,7 +223,17 @@ void Controller::command(const QString& c){
                 expAff.push(e);
             }else{
                 /*expAff.setMessage("Erreur : pas assez d'arguments");
-            }
-        }//else expAff.setMessage("Erreur : commande inconnue");
-    }*/
+            }*/
+        }
+        else {
+            Item * I = genMng.createItem(c);
+                    if(I)
+                        stack.push(*I);
+                    else
+                    {
+                        expAff.setMessage("Erreur : commande inconnue");
+                        break;
+                    }
+        }
+    }
 }

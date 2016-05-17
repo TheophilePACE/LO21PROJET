@@ -82,7 +82,7 @@ class GeneralManager {
 public:
     static GeneralManager& getInstance();
     static void freeInstance();
-    Item createItem(QString s);
+    Item * createItem(QString s);
     std::string getTypeLit(QString s);
 };
 
@@ -97,6 +97,7 @@ public:
     static Parser& getInstance();
     static void freeInstance();
     std::string getType(QString s);
+    bool isOperator(QString s);
     int getNum(QString s);
     int getDenum(QString s);
 };
