@@ -81,19 +81,19 @@ public:
 //Classes concrètes
 
 
-//Abandon de la classe Integer au profit de int :
-/*
+
 class Rationnal;
+
 class Integer: public Numerique{
 private:
-    unsigned int val;
-    bool sign; //0 --> negatif, 1 --> positif. 0 considéré comme positif
+    int val;
+   // bool sign; //0 --> negatif, 1 --> positif. 0 considéré comme positif
 public:
-    Integer(int entier=0): val(std::abs(entier)),sign(entier>=0) {} //abs pour absolute value, c'est dans STD
+    Integer(int entier=0): val(entier) {} //abs pour absolute value, c'est dans STD
     ~Integer() {}
-    bool getSign() const {return sign;} //négatif == 0
-    unsigned int getAbsoluteValue() const {return val;}
-    int getSignedValue() const {return (getSign()*getAbsoluteValue());}
+    bool getSign() const {return val>=0;} //négatif == 0
+    unsigned int getAbsoluteValue() const {return std::abs(val);}
+    int getSignedValue() const {return val;}
     void print (QTextStream& f)const;
     std::string toString()const;
     int setValue(int entier) ;
@@ -101,9 +101,8 @@ public:
     Integer operator- (Integer entier)const ;
     Integer operator * (Integer entier) const ;
     Rationnal operator / (Integer entier) const;
-    Integer NEG(){sign= !sign;
-        return *this;} //le retour permet une opération du type A+NEG(B)
-};*/
+    Integer NEG(){return -val;} //le retour permet une opération du type A+NEG(B)
+};
 
 
 class Rationnal : public Numerique {
@@ -114,7 +113,7 @@ public:
     const int&  getnum() const { return num;}
     const int&  getdenum() const { return denum;}
     Rationnal(int N, int D ): num(N), denum(D) {simplify();} //utile en cas de division. Comment gérer le retour?
-    //Rationnal(int a, int b); //Attention au simplicifications
+    Rationnal(Integer a, Integer b); //Attention au simplicifications
     void print(QTextStream& f)const;
     std::string toString()const;
     Rationnal simplify() ; //retour de type pointeur sur classe mere
@@ -173,13 +172,14 @@ Real operator/( Real Re,int a) ;
 
 
 //TEMPLATE POUR ADDITION NUMERIQUE
-template <class T1> template <class T2>
-Numerique* operator+ (<T1> N1,<T2> N2)
+/*template <class T1, class T2>
+Numerique* addNum (T1* N1,T2* N2)
 {
     Numerique * Rslt;
-    Rslt=dynamic_cast<Numerique*>*(N1+N2);
+    Rslt=dynamic_cast<Numerique*>( &( *(N1) + *(N2) ) );
     return Rslt;
 }
+*/
 
 
 
