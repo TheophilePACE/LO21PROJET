@@ -25,24 +25,24 @@ bool isOperator(const QString s){
 }
 bool isRationnal(const QString s)
 {
-    QRegExp regExp ("^[-|[1-9]]\d*/[-|[1-9]]\d*$");
+    QRegExp regExp ("^[+-]?\d+\/[+-]?\d+$");
     return s.contains(regExp);
 }
 bool isInteger(const QString s)
 {
-    QRegExp regExp ("^[-|[1-9]]\d*$");
+    QRegExp regExp ("^[+-]?\d+\.?0*$");
     return s.contains(regExp);
 }
 bool isReal(const QString s)
 {
-    QRegExp regExp ("^[-|[1-9]]\d*\.[-|[0-9]]\d*$");
+    QRegExp regExp ("^[+-]?\d*\.0*[1-9][0-9]*$");
     return s.contains(regExp);
-}/*
+}
 bool isComplex(const QString s)
 {
-
+    QRegExp regExp ("^[+-]?[0-9]*(\.[0-9]*|\/[+-]?[0-9]+)?\$[+-]?[0-9]*(\.[0-9]*|\/[+-]?[0-9]+)?$");
+    return s.contains(regExp);
 }
-*/
 bool isNumber(const QString s){
    bool ok=false;
    s.toInt(&ok);
