@@ -68,44 +68,42 @@ public:
 };
 
 //ressemble fortement à la classe ExpressionMaterial. Egalement virtuelle.
-class Numerique : public ExpressionMaterial
+class Numeric : public ExpressionMaterial
 {
 public:
-    //virtual Numerique operator+ (Numerique N) const =0;
+    //virtual Numeric& operator+ (const Numeric& N) const =0;
     virtual void print(QTextStream& f)const=0;
     virtual std::string toString()const=0;
-    virtual ~Numerique(){}
-    //virtual Numerique& operator+ (Numerique* N1) =0;
+    virtual ~Numeric(){}
+    //virtual Numeric& operator+ (Numeric* N1) =0;
 
 
 };
-
-
 //Classes concrètes
 
 class Rationnal;
 
-class Integer: public Numerique{
+class Integer: public Numeric{
 private:
     int val;
 public:
-    Integer(int entier=0): val(entier) {} //abs pour absolute value, c'est dans STD
+    Integer(int integer=0): val(integer) {} //abs pour absolute value, c'est dans STD
     ~Integer() {}
     bool getSign() const {return val>=0;} //négatif == 0
     unsigned int getAbsoluteValue() const {return std::abs(val);}
     int getSignedValue() const {return val;}
     void print (QTextStream& f)const;
     std::string toString()const;
-    int setValue(int entier) ;
-    Integer operator +(Integer entier) const;
-    Integer operator- (Integer entier)const ;
-    Integer operator * (Integer entier) const ;
-    Rationnal operator / (Integer entier) const;
+    int setValue(int integer) ;
+    Integer operator+(Integer integer) const;
+    Integer operator-(Integer integer)const ;
+    Integer operator*(Integer integer) const ;
+    Rationnal operator/(Integer integer) const;
     Integer NEG(){return -val;} //le retour permet une opération du type A+NEG(B)
 };
 
 
-class Rationnal : public Numerique {
+class Rationnal : public Numeric {
 private:
     int num;
     int denum;
@@ -127,15 +125,15 @@ public:
 
 };
 
-class Real : public Numerique {
+class Real : public Numeric {
 private:
-    int entier;
+    int integer;
     float mantisse; //toujours entre 0 et 1.
 public:
     bool simplify() ;
     float getSignedValue() const ;
-    Real(float a): entier(static_cast<int>(truncf(a))), mantisse(a-truncf(a)){} ;
-    bool getSign() const {return entier>=0;} //négatif
+    Real(float a): integer(static_cast<int>(truncf(a))), mantisse(a-truncf(a)){}
+    bool getSign() const {return integer>=0;} //négatif
     bool isInteger() const;
     void print(QTextStream& f)const;
     std::string toString()const;
@@ -143,10 +141,10 @@ public:
     Real operator-(Real re)const ;
     Real operator*(Real re) const ;
     Real operator/(Real re) const;
-    //~Real() {delete entier; delete ;} inutile
+    //~Real() {delete integer; delete ;} inutile
 };
 
-//OPERATIONS ENTRE NUMERIQUES DEFINIES
+//OPERATIONS ENTRE NumericS DEFINIES
 
 Rationnal operator+(int a, Rationnal Ra) ;
 Rationnal operator-(int a, Rationnal Ra) ;
@@ -170,13 +168,14 @@ Real operator*(int a, Real Re) ;
 Real operator/(int a, Real Re) ;
 Real operator/( Real Re,int a) ;
 
+Numeric& operator+(const Numeric& N1, const Numeric& N2);
 
-//TEMPLATE POUR ADDITION NUMERIQUE
+//TEMPLATE POUR ADDITION Numeric
 /*template <class T1, class T2>
-Numerique* addNum (T1* N1,T2* N2)
+Numeric* addNum (T1* N1,T2* N2)
 {
-    Numerique * Rslt;
-    Rslt=dynamic_cast<Numerique*>( &( *(N1) + *(N2) ) );
+    Numeric * Rslt;
+    Rslt=dynamic_cast<Numeric*>( &( *(N1) + *(N2) ) );
     return Rslt;
 }
 */
@@ -185,10 +184,10 @@ Numerique* addNum (T1* N1,T2* N2)
 
 class Complex : public ExpressionMaterial {
 private:
-    Numerique* pReal;
-    Numerique* pImag;
+    Numeric* pReal;
+    Numeric* pImag;
 public:
-    Complex (Numerique* Re, Numerique* Im): pReal(Re), pImag(Im) {} //correspond à la construction avec  $ (voir sujet)
+    Complex (Numeric* Re, Numeric* Im): pReal(Re), pImag(Im) {} //correspond à la construction avec  $ (voir sujet)
     void print(QTextStream& f)const;
     std::string toString()const;
     ~Complex(){}
