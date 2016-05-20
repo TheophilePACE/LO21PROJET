@@ -177,10 +177,10 @@ Parser& Parser::getInstance(){
     return *sing.instance;
 }
 bool Parser::isOperator(QString s) {
-    if (c=="+") return true;
-    if (c=="-") return true;
-    if (c=="*") return true;
-    if (c=="/") return true;
+    if (s=="+") return true;
+    if (s=="-") return true;
+    if (s=="*") return true;
+    if (s=="/") return true;
     return false;
 }
 
@@ -189,13 +189,24 @@ std::string Parser::getType(QString s)
     return "Rationnal";
 }
 Integer Parser::getNum(QString s){
-    return Integer(s.mid(0,2).toInt());
+    return Integer(s.split('/').first().toInt());
 }
 Integer Parser::getDenum(QString s){
-    return Integer(s.mid(3,2).toInt());
+    return Integer(s.split('/').at(1).toInt());
 }
-
-
+Integer Parser::getInteger(QString s){
+    return Integer(s.split('.').first().toInt());
+}
+float Parser::getMantisse(QString s){
+    return s.split('.').at(1).toFloat();
+}/*
+Integer Parser::getRealPart(QString s){
+    return Integer(s.split('$').first().toInt());
+}
+Integer Parser::getImPart(QString s){
+    return Integer(s.split('$').at(1).toInt());
+}
+*/
 void Controller::command(const QString& c){
     Parser p = Parser::getInstance();
     QStringList list = c.split(" ");
@@ -225,19 +236,16 @@ void Controller::command(const QString& c){
                 expAff.setMessage("Erreur : pas assez d'arguments");
             }
         }//else expAff.setMessage("Erreur : commande inconnue");
-    }*/
-}
-
-/*
- * else {
+    }*/}
+     else {
             Item * I = genMng.createItem(c);
                     if(I)
                         stack.push(*I);
                     else
                     {
-                        expAff.setMessage("Erreur : commande inconnue");
+                        stack.setMessage("Erreur : commande inconnue");
                         break;
                     }
         }
     }
- */
+}

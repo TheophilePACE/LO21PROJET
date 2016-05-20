@@ -100,6 +100,8 @@ public:
     bool isOperator(QString s);
     Integer getNum(QString s);
     Integer getDenum(QString s);
+    Integer Parser::getInteger(QString s);
+    float Parser::getMantisse(QString s);
 };
 
 class ProgramManager {
