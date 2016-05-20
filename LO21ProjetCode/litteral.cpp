@@ -131,28 +131,28 @@ void Integer::print (QTextStream& f)const
 std::string Integer::toString()const{
     return std::to_string(getSignedValue());
 }
-int Integer::setValue(int entier) {
-    this->val=entier;
+int Integer::setValue(int integer) {
+    this->val=integer;
     return getSignedValue();
 }
-Integer Integer::operator +(Integer entier) const
+Integer Integer::operator +(Integer integer) const
 {
-    Integer rslt(this->getSignedValue()+entier.getSignedValue()); //creation de a+b
+    Integer rslt(this->getSignedValue()+integer.getSignedValue()); //creation de a+b
     return rslt; //passage par valeur. Necessaire car rslt sera locale à la boucle sinon.
     
 }
-Integer Integer::operator-  (Integer entier) const {
-    Integer rslt(this->getSignedValue()-entier.getSignedValue());
+Integer Integer::operator-  (Integer integer) const {
+    Integer rslt(this->getSignedValue()-integer.getSignedValue());
     return rslt;
     
 }
-Integer Integer::operator * (Integer entier) const {
+Integer Integer::operator * (Integer integer) const {
     
-    Integer rslt (this->getSignedValue()*entier.getSignedValue());
+    Integer rslt (this->getSignedValue()*integer.getSignedValue());
     return rslt;
 }
-Rationnal Integer::operator / (Integer entier) const {
-    Rationnal R(getSignedValue(),entier.getSignedValue());
+Rationnal Integer::operator / (Integer integer) const {
+    Rationnal R(getSignedValue(),integer.getSignedValue());
     return R;
 }
 
@@ -222,13 +222,13 @@ bool Rationnal::isInteger () const{return(denum==1);}
 
 //REAL
 float Real::getSignedValue() const{
-    return (abs(entier)+mantisse)*(entier/abs(entier)); //entier*abs()entier ==> signe de entier
+    return (abs(integer)+mantisse)*(integer/abs(integer)); //integer*abs()integer ==> signe de integer
 }
 bool Real::simplify() {
     if(mantisse>=1)
     {
         mantisse --;
-        entier++;
+        integer++;
         return 1;
     }
     return 0;
@@ -238,7 +238,7 @@ bool Real::isInteger() const{
 }
 std::string Real::toString()const{
     std::string s="";
-    s=s+std::to_string(entier)+"."+floatToString(mantisse);
+    s=s+std::to_string(integer)+"."+floatToString(mantisse);
     return s;
 }
 void Real::print(QTextStream& f)const
@@ -359,11 +359,16 @@ Real operator/(Real Re, Rationnal Ra) {
     return rslt;
 }
 
-Real operator/( Rationnal Ra,Real Re) {
+Real operator/(Rationnal Ra,Real Re) {
     Real rslt(Ra.getSignedValue()/Re.getSignedValue());
     return rslt;
 }
 
+Numeric& operator+(const Numeric& N1, const Numeric& N2)
+{
+    Numeric* result = &(N1+N2);
+    return *result;
+}
 
 //Complex
 
