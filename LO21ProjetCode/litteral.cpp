@@ -3,50 +3,20 @@
 #include <sstream>
 #include <QRegExp>
 
+//Functions
+
 QString toQString(std::string s) {
     return QString::fromStdString(s);
 }
 
-std::string FloatToString(float f) {
+std::string floatToString(float f) {
    std::ostringstream ost;
    ost<<f;
    return ost.str();
 
 }
 
-std::string Expression::toString()const {
-    std::stringstream f;
-    for(unsigned int i=0;i<nb;i++){
-        f<<(*tab[i]).toString();
-        f<<" ";
-    }
-    return  f.str();
-}
-void Expression::print(QTextStream& f)const{
-    f<<toQString(toString());
-}
-
-void Program::print(QTextStream& f)const{
-    f<<toQString(instructions);
-}
-
-void Expression::increaseCap()
-{
-    max = max*2+1;
-    ExpressionMaterial ** newtab = new ExpressionMaterial*[max];
-    for(unsigned int i=0;i<nb;i++)
-        newtab[i]=tab[i];
-    ExpressionMaterial ** old = tab;
-    tab = newtab;
-    delete[] old;
-}
-void Expression::operator<<(ExpressionMaterial* e)
-{
-    if(nb==max)
-       increaseCap();
-    tab[nb++]=e;
-}
-bool estUnOperateur(const QString s){
+bool isOperator(const QString s){
     if (s=="+") return true;
     if (s=="-") return true;
     if (s=="*") return true;
@@ -73,7 +43,7 @@ bool isComplex(const QString s)
 
 }
 */
-bool estUnNombre(const QString s){
+bool isNumber(const QString s){
    bool ok=false;
    s.toInt(&ok);
    return ok;
@@ -100,8 +70,8 @@ bool isAtom(const QString s) {
 
 }*/
 
-//Fonction mathématiques
-unsigned int PGCD(int a, int b)
+//Math Functions
+unsigned int pgcd(int a, int b)
 {
     int r;
     while (b != 0)
@@ -112,7 +82,47 @@ unsigned int PGCD(int a, int b)
     }
     return a;
 }
-//INTEGER ABANDONÉE
+
+//Expression
+
+void Expression::increaseCap()
+{
+    max = max*2+1;
+    ExpressionMaterial ** newtab = new ExpressionMaterial*[max];
+    for(unsigned int i=0;i<nb;i++)
+        newtab[i]=tab[i];
+    ExpressionMaterial ** old = tab;
+    tab = newtab;
+    delete[] old;
+}
+
+void Expression::operator<<(ExpressionMaterial* e)
+{
+    if(nb==max)
+       increaseCap();
+    tab[nb++]=e;
+}
+
+std::string Expression::toString()const {
+    std::stringstream f;
+    for(unsigned int i=0;i<nb;i++){
+        f<<(*tab[i]).toString();
+        f<<" ";
+    }
+    return  f.str();
+}
+void Expression::print(QTextStream& f)const{
+    f<<toQString(toString());
+}
+
+// Program
+
+void Program::print(QTextStream& f)const{
+    f<<toQString(instructions);
+}
+
+//Numérique
+
 
 void Integer::print (QTextStream& f)const
 {
@@ -150,7 +160,7 @@ Rationnal Integer::operator / (Integer entier) const {
 //Rationnal
 Rationnal Rationnal::simplify(){
 //ne fait que simplifier, ne prend pas en compte les chgt de types
-    unsigned int p=PGCD(abs(num),abs(denum));
+    unsigned int p=pgcd(abs(num),abs(denum));
    // if (p>1) //simplifiable
     
         num=(num/p);
@@ -180,74 +190,41 @@ Rationnal Rationnal::operator +(Rationnal frac) const
 {
     int NvNum= num*frac.denum+frac.num*denum;
     int Nvdenum = denum*frac.denum;
-    Rationnal Rslt(NvNum,Nvdenum);
-    Rslt.simplify();
-    return Rslt;
+    Rationnal rslt(NvNum,Nvdenum);
+    rslt.simplify();
+    return rslt;
 }
 Rationnal Rationnal::operator- (Rationnal frac)const
 {
     int NvNum= num*frac.denum-frac.num*denum;
     int Nvdenum = denum*frac.denum;
-    Rationnal Rslt(NvNum,Nvdenum);
-    Rslt.simplify();
-    return Rslt;
+    Rationnal rslt(NvNum,Nvdenum);
+    rslt.simplify();
+    return rslt;
 
 }
 Rationnal Rationnal::operator * (Rationnal frac) const
 {
-    Rationnal Rslt(num*frac.num,denum*frac.denum);
-    Rslt.simplify();
-    return Rslt;
+    Rationnal rslt(num*frac.num,denum*frac.denum);
+    rslt.simplify();
+    return rslt;
 }
 Rationnal Rationnal::operator / (Rationnal frac) const //multiplier par l'inverse
 {
     int NvNum=num*frac.denum;
     int Nvdenum=denum*frac.num;
-    Rationnal Rslt(NvNum,Nvdenum);
-    Rslt.simplify();
-    return Rslt;
+    Rationnal rslt(NvNum,Nvdenum);
+    rslt.simplify();
+    return rslt;
 }
 
-bool Rationnal::IsInteger () const{return(denum==1);}
-
-//RATIO ET INT
-Rationnal operator+(int a, Rationnal Ra)
-{
-    Rationnal Rslt(a*Ra.getdenum()+Ra.getnum(),Ra.getdenum());
-    return Rslt;
-}
-Rationnal operator-(int a, Rationnal Ra)
-{
-    Rationnal Rslt(a*Ra.getdenum()-Ra.getnum(),Ra.getdenum());
-    return Rslt;
-}
-Rationnal operator-(Rationnal Ra, int a)
-{
-    Rationnal Rslt(-a*Ra.getdenum()+Ra.getnum(),Ra.getdenum());
-    return Rslt;
-}
-Rationnal operator*(int a, Rationnal Ra)
-{
-    Rationnal Rslt(a*Ra.getnum(),Ra.getdenum());
-    return Rslt;
-}
-Rationnal operator/(int a, Rationnal Ra)
-{
-    Rationnal Rslt(Ra.getnum(),Ra.getdenum()*a);
-    return Rslt;
-}
-Rationnal operator/(Rationnal Ra,int a)
-{
-    Rationnal Rslt(Ra.getdenum()*a,Ra.getnum());
-    return Rslt;
-}
-
+bool Rationnal::isInteger () const{return(denum==1);}
 
 //REAL
 float Real::getSignedValue() const{
     return (abs(entier)+mantisse)*(entier/abs(entier)); //entier*abs()entier ==> signe de entier
 }
-bool Real::Simplify() {
+bool Real::simplify() {
     if(mantisse>=1)
     {
         mantisse --;
@@ -256,12 +233,12 @@ bool Real::Simplify() {
     }
     return 0;
 }
-bool Real::IsInteger() const{
+bool Real::isInteger() const{
     return (mantisse==0);
 }
 std::string Real::toString()const{
     std::string s="";
-    s=s+std::to_string(entier)+"."+FloatToString(mantisse);
+    s=s+std::to_string(entier)+"."+floatToString(mantisse);
     return s;
 }
 void Real::print(QTextStream& f)const
@@ -272,89 +249,119 @@ void Real::print(QTextStream& f)const
 Real Real::operator +(Real re) const
 {
     Real rslt(getSignedValue()+re.getSignedValue());
-    rslt.Simplify();
+    rslt.simplify();
     return rslt;
 }
 Real Real::operator- (Real re)const{
     Real rslt(getSignedValue()-re.getSignedValue());
-    rslt.Simplify();
+    rslt.simplify();
     return rslt;
 }
 Real Real::operator * (Real re) const{
     Real rslt(getSignedValue()*re.getSignedValue());
-    rslt.Simplify();
+    rslt.simplify();
     return rslt;
 }
 
 Real Real::operator / (Real re) const{
     Real rslt(getSignedValue()/re.getSignedValue());
-    rslt.Simplify();
+    rslt.simplify();
     return rslt;
 }
-
+//RATIO ET INT
+Rationnal operator+(int a, Rationnal Ra)
+{
+    Rationnal rslt(a*Ra.getDenum()+Ra.getNum(),Ra.getDenum());
+    return rslt;
+}
+Rationnal operator-(int a, Rationnal Ra)
+{
+    Rationnal rslt(a*Ra.getDenum()-Ra.getNum(),Ra.getDenum());
+    return rslt;
+}
+Rationnal operator-(Rationnal Ra, int a)
+{
+    Rationnal rslt(-a*Ra.getDenum()+Ra.getNum(),Ra.getDenum());
+    return rslt;
+}
+Rationnal operator*(int a, Rationnal Ra)
+{
+    Rationnal rslt(a*Ra.getNum(),Ra.getDenum());
+    return rslt;
+}
+Rationnal operator/(int a, Rationnal Ra)
+{
+    Rationnal rslt(Ra.getNum(),Ra.getDenum()*a);
+    return rslt;
+}
+Rationnal operator/(Rationnal Ra,int a)
+{
+    Rationnal rslt(Ra.getDenum()*a,Ra.getNum());
+    return rslt;
+}
 
 //REAL INT
 Real operator+(int a, Real Re){
     float af = static_cast<float>(a);
-    Real Rslt(af+Re.getSignedValue());
-    return Rslt;
+    Real rslt(af+Re.getSignedValue());
+    return rslt;
 }
 Real operator-(int a, Real Re){
     float af = static_cast<float>(a);
-    Real Rslt(af-Re.getSignedValue());
-    return Rslt;
+    Real rslt(af-Re.getSignedValue());
+    return rslt;
 }
 Real operator-( Real Re,int a){
     float af = static_cast<float>(a);
-    Real Rslt(-af+Re.getSignedValue());
-    return Rslt;
+    Real rslt(-af+Re.getSignedValue());
+    return rslt;
 }
 Real operator*(int a, Real Re){
     float af = static_cast<float>(a);
-    Real Rslt(af+Re.getSignedValue());
-    return Rslt;
+    Real rslt(af+Re.getSignedValue());
+    return rslt;
 }
 Real operator/(int a, Real Re){
     float af = static_cast<float>(a);
-    Real Rslt(af/Re.getSignedValue());
-    return Rslt;
+    Real rslt(af/Re.getSignedValue());
+    return rslt;
 }
 Real operator/( Real Re, int a){
     float af = static_cast<float>(a);
-    Real Rslt(Re.getSignedValue()/af);
-    return Rslt;
+    Real rslt(Re.getSignedValue()/af);
+    return rslt;
 }
 
 
 //REAL RATIONNAL
 Real operator+(Real Re, Rationnal Ra) {
-    Real Rslt(Re.getSignedValue()+Ra.getSignedValue());
-    return Rslt;
+    Real rslt(Re.getSignedValue()+Ra.getSignedValue());
+    return rslt;
 }
 
 Real operator-(Real Re, Rationnal Ra) {
-    Real Rslt(Re.getSignedValue()-Ra.getSignedValue());
-    return Rslt;
+    Real rslt(Re.getSignedValue()-Ra.getSignedValue());
+    return rslt;
 }
 
 Real operator-(Rationnal Ra,Real Re) {
-    Real Rslt(-Re.getSignedValue()+Ra.getSignedValue());
-    return Rslt;
+    Real rslt(-Re.getSignedValue()+Ra.getSignedValue());
+    return rslt;
 }
 
 Real operator*(Real Re, Rationnal Ra) {
-    Real Rslt(Re.getSignedValue()*Ra.getSignedValue());
-    return Rslt;
+    Real rslt(Re.getSignedValue()*Ra.getSignedValue());
+    return rslt;
 }
 
 Real operator/(Real Re, Rationnal Ra) {
-    Real Rslt(Re.getSignedValue()/Ra.getSignedValue());
-    return Rslt;
+    Real rslt(Re.getSignedValue()/Ra.getSignedValue());
+    return rslt;
 }
 
 Real operator/( Rationnal Ra,Real Re) {
-    Real Rslt(Ra.getSignedValue()/Re.getSignedValue());
-    return Rslt;
+    Real rslt(Ra.getSignedValue()/Re.getSignedValue());
+    return rslt;
 }
 
 
@@ -362,7 +369,7 @@ Real operator/( Rationnal Ra,Real Re) {
 
 /*
 Complex Complex::operator +(Complex Cx) const{
-    return Complex(addNum(Cx.Preal,Preal),addNum(Cx.Pimag,Pimag));
+    return Complex(addNum(Cx.pReal,pReal),addNum(Cx.pImag,pImag));
 }*/
 
 

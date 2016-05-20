@@ -15,6 +15,13 @@
 /*Fichier contenant les définitions des littérales selon l'énoncé*/
 
 QString toQString(std::string s);
+std::string floatToString(float f);
+bool isOperator(const QString s);
+bool isRationnal(const QString s);
+bool isReal(const QString s);
+bool isInteger(const QString s);
+bool isNumber(const QString s);
+unsigned int pgcd(int a, int b);
 
 class Litteral {
 public:
@@ -60,11 +67,7 @@ public:
     ~Atom(){}
 };
 
-bool estUnOperateur(const QString s);
-bool estUnNombre(const QString s);
-
 //ressemble fortement à la classe ExpressionMaterial. Egalement virtuelle.
-unsigned int PGCD(int a, int b);
 class Numerique : public ExpressionMaterial
 {
 public:
@@ -80,14 +83,11 @@ public:
 
 //Classes concrètes
 
-
-
 class Rationnal;
 
 class Integer: public Numerique{
 private:
     int val;
-   // bool sign; //0 --> negatif, 1 --> positif. 0 considéré comme positif
 public:
     Integer(int entier=0): val(entier) {} //abs pour absolute value, c'est dans STD
     ~Integer() {}
@@ -110,8 +110,8 @@ private:
     int num;
     int denum;
 public:
-    const int&  getnum() const { return num;}
-    const int&  getdenum() const { return denum;}
+    const int&  getNum() const { return num;}
+    const int&  getDenum() const { return denum;}
     Rationnal(int N, int D ): num(N), denum(D) {simplify();} //utile en cas de division. Comment gérer le retour?
     Rationnal(Integer a, Integer b); //Attention au simplicifications
     void print(QTextStream& f)const;
@@ -122,7 +122,7 @@ public:
     Rationnal operator * (Rationnal frac) const ;
     Rationnal operator / (Rationnal frac) const;
     bool getSign() const {return ((num>=0)==(denum>=0));}
-    bool IsInteger () const;
+    bool isInteger () const;
     float getSignedValue() const {return num/denum;}
 
 };
@@ -132,17 +132,17 @@ private:
     int entier;
     float mantisse; //toujours entre 0 et 1.
 public:
-    bool Simplify() ;
+    bool simplify() ;
     float getSignedValue() const ;
     Real(float a): entier(static_cast<int>(truncf(a))), mantisse(a-truncf(a)){} ;
     bool getSign() const {return entier>=0;} //négatif
-    bool IsInteger() const;
+    bool isInteger() const;
     void print(QTextStream& f)const;
     std::string toString()const;
-    Real operator +(Real re) const;
-    Real operator  - (Real re)const ;
-    Real operator * (Real re) const ;
-    Real operator / (Real re) const;
+    Real operator+(Real re) const;
+    Real operator-(Real re)const ;
+    Real operator*(Real re) const ;
+    Real operator/(Real re) const;
     //~Real() {delete entier; delete ;} inutile
 };
 
@@ -185,23 +185,20 @@ Numerique* addNum (T1* N1,T2* N2)
 
 class Complex : public ExpressionMaterial {
 private:
-    Numerique* Preal;
-    Numerique* Pimag;
+    Numerique* pReal;
+    Numerique* pImag;
 public:
-    Complex (Numerique* Re, Numerique* Im): Preal(Re), Pimag(Im) {} //correspond à la construction avec  $ (voir sujet)
+    Complex (Numerique* Re, Numerique* Im): pReal(Re), pImag(Im) {} //correspond à la construction avec  $ (voir sujet)
     void print(QTextStream& f)const;
     std::string toString()const;
-    ~Complex(){};
-    Complex operator +(Complex Cx) const;
-    Complex operator  - (Complex Cx)const ;
-    Complex operator * (Complex Cx) const ;
-    Complex operator / (Complex Cx) const;
-    bool IsReal() const {return !(Pimag);} //check si la partie imaginaire est nulle
-    bool IsImag() const {return !(Preal);}
+    ~Complex(){}
+    Complex operator+(Complex Cx) const;
+    Complex operator-(Complex Cx)const ;
+    Complex operator*(Complex Cx) const ;
+    Complex operator/(Complex Cx) const;
+    bool isReal() const {return !(pImag);} //check si la partie imaginaire est nulle
+    bool isImag() const {return !(pReal);}
 
 };
-
-
-
 
 #endif // LITTERAL_H
