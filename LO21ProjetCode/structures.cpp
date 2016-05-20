@@ -186,7 +186,16 @@ bool Parser::isOperator(QString s) {
 
 std::string Parser::getType(QString s)
 {
-    return "Rationnal";
+    if(isInteger(s))
+        return "Integer";
+    if(isRationnal(s))
+        return "Rationnal";
+    if(isReal(s))
+        return "Real";
+    if(isComplex(s))
+        return "Complex";
+    throw "Type inconnu";
+
 }
 Integer Parser::getNum(QString s){
     return Integer(s.split('/').first().toInt());
