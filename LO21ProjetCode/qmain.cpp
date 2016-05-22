@@ -66,7 +66,6 @@ void QComputer::setVuePile(){
     vuePile->setEditTriggers(QAbstractItemView::NoEditTriggers);
     vuePile->horizontalHeader()->setVisible(false);
     vuePile->horizontalHeader()->setStretchLastSection(true);
-    vuePile->horizontalHeader()->ResizeToContents();
 }
 
 void QComputer::getNextCommande()
