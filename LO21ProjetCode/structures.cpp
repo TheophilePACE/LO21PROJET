@@ -160,14 +160,28 @@ Item * GeneralManager::createItem(QString s) {
                 It->setLit(newInt);
                 return It;
             }
-    else if(type=="Rationnal")
+    if(type=="Rationnal")
             {
                 Rationnal * newInt = new Rationnal(p.getNum(s),p.getDenum(s));
                 Item * It = new Item;
                 It->setLit(newInt);
                 return It;
             }
-    else
+    if(type=="Real")
+    {
+        Real * newReal = new Real(s.toFloat());
+        Item * It = new Item;
+        It->setLit(newReal);
+        return It;
+    }
+    if(type=="Complex")
+    {
+        Real * newReal = new Real(405);
+        Item * It = new Item;
+        It->setLit(newReal);
+        return It;
+    }
+        else
             throw ComputerException("Erreur de type");
 }
 
@@ -194,7 +208,8 @@ std::string Parser::getType(QString s)
         return "Real";
     if(isComplex(s))
         return "Complex";
-    throw "Type inconnu";
+    //throw "Type inconnu";
+    return "Type inconnu";
 
 }
 Integer Parser::getNum(QString s){
@@ -208,20 +223,22 @@ Integer Parser::getInteger(QString s){
 }
 float Parser::getMantisse(QString s){
     return s.split('.').at(1).toFloat();
-}/*
+}
+
+
 Integer Parser::getRealPart(QString s){
     return Integer(s.split('$').first().toInt());
 }
 Integer Parser::getImPart(QString s){
     return Integer(s.split('$').at(1).toInt());
 }
-*/
+
 void Controller::command(const QString& c){
     Parser p = Parser::getInstance();
     QStringList list = c.split(" ");
     for (int i = 0; i < list.size(); ++i) {
         if(p.isOperator(c)) {
-            /*if (stack.size()>=2) {
+            if (stack.size()>=2) {
                 int v2=2;//expAff.top().getValue();
                 //expMng.removeExpression(expAff.top());
                 stack.pop();
@@ -239,13 +256,14 @@ void Controller::command(const QString& c){
                         res=v1;
                     }
                 }
-                Expression& e=expMng.addExpression(res);
-                expAff.push(e);
+               // Expression& e=expMng.addExpression(res);
+              //  expAff.push(e);
             }else{
-                expAff.setMessage("Erreur : pas assez d'arguments");
+             //   expAff.setMessage("Erreur : pas assez d'arguments");
             }
         }//else expAff.setMessage("Erreur : commande inconnue");
-    }*/}
+
+
      else {
             Item * I = genMng.createItem(c);
                     if(I)

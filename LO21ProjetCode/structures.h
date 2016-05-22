@@ -102,6 +102,9 @@ public:
     Integer getDenum(QString s);
     Integer getInteger(QString s);
     float getMantisse(QString s);
+    float getFloat(QString s);
+    Integer getRealPart(QString s);
+    Integer getImPart(QString s);
 };
 
 class ProgramManager {

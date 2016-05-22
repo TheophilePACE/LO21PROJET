@@ -25,29 +25,30 @@ bool isOperator(const QString s){
 }
 bool isRationnal(const QString s)
 {
-    QRegExp regExp ("^[+-]?\d+\/[+-]?\d+$");
-    return s.contains(regExp);
+    QRegExp ratioExp ("[+-]?\\d+\\/[+-]?\\d+");
+    return ratioExp.exactMatch(s);
 }
 bool isInteger(const QString s)
 {
-    QRegExp regExp ("^[+-]?\d+\.?0*$");
-    return s.contains(regExp);
+    QRegExp regExp ("[+-]?\\d+\\.?0*");
+    return regExp.exactMatch(s);
 }
 bool isReal(const QString s)
 {
-    QRegExp regExp ("^[+-]?\d*\.0*[1-9][0-9]*$");
-    return s.contains(regExp);
+    QRegExp regExp ("[+-]?\\d*\\.0*[1-9][0-9]*");
+    return regExp.exactMatch(s);
 }
 bool isComplex(const QString s)
 {
-    QRegExp regExp ("^[+-]?[0-9]*(\.[0-9]*|\/[+-]?[0-9]+)?\$[+-]?[0-9]*(\.[0-9]*|\/[+-]?[0-9]+)?$");
-    return s.contains(regExp);
+    QRegExp regExp ("[+-]?[0-9]*(\\.[0-9]*|\\/[+-]?[0-9]+)?\\$[+-]?[0-9]*(\\.[0-9]*|\\/[+-]?[0-9]+)?");
+    return regExp.exactMatch(s);
 }
 bool isNumber(const QString s){
    bool ok=false;
    s.toInt(&ok);
    return ok;
 }
+
 /*
 bool isExression(const QString s) {
     QRegExp regExp ("\"")
@@ -238,7 +239,8 @@ bool Real::isInteger() const{
 }
 std::string Real::toString()const{
     std::string s="";
-    s=s+std::to_string(integer)+"."+floatToString(mantisse);
+    //s=s+std::to_string(integer)+"."+floatToString(mantisse);
+    s=s+floatToString(integer+mantisse);
     return s;
 }
 void Real::print(QTextStream& f)const

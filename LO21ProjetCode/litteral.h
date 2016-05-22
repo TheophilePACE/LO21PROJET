@@ -134,6 +134,7 @@ public:
     bool simplify() ;
     float getSignedValue() const ;
     Real(float a): integer(static_cast<int>(truncf(a))), mantisse(a-truncf(a)){}
+    Real(int in, float ma): integer(in), mantisse(ma) {} //ma est entre 0 et 1
     bool getSign() const {return integer>=0;} //négatif
     bool isInteger() const;
     void print(QTextStream& f)const;
