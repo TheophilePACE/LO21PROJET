@@ -10,9 +10,9 @@
 #include <QHeaderView>
 #include <QDebug>
 #include <stack>
-#include "litteral.h"
+#include "litteral/litteral.h"
 #include "intermediary.h"
-#include "structures.h"
+#include "structures/structures.h"
 
 namespace Ui {
 class MainWindow;
