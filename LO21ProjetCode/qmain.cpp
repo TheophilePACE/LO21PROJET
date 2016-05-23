@@ -1,11 +1,11 @@
 #include "qmain.h"
-#include "litteral.h"
+#include "litteral/litteral.h"
 
 
 QComputer::QComputer(QWidget *parent) : QWidget(parent)
 {
     message = new QLineEdit(this);
-    pile = new Pile;
+    pile = new Stack;
     couche = new QVBoxLayout(this);
     commande = new QLineEdit(this);
 
@@ -39,7 +39,7 @@ void QComputer::refresh()
         vuePile->item(i,0)->setText("");
     //mettre a jour
     unsigned int NbElements =0;
-    for(Pile::iterator it = pile->begin(); it!=pile->end() && NbElements<pile->getNbItemsDisplayed(); ++it, ++NbElements)
+    for(Stack::iterator it = pile->begin(); it!=pile->end() && NbElements<pile->getNbItemsDisplayed(); ++it, ++NbElements)
         vuePile->item(pile->getNbItemsDisplayed()-1-NbElements,0)->setText(toQString((*it)->toString()));
 }
 

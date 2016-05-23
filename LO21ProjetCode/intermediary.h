@@ -8,7 +8,8 @@
 #include <QTextStream>
 #include <QObject>
 #include <QDebug>
-#include "litteral.h"
+#include "litteral/litteral.h"
+#include "litteral/atom.h"
 
 /*Fichier contenant les définitions
     des classes intermédiaires entres littérales et structures de controle */

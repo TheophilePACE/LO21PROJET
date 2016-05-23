@@ -1,6 +1,6 @@
-#include "litteral.h"
+#include "litteral/litteral.h"
 #include "intermediary.h"
-#include "structures.h"
+#include "structures/structures.h"
 #include "qmain.h"
 #include "mainwindow.h"
 #include <QApplication>

@@ -10,9 +10,9 @@
 #include <QPushButton>
 #include <QDebug>
 #include <stack>
-#include "litteral.h"
+#include "litteral/litteral.h"
 #include "intermediary.h"
-#include "structures.h"
+#include "structures/structures.h"
 
 class QComputer : public QWidget{
         Q_OBJECT
@@ -20,7 +20,7 @@ class QComputer : public QWidget{
         QTableWidget * vuePile;
         QLineEdit * commande;
         QVBoxLayout * couche;
-        Pile* pile;
+        Stack* pile;
         Controller * controleur;
     public:
         void setVuePile();
