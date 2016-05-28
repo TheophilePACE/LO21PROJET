@@ -43,12 +43,12 @@ double Parser::getMantisse(QString s){
 }
 
 
-Integer Parser::getRealPart(QString s){
-    Integer I(s.split('$').first().toLong());
-    return I;
+QString Parser::getRealPart(QString s){
+
+    return  (s.split('$').first());
 }
-Integer Parser::getImPart(QString s){
-     Integer I( s.split('$').at(1).toLong());
-     return I;
+QString Parser::getImPart(QString s){
+
+     return (s.split('$').at(1));
 }
 

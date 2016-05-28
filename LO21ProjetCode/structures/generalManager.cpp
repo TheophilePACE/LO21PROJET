@@ -1,6 +1,7 @@
 #include "generalManager.h"
 #include "litteral/rationnal.h"
 #include "litteral/real.h"
+#include "litteral/complex.h"
 
 GeneralManager::Singleton GeneralManager::sing=GeneralManager::Singleton();
 GeneralManager& GeneralManager::getInstance(){
@@ -14,6 +15,30 @@ void GeneralManager::freeInstance(){
 }
 
 Item * GeneralManager::createItem(QString s) {
+    Parser p = Parser::getInstance();
+
+
+    std::string type = p.getType(s);
+    if(type=="Integer"||type=="Rationnal"||type=="Real")
+        return createSimpleItem(s); //creation numeric
+
+    if(type=="Complex")
+    {
+//        Item* tempR, *tempI;
+        Item* itRe= createSimpleItem(p.getRealPart(s));
+        Item* itIm = createSimpleItem(p.getImPart(s));
+        Complex * newCplx = new Complex(dynamic_cast<Numeric *>(itRe->getPLit()),dynamic_cast<Numeric *>(itIm->getPLit()));
+
+        Item * It = new Item;
+        It->setLit(newCplx);
+        return It;
+    }
+        else
+            throw "Erreur de type";
+}
+
+Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de numeric
+{
     Parser p = Parser::getInstance();
     std::string type = p.getType(s);
     if (type=="Integer")
@@ -45,13 +70,6 @@ Item * GeneralManager::createItem(QString s) {
         It->setLit(newReal);
         return It;
     }
-    if(type=="Complex")
-    {
-        Real * newReal = new Real(405);
-        Item * It = new Item;
-        It->setLit(newReal);
-        return It;
-    }
-        else
-            throw "Erreur de type";
+    else
+        throw "Erreur de type";
 }
