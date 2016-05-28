@@ -16,7 +16,8 @@ HEADERS += \
     structures/parser.h \
     structures/programManager.h \
     structures/identifierManager.h \
-    structures/generalManager.h
+    structures/generalManager.h \
+    qvareditor.h
 
 SOURCES += \
     main.cpp \
@@ -37,7 +38,8 @@ SOURCES += \
     structures/parser.cpp \
     structures/programManager.cpp \
     structures/identifierManager.cpp \
-    structures/generalManager.cpp
+    structures/generalManager.cpp \
+    qvareditor.cpp
     
 QMAKE_CXXFLAGS += -std=c++0x
 QT += widgets

@@ -45,9 +45,9 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
-    <widget class="QComputer" name="Calculatrice">
+    <widget class="QComputer" name="CalcTab">
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
@@ -64,7 +64,7 @@
       <string>Calculatrice</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="Variables">
+    <widget class="QvarEditor" name="Variables">
      <attribute name="title">
       <string>Variables</string>
      </attribute>
@@ -532,6 +532,12 @@
   </widget>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>QvarEditor</class>
+   <extends>QWidget</extends>
+   <header>qvareditor.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>QComputer</class>
    <extends>QWidget</extends>
