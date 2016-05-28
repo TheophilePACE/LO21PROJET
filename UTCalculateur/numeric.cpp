@@ -29,17 +29,18 @@ std::string Numeric::toString()const
     return s;
 }
 
- Numeric Numeric::operator+ (const Numeric& N) const
- {
-     long nnum,ndenum;
-     double nmantisse,temp;
-     temp= (mantisse+num)*N.denum + (N.num+N.mantisse)*denum;
-     nnum = trunc(temp);
-     ndenum = denum*N.denum;
-     nmantisse = temp-nnum;
-     Numeric Rslt(nnum,ndenum,nmantisse);
-     return Rslt;
- }
+
+// Numeric Numeric::operator+ (const Numeric& N) const
+// {
+//     long nnum,ndenum;
+//     double nmantisse,temp;
+//     temp= (mantisse+num)*N.denum + (N.num+N.mantisse)*denum;
+//     nnum = trunc(temp);
+//     ndenum = denum*N.denum;
+//     nmantisse = temp-nnum;
+//     Numeric Rslt(nnum,ndenum,nmantisse);
+//     return Rslt;
+// }
 // Numeric& Numeric::operator- (const Numeric& N) const
 // {
 //     long nnum,ndenum;
@@ -61,3 +62,7 @@ std::string Numeric::toString()const
 //     return Rslt;
 // }
 // Numeric& Numeric::operator* (const Numeric& N) const
+
+
+
+

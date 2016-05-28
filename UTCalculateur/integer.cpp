@@ -6,7 +6,7 @@ void Integer::print(QTextStream& f)const
     f<<getSignedValue();
 }
 std::string Integer::toString()const{
-    return std::to_string(getSignedValue());
+    return std::to_string(num);
 }
 long Integer::setValue(long integer) {
     this->num=integer;
