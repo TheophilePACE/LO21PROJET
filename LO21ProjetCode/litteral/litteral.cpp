@@ -9,7 +9,7 @@ QString toQString(std::string s) {
     return QString::fromStdString(s);
 }
 
-std::string floatToString(float f) {
+std::string doubleToString(double f) {
    std::ostringstream ost;
    ost<<f;
    return ost.str();

@@ -1,7 +1,6 @@
 #ifndef LITTERAL_H
 #define LITTERAL_H
 
-
 #include <string>
 #include <iostream>
 #include <stack>
@@ -13,7 +12,7 @@
 #include <cmath>        // pour std::abs
 
 QString toQString(std::string s);
-std::string floatToString(float f);
+std::string doubleToString(double f);
 bool isOperator(const QString s);
 bool isRationnal(const QString s);
 bool isReal(const QString s);

@@ -7,13 +7,11 @@
 
 class Rationnal : public Numeric {
 private:
-    int num;
-    int denum;
 public:
-    const int&  getNum() const { return num;}
-    const int&  getDenum() const { return denum;}
-    Rationnal(int N, int D ): num(N), denum(D) {simplify();} //utile en cas de division. Comment gérer le retour?
+
+    Rationnal(long N, long D ): Numeric(N,D,0) {simplify(); std::cout<<"\nConstruction Ratio\n";} //utile en cas de division. Comment gérer le retour?
     Rationnal(Integer a, Integer b); //Attention au simplicifications
+    Rationnal(Rationnal& R): Numeric(R.num,R.denum,0) {}
     void print(QTextStream& f)const;
     std::string toString()const;
     Rationnal simplify() ; //retour de type pointeur sur classe mere
@@ -23,7 +21,7 @@ public:
     Rationnal operator/(Rationnal frac) const;
     bool getSign() const {return ((num>=0)==(denum>=0));}
     bool isInteger () const;
-    float getSignedValue() const {return num/denum;}
+    double getSignedValue() const {return double(getNum()) / double(getDenum());}
 
 };
 

@@ -1,6 +1,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include <QString>
 #include <string>
 #include "litteral/integer.h"
 
@@ -16,12 +17,13 @@ public:
     static void freeInstance();
     std::string getType(QString s);
     bool isOperator(QString s);
-    Integer getNum(QString s);
-    Integer getDenum(QString s);
-    Integer getInteger(QString s);
-    float getMantisse(QString s);
-    float getFloat(QString s);
-    Integer getRealPart(QString s);
+    long getNum(QString s);
+    long getDenum(QString s);
+    long getInteger(QString s); //renvoie tout ce qu'il y a avant le .
+
+    double getMantisse(QString s);
+    float getFloat(QString s); //non implémentée
+    Integer getRealPart(QString s); //sert à rien, dangereux
     Integer getImPart(QString s);
 };
 

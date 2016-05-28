@@ -26,24 +26,29 @@ std::string Parser::getType(QString s)
     throw "Type inconnu !!";
 
 }
-Integer Parser::getNum(QString s){
-    return Integer(s.split('/').first().toInt());
+long Parser::getNum(QString s){
+    long ln =s.split('/').first().toLong();
+    return ln;
 }
-Integer Parser::getDenum(QString s){
-    return Integer(s.split('/').at(1).toInt());
+long Parser::getDenum(QString s){
+    long ln= (s.split('/').at(1).toLong());
+    return ln;
 }
-Integer Parser::getInteger(QString s){
-    return Integer(s.split('.').first().toInt());
+long Parser::getInteger(QString s){
+     long ln =(s.split('.').first().toLong());
+    return ln;
 }
-float Parser::getMantisse(QString s){
-    return s.split('.').at(1).toFloat();
+double Parser::getMantisse(QString s){
+    return s.split('.').at(1).toDouble();
 }
 
 
 Integer Parser::getRealPart(QString s){
-    return Integer(s.split('$').first().toInt());
+    Integer I(s.split('$').first().toLong());
+    return I;
 }
 Integer Parser::getImPart(QString s){
-    return Integer(s.split('$').at(1).toInt());
+     Integer I( s.split('$').at(1).toLong());
+     return I;
 }
 

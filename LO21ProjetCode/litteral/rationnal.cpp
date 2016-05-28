@@ -4,7 +4,7 @@
 
 Rationnal Rationnal::simplify(){
 //ne fait que simplifier, ne prend pas en compte les chgt de types
-    unsigned int p=pgcd(abs(num),abs(denum));
+    unsigned int p=pgcd(labs (num),labs (denum));
    // if (p>1) //simplifiable
 
         num=(num/p);
@@ -32,16 +32,16 @@ std::string Rationnal::toString()const{
 }
 Rationnal Rationnal::operator +(Rationnal frac) const
 {
-    int NvNum= num*frac.denum+frac.num*denum;
-    int Nvdenum = denum*frac.denum;
+    long NvNum= num*frac.denum+frac.num*denum;
+    long Nvdenum = denum*frac.denum;
     Rationnal rslt(NvNum,Nvdenum);
     rslt.simplify();
     return rslt;
 }
 Rationnal Rationnal::operator- (Rationnal frac)const
 {
-    int NvNum= num*frac.denum-frac.num*denum;
-    int Nvdenum = denum*frac.denum;
+    long NvNum= num*frac.denum-frac.num*denum;
+    long Nvdenum = denum*frac.denum;
     Rationnal rslt(NvNum,Nvdenum);
     rslt.simplify();
     return rslt;
@@ -55,8 +55,8 @@ Rationnal Rationnal::operator * (Rationnal frac) const
 }
 Rationnal Rationnal::operator / (Rationnal frac) const //multiplier par l'inverse
 {
-    int NvNum=num*frac.denum;
-    int Nvdenum=denum*frac.num;
+    long NvNum=num*frac.denum;
+    long Nvdenum=denum*frac.num;
     Rationnal rslt(NvNum,Nvdenum);
     rslt.simplify();
     return rslt;
@@ -66,12 +66,12 @@ bool Rationnal::isInteger () const{return(denum==1);}
 
 Rationnal operator+(Integer a, Rationnal Ra)
 {
-    Rationnal rslt(a*Ra.getDenum()+Ra.getNum(),Ra.getDenum());
+    Rationnal rslt(a.getSignedValue()*Ra.getDenum()+ Ra.getNum()  ,  Ra.getDenum());
     return rslt;
 }
 Rationnal operator-(Integer a, Rationnal Ra)
 {
-    Rationnal rslt(a*Ra.getDenum()-Ra.getNum(),Ra.getDenum());
+    Rationnal rslt(a.getSignedValue()*Ra.getDenum()-Ra.getNum(),Ra.getDenum());
     return rslt;
 }
 Rationnal operator-(Rationnal Ra, Integer a)
@@ -81,7 +81,7 @@ Rationnal operator-(Rationnal Ra, Integer a)
 }
 Rationnal operator*(Integer a, Rationnal Ra)
 {
-    Rationnal rslt(a*Ra.getNum(),Ra.getDenum());
+    Rationnal rslt(a.getSignedValue()*Ra.getNum(),Ra.getDenum());
     return rslt;
 }
 Rationnal operator/(Integer a, Rationnal Ra)

@@ -1,15 +1,15 @@
-#include "litteral/integer.h"
-#include "litteral/rationnal.h"
+#include "integer.h"
+#include "rationnal.h"
 
 void Integer::print(QTextStream& f)const
 {
     f<<getSignedValue();
 }
 std::string Integer::toString()const{
-    return std::to_string(getSignedValue());
+    return std::to_string(num);
 }
-int Integer::setValue(int integer) {
-    this->val=integer;
+long Integer::setValue(long integer) {
+    this->num=integer;
     return getSignedValue();
 }
 Integer Integer::operator+(Integer integer) const

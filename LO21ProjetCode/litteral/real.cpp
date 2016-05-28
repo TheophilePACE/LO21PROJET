@@ -1,13 +1,19 @@
 #include "real.h"
 
-float Real::getSignedValue() const{
-    return (abs(integer)+mantisse)*(integer/abs(integer)); //integer*abs()integer ==> signe de integer
+double Real::getSignedValue() const{
+    return (num+mantisse); //num*abs()num ==> signe de num
 }
 bool Real::simplify() {
     if(mantisse>=1)
     {
         mantisse --;
-        integer++;
+        num++;
+        return 1;
+    }
+    if(mantisse<=-1)
+    {
+        mantisse ++;
+        num--;
         return 1;
     }
     return 0;
@@ -16,10 +22,8 @@ bool Real::isInteger() const{
     return (mantisse==0);
 }
 std::string Real::toString()const{
-    std::string s="";
-    //s=s+std::to_string(integer)+"."+floatToString(mantisse);
-    s=s+floatToString(integer+mantisse);
-    return s;
+    double f=getSignedValue();
+    return std::to_string(f);
 }
 void Real::print(QTextStream& f)const
 {
@@ -49,32 +53,32 @@ Real Real::operator / (Real re) const{
     return rslt;
 }
 Real operator+(int a, Real Re){
-    float af = static_cast<float>(a);
+    double af = static_cast<double>(a);
     Real rslt(af+Re.getSignedValue());
     return rslt;
 }
 Real operator-(int a, Real Re){
-    float af = static_cast<float>(a);
+    double af = static_cast<double>(a);
     Real rslt(af-Re.getSignedValue());
     return rslt;
 }
 Real operator-( Real Re,int a){
-    float af = static_cast<float>(a);
+    double af = static_cast<double>(a);
     Real rslt(-af+Re.getSignedValue());
     return rslt;
 }
 Real operator*(int a, Real Re){
-    float af = static_cast<float>(a);
+    double af = static_cast<double>(a);
     Real rslt(af+Re.getSignedValue());
     return rslt;
 }
 Real operator/(int a, Real Re){
-    float af = static_cast<float>(a);
+    double af = static_cast<double>(a);
     Real rslt(af/Re.getSignedValue());
     return rslt;
 }
 Real operator/( Real Re, int a){
-    float af = static_cast<float>(a);
+    double af = static_cast<double>(a);
     Real rslt(Re.getSignedValue()/af);
     return rslt;
 }
@@ -85,6 +89,12 @@ Real operator+(Real Re, Rationnal Ra) {
     Real rslt(Re.getSignedValue()+Ra.getSignedValue());
     return rslt;
 }
+
+Real operator+(Rationnal Ra, Real Re){
+    Real rslt(Re.getSignedValue()+Ra.getSignedValue());
+    return rslt;
+}
+
 
 Real operator-(Real Re, Rationnal Ra) {
     Real rslt(Re.getSignedValue()-Ra.getSignedValue());

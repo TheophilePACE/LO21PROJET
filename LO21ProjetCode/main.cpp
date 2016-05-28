@@ -7,14 +7,11 @@
 #include "litteral/complex.h"
 
 int main(int argc, char* argv[]) {
-   Integer A(1);
-   Integer B(2);
-   Complex C(&A,&B);
-    /*
+
     QApplication app(argc, argv);
     MainWindow fenetre;
     //QComputer fenetre;
     fenetre.show();
-    return app.exec();*/
+    return app.exec();
     return 0;
 }
