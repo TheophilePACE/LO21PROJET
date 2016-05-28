@@ -10,9 +10,8 @@ class Numeric : public ExpressionMaterial
 {
 protected:
     long num;
-    long denum;
     double mantisse;
-
+    long denum;
 public:
     const long&  getNum() const { return num;}
     const long&  getDenum() const { return denum;}

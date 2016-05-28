@@ -18,21 +18,29 @@ Item * GeneralManager::createItem(QString s) {
     std::string type = p.getType(s);
     if (type=="Integer")
     {
-        Integer * newInt = new Integer(s.toInt());
+
+        Integer * newInt = new Integer(p.getInteger(s));
         Item * It = new Item;
         It->setLit(newInt);
         return It;
     }
     if(type=="Rationnal")
     {
-        Rationnal * newInt = new Rationnal(p.getNum(s),p.getDenum(s));
+        Rationnal * newRat = new Rationnal(p.getNum(s),p.getDenum(s));
+        if(newRat->isInteger()) //simplification vers integer
+        {
+            long val = newRat->getNum();
+            delete newRat;
+            Integer * newRat = new Integer(val);
+
+        }
         Item * It = new Item;
-        It->setLit(newInt);
+        It->setLit(newRat);
         return It;
     }
     if(type=="Real")
     {
-        Real * newReal = new Real(s.toFloat());
+        Real * newReal = new Real(s.toDouble());
         Item * It = new Item;
         It->setLit(newReal);
         return It;
