@@ -21,6 +21,7 @@ bool isOperator(const QString s){
     if (s=="-") return true;
     if (s=="*") return true;
     if (s=="/") return true;
+    if (s=="NEG") return true;
     return false;
 }
 bool isRationnal(const QString s)
@@ -50,7 +51,7 @@ bool isAtom(const QString s)
 }
 bool isExpression(const QString s) //Pas fini
 {
-        QRegExp regExp ("'.*'");
+        QRegExp regExp ("^\\'.*\\'$");
         return regExp.exactMatch(s);
 }
 bool isNumber(const QString s){

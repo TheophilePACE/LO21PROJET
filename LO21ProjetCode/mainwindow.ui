@@ -45,7 +45,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QComputer" name="CalcTab">
      <property name="toolTip">
@@ -131,7 +131,7 @@
             <number>0</number>
            </property>
            <property name="maximum">
-            <number>6</number>
+            <number>15</number>
            </property>
            <property name="sliderPosition">
             <number>4</number>
@@ -181,9 +181,9 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>20</y>
+       <y>30</y>
        <width>461</width>
-       <height>241</height>
+       <height>231</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -217,7 +217,7 @@
           <item row="3" column="1">
            <widget class="QPushButton" name="pushButton_17">
             <property name="text">
-             <string> </string>
+             <string/>
             </property>
            </widget>
           </item>

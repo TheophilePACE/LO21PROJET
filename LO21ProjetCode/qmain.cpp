@@ -8,11 +8,30 @@ QComputer::QComputer(QWidget *parent) : QWidget(parent)
     pile = new Stack;
     couche = new QVBoxLayout(this);
     commande = new QLineEdit(this);
-
+    vuePile = new QTableWidget(pile->getNbItemsDisplayed(),1,this);
     couche->addWidget(message);
-    couche->addWidget(commande);
-    setVuePile();
+
+    QStringList numberList;
+    for(unsigned int i=pile->getNbItemsDisplayed();i>0;i--)
+    {
+        QString str = QString::number(i);
+        numberList<<str;
+        vuePile->setItem(i-1,0,new QTableWidgetItem(""));
+    }
+    //affectation de la liste de labels au header vertical
+
+    vuePile->setVerticalHeaderLabels(numberList);
+    vuePile->setFixedHeight(pile->getNbItemsDisplayed()*vuePile->rowHeight(0)+2);
+    couche->addWidget(vuePile);
+    vuePile->setStyleSheet("background : cyan; color : white");
+    vuePile->verticalHeader()->setStyleSheet("color: orange");
+
+    vuePile->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    vuePile->horizontalHeader()->setVisible(false);
+    vuePile->horizontalHeader()->setStretchLastSection(true);
     controleur = new Controller(GeneralManager::getInstance(),*pile);
+
+    couche->addWidget(commande);
 
     //this->addLayout(couche);
     setLayout(couche);
@@ -43,31 +62,6 @@ void QComputer::refresh()
         vuePile->item(pile->getNbItemsDisplayed()-1-NbElements,0)->setText(toQString((*it)->toString()));
 }
 
-void QComputer::setVuePile(){
-    QTableWidget * tab = new QTableWidget(pile->getNbItemsDisplayed(),1,this);
-    //liste de labels
-    delete vuePile;
-    vuePile = tab;
-    QStringList numberList;
-    for(unsigned int i=pile->getNbItemsDisplayed();i>0;i--)
-    {
-        QString str = QString::number(i);
-        str += ":";
-        vuePile->setItem(i-1,0,new QTableWidgetItem(""));
-    }
-    //affectation de la liste de labels au header vertical
-
-    vuePile->setVerticalHeaderLabels(numberList);
-    vuePile->setFixedHeight(pile->getNbItemsDisplayed()*vuePile->rowHeight(0)+2);
-    couche->addWidget(vuePile);
-    vuePile->setStyleSheet("background : cyan; color : white");
-    vuePile->verticalHeader()->setStyleSheet("color: orange");
-
-    vuePile->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    vuePile->horizontalHeader()->setVisible(false);
-    vuePile->horizontalHeader()->setStretchLastSection(true);
-}
-
 void QComputer::getNextCommande()
 {
     pile->setMessage("");
@@ -94,7 +88,15 @@ void QComputer::keyboardButtonPressed(QAbstractButton* g) {
 }
 void QComputer::sliderMoved(int n) {
     pile->setNbItemsDisplayed(n);
-    setVuePile();
+    vuePile->setRowCount(n);
+
+    for(unsigned int i=pile->getNbItemsDisplayed();i>0;i--)
+    {
+        QString str = QString::number(i);
+        str += ":";
+        vuePile->setItem(i-1,0,new QTableWidgetItem(""));
+    }
+
     refresh();
 }
 

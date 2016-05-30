@@ -8,7 +8,6 @@ class IdentifierManager {
     unsigned int nb;
     unsigned int max;
     void increaseCap();
-    ~IdentifierManager(){}
     IdentifierManager(const IdentifierManager& m);
     IdentifierManager& operator=(const IdentifierManager& m);
     //friend class QComputer;
@@ -20,6 +19,7 @@ class IdentifierManager {
     static Singleton sing;
 public:
     IdentifierManager():identifiers(nullptr),nb(0),max(0){}
+    ~IdentifierManager(){}
     void addIdentifier(std::string s, Litteral* l);
     void removeIdentifier(Identifier& e);
     Identifier * getIdentifier(Atom& a);

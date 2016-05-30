@@ -26,7 +26,8 @@ std::string Parser::getType(QString s)
     if(isAtom(s))
         return "Atom";
     if(isExpression(s))
-        return "Expression";
+        throw "Expression merde quoi";
+       // return "Expression";
     throw "Type inconnu !!";
 
 }

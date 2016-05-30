@@ -25,12 +25,13 @@ class QvarEditor : public QWidget{
         IdentifierManager * idMng;
         Controller * controleur;
     public:
-        void setVueVarView();
         explicit QvarEditor(QWidget * parent = 0);
     public slots:
         void refresh();
         void getNextCommand();
-        void validationButtonPressed(QPushButton* g);
+        void validationButtonPressed();
+    signals:
+        void stateModification();
 };
 
 #endif // QVAREDITOR_H

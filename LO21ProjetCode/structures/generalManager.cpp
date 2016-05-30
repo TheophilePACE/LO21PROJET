@@ -57,7 +57,9 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
             long val = newRat->getNum();
             delete newRat;
             Integer * newRat = new Integer(val);
-
+            Item * It = new Item;
+            It->setLit(newRat);
+            return It;
         }
         Item * It = new Item;
         It->setLit(newRat);
@@ -72,28 +74,36 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
     }
     if(type=="Atom")
     {
-        Identifier * id = IdentifierManager::getInstance().getIdentifier(*(new Atom(s.toStdString())));
-        if(id==NULL)
+        if(isOperator(s))
         {
-            Expression * newExp = new Expression(s.insert(0,'\'').insert(s.size()+1,'\'').toStdString());
-            Item * It = new Item;
-            It->setLit(newExp);
-            return It;
+            throw "C'est un operateur bordel";
         }
         else
         {
-            std::string type2 = typeid((*id->getPValue())).name();
-            if(type2=="Program")
+            Identifier * id = IdentifierManager::getInstance().getIdentifier(*(new Atom(s.toStdString())));
+            if(id==NULL)
             {
-                //Controller::getInstance().command(id.getPValue()->toString());
-                return NULL;
-            }
-
-            else if(type2=="Integer" || type2=="Rationnal" || type2=="Complex" || type2=="Real") {
+                Expression * newExp = new Expression(s.insert(0,'\'').insert(s.size()+1,'\'').toStdString());
                 Item * It = new Item;
-                It->setLit(id->getPValue());
+                It->setLit(newExp);
                 return It;
             }
+            else
+            {
+                std::string type2 = typeid((*id->getPValue())).name();
+                if(type2=="Program")
+                {
+                    //Controller::getInstance().command(id.getPValue()->toString());
+                    return NULL;
+                }
+
+                else if(type2=="Integer" || type2=="Rationnal" || type2=="Complex" || type2=="Real") {
+                    Item * It = new Item;
+                    It->setLit(id->getPValue());
+                    return It;
+                }
+            }
+
         }
 
     }

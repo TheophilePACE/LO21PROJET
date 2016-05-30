@@ -921,6 +921,7 @@ moc_qvareditor.cpp: /usr/include/qt5/QtWidgets/QWidget \
 		../LO21ProjetCode/intermediary.h \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
+		../LO21ProjetCode/structures/identifierManager.h \
 		../LO21ProjetCode/structures/structures.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
@@ -939,8 +940,8 @@ compiler_uic_make_all: ui_mainwindow.h
 compiler_uic_clean:
 	-$(DEL_FILE) ui_mainwindow.h
 ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
-		../LO21ProjetCode/qmain.h \
 		../LO21ProjetCode/qvareditor.h \
+		../LO21ProjetCode/qmain.h \
 		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/qwidget.h \
 		/usr/include/qt5/QtGui/qwindowdefs.h \
@@ -1096,6 +1097,7 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		../LO21ProjetCode/intermediary.h \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
+		../LO21ProjetCode/structures/identifierManager.h \
 		../LO21ProjetCode/structures/structures.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
@@ -1455,7 +1457,8 @@ main.o: ../LO21ProjetCode/main.cpp ../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/qeventloop.h \
 		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
 		/usr/include/qt5/QtGui/qguiapplication.h \
-		/usr/include/qt5/QtGui/qinputmethod.h
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		../LO21ProjetCode/litteral/complex.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../LO21ProjetCode/main.cpp
 
 qmain.o: ../LO21ProjetCode/qmain.cpp ../LO21ProjetCode/qmain.h \
@@ -1899,7 +1902,9 @@ mainwindow.o: ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/mainwindow.h \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
 		/usr/include/qt5/QtWidgets/QSlider \
 		/usr/include/qt5/QtWidgets/QTabWidget \
-		../LO21ProjetCode/qmain.h
+		../LO21ProjetCode/qmain.h \
+		../LO21ProjetCode/qvareditor.h \
+		../LO21ProjetCode/structures/identifierManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../LO21ProjetCode/mainwindow.cpp
 
 litteral.o: ../LO21ProjetCode/litteral/litteral.cpp ../LO21ProjetCode/litteral/litteral.h \
@@ -2066,6 +2071,7 @@ atom.o: ../LO21ProjetCode/litteral/atom.cpp ../LO21ProjetCode/litteral/atom.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o atom.o ../LO21ProjetCode/litteral/atom.cpp
 
 numeric.o: ../LO21ProjetCode/litteral/numeric.cpp ../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/qstring.h \
@@ -2143,8 +2149,7 @@ numeric.o: ../LO21ProjetCode/litteral/numeric.cpp ../LO21ProjetCode/litteral/num
 		/usr/include/qt5/QtCore/qstringmatcher.h \
 		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/QObject \
-		/usr/include/qt5/QtCore/QDebug \
-		../LO21ProjetCode/litteral/expression.h
+		/usr/include/qt5/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o numeric.o ../LO21ProjetCode/litteral/numeric.cpp
 
 real.o: ../LO21ProjetCode/litteral/real.cpp ../LO21ProjetCode/litteral/real.h \
@@ -2234,6 +2239,8 @@ real.o: ../LO21ProjetCode/litteral/real.cpp ../LO21ProjetCode/litteral/real.h \
 
 rationnal.o: ../LO21ProjetCode/litteral/rationnal.cpp ../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/integer.h \
+		../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/qstring.h \
@@ -2311,12 +2318,12 @@ rationnal.o: ../LO21ProjetCode/litteral/rationnal.cpp ../LO21ProjetCode/litteral
 		/usr/include/qt5/QtCore/qstringmatcher.h \
 		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/QObject \
-		/usr/include/qt5/QtCore/QDebug \
-		../LO21ProjetCode/litteral/numeric.h \
-		../LO21ProjetCode/litteral/expression.h
+		/usr/include/qt5/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rationnal.o ../LO21ProjetCode/litteral/rationnal.cpp
 
 integer.o: ../LO21ProjetCode/litteral/integer.cpp ../LO21ProjetCode/litteral/integer.h \
+		../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/qstring.h \
@@ -2395,12 +2402,11 @@ integer.o: ../LO21ProjetCode/litteral/integer.cpp ../LO21ProjetCode/litteral/int
 		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtCore/QDebug \
-		../LO21ProjetCode/litteral/numeric.h \
-		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/litteral/rationnal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o integer.o ../LO21ProjetCode/litteral/integer.cpp
 
 complex.o: ../LO21ProjetCode/litteral/complex.cpp ../LO21ProjetCode/litteral/complex.h \
+		../LO21ProjetCode/litteral/real.h \
 		../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/qstring.h \
@@ -2479,8 +2485,10 @@ complex.o: ../LO21ProjetCode/litteral/complex.cpp ../LO21ProjetCode/litteral/com
 		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtCore/QDebug \
+		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
-		../LO21ProjetCode/litteral/expression.h
+		../LO21ProjetCode/litteral/expression.h \
+		../LO21ProjetCode/litteral/rationnal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o complex.o ../LO21ProjetCode/litteral/complex.cpp
 
 expression.o: ../LO21ProjetCode/litteral/expression.cpp ../LO21ProjetCode/litteral/expression.h \
@@ -2823,8 +2831,6 @@ stack.o: ../LO21ProjetCode/structures/stack.cpp ../LO21ProjetCode/structures/sta
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o stack.o ../LO21ProjetCode/structures/stack.cpp
 
 parser.o: ../LO21ProjetCode/structures/parser.cpp ../LO21ProjetCode/structures/parser.h \
-		../LO21ProjetCode/litteral/integer.h \
-		../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/qstring.h \
 		/usr/include/qt5/QtCore/qchar.h \
@@ -2869,6 +2875,10 @@ parser.o: ../LO21ProjetCode/structures/parser.cpp ../LO21ProjetCode/structures/p
 		/usr/include/qt5/QtCore/qnamespace.h \
 		/usr/include/qt5/QtCore/qarraydata.h \
 		/usr/include/qt5/QtCore/qstringbuilder.h \
+		../LO21ProjetCode/litteral/integer.h \
+		../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/expression.h \
+		../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/QTextStream \
 		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qiodevice.h \
@@ -2901,9 +2911,7 @@ parser.o: ../LO21ProjetCode/structures/parser.cpp ../LO21ProjetCode/structures/p
 		/usr/include/qt5/QtCore/qstringmatcher.h \
 		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/QObject \
-		/usr/include/qt5/QtCore/QDebug \
-		../LO21ProjetCode/litteral/numeric.h \
-		../LO21ProjetCode/litteral/expression.h
+		/usr/include/qt5/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parser.o ../LO21ProjetCode/structures/parser.cpp
 
 programManager.o: ../LO21ProjetCode/structures/programManager.cpp ../LO21ProjetCode/structures/programManager.h \
@@ -3094,8 +3102,6 @@ identifierManager.o: ../LO21ProjetCode/structures/identifierManager.cpp ../LO21P
 
 generalManager.o: ../LO21ProjetCode/structures/generalManager.cpp ../LO21ProjetCode/structures/generalManager.h \
 		../LO21ProjetCode/structures/parser.h \
-		../LO21ProjetCode/litteral/integer.h \
-		../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/qstring.h \
 		/usr/include/qt5/QtCore/qchar.h \
@@ -3140,6 +3146,10 @@ generalManager.o: ../LO21ProjetCode/structures/generalManager.cpp ../LO21ProjetC
 		/usr/include/qt5/QtCore/qnamespace.h \
 		/usr/include/qt5/QtCore/qarraydata.h \
 		/usr/include/qt5/QtCore/qstringbuilder.h \
+		../LO21ProjetCode/litteral/integer.h \
+		../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/expression.h \
+		../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/QTextStream \
 		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qiodevice.h \
@@ -3173,12 +3183,15 @@ generalManager.o: ../LO21ProjetCode/structures/generalManager.cpp ../LO21ProjetC
 		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtCore/QDebug \
-		../LO21ProjetCode/litteral/numeric.h \
-		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/intermediary.h \
 		../LO21ProjetCode/litteral/atom.h \
+		../LO21ProjetCode/structures/identifierManager.h \
+		../LO21ProjetCode/structures/structures.h \
+		../LO21ProjetCode/litteral/real.h \
 		../LO21ProjetCode/litteral/rationnal.h \
-		../LO21ProjetCode/litteral/real.h
+		../LO21ProjetCode/litteral/program.h \
+		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/litteral/complex.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o generalManager.o ../LO21ProjetCode/structures/generalManager.cpp
 
 qvareditor.o: ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qvareditor.h \
@@ -3337,6 +3350,7 @@ qvareditor.o: ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qvareditor.h \
 		../LO21ProjetCode/intermediary.h \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
+		../LO21ProjetCode/structures/identifierManager.h \
 		../LO21ProjetCode/structures/structures.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
