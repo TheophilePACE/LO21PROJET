@@ -22,6 +22,7 @@ public:
     IdentifierManager():identifiers(nullptr),nb(0),max(0){}
     void addIdentifier(std::string s, Litteral* l);
     void removeIdentifier(Identifier& e);
+    Identifier * getIdentifier(Atom& a);
     unsigned int size(){return nb;}
     static IdentifierManager& getInstance();
     static void freeInstance();

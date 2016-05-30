@@ -1,6 +1,6 @@
 #include "expression.h"
 #include <sstream>
-
+/*
 void Expression::increaseCap()
 {
     max = max*2+1;
@@ -31,3 +31,10 @@ void Expression::print(QTextStream& f)const{
     f<<toQString(toString());
 }
 
+*/
+std::string Expression::toString()const {
+    return  instructions;
+}
+void Expression::print(QTextStream& f)const{
+    f<<toQString(instructions);
+}

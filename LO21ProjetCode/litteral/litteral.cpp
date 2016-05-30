@@ -43,6 +43,16 @@ bool isComplex(const QString s)
     QRegExp regExp ("[+-]?[0-9]*(\\.[0-9]*|\\/[+-]?[0-9]+)?\\$[+-]?[0-9]*(\\.[0-9]*|\\/[+-]?[0-9]+)?");
     return regExp.exactMatch(s);
 }
+bool isAtom(const QString s)
+{
+    QRegExp regExp ("[A-Z]([A-Z]|[0-9])*");
+    return regExp.exactMatch(s);
+}
+bool isExpression(const QString s) //Pas fini
+{
+        QRegExp regExp ("'.*'");
+        return regExp.exactMatch(s);
+}
 bool isNumber(const QString s){
    bool ok=false;
    s.toInt(&ok);

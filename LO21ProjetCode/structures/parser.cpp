@@ -23,6 +23,10 @@ std::string Parser::getType(QString s)
         return "Real";
     if(isComplex(s))
         return "Complex";
+    if(isAtom(s))
+        return "Atom";
+    if(isExpression(s))
+        return "Expression";
     throw "Type inconnu !!";
 
 }

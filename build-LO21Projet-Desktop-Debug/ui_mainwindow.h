@@ -172,11 +172,14 @@ public:
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(490, 30, 471, 261));
         groupBox->setMinimumSize(QSize(471, 261));
+        groupBox->setMaximumSize(QSize(471, 261));
+        groupBox->setBaseSize(QSize(471, 261));
         layoutWidget1 = new QWidget(groupBox);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(0, 20, 730, 268));
+        layoutWidget1->setGeometry(QRect(0, 20, 461, 241));
         verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        verticalLayout_3->setSizeConstraint(QLayout::SetNoConstraint);
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));

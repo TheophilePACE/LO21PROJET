@@ -1,5 +1,6 @@
 #include "qvareditor.h"
 #include "litteral/litteral.h"
+#include <typeinfo>
 
 QvarEditor::QvarEditor(QWidget *parent) : QWidget(parent)
 {
@@ -53,8 +54,11 @@ void QvarEditor::setVueVarView(){
     unsigned int NbElements =0;
     for(IdentifierManager::Iterator it = idMng->getIterator(); !it.isDone(); it.next(), ++NbElements)
     {
-        numberList[NbElements]=toQString(it.getCurrent().getLib()->toString());
-        varView->setItem(NbElements-1,0,new QTableWidgetItem(""));
+        if((typeid(*(it.getCurrent().getPValue())).name())!="Program") {
+            numberList[NbElements]=toQString(it.getCurrent().getLib()->toString());
+            varView->setItem(NbElements-1,0,new QTableWidgetItem(""));
+        }
+
     }
     //affectation de la liste de labels au header vertical
 

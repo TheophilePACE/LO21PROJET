@@ -43,3 +43,13 @@ void IdentifierManager::freeInstance(){
     delete sing.instance;
     sing.instance = nullptr;
 }
+
+Identifier* IdentifierManager::getIdentifier(Atom& a){
+    IdentifierManager::Iterator it = IdentifierManager::getInstance().getIterator();
+    while(!it.isDone() && it.getCurrent().getLib()->toString()!=a.toString()) {
+        it.next();
+    }
+    if(it.isDone())
+        return NULL;
+    return &(it.getCurrent());
+}
