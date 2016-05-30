@@ -11,7 +11,7 @@ private:
     Numeric* pReal;
     Numeric* pImag;
 public:
-    Complex (Numeric* Re, Numeric* Im): pReal(Re), pImag(Im) {std::cout<<"\nConstruction Cplx\n";} //correspond à la construction avec  $ (voir sujet)
+    Complex (Numeric* Re, Numeric* Im): pReal(Re), pImag(Im) {} //correspond à la construction avec  $ (voir sujet)
     void print(QTextStream& f)const;
     std::string toString()const;
     ~Complex(){}

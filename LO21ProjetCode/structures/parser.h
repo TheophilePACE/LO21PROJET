@@ -23,8 +23,9 @@ public:
 
     double getMantisse(QString s);
     float getFloat(QString s); //non implémentée
-    Integer getRealPart(QString s); //sert à rien, dangereux
-    Integer getImPart(QString s);
+    QString getRealPart(QString s); //renvoie la premiereparti du ima
+    QString getImPart(QString s);
+
 };
 
 #endif // PARSER_H

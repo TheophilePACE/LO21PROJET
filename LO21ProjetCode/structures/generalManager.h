@@ -15,6 +15,7 @@ public:
     static GeneralManager& getInstance();
     static void freeInstance();
     Item * createItem(QString s);
+    Item * createSimpleItem(QString s); //factoriser la création de numeric
     std::string getTypeLit(QString s);
 };
 
