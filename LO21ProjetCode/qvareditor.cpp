@@ -4,7 +4,7 @@
 
 QvarEditor::QvarEditor(QWidget *parent) : QWidget(parent)
 {
-    idMng = new  IdentifierManager;
+    idMng = &(IdentifierManager::getInstance());
     generalView = new QVBoxLayout(this);
     commandView = new QHBoxLayout();
     varView = new QTableWidget(4,1,this);
@@ -58,7 +58,8 @@ void QvarEditor::refresh()
 {
     unsigned int NbElements =0;
     QStringList numberList;
-    varView->setRowCount(NbElements);
+    varView->setRowCount(idMng->size());
+    std::cout << idMng->size();
     for(IdentifierManager::Iterator it = idMng->getIterator(); !it.isDone(); it.next())
     {
         numberList<<toQString(it.getCurrent().getLib()->toString());
@@ -71,10 +72,12 @@ void QvarEditor::refresh()
 
 void QvarEditor::validationButtonPressed() {
         if((commandIdentifier->text().toStdString() != "") && (commandValue->text().toStdString() != ""))
+        {
             getNextCommand();
-        stateModification();
-        commandIdentifier->setText("");
-        commandValue->setText("");
+            stateModification();
+            commandIdentifier->setText("");
+            commandValue->setText("");
+        }
 }
 void QvarEditor::getNextCommand(){
     IdentifierManager::Iterator it = idMng->getIterator();
@@ -101,7 +104,8 @@ void QvarEditor::getNextCommand(){
         std::string type = p.getType(commandValue->text());
         if(type=="Integer"||type=="Rationnal"||type=="Real"||type=="Atom"||type=="Expression")
         {
-            IdentifierManager::getInstance().addIdentifier(commandIdentifier->text().toStdString(),mng.createSimpleItem(commandValue->text())->getPLit());
+            idMng->addIdentifier(commandIdentifier->text().toStdString(),mng.createSimpleItem(commandValue->text())->getPLit());
+            std::cout << idMng->size();
         }
         else
             throw "Type Error";

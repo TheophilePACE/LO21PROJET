@@ -446,7 +446,7 @@ public:
         QObject::connect(checkBox, SIGNAL(toggled(bool)), groupBox, SLOT(setHidden(bool)));
         QObject::connect(horizontalSlider, SIGNAL(sliderMoved(int)), label_2, SLOT(setNum(int)));
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
