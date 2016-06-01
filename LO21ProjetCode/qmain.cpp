@@ -90,12 +90,15 @@ void QComputer::sliderMoved(int n) {
     pile->setNbItemsDisplayed(n);
     vuePile->setRowCount(n);
 
+    QStringList numberList;
     for(unsigned int i=pile->getNbItemsDisplayed();i>0;i--)
     {
         QString str = QString::number(i);
         str += ":";
+        numberList<<str;
         vuePile->setItem(i-1,0,new QTableWidgetItem(""));
     }
+    vuePile->setVerticalHeaderLabels(numberList);
 
     refresh();
 }

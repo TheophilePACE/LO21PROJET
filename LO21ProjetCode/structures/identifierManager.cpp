@@ -15,7 +15,7 @@ void IdentifierManager::addIdentifier(std::string s, Litteral* l){
        increaseCap();
     Atom * at = new Atom(s);
     Identifier* ident = new Identifier;
-    ident->setLib(*at);
+    ident->setLib(at);
     ident->setValue(l);
     identifiers[nb++]=ident;
 }

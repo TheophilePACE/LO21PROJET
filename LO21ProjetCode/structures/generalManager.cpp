@@ -24,7 +24,6 @@ Item * GeneralManager::createItem(QString s) {
         return createSimpleItem(s); //creation numeric
     if(type=="Complex")
     {
-//        Item* tempR, *tempI;
         Item* itRe= createSimpleItem(p.getRealPart(s));
         Item* itIm = createSimpleItem(p.getImPart(s));
         Complex * newCplx = new Complex(dynamic_cast<Numeric *>(itRe->getPLit()),dynamic_cast<Numeric *>(itIm->getPLit()));

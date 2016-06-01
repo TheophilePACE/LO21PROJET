@@ -28,7 +28,7 @@ class Identifier {
     Litteral* value;
 public:
     Identifier():lib(nullptr),value(nullptr){}
-    void setLib(Atom a){lib=&a;}
+    void setLib(Atom* a){lib=a;}
     void setValue(Litteral* l){value = l;}
     void print(QTextStream& f)const{lib->print(f);}
     Atom* getLib()const{return lib;}

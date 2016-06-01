@@ -25,7 +25,7 @@ public:
     virtual void print(QTextStream& f)const; //implémentée
     virtual std::string toString()const;//implémentée
     ~Numeric(){}
-    Numeric(long n=0,long d=1,double m=0): num(n), denum(d), mantisse(m) {std::cout<<"\nConstruction Num\n";}
+    Numeric(long n=0,long d=1,double m=0): num(n), denum(d), mantisse(m) {/*std::cout<<"\nConstruction Num\n";*/}
     Numeric (Numeric& N): num(N.num), denum(N.denum), mantisse(N.mantisse) {}
     //FONCTION POUR LES CONVERSIONS
     bool numIsInteger() const {return ((mantisse==0)&&(denum==1));} // A.0/1

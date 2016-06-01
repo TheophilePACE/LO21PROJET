@@ -7,7 +7,7 @@ QvarEditor::QvarEditor(QWidget *parent) : QWidget(parent)
     idMng = &(IdentifierManager::getInstance());
     generalView = new QVBoxLayout(this);
     commandView = new QHBoxLayout();
-    varView = new QTableWidget(4,1,this);
+    varView = new QTableWidget(1,1,this);
     commandValue = new QLineEdit;
     commandIdentifier = new QLineEdit;
     validation = new  QPushButton;
@@ -59,11 +59,10 @@ void QvarEditor::refresh()
     unsigned int NbElements =0;
     QStringList numberList;
     varView->setRowCount(idMng->size());
-    std::cout << idMng->size();
     for(IdentifierManager::Iterator it = idMng->getIterator(); !it.isDone(); it.next())
     {
         numberList<<toQString(it.getCurrent().getLib()->toString());
-        varView->setItem(NbElements-1,0,new QTableWidgetItem(toQString(it.getCurrent().getPValue()->toString())));
+        varView->setItem(NbElements,0,new QTableWidgetItem(toQString(it.getCurrent().getPValue()->toString())));
          ++NbElements;
     }
 
@@ -73,8 +72,14 @@ void QvarEditor::refresh()
 void QvarEditor::validationButtonPressed() {
         if((commandIdentifier->text().toStdString() != "") && (commandValue->text().toStdString() != ""))
         {
-            getNextCommand();
-            stateModification();
+            try {
+                getNextCommand();
+                stateModification();
+            }
+            catch (char const* s) {
+                std::cout << "Exception de : " << s;
+            }
+
             commandIdentifier->setText("");
             commandValue->setText("");
         }
@@ -82,32 +87,33 @@ void QvarEditor::validationButtonPressed() {
 void QvarEditor::getNextCommand(){
     IdentifierManager::Iterator it = idMng->getIterator();
     unsigned int NbElements =0;
+    Parser p = Parser::getInstance();
+    if(p.getType(commandIdentifier->text()) != "Atom")
+        throw "Type Error of the identifier";
     while(!it.isDone() &&
-          it.getCurrent().getLib()->toString()!=commandValue->text().toStdString())
+          it.getCurrent().getLib()->toString()!=commandIdentifier->text().toStdString())
     {
         it.next(); ++NbElements;
     }
     if(NbElements!=idMng->size())
     {
-        Parser p = Parser::getInstance();
+
         GeneralManager Mng = GeneralManager::getInstance();
         std::string type = p.getType(commandValue->text());
-        if(type=="Integer"||type=="Rationnal"||type=="Real"||type=="Atom"||type=="Expression")
-            it.getCurrent().setValue(Mng.createSimpleItem(commandValue->text())->getPLit());
+        if(type=="Integer"||type=="Rationnal"||type=="Real"||type=="Atom"||type=="Expression"||type=="Complex")
+            it.getCurrent().setValue(Mng.createItem(commandValue->text())->getPLit());
         else
-            throw "Type Error";
+            throw "Type Error Modification Var";
     }
     else
     {
-        Parser p = Parser::getInstance();
         GeneralManager mng = GeneralManager::getInstance();
         std::string type = p.getType(commandValue->text());
-        if(type=="Integer"||type=="Rationnal"||type=="Real"||type=="Atom"||type=="Expression")
+        if(type=="Integer"||type=="Rationnal"||type=="Real"||type=="Atom"||type=="Expression"||type=="Complex")
         {
-            idMng->addIdentifier(commandIdentifier->text().toStdString(),mng.createSimpleItem(commandValue->text())->getPLit());
-            std::cout << idMng->size();
+            idMng->addIdentifier(commandIdentifier->text().toStdString(),mng.createItem(commandValue->text())->getPLit());
         }
         else
-            throw "Type Error";
+            throw "Type Error Creation Var";
     }
 }
