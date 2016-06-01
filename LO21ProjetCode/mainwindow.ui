@@ -45,7 +45,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QComputer" name="CalcTab">
      <property name="toolTip">
@@ -69,7 +69,7 @@
       <string>Variables</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="Programmes">
+    <widget class="QprogramEditor" name="Programmes">
      <attribute name="title">
       <string>Programmes</string>
      </attribute>
@@ -182,8 +182,8 @@
       <rect>
        <x>0</x>
        <y>30</y>
-       <width>461</width>
-       <height>231</height>
+       <width>730</width>
+       <height>268</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -557,6 +557,12 @@
    <class>QComputer</class>
    <extends>QWidget</extends>
    <header>qmain.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QprogramEditor</class>
+   <extends>QWidget</extends>
+   <header>qprogrameditor.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

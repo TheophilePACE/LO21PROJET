@@ -26,6 +26,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "qmain.h"
+#include "qprogrameditor.h"
 #include "qvareditor.h"
 
 QT_BEGIN_NAMESPACE
@@ -37,7 +38,7 @@ public:
     QTabWidget *tabWidget;
     QComputer *CalcTab;
     QvarEditor *Variables;
-    QWidget *Programmes;
+    QprogramEditor *Programmes;
     QWidget *Parametres;
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
@@ -121,7 +122,7 @@ public:
         Variables = new QvarEditor();
         Variables->setObjectName(QStringLiteral("Variables"));
         tabWidget->addTab(Variables, QString());
-        Programmes = new QWidget();
+        Programmes = new QprogramEditor();
         Programmes->setObjectName(QStringLiteral("Programmes"));
         tabWidget->addTab(Programmes, QString());
         Parametres = new QWidget();
@@ -176,7 +177,7 @@ public:
         groupBox->setBaseSize(QSize(471, 261));
         layoutWidget1 = new QWidget(groupBox);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(0, 30, 461, 231));
+        layoutWidget1->setGeometry(QRect(0, 30, 730, 268));
         verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_3->setSizeConstraint(QLayout::SetNoConstraint);
@@ -446,7 +447,7 @@ public:
         QObject::connect(checkBox, SIGNAL(toggled(bool)), groupBox, SLOT(setHidden(bool)));
         QObject::connect(horizontalSlider, SIGNAL(sliderMoved(int)), label_2, SLOT(setNum(int)));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

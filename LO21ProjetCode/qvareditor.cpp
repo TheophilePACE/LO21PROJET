@@ -12,7 +12,15 @@ QvarEditor::QvarEditor(QWidget *parent) : QWidget(parent)
     commandIdentifier = new QLineEdit;
     validation = new  QPushButton;
 
+    validation->setText("Valider");
+    QLabel * text1 = new QLabel;
+    QLabel * text2 = new QLabel;
+
+    text1->setText("Nom");
+    text2->setText("Valeur");
+    commandView->addWidget(text1);
     commandView->addWidget(commandIdentifier);
+    commandView->addWidget(text2);
     commandView->addWidget(commandValue);
     commandView->addWidget(validation);
 
@@ -21,7 +29,7 @@ QvarEditor::QvarEditor(QWidget *parent) : QWidget(parent)
 
     for(IdentifierManager::Iterator it = idMng->getIterator(); !it.isDone(); it.next(), ++NbElements)
     {
-        if((typeid(*(it.getCurrent().getPValue())).name())!="Program") {
+        if(typeid(*(it.getCurrent().getPValue()))!=typeid(Program())) {
             numberList<<toQString(it.getCurrent().getLib()->toString());
             varView->setItem(NbElements-1,0,new QTableWidgetItem(""));
         }
@@ -95,25 +103,17 @@ void QvarEditor::getNextCommand(){
     {
         it.next(); ++NbElements;
     }
-    if(NbElements!=idMng->size())
-    {
-
-        GeneralManager Mng = GeneralManager::getInstance();
-        std::string type = p.getType(commandValue->text());
-        if(type=="Integer"||type=="Rationnal"||type=="Real"||type=="Atom"||type=="Expression"||type=="Complex")
-            it.getCurrent().setValue(Mng.createItem(commandValue->text())->getPLit());
-        else
-            throw "Type Error Modification Var";
-    }
-    else
+    std::string type = p.getType(commandValue->text());
+    if(type!="Atom" && type !="Program")
     {
         GeneralManager mng = GeneralManager::getInstance();
-        std::string type = p.getType(commandValue->text());
-        if(type=="Integer"||type=="Rationnal"||type=="Real"||type=="Atom"||type=="Expression"||type=="Complex")
-        {
-            idMng->addIdentifier(commandIdentifier->text().toStdString(),mng.createItem(commandValue->text())->getPLit());
-        }
+
+        if(NbElements!=idMng->size())
+            it.getCurrent().setValue(mng.createItem(commandValue->text())->getPLit());
         else
-            throw "Type Error Creation Var";
+            idMng->addIdentifier(commandIdentifier->text().toStdString(),mng.createItem(commandValue->text())->getPLit());
     }
+    else
+        throw "Type Error Creation Var";
+
 }

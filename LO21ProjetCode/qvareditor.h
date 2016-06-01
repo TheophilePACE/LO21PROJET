@@ -9,6 +9,7 @@
 #include <QHeaderView>
 #include <QPushButton>
 #include <QDebug>
+#include <QLabel>
 #include <stack>
 #include "litteral/litteral.h"
 #include "intermediary.h"
@@ -23,7 +24,6 @@ class QvarEditor : public QWidget{
         QVBoxLayout * generalView;
         QHBoxLayout * commandView;
         IdentifierManager * idMng;
-        Controller * controleur;
     public:
         explicit QvarEditor(QWidget * parent = 0);
     public slots:
