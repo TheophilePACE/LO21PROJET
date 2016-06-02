@@ -4,13 +4,19 @@
 
 QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
 {
-    QComboBox * programChoice;
-    QTextEdit * programText;
-    QPushButton * validation;
-    QHBoxLayout * commandView;
-    QVBoxLayout * generalView;
+    QPushButton * newProg = new QPushButton;
 
-    IdentifierManager * prgMng;
+    newWindow = new QWindow2;
+    QHBoxLayout * newWLay = new QHBoxLayout();
+    QPushButton * saveNewProg = new QPushButton;
+    saveNewProg->setText("Créer");
+    newProgName = new QLineEdit;
+    QLabel * newProgLabel = new QLabel("Nom Programme");
+
+    newWLay->addWidget(newProgLabel);
+    newWLay->addWidget(newProgName);
+    newWLay->addWidget(saveNewProg);
+    newWindow->setLayout(newWLay);
 
     prgMng = &(IdentifierManager::getInstance());
     programChoice = new QComboBox();
@@ -24,13 +30,17 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
 
     text1->setText("Nom Programme");
 
+    newProg->setText("Nouveau");
+
     QStringList names;
     for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
         if((typeid(*(it.getCurrent().getPValue())))==typeid(Program()))
             names<<toQString(it.getCurrent().getLib()->toString());
     programChoice->addItems(names);
+
     commandView->addWidget(text1);
     commandView->addWidget(programChoice);
+    commandView->addWidget(newProg);
     commandView->addWidget(validation);
 
     generalView->addLayout(commandView);
@@ -41,21 +51,57 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
    //Affectation sinaux-slots
    connect(programChoice,SIGNAL(currentIndexChanged(const QString&)),this,SLOT(choiceProgram(const QString&)));
    connect(validation,SIGNAL(clicked()),this,SLOT(saveProgram()));
-
+   connect(newProg,SIGNAL(clicked()),newWindow,SLOT(show()));
+   connect(saveNewProg,SIGNAL(clicked()),this,SLOT(newProgram()));
 }
 
 void QprogramEditor::choiceProgram(const QString& s) {
-    for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
-        if(it.getCurrent().getLib()->toString()==s.toStdString())
+      for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
+         if(it.getCurrent().getLib()->toString()==s.toStdString())
             programText->setText(toQString(it.getCurrent().getPValue()->toString()));
 }
 void QprogramEditor::saveProgram(){
-
+    try {
+        if(programChoice->count()==0)
+            throw "Pas de programme sélectionné";
+    }
+    catch (char const* s) {
+        std::cout << "Exception de : " << s;
+    }
     for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
         if(it.getCurrent().getLib()->toString()==programChoice->currentText().toStdString())
         {
             Program * prog = new Program(programText->toPlainText().toStdString());
             it.getCurrent().setValue(prog);
         }
+    refresh();
+}
+void QprogramEditor::newProgram(){
+    GeneralManager mng = GeneralManager::getInstance();
+    Parser p = Parser::getInstance();
+    try {
+        if(newProgName->text()=="")
+            throw "Nom Vide !";
+        if(p.getType(newProgName->text()) != "Atom")
+            throw "Nom non Valide !";
+        for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
+            if(it.getCurrent().getLib()->toString()==newProgName->text().toStdString())
+                throw "Nom Existe déjà";
+        prgMng->addIdentifier(newProgName->text().toStdString(),mng.createProgram("")->getPLit());
+    }
+    catch (char const* s) {
+        std::cout << "Exception de : " << s;
+    }
+    newProgName->setText("");
+    newWindow->hide();
+    refresh();
+}
 
+void QprogramEditor::refresh(){
+    QStringList names;
+    for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
+        if((typeid(*(it.getCurrent().getPValue())))==typeid(Program))
+            names<<toQString(it.getCurrent().getLib()->toString());
+    programChoice->clear();
+    programChoice->addItems(names);
 }

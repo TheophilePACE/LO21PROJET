@@ -29,7 +29,7 @@ QvarEditor::QvarEditor(QWidget *parent) : QWidget(parent)
 
     for(IdentifierManager::Iterator it = idMng->getIterator(); !it.isDone(); it.next(), ++NbElements)
     {
-        if(typeid(*(it.getCurrent().getPValue()))!=typeid(Program())) {
+        if(typeid(*(it.getCurrent().getPValue()))!=typeid(Program)) {
             numberList<<toQString(it.getCurrent().getLib()->toString());
             varView->setItem(NbElements-1,0,new QTableWidgetItem(""));
         }
@@ -66,12 +66,14 @@ void QvarEditor::refresh()
 {
     unsigned int NbElements =0;
     QStringList numberList;
-    varView->setRowCount(idMng->size());
+    varView->setRowCount(idMng->sizeAtoms());
     for(IdentifierManager::Iterator it = idMng->getIterator(); !it.isDone(); it.next())
     {
-        numberList<<toQString(it.getCurrent().getLib()->toString());
-        varView->setItem(NbElements,0,new QTableWidgetItem(toQString(it.getCurrent().getPValue()->toString())));
-         ++NbElements;
+        if(typeid(*(it.getCurrent().getPValue()))!=typeid(Program)) {
+            numberList<<toQString(it.getCurrent().getLib()->toString());
+            varView->setItem(NbElements,0,new QTableWidgetItem(toQString(it.getCurrent().getPValue()->toString())));
+             ++NbElements;
+        }
     }
 
     varView->setVerticalHeaderLabels(numberList);
@@ -93,9 +95,11 @@ void QvarEditor::validationButtonPressed() {
         }
 }
 void QvarEditor::getNextCommand(){
+
     IdentifierManager::Iterator it = idMng->getIterator();
     unsigned int NbElements =0;
     Parser p = Parser::getInstance();
+
     if(p.getType(commandIdentifier->text()) != "Atom")
         throw "Type Error of the identifier";
     while(!it.isDone() &&
@@ -109,7 +113,10 @@ void QvarEditor::getNextCommand(){
         GeneralManager mng = GeneralManager::getInstance();
 
         if(NbElements!=idMng->size())
-            it.getCurrent().setValue(mng.createItem(commandValue->text())->getPLit());
+            if(typeid(*(it.getCurrent().getPValue()))!=typeid(Program))
+                it.getCurrent().setValue(mng.createItem(commandValue->text())->getPLit());
+            else
+                throw "Modification de Programme Impossible d'ici";
         else
             idMng->addIdentifier(commandIdentifier->text().toStdString(),mng.createItem(commandValue->text())->getPLit());
     }

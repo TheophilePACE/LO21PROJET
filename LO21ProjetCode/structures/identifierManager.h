@@ -24,6 +24,7 @@ public:
     void removeIdentifier(Identifier& e);
     Identifier * getIdentifier(Atom& a);
     unsigned int size(){return nb;}
+    unsigned int sizeAtoms();
     static IdentifierManager& getInstance();
     static void freeInstance();
     class Iterator {

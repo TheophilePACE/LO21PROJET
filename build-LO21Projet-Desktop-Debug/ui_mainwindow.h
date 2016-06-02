@@ -177,7 +177,7 @@ public:
         groupBox->setBaseSize(QSize(471, 261));
         layoutWidget1 = new QWidget(groupBox);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(0, 30, 730, 268));
+        layoutWidget1->setGeometry(QRect(0, 20, 461, 241));
         verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_3->setSizeConstraint(QLayout::SetNoConstraint);
@@ -440,6 +440,7 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout_2);
 
+        layoutWidget->raise();
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
@@ -447,7 +448,7 @@ public:
         QObject::connect(checkBox, SIGNAL(toggled(bool)), groupBox, SLOT(setHidden(bool)));
         QObject::connect(horizontalSlider, SIGNAL(sliderMoved(int)), label_2, SLOT(setNum(int)));
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

@@ -14,6 +14,12 @@ void GeneralManager::freeInstance(){
     delete sing.instance;
     sing.instance = nullptr;
 }
+Item * GeneralManager::createProgram(QString s){
+    Program * newProg = new Program(s.toStdString());
+    Item * It = new Item;
+    It->setLit(newProg);
+    return It;
+}
 
 Item * GeneralManager::createItem(QString s) {
     Parser p = Parser::getInstance();

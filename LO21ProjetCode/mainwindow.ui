@@ -45,7 +45,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QComputer" name="CalcTab">
      <property name="toolTip">
@@ -181,9 +181,9 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>30</y>
-       <width>730</width>
-       <height>268</height>
+       <y>20</y>
+       <width>461</width>
+       <height>241</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -543,6 +543,11 @@
       </item>
      </layout>
     </widget>
+    <zorder></zorder>
+    <zorder></zorder>
+    <zorder></zorder>
+    <zorder></zorder>
+    <zorder>layoutWidget</zorder>
    </widget>
   </widget>
  </widget>

@@ -53,3 +53,11 @@ Identifier* IdentifierManager::getIdentifier(Atom& a){
         return NULL;
     return &(it.getCurrent());
 }
+unsigned int IdentifierManager::sizeAtoms(){
+    unsigned int nProg = 0;
+    for(IdentifierManager::Iterator it = getIterator(); !it.isDone(); it.next())
+        if((typeid(*(it.getCurrent().getPValue())))==typeid(Program))
+            nProg++;
+    return size()-nProg;
+}
+
