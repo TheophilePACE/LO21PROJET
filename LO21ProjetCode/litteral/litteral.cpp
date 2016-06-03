@@ -60,28 +60,6 @@ bool isNumber(const QString s){
    return ok;
 }
 
-/*
-bool isExression(const QString s) {
-    QRegExp regExp ("\"")
-    unsigned int size = s.size();
-    if(((s.data[size-1]=="\"") && (s.data[0]=="\"")) && (s.count("\"")==2))
-        return true;
-   return false;
-}*/
-/*
-bool isProgram(const QString s) {
-    unsigned int size = s.size();
-    if((((s.data[size-1]=="[") && (s.data[0]=="]")) && (s.count("[")==1))&&(s.count("]")==1))
-        return true;
-   return false;
-}
-bool isAtom(const QString s) {
-    if (s.data[0]//nonmaj)
-            )
-        return false;
-
-}*/
-
 //Math Functions
 unsigned int pgcd(int a, int b)
 {

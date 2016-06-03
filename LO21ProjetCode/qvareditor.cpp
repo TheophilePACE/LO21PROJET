@@ -92,7 +92,14 @@ void QvarEditor::validationButtonPressed() {
                 stateModification();
             }
             catch (char const* s) {
-                std::cout << "Exception de : " << s;
+                QWindow2 *win = new QWindow2;
+                QLabel * lab = new QLabel;
+                QVBoxLayout * layout = new QVBoxLayout;
+                layout->addWidget(lab);
+                lab->setText(s);
+                win->setWindowTitle("Error Window");
+                win->setLayout(layout);
+                win->show();
             }
             refresh();
 
