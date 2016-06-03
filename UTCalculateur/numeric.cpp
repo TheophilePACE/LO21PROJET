@@ -1,5 +1,6 @@
 #include "numeric.h"
 
+
 //ANCIENNE VERSION:
 //Numeric& operator+(const Numeric& N1, const Numeric& N2)
 //{

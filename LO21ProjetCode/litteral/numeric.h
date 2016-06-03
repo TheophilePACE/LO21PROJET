@@ -18,14 +18,19 @@ public:
     const long&  getDenum() const { return denum;}
     const double& getMantisse() const { return mantisse;}
     bool isNull() const {return (num+mantisse ==0);}
-  //  Numeric operator+ (const Numeric& N) const;
-//    virtual Numeric& operator- (const Numeric& N) const;
-//    virtual Numeric& operator/ (const Numeric& N) const;
-//    virtual Numeric& operator* (const Numeric& N) const;
+    virtual Numeric operator+ (const Numeric& N) const;
+//    virtual Numeric operator- (const Numeric& N) const;
+//    virtual Numeric operator/ (const Numeric& N) const;
+//    virtual Numeric operator* (const Numeric& N) const;
     virtual void print(QTextStream& f)const; //implémentée
     virtual std::string toString()const;//implémentée
     ~Numeric(){}
-    Numeric(long n=0,long d=1,double m=0): num(n), denum(d), mantisse(m) {std::cout<<"\nConstruction Num\n";}
+    Numeric(long n,double m,long d): num(n), denum(d), mantisse(m) {std::cout<<"\nConstruction Num\n";}
+    Numeric(long n,long d): num(n), denum(d), mantisse(0) {std::cout<<"\nConstruction Num type frac\n";}
+    //Numeric(long n): num(n), denum(1), mantisse(0) {std::cout<<"\nConstruction Num\n";}
+    Numeric(double m): num(trunc(m)), denum(1), mantisse(m-trunc(m)) {std::cout<<"\nConstruction Num Avec Double\n";}
+    Numeric(): num(0), denum(1), mantisse(0) {std::cout<<"\nConstruction Num sans arg \n";}
+
     Numeric (Numeric& N): num(N.num), denum(N.denum), mantisse(N.mantisse) {}
     //FONCTION POUR LES CONVERSIONS
     bool numIsInteger() const {return ((mantisse==0)&&(denum==1));} // A.0/1
@@ -33,6 +38,7 @@ public:
     bool numIsReal() const {return ((mantisse!=0)&&(denum==1));}//A.B/1
 
 };
+
 
 
 //TEMPLATE POUR ADDITION Numeric
@@ -45,6 +51,5 @@ Numeric* addNum (T1* N1,T2* N2)
 }
 */
 
-//bool castNum(Numeric * N); //cast class fille
 
 #endif // NUMERIC_H

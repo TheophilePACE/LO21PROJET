@@ -1,6 +1,7 @@
 #ifndef ATOM_H
 #define ATOM_H
 
+#include "litteral.h"
 #include "expression.h"
 
 class Atom : public ExpressionMaterial {
