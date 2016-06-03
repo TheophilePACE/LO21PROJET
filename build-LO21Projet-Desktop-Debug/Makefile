@@ -12,13 +12,13 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -DQT_WIDGETS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I../LO21ProjetCode -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -I. -I.
+INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I../LO21ProjetCode -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -I. -I.
 LINK          = g++
 LFLAGS        = -m64
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Xml -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
@@ -254,7 +254,8 @@ Makefile: ../LO21ProjetCode/LO21Projet.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs
 		../LO21ProjetCode/LO21Projet.pro \
 		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
-		/usr/lib/x86_64-linux-gnu/libQt5Core.prl
+		/usr/lib/x86_64-linux-gnu/libQt5Core.prl \
+		/usr/lib/x86_64-linux-gnu/libQt5Xml.prl
 	$(QMAKE) -spec linux-g++-64 CONFIG+=debug CONFIG+=declarative_debug CONFIG+=qml_debug -o Makefile ../LO21ProjetCode/LO21Projet.pro
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf:
@@ -320,6 +321,7 @@ Makefile: ../LO21ProjetCode/LO21Projet.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs
 /usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
+/usr/lib/x86_64-linux-gnu/libQt5Xml.prl:
 qmake: FORCE
 	@$(QMAKE) -spec linux-g++-64 CONFIG+=debug CONFIG+=declarative_debug CONFIG+=qml_debug -o Makefile ../LO21ProjetCode/LO21Projet.pro
 
@@ -667,10 +669,122 @@ moc_mainwindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtWidgets/QHeaderView \
 		/usr/include/qt5/QtWidgets/qheaderview.h \
 		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtXml/QtXml \
+		/usr/include/qt5/QtXml/QtXmlDepends \
+		/usr/include/qt5/QtCore/QtCore \
+		/usr/include/qt5/QtCore/QtCoreDepends \
+		/usr/include/qt5/QtCore/qabstractanimation.h \
+		/usr/include/qt5/QtCore/qanimationgroup.h \
+		/usr/include/qt5/QtCore/qparallelanimationgroup.h \
+		/usr/include/qt5/QtCore/qpauseanimation.h \
+		/usr/include/qt5/QtCore/qpropertyanimation.h \
+		/usr/include/qt5/QtCore/qvariantanimation.h \
+		/usr/include/qt5/QtCore/qeasingcurve.h \
+		/usr/include/qt5/QtCore/qsequentialanimationgroup.h \
+		/usr/include/qt5/QtCore/qtextcodec.h \
+		/usr/include/qt5/QtCore/qendian.h \
+		/usr/include/qt5/QtCore/qlibraryinfo.h \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qnumeric.h \
+		/usr/include/qt5/QtCore/qbuffer.h \
+		/usr/include/qt5/QtCore/qdir.h \
+		/usr/include/qt5/QtCore/qfileinfo.h \
+		/usr/include/qt5/QtCore/qdiriterator.h \
+		/usr/include/qt5/QtCore/qfileselector.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtCore/qfilesystemwatcher.h \
+		/usr/include/qt5/QtCore/qlockfile.h \
+		/usr/include/qt5/QtCore/qloggingcategory.h \
+		/usr/include/qt5/QtCore/qprocess.h \
+		/usr/include/qt5/QtCore/qresource.h \
+		/usr/include/qt5/QtCore/qsavefile.h \
+		/usr/include/qt5/QtCore/qsettings.h \
+		/usr/include/qt5/QtCore/qstandardpaths.h \
+		/usr/include/qt5/QtCore/qtemporarydir.h \
+		/usr/include/qt5/QtCore/QScopedPointer \
+		/usr/include/qt5/QtCore/qtemporaryfile.h \
+		/usr/include/qt5/QtCore/qabstractproxymodel.h \
+		/usr/include/qt5/QtCore/qidentityproxymodel.h \
+		/usr/include/qt5/QtCore/qsortfilterproxymodel.h \
+		/usr/include/qt5/QtCore/qstringlistmodel.h \
+		/usr/include/qt5/QtCore/qjsonarray.h \
+		/usr/include/qt5/QtCore/qjsonvalue.h \
+		/usr/include/qt5/QtCore/qjsondocument.h \
+		/usr/include/qt5/QtCore/qjsonobject.h \
+		/usr/include/qt5/QtCore/qabstracteventdispatcher.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtCore/qabstractnativeeventfilter.h \
+		/usr/include/qt5/QtCore/qbasictimer.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qmath.h \
+		/usr/include/qt5/QtCore/qmetaobject.h \
+		/usr/include/qt5/QtCore/qmimedata.h \
+		/usr/include/qt5/QtCore/qobjectcleanuphandler.h \
+		/usr/include/qt5/QtCore/qpointer.h \
+		/usr/include/qt5/QtCore/qsharedmemory.h \
+		/usr/include/qt5/QtCore/qsignalmapper.h \
+		/usr/include/qt5/QtCore/qsocketnotifier.h \
+		/usr/include/qt5/QtCore/qsystemsemaphore.h \
+		/usr/include/qt5/QtCore/qtimer.h \
+		/usr/include/qt5/QtCore/qtranslator.h \
+		/usr/include/qt5/QtCore/qwineventnotifier.h \
+		/usr/include/qt5/QtCore/qmimedatabase.h \
+		/usr/include/qt5/QtCore/qmimetype.h \
+		/usr/include/qt5/QtCore/qfactoryinterface.h \
+		/usr/include/qt5/QtCore/qlibrary.h \
+		/usr/include/qt5/QtCore/qplugin.h \
+		/usr/include/qt5/QtCore/qpluginloader.h \
+		/usr/include/qt5/QtCore/quuid.h \
+		/usr/include/qt5/QtCore/qabstractstate.h \
+		/usr/include/qt5/QtCore/qabstracttransition.h \
+		/usr/include/qt5/QtCore/qeventtransition.h \
+		/usr/include/qt5/QtCore/qfinalstate.h \
+		/usr/include/qt5/QtCore/qhistorystate.h \
+		/usr/include/qt5/QtCore/qsignaltransition.h \
+		/usr/include/qt5/QtCore/qstate.h \
+		/usr/include/qt5/QtCore/qstatemachine.h \
+		/usr/include/qt5/QtCore/qexception.h \
+		/usr/include/qt5/QtCore/qfuture.h \
+		/usr/include/qt5/QtCore/qfutureinterface.h \
+		/usr/include/qt5/QtCore/qrunnable.h \
+		/usr/include/qt5/QtCore/qresultstore.h \
+		/usr/include/qt5/QtCore/qfuturesynchronizer.h \
+		/usr/include/qt5/QtCore/qfuturewatcher.h \
+		/usr/include/qt5/QtCore/qreadwritelock.h \
+		/usr/include/qt5/QtCore/qsemaphore.h \
+		/usr/include/qt5/QtCore/qthread.h \
+		/usr/include/qt5/QtCore/qthreadpool.h \
+		/usr/include/qt5/QtCore/qthreadstorage.h \
+		/usr/include/qt5/QtCore/qwaitcondition.h \
+		/usr/include/qt5/QtCore/qarraydataops.h \
+		/usr/include/qt5/QtCore/qarraydatapointer.h \
+		/usr/include/qt5/QtCore/qbitarray.h \
+		/usr/include/qt5/QtCore/qbytearraymatcher.h \
+		/usr/include/qt5/QtCore/qcache.h \
+		/usr/include/qt5/QtCore/qcollator.h \
+		/usr/include/qt5/QtCore/qcommandlineoption.h \
+		/usr/include/qt5/QtCore/qcommandlineparser.h \
+		/usr/include/qt5/QtCore/qcryptographichash.h \
+		/usr/include/qt5/QtCore/qelapsedtimer.h \
+		/usr/include/qt5/QtCore/qlinkedlist.h \
+		/usr/include/qt5/QtCore/qmessageauthenticationcode.h \
+		/usr/include/qt5/QtCore/qqueue.h \
+		/usr/include/qt5/QtCore/qscopedvaluerollback.h \
+		/usr/include/qt5/QtCore/qstack.h \
+		/usr/include/qt5/QtCore/qtextboundaryfinder.h \
+		/usr/include/qt5/QtCore/qtimeline.h \
+		/usr/include/qt5/QtCore/qtimezone.h \
+		/usr/include/qt5/QtCore/qxmlstream.h \
+		/usr/include/qt5/QtCore/qtcoreversion.h \
+		/usr/include/qt5/QtXml/qtxmlglobal.h \
+		/usr/include/qt5/QtXml/qdom.h \
+		/usr/include/qt5/QtXml/qxml.h \
+		/usr/include/qt5/QtXml/qtxmlversion.h \
+		../rapidxml-1.13/rapidxml.hpp \
 		../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QTextStream \
-		/usr/include/qt5/QtCore/QObject \
 		../LO21ProjetCode/intermediary.h \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
@@ -1099,9 +1213,18 @@ moc_qprogrameditor.cpp: ../LO21ProjetCode/structures/identifierManager.h \
 		/usr/include/qt5/QtWidgets/qlayoutitem.h \
 		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		/usr/include/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/qt5/QtWidgets/QLineEdit \
+		/usr/include/qt5/QtWidgets/qlineedit.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtGui/QWindow \
+		/usr/include/qt5/QtGui/qwindow.h \
+		/usr/include/qt5/QtCore/QEvent \
+		/usr/include/qt5/QtCore/QMargins \
+		/usr/include/qt5/QtCore/QRect \
+		/usr/include/qt5/QtGui/qsurface.h \
+		/usr/include/qt5/QtGui/qsurfaceformat.h \
 		../LO21ProjetCode/qprogrameditor.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../LO21ProjetCode/qprogrameditor.h -o moc_qprogrameditor.cpp
 
@@ -1604,9 +1727,18 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		/usr/include/qt5/QtWidgets/qlayoutitem.h \
 		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		/usr/include/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/qt5/QtWidgets/QLineEdit \
+		/usr/include/qt5/QtWidgets/qlineedit.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		/usr/include/qt5/QtCore/QStringList
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtGui/QWindow \
+		/usr/include/qt5/QtGui/qwindow.h \
+		/usr/include/qt5/QtCore/QEvent \
+		/usr/include/qt5/QtCore/QMargins \
+		/usr/include/qt5/QtCore/QRect \
+		/usr/include/qt5/QtGui/qsurface.h \
+		/usr/include/qt5/QtGui/qsurfaceformat.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../LO21ProjetCode/mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
@@ -1787,10 +1919,120 @@ main.o: ../LO21ProjetCode/main.cpp ../LO21ProjetCode/litteral/litteral.h \
 		../LO21ProjetCode/mainwindow.h \
 		/usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtWidgets/qmainwindow.h \
+		/usr/include/qt5/QtXml/QtXml \
+		/usr/include/qt5/QtXml/QtXmlDepends \
+		/usr/include/qt5/QtCore/QtCore \
+		/usr/include/qt5/QtCore/QtCoreDepends \
+		/usr/include/qt5/QtCore/qabstractanimation.h \
+		/usr/include/qt5/QtCore/qanimationgroup.h \
+		/usr/include/qt5/QtCore/qparallelanimationgroup.h \
+		/usr/include/qt5/QtCore/qpauseanimation.h \
+		/usr/include/qt5/QtCore/qpropertyanimation.h \
+		/usr/include/qt5/QtCore/qvariantanimation.h \
+		/usr/include/qt5/QtCore/qeasingcurve.h \
+		/usr/include/qt5/QtCore/qsequentialanimationgroup.h \
+		/usr/include/qt5/QtCore/qtextcodec.h \
+		/usr/include/qt5/QtCore/qendian.h \
+		/usr/include/qt5/QtCore/qlibraryinfo.h \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qnumeric.h \
+		/usr/include/qt5/QtCore/qbuffer.h \
+		/usr/include/qt5/QtCore/qdir.h \
+		/usr/include/qt5/QtCore/qfileinfo.h \
+		/usr/include/qt5/QtCore/qdiriterator.h \
+		/usr/include/qt5/QtCore/qfileselector.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtCore/qfilesystemwatcher.h \
+		/usr/include/qt5/QtCore/qlockfile.h \
+		/usr/include/qt5/QtCore/qloggingcategory.h \
+		/usr/include/qt5/QtCore/qprocess.h \
+		/usr/include/qt5/QtCore/qresource.h \
+		/usr/include/qt5/QtCore/qsavefile.h \
+		/usr/include/qt5/QtCore/qsettings.h \
+		/usr/include/qt5/QtCore/qstandardpaths.h \
+		/usr/include/qt5/QtCore/qtemporarydir.h \
+		/usr/include/qt5/QtCore/QScopedPointer \
+		/usr/include/qt5/QtCore/qtemporaryfile.h \
+		/usr/include/qt5/QtCore/qabstractproxymodel.h \
+		/usr/include/qt5/QtCore/qidentityproxymodel.h \
+		/usr/include/qt5/QtCore/qsortfilterproxymodel.h \
+		/usr/include/qt5/QtCore/qstringlistmodel.h \
+		/usr/include/qt5/QtCore/qjsonarray.h \
+		/usr/include/qt5/QtCore/qjsonvalue.h \
+		/usr/include/qt5/QtCore/qjsondocument.h \
+		/usr/include/qt5/QtCore/qjsonobject.h \
+		/usr/include/qt5/QtCore/qabstracteventdispatcher.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtCore/qabstractnativeeventfilter.h \
+		/usr/include/qt5/QtCore/qbasictimer.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qmath.h \
+		/usr/include/qt5/QtCore/qmetaobject.h \
+		/usr/include/qt5/QtCore/qmimedata.h \
+		/usr/include/qt5/QtCore/qobjectcleanuphandler.h \
+		/usr/include/qt5/QtCore/qpointer.h \
+		/usr/include/qt5/QtCore/qsharedmemory.h \
+		/usr/include/qt5/QtCore/qsignalmapper.h \
+		/usr/include/qt5/QtCore/qsocketnotifier.h \
+		/usr/include/qt5/QtCore/qsystemsemaphore.h \
+		/usr/include/qt5/QtCore/qtimer.h \
+		/usr/include/qt5/QtCore/qtranslator.h \
+		/usr/include/qt5/QtCore/qwineventnotifier.h \
+		/usr/include/qt5/QtCore/qmimedatabase.h \
+		/usr/include/qt5/QtCore/qmimetype.h \
+		/usr/include/qt5/QtCore/qfactoryinterface.h \
+		/usr/include/qt5/QtCore/qlibrary.h \
+		/usr/include/qt5/QtCore/qplugin.h \
+		/usr/include/qt5/QtCore/qpluginloader.h \
+		/usr/include/qt5/QtCore/quuid.h \
+		/usr/include/qt5/QtCore/qabstractstate.h \
+		/usr/include/qt5/QtCore/qabstracttransition.h \
+		/usr/include/qt5/QtCore/qeventtransition.h \
+		/usr/include/qt5/QtCore/qfinalstate.h \
+		/usr/include/qt5/QtCore/qhistorystate.h \
+		/usr/include/qt5/QtCore/qsignaltransition.h \
+		/usr/include/qt5/QtCore/qstate.h \
+		/usr/include/qt5/QtCore/qstatemachine.h \
+		/usr/include/qt5/QtCore/qexception.h \
+		/usr/include/qt5/QtCore/qfuture.h \
+		/usr/include/qt5/QtCore/qfutureinterface.h \
+		/usr/include/qt5/QtCore/qrunnable.h \
+		/usr/include/qt5/QtCore/qresultstore.h \
+		/usr/include/qt5/QtCore/qfuturesynchronizer.h \
+		/usr/include/qt5/QtCore/qfuturewatcher.h \
+		/usr/include/qt5/QtCore/qreadwritelock.h \
+		/usr/include/qt5/QtCore/qsemaphore.h \
+		/usr/include/qt5/QtCore/qthread.h \
+		/usr/include/qt5/QtCore/qthreadpool.h \
+		/usr/include/qt5/QtCore/qthreadstorage.h \
+		/usr/include/qt5/QtCore/qwaitcondition.h \
+		/usr/include/qt5/QtCore/qarraydataops.h \
+		/usr/include/qt5/QtCore/qarraydatapointer.h \
+		/usr/include/qt5/QtCore/qbitarray.h \
+		/usr/include/qt5/QtCore/qbytearraymatcher.h \
+		/usr/include/qt5/QtCore/qcache.h \
+		/usr/include/qt5/QtCore/qcollator.h \
+		/usr/include/qt5/QtCore/qcommandlineoption.h \
+		/usr/include/qt5/QtCore/qcommandlineparser.h \
+		/usr/include/qt5/QtCore/qcryptographichash.h \
+		/usr/include/qt5/QtCore/qelapsedtimer.h \
+		/usr/include/qt5/QtCore/qlinkedlist.h \
+		/usr/include/qt5/QtCore/qmessageauthenticationcode.h \
+		/usr/include/qt5/QtCore/qqueue.h \
+		/usr/include/qt5/QtCore/qscopedvaluerollback.h \
+		/usr/include/qt5/QtCore/qstack.h \
+		/usr/include/qt5/QtCore/qtextboundaryfinder.h \
+		/usr/include/qt5/QtCore/qtimeline.h \
+		/usr/include/qt5/QtCore/qtimezone.h \
+		/usr/include/qt5/QtCore/qxmlstream.h \
+		/usr/include/qt5/QtCore/qtcoreversion.h \
+		/usr/include/qt5/QtXml/qtxmlglobal.h \
+		/usr/include/qt5/QtXml/qdom.h \
+		/usr/include/qt5/QtXml/qxml.h \
+		/usr/include/qt5/QtXml/qtxmlversion.h \
+		../rapidxml-1.13/rapidxml.hpp \
 		/usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtWidgets/qapplication.h \
-		/usr/include/qt5/QtCore/qcoreapplication.h \
-		/usr/include/qt5/QtCore/qeventloop.h \
 		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
 		/usr/include/qt5/QtGui/qguiapplication.h \
 		/usr/include/qt5/QtGui/qinputmethod.h \
@@ -2195,10 +2437,122 @@ mainwindow.o: ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/mainwindow.h \
 		/usr/include/qt5/QtWidgets/QHeaderView \
 		/usr/include/qt5/QtWidgets/qheaderview.h \
 		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtXml/QtXml \
+		/usr/include/qt5/QtXml/QtXmlDepends \
+		/usr/include/qt5/QtCore/QtCore \
+		/usr/include/qt5/QtCore/QtCoreDepends \
+		/usr/include/qt5/QtCore/qabstractanimation.h \
+		/usr/include/qt5/QtCore/qanimationgroup.h \
+		/usr/include/qt5/QtCore/qparallelanimationgroup.h \
+		/usr/include/qt5/QtCore/qpauseanimation.h \
+		/usr/include/qt5/QtCore/qpropertyanimation.h \
+		/usr/include/qt5/QtCore/qvariantanimation.h \
+		/usr/include/qt5/QtCore/qeasingcurve.h \
+		/usr/include/qt5/QtCore/qsequentialanimationgroup.h \
+		/usr/include/qt5/QtCore/qtextcodec.h \
+		/usr/include/qt5/QtCore/qendian.h \
+		/usr/include/qt5/QtCore/qlibraryinfo.h \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qnumeric.h \
+		/usr/include/qt5/QtCore/qbuffer.h \
+		/usr/include/qt5/QtCore/qdir.h \
+		/usr/include/qt5/QtCore/qfileinfo.h \
+		/usr/include/qt5/QtCore/qdiriterator.h \
+		/usr/include/qt5/QtCore/qfileselector.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtCore/qfilesystemwatcher.h \
+		/usr/include/qt5/QtCore/qlockfile.h \
+		/usr/include/qt5/QtCore/qloggingcategory.h \
+		/usr/include/qt5/QtCore/qprocess.h \
+		/usr/include/qt5/QtCore/qresource.h \
+		/usr/include/qt5/QtCore/qsavefile.h \
+		/usr/include/qt5/QtCore/qsettings.h \
+		/usr/include/qt5/QtCore/qstandardpaths.h \
+		/usr/include/qt5/QtCore/qtemporarydir.h \
+		/usr/include/qt5/QtCore/QScopedPointer \
+		/usr/include/qt5/QtCore/qtemporaryfile.h \
+		/usr/include/qt5/QtCore/qabstractproxymodel.h \
+		/usr/include/qt5/QtCore/qidentityproxymodel.h \
+		/usr/include/qt5/QtCore/qsortfilterproxymodel.h \
+		/usr/include/qt5/QtCore/qstringlistmodel.h \
+		/usr/include/qt5/QtCore/qjsonarray.h \
+		/usr/include/qt5/QtCore/qjsonvalue.h \
+		/usr/include/qt5/QtCore/qjsondocument.h \
+		/usr/include/qt5/QtCore/qjsonobject.h \
+		/usr/include/qt5/QtCore/qabstracteventdispatcher.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtCore/qabstractnativeeventfilter.h \
+		/usr/include/qt5/QtCore/qbasictimer.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qmath.h \
+		/usr/include/qt5/QtCore/qmetaobject.h \
+		/usr/include/qt5/QtCore/qmimedata.h \
+		/usr/include/qt5/QtCore/qobjectcleanuphandler.h \
+		/usr/include/qt5/QtCore/qpointer.h \
+		/usr/include/qt5/QtCore/qsharedmemory.h \
+		/usr/include/qt5/QtCore/qsignalmapper.h \
+		/usr/include/qt5/QtCore/qsocketnotifier.h \
+		/usr/include/qt5/QtCore/qsystemsemaphore.h \
+		/usr/include/qt5/QtCore/qtimer.h \
+		/usr/include/qt5/QtCore/qtranslator.h \
+		/usr/include/qt5/QtCore/qwineventnotifier.h \
+		/usr/include/qt5/QtCore/qmimedatabase.h \
+		/usr/include/qt5/QtCore/qmimetype.h \
+		/usr/include/qt5/QtCore/qfactoryinterface.h \
+		/usr/include/qt5/QtCore/qlibrary.h \
+		/usr/include/qt5/QtCore/qplugin.h \
+		/usr/include/qt5/QtCore/qpluginloader.h \
+		/usr/include/qt5/QtCore/quuid.h \
+		/usr/include/qt5/QtCore/qabstractstate.h \
+		/usr/include/qt5/QtCore/qabstracttransition.h \
+		/usr/include/qt5/QtCore/qeventtransition.h \
+		/usr/include/qt5/QtCore/qfinalstate.h \
+		/usr/include/qt5/QtCore/qhistorystate.h \
+		/usr/include/qt5/QtCore/qsignaltransition.h \
+		/usr/include/qt5/QtCore/qstate.h \
+		/usr/include/qt5/QtCore/qstatemachine.h \
+		/usr/include/qt5/QtCore/qexception.h \
+		/usr/include/qt5/QtCore/qfuture.h \
+		/usr/include/qt5/QtCore/qfutureinterface.h \
+		/usr/include/qt5/QtCore/qrunnable.h \
+		/usr/include/qt5/QtCore/qresultstore.h \
+		/usr/include/qt5/QtCore/qfuturesynchronizer.h \
+		/usr/include/qt5/QtCore/qfuturewatcher.h \
+		/usr/include/qt5/QtCore/qreadwritelock.h \
+		/usr/include/qt5/QtCore/qsemaphore.h \
+		/usr/include/qt5/QtCore/qthread.h \
+		/usr/include/qt5/QtCore/qthreadpool.h \
+		/usr/include/qt5/QtCore/qthreadstorage.h \
+		/usr/include/qt5/QtCore/qwaitcondition.h \
+		/usr/include/qt5/QtCore/qarraydataops.h \
+		/usr/include/qt5/QtCore/qarraydatapointer.h \
+		/usr/include/qt5/QtCore/qbitarray.h \
+		/usr/include/qt5/QtCore/qbytearraymatcher.h \
+		/usr/include/qt5/QtCore/qcache.h \
+		/usr/include/qt5/QtCore/qcollator.h \
+		/usr/include/qt5/QtCore/qcommandlineoption.h \
+		/usr/include/qt5/QtCore/qcommandlineparser.h \
+		/usr/include/qt5/QtCore/qcryptographichash.h \
+		/usr/include/qt5/QtCore/qelapsedtimer.h \
+		/usr/include/qt5/QtCore/qlinkedlist.h \
+		/usr/include/qt5/QtCore/qmessageauthenticationcode.h \
+		/usr/include/qt5/QtCore/qqueue.h \
+		/usr/include/qt5/QtCore/qscopedvaluerollback.h \
+		/usr/include/qt5/QtCore/qstack.h \
+		/usr/include/qt5/QtCore/qtextboundaryfinder.h \
+		/usr/include/qt5/QtCore/qtimeline.h \
+		/usr/include/qt5/QtCore/qtimezone.h \
+		/usr/include/qt5/QtCore/qxmlstream.h \
+		/usr/include/qt5/QtCore/qtcoreversion.h \
+		/usr/include/qt5/QtXml/qtxmlglobal.h \
+		/usr/include/qt5/QtXml/qdom.h \
+		/usr/include/qt5/QtXml/qxml.h \
+		/usr/include/qt5/QtXml/qtxmlversion.h \
+		../rapidxml-1.13/rapidxml.hpp \
 		../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QTextStream \
-		/usr/include/qt5/QtCore/QObject \
 		../LO21ProjetCode/intermediary.h \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
@@ -2218,8 +2572,6 @@ mainwindow.o: ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/mainwindow.h \
 		/usr/include/qt5/QtWidgets/qactiongroup.h \
 		/usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtWidgets/qapplication.h \
-		/usr/include/qt5/QtCore/qcoreapplication.h \
-		/usr/include/qt5/QtCore/qeventloop.h \
 		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
 		/usr/include/qt5/QtGui/qguiapplication.h \
 		/usr/include/qt5/QtGui/qinputmethod.h \
@@ -2243,7 +2595,13 @@ mainwindow.o: ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/mainwindow.h \
 		../LO21ProjetCode/structures/identifierManager.h \
 		/usr/include/qt5/QtWidgets/QComboBox \
 		/usr/include/qt5/QtWidgets/qcombobox.h \
-		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtGui/QWindow \
+		/usr/include/qt5/QtGui/qwindow.h \
+		/usr/include/qt5/QtCore/QEvent \
+		/usr/include/qt5/QtCore/QMargins \
+		/usr/include/qt5/QtCore/QRect \
+		/usr/include/qt5/QtGui/qsurface.h \
+		/usr/include/qt5/QtGui/qsurfaceformat.h \
 		../LO21ProjetCode/qvareditor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../LO21ProjetCode/mainwindow.cpp
 
@@ -3864,9 +4222,18 @@ qprogrameditor.o: ../LO21ProjetCode/qprogrameditor.cpp ../LO21ProjetCode/qprogra
 		/usr/include/qt5/QtWidgets/qlayoutitem.h \
 		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		/usr/include/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/qt5/QtWidgets/QLineEdit \
+		/usr/include/qt5/QtWidgets/qlineedit.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		/usr/include/qt5/QtCore/QStringList
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtGui/QWindow \
+		/usr/include/qt5/QtGui/qwindow.h \
+		/usr/include/qt5/QtCore/QEvent \
+		/usr/include/qt5/QtCore/QMargins \
+		/usr/include/qt5/QtCore/QRect \
+		/usr/include/qt5/QtGui/qsurface.h \
+		/usr/include/qt5/QtGui/qsurfaceformat.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qprogrameditor.o ../LO21ProjetCode/qprogrameditor.cpp
 
 moc_qmain.o: moc_qmain.cpp 

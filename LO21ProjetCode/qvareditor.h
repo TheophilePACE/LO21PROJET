@@ -30,6 +30,7 @@ class QvarEditor : public QWidget{
         void refresh();
         void getNextCommand();
         void validationButtonPressed();
+        void destroyVar();
     signals:
         void stateModification();
 };

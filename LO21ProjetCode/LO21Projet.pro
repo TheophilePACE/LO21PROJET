@@ -45,6 +45,7 @@ SOURCES += \
     
 QMAKE_CXXFLAGS += -std=c++0x
 QT += widgets
+QT += xml
 
 FORMS += \
     mainwindow.ui

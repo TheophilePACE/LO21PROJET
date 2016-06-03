@@ -10,7 +10,6 @@ int main(int argc, char* argv[]) {
 
     QApplication app(argc, argv);
     MainWindow fenetre;
-    //QComputer fenetre;
     fenetre.show();
     return app.exec();
     return 0;

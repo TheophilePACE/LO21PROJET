@@ -16,6 +16,8 @@ QvarEditor::QvarEditor(QWidget *parent) : QWidget(parent)
     QLabel * text1 = new QLabel;
     QLabel * text2 = new QLabel;
 
+    QPushButton * rmVar = new QPushButton;
+    rmVar->setText("Supprimer");
     text1->setText("Nom");
     text2->setText("Valeur");
     commandView->addWidget(text1);
@@ -23,6 +25,7 @@ QvarEditor::QvarEditor(QWidget *parent) : QWidget(parent)
     commandView->addWidget(text2);
     commandView->addWidget(commandValue);
     commandView->addWidget(validation);
+    commandView->addWidget(rmVar);
 
     QStringList numberList;
     unsigned int NbElements =0;
@@ -56,6 +59,7 @@ QvarEditor::QvarEditor(QWidget *parent) : QWidget(parent)
    //Affectation sinaux-slots
    connect(validation,SIGNAL(clicked()),this,SLOT(validationButtonPressed()));
    connect(this,SIGNAL(stateModification()),this,SLOT(refresh()));
+   connect(rmVar,SIGNAL(clicked()),this,SLOT(destroyVar()));
 
 }
 void stateModification(){
@@ -75,7 +79,8 @@ void QvarEditor::refresh()
              ++NbElements;
         }
     }
-
+    commandIdentifier->setText("");
+    commandValue->setText("");
     varView->setVerticalHeaderLabels(numberList);
 }
 
@@ -89,9 +94,8 @@ void QvarEditor::validationButtonPressed() {
             catch (char const* s) {
                 std::cout << "Exception de : " << s;
             }
+            refresh();
 
-            commandIdentifier->setText("");
-            commandValue->setText("");
         }
 }
 void QvarEditor::getNextCommand(){
@@ -123,4 +127,16 @@ void QvarEditor::getNextCommand(){
     else
         throw "Type Error Creation Var";
 
+}
+void QvarEditor::destroyVar(){
+    IdentifierManager * prgMng = &(IdentifierManager::getInstance());
+    IdentifierManager::Iterator it= prgMng->getIterator();
+    unsigned int nbElements = 0;
+    while((!it.isDone()) && (it.getCurrent().getLib()->toString()!=commandIdentifier->text().toStdString())) {
+        nbElements++;
+        it.next();
+    }
+    if(nbElements!=prgMng->size())
+        prgMng->removeIdentifier(it.getCurrent());
+    refresh();
 }

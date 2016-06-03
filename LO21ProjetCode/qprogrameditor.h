@@ -37,6 +37,7 @@ class QprogramEditor : public QWidget{
         void choiceProgram(const QString&);
         void saveProgram();
         void newProgram();
+        void destroyProgram();
 };
 
 #endif // QPROGRAMEDITOR_H

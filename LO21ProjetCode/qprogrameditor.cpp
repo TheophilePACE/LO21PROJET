@@ -10,6 +10,8 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
     QHBoxLayout * newWLay = new QHBoxLayout();
     QPushButton * saveNewProg = new QPushButton;
     saveNewProg->setText("Créer");
+    QPushButton * rmProg = new QPushButton;
+    rmProg->setText("Supprimer");
     newProgName = new QLineEdit;
     QLabel * newProgLabel = new QLabel("Nom Programme");
 
@@ -38,9 +40,10 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
             names<<toQString(it.getCurrent().getLib()->toString());
     programChoice->addItems(names);
 
+    commandView->addWidget(newProg);
     commandView->addWidget(text1);
     commandView->addWidget(programChoice);
-    commandView->addWidget(newProg);
+    commandView->addWidget(rmProg);
     commandView->addWidget(validation);
 
     generalView->addLayout(commandView);
@@ -52,6 +55,7 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
    connect(programChoice,SIGNAL(currentIndexChanged(const QString&)),this,SLOT(choiceProgram(const QString&)));
    connect(validation,SIGNAL(clicked()),this,SLOT(saveProgram()));
    connect(newProg,SIGNAL(clicked()),newWindow,SLOT(show()));
+   connect(rmProg,SIGNAL(clicked()),this,SLOT(destroyProgram()));
    connect(saveNewProg,SIGNAL(clicked()),this,SLOT(newProgram()));
 }
 
@@ -105,3 +109,15 @@ void QprogramEditor::refresh(){
     programChoice->clear();
     programChoice->addItems(names);
 }
+void QprogramEditor::destroyProgram(){
+    IdentifierManager::Iterator it=prgMng->getIterator();
+    unsigned int nbElements = 0;
+    while((!it.isDone()) && (it.getCurrent().getLib()->toString()!=programChoice->currentText().toStdString())) {
+        nbElements++;
+        it.next();
+    }
+    if(nbElements!=prgMng->size())
+        prgMng->removeIdentifier(it.getCurrent());
+    refresh();
+}
+

@@ -10,6 +10,9 @@
 #include <QHeaderView>
 #include <QDebug>
 #include <stack>
+#include <QtXml>
+#include <fstream>
+#include "../rapidxml-1.13/rapidxml.hpp"
 #include "litteral/litteral.h"
 #include "intermediary.h"
 #include "structures/structures.h"

@@ -65,6 +65,27 @@ MainWindow::MainWindow(QWidget *parent) :
             calcul
             ,SLOT(sliderMoved(int)));
 
+
+    using namespace rapidxml;
+
+    xml_document<> doc;
+    xml_node<> * root;
+
+    GeneralManager * genMng = &(GeneralManager::getInstance());
+    std::ifstream theFile ("UTComputer.xml");
+    std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
+    buffer.push_back('\0');
+    // Parse the buffer using the xml file parsing library into doc
+    doc.parse<0>(&buffer[0]);
+
+    //Stack Treatment
+    root = doc.first_node("Pile");
+    /*for (xml_node<> * item_node = root->first_node("Atom"); item_node; item_node = item_node->next_sibling())
+        {
+            Item * I = genMng->createItem(item_node->value());
+            calcul->getStack()->push(*I);
+        }*/
+   // xml_node<> * item_node = root->first_node("Atom");
 }
 
 MainWindow::~MainWindow()
