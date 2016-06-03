@@ -1,4 +1,4 @@
 <Pile>'loli' 4 5 6</Pile>
 <Variables>ECE-2 FEZG-4 EZG-3432 EFEZ-23234 RTTTT-2</Variables>
-<Programmes>TEST1[1 + 2 3 /]_TEST2[5 2 8 * *]_TEST3[5 8 9 -]_TEST4[LOLILOL]</Programmes>
+<Programmes>TEST1[1 + 2 3 +]_TEST2[5 2 8 * *]_TEST3[5 8 9 -]_TEST4[LOLILOL]</Programmes>
 
