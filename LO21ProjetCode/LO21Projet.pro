@@ -45,5 +45,8 @@ QMAKE_CXXFLAGS += -std=c++0x
 QT += widgets
 QT += xml
 
+QT += core gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+
 FORMS += \
     mainwindow.ui

@@ -6,6 +6,7 @@
 #include <QString>
 #include <QTextStream>
 #include <QObject>
+#include <QSound>
 #include <QDebug>
 #include "litteral/litteral.h"
 #include "litteral/integer.h"

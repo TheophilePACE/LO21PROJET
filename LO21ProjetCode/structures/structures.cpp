@@ -47,6 +47,7 @@ void Controller::command(const QString& c){
             }
             catch(char const* s)
             {
+                QSound::play("../noise.wav");
                 stack.setMessage(toQString(s));
             }
         }

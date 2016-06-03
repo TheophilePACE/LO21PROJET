@@ -91,15 +91,8 @@ void QvarEditor::validationButtonPressed() {
                 getNextCommand();
                 stateModification();
             }
-            catch (char const* s) {
-                QWindow2 *win = new QWindow2;
-                QLabel * lab = new QLabel;
-                QVBoxLayout * layout = new QVBoxLayout;
-                layout->addWidget(lab);
-                lab->setText(s);
-                win->setWindowTitle("Error Window");
-                win->setLayout(layout);
-                win->show();
+            catch (char const* s){
+                ExceptionWindow(s);
             }
             refresh();
 
