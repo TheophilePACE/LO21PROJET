@@ -24,6 +24,7 @@ public:
 //    virtual Numeric& operator* (const Numeric& N) const;
     virtual void print(QTextStream& f)const; //implémentée
     virtual std::string toString()const;//implémentée
+    virtual std::string toStringPars()const;//implémentée
     ~Numeric(){}
     Numeric(long n=0,long d=1,double m=0): num(n), denum(d), mantisse(m) {/*std::cout<<"\nConstruction Num\n";*/}
     Numeric (Numeric& N): num(N.num), denum(N.denum), mantisse(N.mantisse) {}

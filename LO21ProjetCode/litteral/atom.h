@@ -10,6 +10,7 @@ public:
     Atom(std::string s):lib(s){}
     void print(QTextStream& f) const {f<<toQString(lib);}
     std::string toString()const{return lib;}
+    std::string toStringPars()const{return toString();}
     ~Atom(){}
 };
 

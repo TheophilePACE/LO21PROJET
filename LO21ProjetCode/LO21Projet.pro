@@ -14,7 +14,6 @@ HEADERS += \
     structures/structures.h \
     structures/stack.h \
     structures/parser.h \
-    structures/programManager.h \
     structures/identifierManager.h \
     structures/generalManager.h \
     qvareditor.h \
@@ -37,7 +36,6 @@ SOURCES += \
     structures/structures.cpp \
     structures/stack.cpp \
     structures/parser.cpp \
-    structures/programManager.cpp \
     structures/identifierManager.cpp \
     structures/generalManager.cpp \
     qvareditor.cpp \

@@ -44,7 +44,7 @@ void IdentifierManager::freeInstance(){
     sing.instance = nullptr;
 }
 
-Identifier* IdentifierManager::getIdentifier(Atom& a){
+Identifier* IdentifierManager::getIdentifier(Atom& a) const {
     IdentifierManager::Iterator it = IdentifierManager::getInstance().getIterator();
     while(!it.isDone() && it.getCurrent().getLib()->toString()!=a.toString()) {
         it.next();
@@ -53,7 +53,7 @@ Identifier* IdentifierManager::getIdentifier(Atom& a){
         return NULL;
     return &(it.getCurrent());
 }
-unsigned int IdentifierManager::sizeAtoms(){
+unsigned int IdentifierManager::sizeAtoms() const {
     unsigned int nProg = 0;
     for(IdentifierManager::Iterator it = getIterator(); !it.isDone(); it.next())
         if((typeid(*(it.getCurrent().getPValue())))==typeid(Program))
@@ -61,3 +61,36 @@ unsigned int IdentifierManager::sizeAtoms(){
     return size()-nProg;
 }
 
+const std::string IdentifierManager::displayVar() const {
+    std::stringstream f;
+    unsigned int j=0;
+    for(unsigned int i=0; i<nb; i++) {
+            if((typeid(*(identifiers[i]->getPValue()))!=typeid(Program)))
+            {
+                j++;
+                f << (*(identifiers[i]->getLib())).toStringPars();
+                f << "-";
+                f << (*(identifiers[i]->getPValue())).toStringPars();
+                if(j!=sizeAtoms())
+                    f<<" ";
+            }
+    }
+    return f.str();
+}
+const std::string IdentifierManager::displayProg() const {
+    std::stringstream f;
+    unsigned int j=0;
+    for(unsigned int i=0; i<nb; i++) {
+        if((typeid(*(identifiers[i]->getPValue()))==typeid(Program)))
+        {
+                j++;
+                f << (*(identifiers[i]->getLib())).toStringPars();
+                f << "[";
+                f << (*(identifiers[i]->getPValue())).toStringPars();
+                f << "]";
+                if(j!=size()-sizeAtoms())
+                    f<<"_";
+        }
+    }
+    return f.str();
+}

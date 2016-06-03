@@ -14,6 +14,7 @@ public:
     Complex (Numeric* Re, Numeric* Im): pReal(Re), pImag(Im) {} //correspond à la construction avec  $ (voir sujet)
     void print(QTextStream& f)const;
     std::string toString()const;
+    std::string toStringPars()const;
     ~Complex(){}
     Complex operator+(Complex Cx) const;
 //    Complex operator-(Complex Cx)const ;

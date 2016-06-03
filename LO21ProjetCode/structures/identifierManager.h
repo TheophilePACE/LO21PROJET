@@ -22,9 +22,11 @@ public:
     ~IdentifierManager(){}
     void addIdentifier(std::string s, Litteral* l);
     void removeIdentifier(Identifier& e);
-    Identifier * getIdentifier(Atom& a);
-    unsigned int size(){return nb;}
-    unsigned int sizeAtoms();
+    Identifier * getIdentifier(Atom& a) const;
+    const std::string displayVar() const;
+    const std::string displayProg() const;
+    unsigned int size() const {return nb;}
+    unsigned int sizeAtoms() const;
     static IdentifierManager& getInstance();
     static void freeInstance();
     class Iterator {
@@ -47,7 +49,7 @@ public:
             return **current;
         }
     };
-    Iterator getIterator() {
+    Iterator getIterator() const {
         return Iterator(identifiers,nb);
     }
 };

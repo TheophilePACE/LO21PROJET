@@ -2,6 +2,7 @@
 #define STACK_H
 
 #include <QObject>
+#include <sstream>
 #include "../intermediary.h"
 class Stack : public QObject {
     Q_OBJECT
@@ -19,7 +20,7 @@ public:
     void pop();
     bool empty() const { return nb==0; }
     unsigned int size() const { return nb; }
-    void display(QTextStream& f) const;
+    const std::string display() const;
     Litteral* top() const;
     void setNbItemsDisplayed(unsigned int n) { nbItemsDisplayed=n; }
     unsigned int getNbItemsDisplayed() const { return nbItemsDisplayed; }

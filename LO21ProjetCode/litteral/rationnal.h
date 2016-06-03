@@ -14,6 +14,7 @@ public:
     Rationnal(Rationnal& R): Numeric(R.num,R.denum,0) {}
     void print(QTextStream& f)const;
     std::string toString()const;
+    std::string toStringPars()const;
     Rationnal simplify() ; //retour de type pointeur sur classe mere
     Rationnal operator+(Rationnal frac) const;
     Rationnal operator-(Rationnal frac)const;

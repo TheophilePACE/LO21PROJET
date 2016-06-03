@@ -25,6 +25,9 @@ std::string Real::toString()const{
     double f=getSignedValue();
     return std::to_string(f);
 }
+std::string Real::toStringPars()const {
+    return toString();
+}
 void Real::print(QTextStream& f)const
 {
     f<<toQString(this->toString());
