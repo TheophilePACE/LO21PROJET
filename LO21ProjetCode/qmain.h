@@ -23,7 +23,7 @@ class QComputer : public QWidget{
         Stack* pile;
         Controller * controleur;
     public:
-        void setVuePile();
+        Stack* getStack(){return pile;}
         explicit QComputer(QWidget * parent = 0);
     public slots:
         void refresh();

@@ -26,6 +26,8 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "qmain.h"
+#include "qprogrameditor.h"
+#include "qvareditor.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -34,9 +36,9 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QTabWidget *tabWidget;
-    QComputer *Calculatrice;
-    QWidget *Variables;
-    QWidget *Programmes;
+    QComputer *CalcTab;
+    QvarEditor *Variables;
+    QprogramEditor *Programmes;
     QWidget *Parametres;
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
@@ -113,14 +115,14 @@ public:
         tabWidget->setGeometry(QRect(0, 0, 481, 291));
         tabWidget->setMinimumSize(QSize(481, 291));
         tabWidget->setStyleSheet(QStringLiteral(""));
-        Calculatrice = new QComputer();
-        Calculatrice->setObjectName(QStringLiteral("Calculatrice"));
-        Calculatrice->setStyleSheet(QStringLiteral(""));
-        tabWidget->addTab(Calculatrice, QString());
-        Variables = new QWidget();
+        CalcTab = new QComputer();
+        CalcTab->setObjectName(QStringLiteral("CalcTab"));
+        CalcTab->setStyleSheet(QStringLiteral(""));
+        tabWidget->addTab(CalcTab, QString());
+        Variables = new QvarEditor();
         Variables->setObjectName(QStringLiteral("Variables"));
         tabWidget->addTab(Variables, QString());
-        Programmes = new QWidget();
+        Programmes = new QprogramEditor();
         Programmes->setObjectName(QStringLiteral("Programmes"));
         tabWidget->addTab(Programmes, QString());
         Parametres = new QWidget();
@@ -157,7 +159,7 @@ public:
         horizontalSlider = new QSlider(layoutWidget);
         horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
         horizontalSlider->setMinimum(0);
-        horizontalSlider->setMaximum(6);
+        horizontalSlider->setMaximum(15);
         horizontalSlider->setSliderPosition(4);
         horizontalSlider->setOrientation(Qt::Horizontal);
 
@@ -171,11 +173,14 @@ public:
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(490, 30, 471, 261));
         groupBox->setMinimumSize(QSize(471, 261));
+        groupBox->setMaximumSize(QSize(471, 261));
+        groupBox->setBaseSize(QSize(471, 261));
         layoutWidget1 = new QWidget(groupBox);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
         layoutWidget1->setGeometry(QRect(0, 20, 730, 268));
         verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        verticalLayout_3->setSizeConstraint(QLayout::SetNoConstraint);
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
@@ -442,7 +447,7 @@ public:
         QObject::connect(checkBox, SIGNAL(toggled(bool)), groupBox, SLOT(setHidden(bool)));
         QObject::connect(horizontalSlider, SIGNAL(sliderMoved(int)), label_2, SLOT(setNum(int)));
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -458,15 +463,15 @@ public:
         tabWidget->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
 #endif // QT_NO_WHATSTHIS
 #ifndef QT_NO_TOOLTIP
-        Calculatrice->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
+        CalcTab->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_WHATSTHIS
-        Calculatrice->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
+        CalcTab->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
 #endif // QT_NO_WHATSTHIS
 #ifndef QT_NO_ACCESSIBILITY
-        Calculatrice->setAccessibleName(QApplication::translate("MainWindow", "Calculatrice", 0));
+        CalcTab->setAccessibleName(QApplication::translate("MainWindow", "Calculatrice", 0));
 #endif // QT_NO_ACCESSIBILITY
-        tabWidget->setTabText(tabWidget->indexOf(Calculatrice), QApplication::translate("MainWindow", "Calculatrice", 0));
+        tabWidget->setTabText(tabWidget->indexOf(CalcTab), QApplication::translate("MainWindow", "Calculatrice", 0));
         tabWidget->setTabText(tabWidget->indexOf(Variables), QApplication::translate("MainWindow", "Variables", 0));
         tabWidget->setTabText(tabWidget->indexOf(Programmes), QApplication::translate("MainWindow", "Programmes", 0));
         checkBox->setText(QApplication::translate("MainWindow", "D\303\251sactiver Clavier Virtuel", 0));

@@ -45,9 +45,9 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
-    <widget class="QComputer" name="Calculatrice">
+    <widget class="QComputer" name="CalcTab">
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
@@ -64,12 +64,12 @@
       <string>Calculatrice</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="Variables">
+    <widget class="QvarEditor" name="Variables">
      <attribute name="title">
       <string>Variables</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="Programmes">
+    <widget class="QprogramEditor" name="Programmes">
      <attribute name="title">
       <string>Programmes</string>
      </attribute>
@@ -131,7 +131,7 @@
             <number>0</number>
            </property>
            <property name="maximum">
-            <number>6</number>
+            <number>15</number>
            </property>
            <property name="sliderPosition">
             <number>4</number>
@@ -162,6 +162,18 @@
       <height>261</height>
      </size>
     </property>
+    <property name="maximumSize">
+     <size>
+      <width>471</width>
+      <height>261</height>
+     </size>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>471</width>
+      <height>261</height>
+     </size>
+    </property>
     <property name="title">
      <string>Clavier</string>
     </property>
@@ -175,6 +187,9 @@
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetNoConstraint</enum>
+      </property>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
@@ -533,9 +548,21 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>QvarEditor</class>
+   <extends>QWidget</extends>
+   <header>qvareditor.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>QComputer</class>
    <extends>QWidget</extends>
    <header>qmain.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QprogramEditor</class>
+   <extends>QWidget</extends>
+   <header>qprogrameditor.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

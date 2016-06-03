@@ -11,14 +11,16 @@ public:
 };
 
 class Expression : public Litteral {
-    ExpressionMaterial ** tab;
+    std::string instructions;
+   /* ExpressionMaterial ** tab;
     unsigned int nb;
-    unsigned int max;
+    unsigned int max;*/
 public:
-    Expression(): tab(nullptr), nb(0),max(0){}
+    Expression(std::string s): instructions(s){}
+    /*Expression(): tab(nullptr), nb(0),max(0){}
     ~Expression(){nb = 0; max = 0; delete[] tab;}
     void increaseCap();
-    void operator<<(ExpressionMaterial* e);
+    void operator<<(ExpressionMaterial* e);*/
     std::string toString()const;
     void print(QTextStream& f)const;
 };
