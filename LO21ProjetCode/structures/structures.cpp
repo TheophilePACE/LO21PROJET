@@ -24,7 +24,7 @@ void Controller::command(const QString& c){
                     Item Rslt;
                     OperatorSum OP;
                     OP.loadOperand(&stack);
-                    Rslt.setLit(OP.execute(&stack));
+                    Rslt.setLit(OP.execute());
                     stack.push(Rslt);
                 }
 //                if (c=="-") res=v1-v2;

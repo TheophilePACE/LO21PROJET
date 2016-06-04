@@ -11,12 +11,13 @@ private:
     Numeric* pReal;
     Numeric* pImag;
 public:
-    Complex (Numeric* Re, Numeric* Im=nullptr): pReal(Re), pImag(Im) {if (pImag==nullptr)
+    Complex (Numeric* Re=nullptr, Numeric* Im=nullptr): pReal(Re), pImag(Im) {if (pImag==nullptr)
                                                                      pImag= new Integer();} //correspond à la construction avec  $ (voir sujet)
     void print(QTextStream& f)const;
     std::string toString()const;
     ~Complex(){}
-   Complex operator+(Complex Cx) const;
+   Complex operator+(const Complex& Cx) const;
+   Complex operator=(const Complex& Cx );
 //    Complex operator-(Complex Cx)const ;
 //    Complex operator*(Complex Cx) const ;
 //    Complex operator/(Complex Cx) const;

@@ -17,12 +17,9 @@ HEADERS += \
     structures/programManager.h \
     structures/identifierManager.h \
     structures/generalManager.h \
-<<<<<<< HEAD
-    structures/operator.h
-=======
+    structures/operator.h\
     qvareditor.h \
     qprogrameditor.h
->>>>>>> deca6fb9cd34a36c6f81d7f3bab2e3af8b841c4c
 
 SOURCES += \
     main.cpp \
@@ -44,12 +41,9 @@ SOURCES += \
     structures/programManager.cpp \
     structures/identifierManager.cpp \
     structures/generalManager.cpp \
-<<<<<<< HEAD
-    structures/operator.cpp
-=======
+    structures/operator.cpp \
     qvareditor.cpp \
     qprogrameditor.cpp
->>>>>>> deca6fb9cd34a36c6f81d7f3bab2e3af8b841c4c
     
 QMAKE_CXXFLAGS += -std=c++0x
 QT += widgets

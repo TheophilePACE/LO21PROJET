@@ -25,22 +25,18 @@ public:
     virtual void print(QTextStream& f)const; //implémentée
     virtual std::string toString()const;//implémentée
     ~Numeric(){}
-<<<<<<< HEAD
-    Numeric(long n,double m,long d): num(n), denum(d), mantisse(m) {std::cout<<"\nConstruction Num\n";}
+    Numeric(long n,long d,double m): num(n), denum(d), mantisse(m) {std::cout<<"\nConstruction Num\n";}
     Numeric(long n,long d): num(n), denum(d), mantisse(0) {std::cout<<"\nConstruction Num type frac\n";}
     //Numeric(long n): num(n), denum(1), mantisse(0) {std::cout<<"\nConstruction Num\n";}
     Numeric(double m): num(trunc(m)), denum(1), mantisse(m-trunc(m)) {std::cout<<"\nConstruction Num Avec Double\n";}
     Numeric(): num(0), denum(1), mantisse(0) {std::cout<<"\nConstruction Num sans arg \n";}
-
-=======
-    Numeric(long n=0,long d=1,double m=0): num(n), denum(d), mantisse(m) {/*std::cout<<"\nConstruction Num\n";*/}
->>>>>>> deca6fb9cd34a36c6f81d7f3bab2e3af8b841c4c
     Numeric (Numeric& N): num(N.num), denum(N.denum), mantisse(N.mantisse) {}
     //FONCTION POUR LES CONVERSIONS
     bool numIsInteger() const {return ((mantisse==0)&&(denum==1));} // A.0/1
     bool numIsRationnal() const {return ((mantisse==0)&&(denum!=1));}//A.0/B, A PEUT ETRE 0, PAS B
     bool numIsReal() const {return ((mantisse!=0)&&(denum==1));}//A.B/1
-
+    double getVal() const;
+   // Numeric operator=(Numeric N );
 };
 
 

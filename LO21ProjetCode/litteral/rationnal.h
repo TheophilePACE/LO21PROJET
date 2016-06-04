@@ -21,7 +21,7 @@ public:
     Rationnal operator/(Rationnal frac) const;
     bool getSign() const {return ((num>=0)==(denum>=0));}
     bool isInteger () const;
-    double getSignedValue() const {return double(getNum()) / double(getDenum());}
+    double getSignedValue() const {return (double)(((double)(getNum())) / (double)((getDenum())));}
 
 };
 

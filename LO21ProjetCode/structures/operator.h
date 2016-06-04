@@ -10,7 +10,7 @@
 class OperatorAbstract {
 public:
     virtual void loadOperand(Stack *s) = 0;
-    virtual Litteral* execute(Stack *s)=0;
+    virtual Litteral* execute( )=0;
 };
 
 class OperatorUnaire : public OperatorAbstract {
@@ -18,7 +18,7 @@ protected:
     Litteral * l1;
 public:
     void loadOperand(Stack *s);
-    virtual Litteral* execute(Stack *s)=0;
+    virtual Litteral* execute( )=0;
 };
 
 class OperatorBinary : public OperatorAbstract {
@@ -28,13 +28,13 @@ protected:
 public:
     OperatorBinary(): l1(nullptr),l2(nullptr){}
     void loadOperand (Stack *s);
-    virtual Litteral* execute(Stack *s)=0;
+    virtual Litteral* execute( )=0;
 };
 
 class OperatorSum : public OperatorBinary {
 public:
     OperatorSum(): OperatorBinary(){}
-    Litteral* execute(Stack *s);
+    Litteral* execute( );
 };
 
 

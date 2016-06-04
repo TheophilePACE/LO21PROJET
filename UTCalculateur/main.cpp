@@ -5,20 +5,14 @@
 
 int main(int argc, char* argv[]) {
     double de =10.5 ;
-    Numeric *N1= new Numeric    ( de );
-    Numeric *N2= new Numeric();
-    std::cout<< N1->getMantisse()<<"    "<<typeid(*N2).name() ;
+    Real *N1= new Real    ( de );
+    Rationnal *N2= new Rationnal(1,3);
+    std::cout<<typeid((*N2).getSignedValue() + N1->getSignedValue()).name()<<"    "<<typeid(*N2).name() ;
 
-    numericCast(&N1);
-    numericCast(&N2);
-    double a,b,c,d;
-    a = 10.5;
-    b = -10;
-    c= a- trunc(a);
-    d= b-trunc(b);
+    std::cout<< (*N2).getSignedValue()<<"    "<<typeid(*N2).name() ;
 
+    //Numeric N3 = *N1 + *N2;
     //Complex C1(R1,I1);
-    std::cout<< N1->getMantisse()<<"    "<<typeid(*N2).name() ;
-    std::cout<<"\n"<<c<<"    "<<d ;
+    std::cout<<typeid(*N2).name() ;
     return 0;
 }
