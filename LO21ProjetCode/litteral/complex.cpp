@@ -14,6 +14,8 @@ std::string Complex::toStringPars()const {
     return (*pReal).toString() + "$" + (*pImag).toString();
 }
 
+
+//operatior entre complex. Pas besoin de gérer Complex/Num, fait par l'operator
 Complex Complex::operator+(const Complex & Cx) const
 {
     Numeric * N1 = new Numeric (0,1,0);
@@ -22,13 +24,17 @@ Complex Complex::operator+(const Complex & Cx) const
     *N2=((*pImag)+(*Cx.pImag));
     return Complex(N1,N2);
 }
-//Complex Complex::operator-(Complex Cx)const ;
+
+//Complex Complex::operator-(const Complex & Cx) const
+//{
+//    Numeric * N1 = new Numeric (0,1,0);
+//    *N1= ((*pReal) - *(Cx.pReal));
+//    Numeric* N2 = new Numeric(0,1,0);
+//    *N2=((*pImag)-(*Cx.pImag));
+//    return Complex(N1,N2);
+//}
 //Complex Complex::operator*(Complex Cx) const ;
 //Complex Complex::operator/(Complex Cx) const;
-//Complex Complex::operator+(Numeric Cx) const;
-//Complex Complex::operator-(Numeric Cx)const ;
-//Complex Complex::operator*(Numeric Cx) const ;
-//Complex Complex::operator/(Numeric Cx) const;
 
 void numericCast(Numeric ** N)
 {

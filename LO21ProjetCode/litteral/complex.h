@@ -17,15 +17,12 @@ public:
     std::string toString()const;
     std::string toStringPars()const;
     ~Complex(){}
-   Complex operator+(const Complex& Cx) const;
-   Complex operator=(const Complex& Cx );
-//    Complex operator-(Complex Cx)const ;
+   Complex operator+ (const Complex& Cx) const;
+//   Complex operator- (const Complex& Cx) const;
 //    Complex operator*(Complex Cx) const ;
 //    Complex operator/(Complex Cx) const;
-//    Complex operator+(Numeric Cx) const;
-//    Complex operator-(Numeric Cx)const ;
-//    Complex operator*(Numeric Cx) const ;
-//    Complex operator/(Numeric Cx) const;
+   Complex operator=(const Complex& Cx );
+
     bool isReal() const {return pImag->isNull();} //check si la partie imaginaire est nulle
     bool isImag() const {return pReal->isNull();}
 

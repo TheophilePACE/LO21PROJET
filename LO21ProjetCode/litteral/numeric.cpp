@@ -42,7 +42,7 @@ std::string Numeric::toStringPars()const{
     return toString();
 }
 
-
+//Operations sur les numerics
  Numeric Numeric::operator+ (const Numeric& N) const
  {
      std::cout<<"utilisation ope num";
@@ -66,17 +66,31 @@ std::string Numeric::toStringPars()const{
      }
 
  }
-// Numeric& Numeric::operator- (const Numeric& N) const
+// Numeric Numeric::operator- (const Numeric& N) const
 // {
-//     long nnum,ndenum;
-//     double nmantisse;
-//     nnum= num*N.denum - N.num*denum;
-//     ndenum = denum*N.denum;
-//     nmantisse = mantisse-N.mantisse;
-//     Numeric Rslt(nnum,ndenum,nmantisse);
-//     return Rslt;
+//     std::cout<<"utilisation ope num";
+//     double nmantisse,temp;
+//     temp= (mantisse+num)*N.getDenum() - (N.getNum()+N.getMantisse())*denum;
+//     nmantisse =temp-trunc(temp);
+
+//     if(nmantisse==0)
+//         {Rationnal Rslt((long)(temp), (N.getDenum()*getDenum()) );
+//          return Rslt;}
+//     if(nmantisse !=0)
+//     {
+//         double d = getVal() - N.getVal();
+//         Real Rslt(d);
+//         return Rslt;}
+//     else
+//     {
+//         std::cout<<"construc numeric WTF";
+//         Numeric N(0,1);
+//         return N;
+//     }
+
 // }
-// Numeric& Numeric::operator/ (const Numeric& N) const
+
+ // Numeric& Numeric::operator/ (const Numeric& N) const
 // {
 //     long nnum,ndenum;
 //     double nmantisse;
