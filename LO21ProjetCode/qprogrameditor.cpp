@@ -81,8 +81,8 @@ void QprogramEditor::saveProgram(){
             ExceptionWindow(s);
     }
     refresh();
-    SnapshotManager s = SnapshotManager::getInstance();
-    s.addSnapshot(s.getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
+    //SnapshotManager s = SnapshotManager::getInstance();
+    //s.addSnapshot(s.getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
 }
 void QprogramEditor::newProgram(){
     GeneralManager mng = GeneralManager::getInstance();
@@ -103,8 +103,8 @@ void QprogramEditor::newProgram(){
     newProgName->setText("");
     newWindow->hide();
     refresh();
-    SnapshotManager s = SnapshotManager::getInstance();
-    s.addSnapshot(s.getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
+    //SnapshotManager s = SnapshotManager::getInstance();
+    //s.addSnapshot(s.getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
 }
 
 void QprogramEditor::refresh(){
@@ -125,7 +125,7 @@ void QprogramEditor::destroyProgram(){
     if(nbElements!=prgMng->size())
         prgMng->removeIdentifier(it.getCurrent());
     refresh();
-    SnapshotManager s = SnapshotManager::getInstance();
-    s.addSnapshot(s.getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
+    //SnapshotManager s = SnapshotManager::getInstance();
+    //s.addSnapshot(s.getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
 }
 
