@@ -37,6 +37,11 @@ public:
     Litteral* execute( );
 };
 
+//class OperatorSub : public OperatorBinary {
+//public:
+//    OperatorSub(): OperatorBinary(){}
+//    Litteral* execute( );
+//};
 
 
 
