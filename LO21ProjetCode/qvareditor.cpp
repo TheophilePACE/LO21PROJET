@@ -91,8 +91,8 @@ void QvarEditor::validationButtonPressed() {
                 getNextCommand();
                 stateModification();
             }
-            catch (char const* s) {
-                std::cout << "Exception de : " << s;
+            catch (char const* s){
+                ExceptionWindow(s);
             }
             refresh();
 

@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle("UTComputer 2.0");
     QButtonGroup * signalGroup = new QButtonGroup;
     QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
+    QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
+    QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
     QSlider * lignes = ui->tabWidget->findChild<QWidget*>("Parametres")->findChild<QSlider*>("horizontalSlider");
 
     signalGroup->addButton(ui->pushButton);
@@ -62,34 +64,77 @@ MainWindow::MainWindow(QWidget *parent) :
             calcul
             ,SLOT(keyboardButtonPressed(QAbstractButton*)));
     connect(lignes,SIGNAL(sliderMoved(int)),
-            calcul
-            ,SLOT(sliderMoved(int)));
-
+                calcul
+                ,SLOT(sliderMoved(int)));
 
     using namespace rapidxml;
 
     xml_document<> doc;
-    xml_node<> * root;
+    xml_node<> * stack,* var,* prog;
 
     GeneralManager * genMng = &(GeneralManager::getInstance());
-    std::ifstream theFile ("UTComputer.xml");
+    std::ifstream theFile ("../UTComputer.xml");
     std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
     buffer.push_back('\0');
+
     // Parse the buffer using the xml file parsing library into doc
     doc.parse<0>(&buffer[0]);
-
     //Stack Treatment
-    root = doc.first_node("Pile");
-    /*for (xml_node<> * item_node = root->first_node("Atom"); item_node; item_node = item_node->next_sibling())
-        {
-            Item * I = genMng->createItem(item_node->value());
-            calcul->getStack()->push(*I);
-        }*/
-   // xml_node<> * item_node = root->first_node("Atom");
+    stack = doc.first_node();
+    QStringList valuesSt = toQString(stack->value()).split(" ");
+    for (int i=0;  i < valuesSt.size(); ++i)
+    {
+        Item * I = genMng->createItem(valuesSt.at(i));
+        calcul->getStack()->push(*I);
+    }
+    IdentifierManager * idMng = &(IdentifierManager::getInstance());
+
+    var = stack->next_sibling();
+    QStringList valuesVar = toQString(var->value()).split(" ");
+
+    for (int i=0;  i < valuesVar.size(); ++i)
+    {
+        QStringList variables = valuesVar.at(i).split("-");
+        idMng->addIdentifier(variables.at(0).toStdString(),genMng->createItem(variables.at(1))->getPLit());
+    }
+    variableManager->refresh();
+
+    prog = var->next_sibling();
+    QStringList valuesProg = toQString(prog->value()).split("_");
+    for (int i=0;  i < valuesProg.size(); ++i)
+    {
+        QStringList programmes = valuesProg.at(i).split("[");
+        QString inter = programmes.at(1);
+        inter.remove(inter.size()-1, 1);
+        idMng->addIdentifier(programmes.at(0).toStdString(),genMng->createProgram(inter)->getPLit());
+    }
+    programManager->refresh();
 }
 
 MainWindow::~MainWindow()
 {
+    using namespace rapidxml;
+
+    xml_document<> doc;
+
+    QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
+    Stack * stack = calcul->getStack();
+    std::string s = stack->display();
+
+    xml_node<> *node = doc.allocate_node(node_element, "Pile", s.c_str(),4 , s.size());
+    doc.append_node(node);
+
+    IdentifierManager * idMng = &(IdentifierManager::getInstance());
+    std::string s2 = idMng->displayVar();
+    xml_node<> *node2 = doc.allocate_node(node_element, "Variables", s2.c_str(),9 , s2.size());
+    doc.append_node(node2);
+
+    std::string s3 = idMng->displayProg();
+    xml_node<> *node3 = doc.allocate_node(node_element, "Programmes", s3.c_str(), 10, s3.size());
+    doc.append_node(node3);
+
+    std::ofstream theFile ("../UTComputer.xml");
+    theFile << doc;
     delete ui;
 }
 

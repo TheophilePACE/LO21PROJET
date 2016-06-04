@@ -35,4 +35,6 @@ public:
     Litteral* getPValue()const{return value;}
 };
 
+void ExceptionWindow(const char * s);
+
 #endif // INTERMEDIARY_H

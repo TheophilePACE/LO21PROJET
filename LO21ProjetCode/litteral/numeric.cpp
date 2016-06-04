@@ -27,6 +27,7 @@ double Numeric::getVal()  const{
 }
 std::string Numeric::toString()const
 {
+
     std::string s="";
     if(mantisse!=0){
     s+=std::to_string(num);
@@ -36,6 +37,9 @@ std::string Numeric::toString()const
             //(mantisse!=0)
         s+=(std::to_string(num+mantisse));
     return s;
+}
+std::string Numeric::toStringPars()const{
+    return toString();
 }
 
 

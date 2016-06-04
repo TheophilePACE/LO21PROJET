@@ -12,7 +12,10 @@
 #include <stack>
 #include <QtXml>
 #include <fstream>
-#include "../rapidxml-1.13/rapidxml.hpp"
+#include <ostream>
+#include <sstream>
+#include <iterator>
+#include "../rapidxml-1.13/rapidxml_print.hpp"
 #include "litteral/litteral.h"
 #include "intermediary.h"
 #include "structures/structures.h"

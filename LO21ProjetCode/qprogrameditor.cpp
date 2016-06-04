@@ -68,16 +68,18 @@ void QprogramEditor::saveProgram(){
     try {
         if(programChoice->count()==0)
             throw "Pas de programme sélectionné";
+        if(programText->toPlainText().contains('[') || programText->toPlainText().contains(']') || programText->toPlainText().contains('_'))
+            throw "Caractères Interdits dans un Programme : '[', ']', '_'";
+        for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
+            if(it.getCurrent().getLib()->toString()==programChoice->currentText().toStdString())
+            {
+                Program * prog = new Program(programText->toPlainText().toStdString());
+                it.getCurrent().setValue(prog);
+            }
     }
     catch (char const* s) {
-        std::cout << "Exception de : " << s;
+            ExceptionWindow(s);
     }
-    for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
-        if(it.getCurrent().getLib()->toString()==programChoice->currentText().toStdString())
-        {
-            Program * prog = new Program(programText->toPlainText().toStdString());
-            it.getCurrent().setValue(prog);
-        }
     refresh();
 }
 void QprogramEditor::newProgram(){
@@ -94,7 +96,7 @@ void QprogramEditor::newProgram(){
         prgMng->addIdentifier(newProgName->text().toStdString(),mng.createProgram("")->getPLit());
     }
     catch (char const* s) {
-        std::cout << "Exception de : " << s;
+            ExceptionWindow(s);
     }
     newProgName->setText("");
     newWindow->hide();

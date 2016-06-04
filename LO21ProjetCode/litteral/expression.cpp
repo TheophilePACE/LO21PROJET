@@ -35,6 +35,9 @@ void Expression::print(QTextStream& f)const{
 std::string Expression::toString()const {
     return  instructions;
 }
+std::string Expression::toStringPars()const {
+    return toString();
+}
 void Expression::print(QTextStream& f)const{
     f<<toQString(instructions);
 }

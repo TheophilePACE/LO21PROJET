@@ -15,6 +15,7 @@ public:
                                                                      pImag= new Integer();} //correspond à la construction avec  $ (voir sujet)
     void print(QTextStream& f)const;
     std::string toString()const;
+    std::string toStringPars()const;
     ~Complex(){}
    Complex operator+(const Complex& Cx) const;
    Complex operator=(const Complex& Cx );

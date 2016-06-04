@@ -7,6 +7,7 @@ class ExpressionMaterial : public Litteral {
 public:
     virtual void print(QTextStream& f)const=0;
     virtual std::string toString()const=0;
+    virtual std::string toStringPars()const=0;
     virtual ~ExpressionMaterial(){}
 };
 
@@ -22,6 +23,7 @@ public:
     void increaseCap();
     void operator<<(ExpressionMaterial* e);*/
     std::string toString()const;
+    std::string toStringPars()const;
     void print(QTextStream& f)const;
 };
 

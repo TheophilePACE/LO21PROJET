@@ -23,19 +23,14 @@ void Stack::pop(){
     stateModification();
 }
 
-void Stack::display(QTextStream& f) const{
-    f<<"********************************************* \n";
-    f<<"M : "<<message<<"\n";
-    f<<"---------------------------------------------\n";
-    for(unsigned int i=nbItemsDisplayed; i>0; i--) {
-        if (i<=nb)
-            {
-                f<<i<<": ";
-                (*(items[nb-i].getPLit())).print(f);
-            }
-        else f<<i<<": \n";
+const std::string Stack::display() const{
+    std::stringstream f;
+    for(unsigned int i=0; i<nb; i++) {
+                f << (*(items[i].getPLit())).toStringPars();
+                if(i!=nb-1)
+                    f<<" ";
     }
-    f<<"---------------------------------------------\n";
+    return f.str();
 }
 
 
