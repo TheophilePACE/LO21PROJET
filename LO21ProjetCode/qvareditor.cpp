@@ -95,7 +95,8 @@ void QvarEditor::validationButtonPressed() {
                 ExceptionWindow(s);
             }
             refresh();
-
+            SnapshotManager s = SnapshotManager::getInstance();
+            s.addSnapshot(s.getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
         }
 }
 void QvarEditor::getNextCommand(){
@@ -139,4 +140,6 @@ void QvarEditor::destroyVar(){
     if(nbElements!=prgMng->size())
         prgMng->removeIdentifier(it.getCurrent());
     refresh();
+    SnapshotManager s = SnapshotManager::getInstance();
+    s.addSnapshot(s.getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
 }

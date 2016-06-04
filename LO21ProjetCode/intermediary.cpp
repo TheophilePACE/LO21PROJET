@@ -1,7 +1,8 @@
 #include "litteral/litteral.h"
 #include "intermediary.h"
 #include "qvareditor.h"
-#include <QString>
+#include <QApplication>
+#include <QCheckBox>
 
 void ExceptionWindow(const char * s) {
     QWindow2 *win = new QWindow2;
@@ -12,5 +13,11 @@ void ExceptionWindow(const char * s) {
     win->setWindowTitle("Error Window");
     win->setLayout(layout);
     win->show();
-    QSound::play("../noise.wav");
+    QWidget * widgetSearched;
+    foreach (QWidget *widget, QApplication::allWidgets()) {
+        if(widget->accessibleName()=="ButtonNoSound")
+            widgetSearched = widget;
+    }
+    if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
+        QSound::play("../wahoo.wav");
 }

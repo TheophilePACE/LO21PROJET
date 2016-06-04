@@ -3,8 +3,7 @@
 #include "litteral/real.h"
 #include "structures/structures.h"
 #include "parser.h"
-#include <QString>
-#include <QStringList>
+#include "qmain.h"
 
 void Controller::command(const QString& c){
     Parser p = Parser::getInstance();
@@ -47,7 +46,13 @@ void Controller::command(const QString& c){
             }
             catch(char const* s)
             {
-                QSound::play("../noise.wav");
+                QWidget * widgetSearched;
+                foreach (QWidget *widget, QApplication::allWidgets()) {
+                    if(widget->accessibleName()=="ButtonNoSound")
+                        widgetSearched = widget;
+                }
+                if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
+                    QSound::play("../wahoo.wav");
                 stack.setMessage(toQString(s));
             }
         }

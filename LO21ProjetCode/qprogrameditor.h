@@ -4,6 +4,7 @@
 #include "structures/identifierManager.h"
 #include "intermediary.h"
 #include "litteral/litteral.h"
+#include "snapshots.h"
 
 #include <QWidget>
 #include <QComboBox>

@@ -89,6 +89,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     IdentifierManager * idMng = &(IdentifierManager::getInstance());
 
+    //Var Treatment
     var = stack->next_sibling();
     QStringList valuesVar = toQString(var->value()).split(" ");
 
@@ -99,6 +100,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     variableManager->refresh();
 
+    //Prog Treatment
     prog = var->next_sibling();
     QStringList valuesProg = toQString(prog->value()).split("_");
     for (int i=0;  i < valuesProg.size(); ++i)

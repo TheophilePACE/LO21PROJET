@@ -9,6 +9,7 @@
 #include "intermediary.h"
 #include "qprogrameditor.h"
 #include "structures/identifierManager.h"
+#include "snapshots.h"
 
 class QvarEditor : public QWidget{
         Q_OBJECT

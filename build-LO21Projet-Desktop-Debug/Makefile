@@ -64,7 +64,8 @@ SOURCES       = ../LO21ProjetCode/main.cpp \
 		../LO21ProjetCode/structures/identifierManager.cpp \
 		../LO21ProjetCode/structures/generalManager.cpp \
 		../LO21ProjetCode/qvareditor.cpp \
-		../LO21ProjetCode/qprogrameditor.cpp moc_qmain.cpp \
+		../LO21ProjetCode/qprogrameditor.cpp \
+		../LO21ProjetCode/snapshots.cpp moc_qmain.cpp \
 		moc_mainwindow.cpp \
 		moc_stack.cpp \
 		moc_qvareditor.cpp \
@@ -89,6 +90,7 @@ OBJECTS       = main.o \
 		generalManager.o \
 		qvareditor.o \
 		qprogrameditor.o \
+		snapshots.o \
 		moc_qmain.o \
 		moc_mainwindow.o \
 		moc_stack.o \
@@ -337,7 +339,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/LO21Projet1.0.0 || mkdir -p .tmp/LO21Projet1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/LO21Projet1.0.0/ && $(COPY_FILE) --parents ../LO21ProjetCode/qmain.h ../LO21ProjetCode/intermediary.h ../LO21ProjetCode/mainwindow.h ../LO21ProjetCode/litteral/litteral.h ../LO21ProjetCode/litteral/atom.h ../LO21ProjetCode/litteral/numeric.h ../LO21ProjetCode/litteral/real.h ../LO21ProjetCode/litteral/rationnal.h ../LO21ProjetCode/litteral/integer.h ../LO21ProjetCode/litteral/complex.h ../LO21ProjetCode/litteral/program.h ../LO21ProjetCode/litteral/expression.h ../LO21ProjetCode/structures/structures.h ../LO21ProjetCode/structures/stack.h ../LO21ProjetCode/structures/parser.h ../LO21ProjetCode/structures/identifierManager.h ../LO21ProjetCode/structures/generalManager.h ../LO21ProjetCode/qvareditor.h ../LO21ProjetCode/qprogrameditor.h .tmp/LO21Projet1.0.0/ && $(COPY_FILE) --parents ../LO21ProjetCode/main.cpp ../LO21ProjetCode/qmain.cpp ../LO21ProjetCode/intermediary.cpp ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/litteral/litteral.cpp ../LO21ProjetCode/litteral/atom.cpp ../LO21ProjetCode/litteral/numeric.cpp ../LO21ProjetCode/litteral/real.cpp ../LO21ProjetCode/litteral/rationnal.cpp ../LO21ProjetCode/litteral/integer.cpp ../LO21ProjetCode/litteral/complex.cpp ../LO21ProjetCode/litteral/expression.cpp ../LO21ProjetCode/litteral/program.cpp ../LO21ProjetCode/structures/structures.cpp ../LO21ProjetCode/structures/stack.cpp ../LO21ProjetCode/structures/parser.cpp ../LO21ProjetCode/structures/identifierManager.cpp ../LO21ProjetCode/structures/generalManager.cpp ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qprogrameditor.cpp .tmp/LO21Projet1.0.0/ && $(COPY_FILE) --parents ../LO21ProjetCode/mainwindow.ui .tmp/LO21Projet1.0.0/ && (cd `dirname .tmp/LO21Projet1.0.0` && $(TAR) LO21Projet1.0.0.tar LO21Projet1.0.0 && $(COMPRESS) LO21Projet1.0.0.tar) && $(MOVE) `dirname .tmp/LO21Projet1.0.0`/LO21Projet1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/LO21Projet1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/LO21Projet1.0.0/ && $(COPY_FILE) --parents ../LO21ProjetCode/qmain.h ../LO21ProjetCode/intermediary.h ../LO21ProjetCode/mainwindow.h ../LO21ProjetCode/litteral/litteral.h ../LO21ProjetCode/litteral/atom.h ../LO21ProjetCode/litteral/numeric.h ../LO21ProjetCode/litteral/real.h ../LO21ProjetCode/litteral/rationnal.h ../LO21ProjetCode/litteral/integer.h ../LO21ProjetCode/litteral/complex.h ../LO21ProjetCode/litteral/program.h ../LO21ProjetCode/litteral/expression.h ../LO21ProjetCode/structures/structures.h ../LO21ProjetCode/structures/stack.h ../LO21ProjetCode/structures/parser.h ../LO21ProjetCode/structures/identifierManager.h ../LO21ProjetCode/structures/generalManager.h ../LO21ProjetCode/qvareditor.h ../LO21ProjetCode/qprogrameditor.h ../LO21ProjetCode/snapshots.h .tmp/LO21Projet1.0.0/ && $(COPY_FILE) --parents ../LO21ProjetCode/main.cpp ../LO21ProjetCode/qmain.cpp ../LO21ProjetCode/intermediary.cpp ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/litteral/litteral.cpp ../LO21ProjetCode/litteral/atom.cpp ../LO21ProjetCode/litteral/numeric.cpp ../LO21ProjetCode/litteral/real.cpp ../LO21ProjetCode/litteral/rationnal.cpp ../LO21ProjetCode/litteral/integer.cpp ../LO21ProjetCode/litteral/complex.cpp ../LO21ProjetCode/litteral/expression.cpp ../LO21ProjetCode/litteral/program.cpp ../LO21ProjetCode/structures/structures.cpp ../LO21ProjetCode/structures/stack.cpp ../LO21ProjetCode/structures/parser.cpp ../LO21ProjetCode/structures/identifierManager.cpp ../LO21ProjetCode/structures/generalManager.cpp ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qprogrameditor.cpp ../LO21ProjetCode/snapshots.cpp .tmp/LO21Projet1.0.0/ && $(COPY_FILE) --parents ../LO21ProjetCode/mainwindow.ui .tmp/LO21Projet1.0.0/ && (cd `dirname .tmp/LO21Projet1.0.0` && $(TAR) LO21Projet1.0.0.tar LO21Projet1.0.0 && $(COMPRESS) LO21Projet1.0.0.tar) && $(MOVE) `dirname .tmp/LO21Projet1.0.0`/LO21Projet1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/LO21Projet1.0.0
 
 
 clean:compiler_clean 
@@ -516,12 +518,21 @@ moc_qmain.cpp: /usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtCore/QTextStream \
 		/usr/include/qt5/QtCore/QObject \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/structures/structures.h \
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
 		../LO21ProjetCode/litteral/real.h \
@@ -798,12 +809,18 @@ moc_mainwindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QTextStream \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/structures/structures.h \
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
 		../LO21ProjetCode/litteral/real.h \
@@ -893,6 +910,7 @@ moc_stack.cpp: /usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
 		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/litteral.h \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
@@ -1034,6 +1052,7 @@ moc_qvareditor.cpp: /usr/include/qt5/QtWidgets/QTableWidget \
 		/usr/include/qt5/QtCore/QTextStream \
 		/usr/include/qt5/QtCore/QObject \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/qprogrameditor.h \
@@ -1042,6 +1061,14 @@ moc_qvareditor.cpp: /usr/include/qt5/QtWidgets/QTableWidget \
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
 		../LO21ProjetCode/litteral/real.h \
@@ -1073,7 +1100,6 @@ moc_qvareditor.cpp: /usr/include/qt5/QtWidgets/QTableWidget \
 		/usr/include/qt5/QtWidgets/qlineedit.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		/usr/include/qt5/QtCore/QStringList \
 		/usr/include/qt5/QtGui/QWindow \
 		/usr/include/qt5/QtGui/qwindow.h \
 		/usr/include/qt5/QtCore/QEvent \
@@ -1166,25 +1192,19 @@ moc_qprogrameditor.cpp: ../LO21ProjetCode/structures/identifierManager.h \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
 		/usr/include/qt5/QtCore/QDebug \
-		../LO21ProjetCode/litteral/litteral.h \
-		../LO21ProjetCode/litteral/integer.h \
-		../LO21ProjetCode/litteral/numeric.h \
-		../LO21ProjetCode/litteral/expression.h \
-		../LO21ProjetCode/litteral/real.h \
-		../LO21ProjetCode/litteral/rationnal.h \
-		../LO21ProjetCode/litteral/program.h \
-		../LO21ProjetCode/structures/generalManager.h \
-		../LO21ProjetCode/structures/parser.h \
-		../LO21ProjetCode/intermediary.h \
-		../LO21ProjetCode/litteral/atom.h \
-		../LO21ProjetCode/structures/stack.h \
-		/usr/include/qt5/QtWidgets/QWidget \
-		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
 		/usr/include/qt5/QtGui/qwindowdefs.h \
 		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
 		/usr/include/qt5/QtCore/qmargins.h \
 		/usr/include/qt5/QtCore/qrect.h \
-		/usr/include/qt5/QtCore/qsize.h \
 		/usr/include/qt5/QtGui/qpaintdevice.h \
 		/usr/include/qt5/QtGui/qpalette.h \
 		/usr/include/qt5/QtGui/qcolor.h \
@@ -1204,7 +1224,6 @@ moc_qprogrameditor.cpp: ../LO21ProjetCode/structures/identifierManager.h \
 		/usr/include/qt5/QtGui/qfontmetrics.h \
 		/usr/include/qt5/QtGui/qfontinfo.h \
 		/usr/include/qt5/QtWidgets/qsizepolicy.h \
-		/usr/include/qt5/QtGui/qcursor.h \
 		/usr/include/qt5/QtGui/qkeysequence.h \
 		/usr/include/qt5/QtGui/qevent.h \
 		/usr/include/qt5/QtCore/qurl.h \
@@ -1213,6 +1232,22 @@ moc_qprogrameditor.cpp: ../LO21ProjetCode/structures/identifierManager.h \
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		../LO21ProjetCode/litteral/litteral.h \
+		../LO21ProjetCode/litteral/integer.h \
+		../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/expression.h \
+		../LO21ProjetCode/litteral/real.h \
+		../LO21ProjetCode/litteral/rationnal.h \
+		../LO21ProjetCode/litteral/program.h \
+		../LO21ProjetCode/structures/generalManager.h \
+		../LO21ProjetCode/structures/parser.h \
+		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
+		../LO21ProjetCode/litteral/atom.h \
+		../LO21ProjetCode/structures/stack.h \
+		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/QComboBox \
 		/usr/include/qt5/QtWidgets/qcombobox.h \
 		/usr/include/qt5/QtWidgets/qabstractitemdelegate.h \
@@ -1250,7 +1285,6 @@ moc_qprogrameditor.cpp: ../LO21ProjetCode/structures/identifierManager.h \
 		/usr/include/qt5/QtWidgets/qlineedit.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		/usr/include/qt5/QtCore/QStringList \
 		/usr/include/qt5/QtGui/QWindow \
 		/usr/include/qt5/QtGui/qwindow.h \
 		/usr/include/qt5/QtCore/QEvent \
@@ -1405,6 +1439,7 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		/usr/include/qt5/QtCore/QTextStream \
 		/usr/include/qt5/QtCore/QObject \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/qprogrameditor.h \
@@ -1413,6 +1448,14 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
 		../LO21ProjetCode/litteral/real.h \
@@ -1444,7 +1487,6 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		/usr/include/qt5/QtWidgets/qlineedit.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		/usr/include/qt5/QtCore/QStringList \
 		/usr/include/qt5/QtGui/QWindow \
 		/usr/include/qt5/QtGui/qwindow.h \
 		/usr/include/qt5/QtCore/QEvent \
@@ -1605,12 +1647,21 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		/usr/include/qt5/QtCore/QTextStream \
 		/usr/include/qt5/QtCore/QObject \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/structures/structures.h \
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
 		../LO21ProjetCode/litteral/real.h \
@@ -1701,25 +1752,19 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
 		/usr/include/qt5/QtCore/QDebug \
-		../LO21ProjetCode/litteral/litteral.h \
-		../LO21ProjetCode/litteral/integer.h \
-		../LO21ProjetCode/litteral/numeric.h \
-		../LO21ProjetCode/litteral/expression.h \
-		../LO21ProjetCode/litteral/real.h \
-		../LO21ProjetCode/litteral/rationnal.h \
-		../LO21ProjetCode/litteral/program.h \
-		../LO21ProjetCode/structures/generalManager.h \
-		../LO21ProjetCode/structures/parser.h \
-		../LO21ProjetCode/intermediary.h \
-		../LO21ProjetCode/litteral/atom.h \
-		../LO21ProjetCode/structures/stack.h \
-		/usr/include/qt5/QtWidgets/QWidget \
-		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
 		/usr/include/qt5/QtGui/qwindowdefs.h \
 		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
 		/usr/include/qt5/QtCore/qmargins.h \
 		/usr/include/qt5/QtCore/qrect.h \
-		/usr/include/qt5/QtCore/qsize.h \
 		/usr/include/qt5/QtGui/qpaintdevice.h \
 		/usr/include/qt5/QtGui/qpalette.h \
 		/usr/include/qt5/QtGui/qcolor.h \
@@ -1739,7 +1784,6 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		/usr/include/qt5/QtGui/qfontmetrics.h \
 		/usr/include/qt5/QtGui/qfontinfo.h \
 		/usr/include/qt5/QtWidgets/qsizepolicy.h \
-		/usr/include/qt5/QtGui/qcursor.h \
 		/usr/include/qt5/QtGui/qkeysequence.h \
 		/usr/include/qt5/QtGui/qevent.h \
 		/usr/include/qt5/QtCore/qurl.h \
@@ -1748,6 +1792,22 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		../LO21ProjetCode/litteral/litteral.h \
+		../LO21ProjetCode/litteral/integer.h \
+		../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/expression.h \
+		../LO21ProjetCode/litteral/real.h \
+		../LO21ProjetCode/litteral/rationnal.h \
+		../LO21ProjetCode/litteral/program.h \
+		../LO21ProjetCode/structures/generalManager.h \
+		../LO21ProjetCode/structures/parser.h \
+		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
+		../LO21ProjetCode/litteral/atom.h \
+		../LO21ProjetCode/structures/stack.h \
+		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/QComboBox \
 		/usr/include/qt5/QtWidgets/qcombobox.h \
 		/usr/include/qt5/QtWidgets/qabstractitemdelegate.h \
@@ -1785,7 +1845,6 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		/usr/include/qt5/QtWidgets/qlineedit.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		/usr/include/qt5/QtCore/QStringList \
 		/usr/include/qt5/QtGui/QWindow \
 		/usr/include/qt5/QtGui/qwindow.h \
 		/usr/include/qt5/QtCore/QEvent \
@@ -1884,28 +1943,26 @@ main.o: ../LO21ProjetCode/main.cpp ../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtCore/QDebug \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/structures/structures.h \
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
-		../LO21ProjetCode/litteral/integer.h \
-		../LO21ProjetCode/litteral/numeric.h \
-		../LO21ProjetCode/litteral/real.h \
-		../LO21ProjetCode/litteral/rationnal.h \
-		../LO21ProjetCode/litteral/program.h \
-		../LO21ProjetCode/structures/generalManager.h \
-		../LO21ProjetCode/structures/parser.h \
-		../LO21ProjetCode/structures/stack.h \
-		../LO21ProjetCode/qmain.h \
-		/usr/include/qt5/QtWidgets/QWidget \
-		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
 		/usr/include/qt5/QtGui/qwindowdefs.h \
 		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
 		/usr/include/qt5/QtCore/qmargins.h \
 		/usr/include/qt5/QtCore/qrect.h \
-		/usr/include/qt5/QtCore/qsize.h \
 		/usr/include/qt5/QtGui/qpaintdevice.h \
 		/usr/include/qt5/QtGui/qpalette.h \
 		/usr/include/qt5/QtGui/qcolor.h \
@@ -1925,7 +1982,6 @@ main.o: ../LO21ProjetCode/main.cpp ../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtGui/qfontmetrics.h \
 		/usr/include/qt5/QtGui/qfontinfo.h \
 		/usr/include/qt5/QtWidgets/qsizepolicy.h \
-		/usr/include/qt5/QtGui/qcursor.h \
 		/usr/include/qt5/QtGui/qkeysequence.h \
 		/usr/include/qt5/QtGui/qevent.h \
 		/usr/include/qt5/QtCore/qurl.h \
@@ -1934,6 +1990,18 @@ main.o: ../LO21ProjetCode/main.cpp ../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		../LO21ProjetCode/litteral/integer.h \
+		../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/real.h \
+		../LO21ProjetCode/litteral/rationnal.h \
+		../LO21ProjetCode/litteral/program.h \
+		../LO21ProjetCode/structures/generalManager.h \
+		../LO21ProjetCode/structures/parser.h \
+		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/qmain.h \
+		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/QLineEdit \
 		/usr/include/qt5/QtWidgets/qlineedit.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
@@ -1998,7 +2066,6 @@ main.o: ../LO21ProjetCode/main.cpp ../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/qfileinfo.h \
 		/usr/include/qt5/QtCore/qdiriterator.h \
 		/usr/include/qt5/QtCore/qfileselector.h \
-		/usr/include/qt5/QtCore/QStringList \
 		/usr/include/qt5/QtCore/qfilesystemwatcher.h \
 		/usr/include/qt5/QtCore/qlockfile.h \
 		/usr/include/qt5/QtCore/qloggingcategory.h \
@@ -2019,10 +2086,8 @@ main.o: ../LO21ProjetCode/main.cpp ../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtCore/qjsondocument.h \
 		/usr/include/qt5/QtCore/qjsonobject.h \
 		/usr/include/qt5/QtCore/qabstracteventdispatcher.h \
-		/usr/include/qt5/QtCore/qeventloop.h \
 		/usr/include/qt5/QtCore/qabstractnativeeventfilter.h \
 		/usr/include/qt5/QtCore/qbasictimer.h \
-		/usr/include/qt5/QtCore/qcoreapplication.h \
 		/usr/include/qt5/QtCore/qmath.h \
 		/usr/include/qt5/QtCore/qmetaobject.h \
 		/usr/include/qt5/QtCore/qmimedata.h \
@@ -2089,11 +2154,6 @@ main.o: ../LO21ProjetCode/main.cpp ../LO21ProjetCode/litteral/litteral.h \
 		/usr/include/qt5/QtXml/qtxmlversion.h \
 		../rapidxml-1.13/rapidxml_print.hpp \
 		../rapidxml-1.13/rapidxml.hpp \
-		/usr/include/qt5/QtWidgets/QApplication \
-		/usr/include/qt5/QtWidgets/qapplication.h \
-		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
-		/usr/include/qt5/QtGui/qguiapplication.h \
-		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/complex.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../LO21ProjetCode/main.cpp
 
@@ -2251,12 +2311,21 @@ qmain.o: ../LO21ProjetCode/qmain.cpp ../LO21ProjetCode/qmain.h \
 		/usr/include/qt5/QtCore/QTextStream \
 		/usr/include/qt5/QtCore/QObject \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/structures/structures.h \
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
 		../LO21ProjetCode/litteral/real.h \
@@ -2346,8 +2415,120 @@ intermediary.o: ../LO21ProjetCode/intermediary.cpp ../LO21ProjetCode/litteral/li
 		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtCore/QDebug \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
-		../LO21ProjetCode/litteral/expression.h
+		../LO21ProjetCode/litteral/expression.h \
+		../LO21ProjetCode/qvareditor.h \
+		/usr/include/qt5/QtWidgets/QTableWidget \
+		/usr/include/qt5/QtWidgets/qtablewidget.h \
+		/usr/include/qt5/QtWidgets/qtableview.h \
+		/usr/include/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/qt5/QtGui/qvalidator.h \
+		/usr/include/qt5/QtCore/qregularexpression.h \
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtWidgets/qslider.h \
+		/usr/include/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/qt5/QtWidgets/qstyle.h \
+		/usr/include/qt5/QtWidgets/qtabbar.h \
+		/usr/include/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/qt5/QtWidgets/qrubberband.h \
+		/usr/include/qt5/QtWidgets/QHeaderView \
+		/usr/include/qt5/QtWidgets/qheaderview.h \
+		../LO21ProjetCode/qprogrameditor.h \
+		../LO21ProjetCode/structures/identifierManager.h \
+		../LO21ProjetCode/structures/structures.h \
+		/usr/include/qt5/QtMultimedia/QSound \
+		/usr/include/qt5/QtMultimedia/qsound.h \
+		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		../LO21ProjetCode/litteral/integer.h \
+		../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/real.h \
+		../LO21ProjetCode/litteral/rationnal.h \
+		../LO21ProjetCode/litteral/program.h \
+		../LO21ProjetCode/structures/generalManager.h \
+		../LO21ProjetCode/structures/parser.h \
+		../LO21ProjetCode/structures/stack.h \
+		/usr/include/qt5/QtWidgets/QWidget \
+		/usr/include/qt5/QtWidgets/QComboBox \
+		/usr/include/qt5/QtWidgets/qcombobox.h \
+		/usr/include/qt5/QtWidgets/QTextEdit \
+		/usr/include/qt5/QtWidgets/qtextedit.h \
+		/usr/include/qt5/QtGui/qtextdocument.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+		/usr/include/qt5/QtGui/qtextcursor.h \
+		/usr/include/qt5/QtGui/qtextformat.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtWidgets/QPushButton \
+		/usr/include/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/qt5/QtWidgets/QLineEdit \
+		/usr/include/qt5/QtWidgets/qlineedit.h \
+		/usr/include/qt5/QtWidgets/QLabel \
+		/usr/include/qt5/QtWidgets/qlabel.h \
+		/usr/include/qt5/QtGui/QWindow \
+		/usr/include/qt5/QtGui/qwindow.h \
+		/usr/include/qt5/QtCore/QEvent \
+		/usr/include/qt5/QtCore/QMargins \
+		/usr/include/qt5/QtCore/QRect \
+		/usr/include/qt5/QtGui/qsurface.h \
+		/usr/include/qt5/QtGui/qsurfaceformat.h \
+		/usr/include/qt5/QtWidgets/QCheckBox \
+		/usr/include/qt5/QtWidgets/qcheckbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o intermediary.o ../LO21ProjetCode/intermediary.cpp
 
 mainwindow.o: ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/mainwindow.h \
@@ -2616,12 +2797,18 @@ mainwindow.o: ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/mainwindow.h \
 		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QTextStream \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/structures/structures.h \
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
 		../LO21ProjetCode/litteral/real.h \
@@ -2635,11 +2822,6 @@ mainwindow.o: ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/mainwindow.h \
 		/usr/include/qt5/QtWidgets/QAction \
 		/usr/include/qt5/QtWidgets/qaction.h \
 		/usr/include/qt5/QtWidgets/qactiongroup.h \
-		/usr/include/qt5/QtWidgets/QApplication \
-		/usr/include/qt5/QtWidgets/qapplication.h \
-		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
-		/usr/include/qt5/QtGui/qguiapplication.h \
-		/usr/include/qt5/QtGui/qinputmethod.h \
 		/usr/include/qt5/QtWidgets/QButtonGroup \
 		/usr/include/qt5/QtWidgets/qbuttongroup.h \
 		/usr/include/qt5/QtWidgets/QCheckBox \
@@ -3503,13 +3685,96 @@ structures.o: ../LO21ProjetCode/structures/structures.cpp ../LO21ProjetCode/litt
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/program.h \
 		../LO21ProjetCode/structures/generalManager.h \
 		../LO21ProjetCode/structures/parser.h \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/structures/stack.h \
-		/usr/include/qt5/QtCore/QStringList
+		../LO21ProjetCode/qmain.h \
+		/usr/include/qt5/QtWidgets/QWidget \
+		/usr/include/qt5/QtWidgets/QLineEdit \
+		/usr/include/qt5/QtWidgets/qlineedit.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtGui/qtextcursor.h \
+		/usr/include/qt5/QtGui/qtextformat.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+		/usr/include/qt5/QtWidgets/QTextEdit \
+		/usr/include/qt5/QtWidgets/qtextedit.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtGui/qtextdocument.h \
+		/usr/include/qt5/QtWidgets/QTableWidget \
+		/usr/include/qt5/QtWidgets/qtablewidget.h \
+		/usr/include/qt5/QtWidgets/qtableview.h \
+		/usr/include/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/qt5/QtGui/qvalidator.h \
+		/usr/include/qt5/QtCore/qregularexpression.h \
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtWidgets/qslider.h \
+		/usr/include/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/qt5/QtWidgets/qstyle.h \
+		/usr/include/qt5/QtWidgets/qtabbar.h \
+		/usr/include/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/qt5/QtWidgets/qrubberband.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtWidgets/QHeaderView \
+		/usr/include/qt5/QtWidgets/qheaderview.h \
+		/usr/include/qt5/QtWidgets/QPushButton \
+		/usr/include/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o structures.o ../LO21ProjetCode/structures/structures.cpp
 
 stack.o: ../LO21ProjetCode/structures/stack.cpp ../LO21ProjetCode/structures/stack.h \
@@ -3591,6 +3856,7 @@ stack.o: ../LO21ProjetCode/structures/stack.cpp ../LO21ProjetCode/structures/sta
 		/usr/include/qt5/QtCore/qstringmatcher.h \
 		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/litteral.h \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h
@@ -3762,6 +4028,48 @@ identifierManager.o: ../LO21ProjetCode/structures/identifierManager.cpp ../LO21P
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
 		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/litteral.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
@@ -3772,6 +4080,7 @@ identifierManager.o: ../LO21ProjetCode/structures/identifierManager.cpp ../LO21P
 		../LO21ProjetCode/structures/generalManager.h \
 		../LO21ProjetCode/structures/parser.h \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/structures/stack.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o identifierManager.o ../LO21ProjetCode/structures/identifierManager.cpp
@@ -3860,12 +4169,55 @@ generalManager.o: ../LO21ProjetCode/structures/generalManager.cpp ../LO21ProjetC
 		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtCore/QDebug \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/structures/identifierManager.h \
 		../LO21ProjetCode/structures/structures.h \
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/real.h \
 		../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/program.h \
@@ -4009,6 +4361,7 @@ qvareditor.o: ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qvareditor.h \
 		/usr/include/qt5/QtCore/QTextStream \
 		/usr/include/qt5/QtCore/QObject \
 		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
 		../LO21ProjetCode/litteral/atom.h \
 		../LO21ProjetCode/litteral/expression.h \
 		../LO21ProjetCode/qprogrameditor.h \
@@ -4017,6 +4370,14 @@ qvareditor.o: ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qvareditor.h \
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
 		../LO21ProjetCode/litteral/integer.h \
 		../LO21ProjetCode/litteral/numeric.h \
 		../LO21ProjetCode/litteral/real.h \
@@ -4048,7 +4409,6 @@ qvareditor.o: ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qvareditor.h \
 		/usr/include/qt5/QtWidgets/qlineedit.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		/usr/include/qt5/QtCore/QStringList \
 		/usr/include/qt5/QtGui/QWindow \
 		/usr/include/qt5/QtGui/qwindow.h \
 		/usr/include/qt5/QtCore/QEvent \
@@ -4141,25 +4501,19 @@ qprogrameditor.o: ../LO21ProjetCode/qprogrameditor.cpp ../LO21ProjetCode/qprogra
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
 		/usr/include/qt5/QtCore/QDebug \
-		../LO21ProjetCode/litteral/litteral.h \
-		../LO21ProjetCode/litteral/integer.h \
-		../LO21ProjetCode/litteral/numeric.h \
-		../LO21ProjetCode/litteral/expression.h \
-		../LO21ProjetCode/litteral/real.h \
-		../LO21ProjetCode/litteral/rationnal.h \
-		../LO21ProjetCode/litteral/program.h \
-		../LO21ProjetCode/structures/generalManager.h \
-		../LO21ProjetCode/structures/parser.h \
-		../LO21ProjetCode/intermediary.h \
-		../LO21ProjetCode/litteral/atom.h \
-		../LO21ProjetCode/structures/stack.h \
-		/usr/include/qt5/QtWidgets/QWidget \
-		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
 		/usr/include/qt5/QtGui/qwindowdefs.h \
 		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
 		/usr/include/qt5/QtCore/qmargins.h \
 		/usr/include/qt5/QtCore/qrect.h \
-		/usr/include/qt5/QtCore/qsize.h \
 		/usr/include/qt5/QtGui/qpaintdevice.h \
 		/usr/include/qt5/QtGui/qpalette.h \
 		/usr/include/qt5/QtGui/qcolor.h \
@@ -4179,7 +4533,6 @@ qprogrameditor.o: ../LO21ProjetCode/qprogrameditor.cpp ../LO21ProjetCode/qprogra
 		/usr/include/qt5/QtGui/qfontmetrics.h \
 		/usr/include/qt5/QtGui/qfontinfo.h \
 		/usr/include/qt5/QtWidgets/qsizepolicy.h \
-		/usr/include/qt5/QtGui/qcursor.h \
 		/usr/include/qt5/QtGui/qkeysequence.h \
 		/usr/include/qt5/QtGui/qevent.h \
 		/usr/include/qt5/QtCore/qurl.h \
@@ -4188,6 +4541,22 @@ qprogrameditor.o: ../LO21ProjetCode/qprogrameditor.cpp ../LO21ProjetCode/qprogra
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		../LO21ProjetCode/litteral/litteral.h \
+		../LO21ProjetCode/litteral/integer.h \
+		../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/expression.h \
+		../LO21ProjetCode/litteral/real.h \
+		../LO21ProjetCode/litteral/rationnal.h \
+		../LO21ProjetCode/litteral/program.h \
+		../LO21ProjetCode/structures/generalManager.h \
+		../LO21ProjetCode/structures/parser.h \
+		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QList \
+		../LO21ProjetCode/litteral/atom.h \
+		../LO21ProjetCode/structures/stack.h \
+		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/QComboBox \
 		/usr/include/qt5/QtWidgets/qcombobox.h \
 		/usr/include/qt5/QtWidgets/qabstractitemdelegate.h \
@@ -4225,7 +4594,6 @@ qprogrameditor.o: ../LO21ProjetCode/qprogrameditor.cpp ../LO21ProjetCode/qprogra
 		/usr/include/qt5/QtWidgets/qlineedit.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		/usr/include/qt5/QtCore/QStringList \
 		/usr/include/qt5/QtGui/QWindow \
 		/usr/include/qt5/QtGui/qwindow.h \
 		/usr/include/qt5/QtCore/QEvent \
@@ -4234,6 +4602,146 @@ qprogrameditor.o: ../LO21ProjetCode/qprogrameditor.cpp ../LO21ProjetCode/qprogra
 		/usr/include/qt5/QtGui/qsurface.h \
 		/usr/include/qt5/QtGui/qsurfaceformat.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qprogrameditor.o ../LO21ProjetCode/qprogrameditor.cpp
+
+snapshots.o: ../LO21ProjetCode/snapshots.cpp ../LO21ProjetCode/snapshots.h \
+		../LO21ProjetCode/structures/stack.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		../LO21ProjetCode/intermediary.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/QTextStream \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtCore/QList \
+		../LO21ProjetCode/litteral/litteral.h \
+		../LO21ProjetCode/litteral/atom.h \
+		../LO21ProjetCode/litteral/expression.h \
+		../LO21ProjetCode/structures/identifierManager.h \
+		../LO21ProjetCode/structures/structures.h \
+		/usr/include/qt5/QtMultimedia/QSound \
+		/usr/include/qt5/QtMultimedia/qsound.h \
+		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		../LO21ProjetCode/litteral/integer.h \
+		../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/real.h \
+		../LO21ProjetCode/litteral/rationnal.h \
+		../LO21ProjetCode/litteral/program.h \
+		../LO21ProjetCode/structures/generalManager.h \
+		../LO21ProjetCode/structures/parser.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o snapshots.o ../LO21ProjetCode/snapshots.cpp
 
 moc_qmain.o: moc_qmain.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_qmain.o moc_qmain.cpp

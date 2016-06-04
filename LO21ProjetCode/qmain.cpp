@@ -60,6 +60,7 @@ void QComputer::refresh()
     unsigned int NbElements =0;
     for(Stack::iterator it = pile->begin(); it!=pile->end() && NbElements<pile->getNbItemsDisplayed(); ++it, ++NbElements)
         vuePile->item(pile->getNbItemsDisplayed()-1-NbElements,0)->setText(toQString((*it)->toString()));
+    SnapshotManager::getInstance().addSnapshot(pile, &(IdentifierManager::getInstance()));
 }
 
 void QComputer::getNextCommande()

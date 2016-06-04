@@ -19,6 +19,7 @@
 #include "litteral/litteral.h"
 #include "intermediary.h"
 #include "structures/structures.h"
+#include "snapshots.h"
 
 namespace Ui {
 class MainWindow;

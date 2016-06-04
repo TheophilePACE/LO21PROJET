@@ -13,6 +13,7 @@
 #include "litteral/litteral.h"
 #include "intermediary.h"
 #include "structures/structures.h"
+#include "snapshots.h"
 
 class QComputer : public QWidget{
         Q_OBJECT

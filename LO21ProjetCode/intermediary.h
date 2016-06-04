@@ -8,6 +8,7 @@
 #include <QTextStream>
 #include <QObject>
 #include <QDebug>
+#include <QList>
 #include "litteral/litteral.h"
 #include "litteral/atom.h"
 

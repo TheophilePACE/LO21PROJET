@@ -8,6 +8,9 @@
 #include <QObject>
 #include <QSound>
 #include <QDebug>
+#include <QString>
+#include <QStringList>
+#include <QApplication>
 #include "litteral/litteral.h"
 #include "litteral/integer.h"
 #include "litteral/real.h"
