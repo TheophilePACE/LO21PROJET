@@ -1,7 +1,7 @@
 #include "operator.h"
 #include "stack.h"
-#include "litteral/complex.h"
-#include "litteral.h"
+#include "../litteral/complex.h"
+#include "../litteral/litteral.h"
 
 
 void OperatorBinary::loadOperand(Stack *s) {

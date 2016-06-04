@@ -3,13 +3,10 @@
 #include "litteral/real.h"
 #include "structures/structures.h"
 #include "parser.h"
-<<<<<<< HEAD
 #include "qmain.h"
-=======
 #include <QString>
 #include <QStringList>
 #include "operator.h"
->>>>>>> f18a2e80a29ffc3cab1ebd29a53fe511446a4f03
 
 void Controller::command(const QString& c){
     Parser p = Parser::getInstance();

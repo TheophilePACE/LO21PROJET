@@ -1,8 +1,7 @@
 #ifndef OPERATOR_H
 #define OPERATOR_H
-#include "structures/stack.h"
 #include "stack.h"
-#include "complex.h"
+#include "../litteral/complex.h"
 
 
 #include "structures/structures.h"
