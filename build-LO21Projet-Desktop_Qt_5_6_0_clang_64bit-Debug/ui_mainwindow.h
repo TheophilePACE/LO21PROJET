@@ -18,12 +18,16 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "qmain.h"
+#include "qprogrameditor.h"
+#include "qvareditor.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -32,14 +36,19 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QTabWidget *tabWidget;
-    QComputer *Calculatrice;
-    QWidget *Variables;
-    QWidget *Programmes;
-    QWidget *Paramtres;
-    QCheckBox *checkBox;
-    QPushButton *pushButton_47;
-    QGroupBox *groupBox;
+    QComputer *CalcTab;
+    QvarEditor *Variables;
+    QprogramEditor *Programmes;
+    QWidget *Parametres;
     QWidget *layoutWidget;
+    QVBoxLayout *verticalLayout;
+    QCheckBox *checkBox;
+    QLabel *label;
+    QHBoxLayout *horizontalLayout;
+    QLabel *label_2;
+    QSlider *horizontalSlider;
+    QGroupBox *groupBox;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_3;
     QHBoxLayout *horizontalLayout_5;
     QGridLayout *gridLayout_3;
@@ -97,7 +106,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(959, 304);
+        MainWindow->resize(959, 300);
         MainWindow->setMinimumSize(QSize(481, 291));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
@@ -106,35 +115,72 @@ public:
         tabWidget->setGeometry(QRect(0, 0, 481, 291));
         tabWidget->setMinimumSize(QSize(481, 291));
         tabWidget->setStyleSheet(QStringLiteral(""));
-        Calculatrice = new QComputer();
-        Calculatrice->setObjectName(QStringLiteral("Calculatrice"));
-        Calculatrice->setStyleSheet(QStringLiteral(""));
-        tabWidget->addTab(Calculatrice, QString());
-        Variables = new QWidget();
+        CalcTab = new QComputer();
+        CalcTab->setObjectName(QStringLiteral("CalcTab"));
+        CalcTab->setStyleSheet(QStringLiteral(""));
+        tabWidget->addTab(CalcTab, QString());
+        Variables = new QvarEditor();
         Variables->setObjectName(QStringLiteral("Variables"));
         tabWidget->addTab(Variables, QString());
-        Programmes = new QWidget();
+        Programmes = new QprogramEditor();
         Programmes->setObjectName(QStringLiteral("Programmes"));
         tabWidget->addTab(Programmes, QString());
-        Paramtres = new QWidget();
-        Paramtres->setObjectName(QStringLiteral("Paramtres"));
-        checkBox = new QCheckBox(Paramtres);
+        Parametres = new QWidget();
+        Parametres->setObjectName(QStringLiteral("Parametres"));
+        layoutWidget = new QWidget(Parametres);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(20, 20, 177, 76));
+        verticalLayout = new QVBoxLayout(layoutWidget);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        checkBox = new QCheckBox(layoutWidget);
         checkBox->setObjectName(QStringLiteral("checkBox"));
-        checkBox->setGeometry(QRect(20, 20, 181, 22));
         checkBox->setTristate(false);
-        pushButton_47 = new QPushButton(Paramtres);
-        pushButton_47->setObjectName(QStringLiteral("pushButton_47"));
-        pushButton_47->setGeometry(QRect(380, 220, 85, 27));
-        tabWidget->addTab(Paramtres, QString());
+
+        verticalLayout->addWidget(checkBox);
+
+        label = new QLabel(layoutWidget);
+        label->setObjectName(QStringLiteral("label"));
+
+        verticalLayout->addWidget(label);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        label_2 = new QLabel(layoutWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        QFont font;
+        font.setPointSize(10);
+        label_2->setFont(font);
+        label_2->setTextFormat(Qt::AutoText);
+        label_2->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout->addWidget(label_2);
+
+        horizontalSlider = new QSlider(layoutWidget);
+        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
+        horizontalSlider->setMinimum(0);
+        horizontalSlider->setMaximum(15);
+        horizontalSlider->setSliderPosition(4);
+        horizontalSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout->addWidget(horizontalSlider);
+
+
+        verticalLayout->addLayout(horizontalLayout);
+
+        tabWidget->addTab(Parametres, QString());
         groupBox = new QGroupBox(centralwidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(490, 30, 471, 261));
         groupBox->setMinimumSize(QSize(471, 261));
-        layoutWidget = new QWidget(groupBox);
-        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(0, 20, 461, 231));
-        verticalLayout_3 = new QVBoxLayout(layoutWidget);
+        groupBox->setMaximumSize(QSize(471, 261));
+        groupBox->setBaseSize(QSize(471, 261));
+        layoutWidget1 = new QWidget(groupBox);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(0, 20, 730, 268));
+        verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        verticalLayout_3->setSizeConstraint(QLayout::SetNoConstraint);
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
@@ -142,82 +188,82 @@ public:
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         gridLayout_3->setSizeConstraint(QLayout::SetNoConstraint);
         gridLayout_3->setContentsMargins(-1, -1, -1, 0);
-        pushButton_21 = new QPushButton(layoutWidget);
+        pushButton_21 = new QPushButton(layoutWidget1);
         pushButton_21->setObjectName(QStringLiteral("pushButton_21"));
 
         gridLayout_3->addWidget(pushButton_21, 0, 3, 1, 1);
 
-        pushButton_16 = new QPushButton(layoutWidget);
+        pushButton_16 = new QPushButton(layoutWidget1);
         pushButton_16->setObjectName(QStringLiteral("pushButton_16"));
 
         gridLayout_3->addWidget(pushButton_16, 2, 2, 1, 1);
 
-        pushButton_17 = new QPushButton(layoutWidget);
+        pushButton_17 = new QPushButton(layoutWidget1);
         pushButton_17->setObjectName(QStringLiteral("pushButton_17"));
 
         gridLayout_3->addWidget(pushButton_17, 3, 1, 1, 1);
 
-        pushButton_13 = new QPushButton(layoutWidget);
+        pushButton_13 = new QPushButton(layoutWidget1);
         pushButton_13->setObjectName(QStringLiteral("pushButton_13"));
 
         gridLayout_3->addWidget(pushButton_13, 1, 3, 1, 1);
 
-        pushButton_18 = new QPushButton(layoutWidget);
+        pushButton_18 = new QPushButton(layoutWidget1);
         pushButton_18->setObjectName(QStringLiteral("pushButton_18"));
 
         gridLayout_3->addWidget(pushButton_18, 3, 2, 1, 1);
 
-        pushButton_19 = new QPushButton(layoutWidget);
+        pushButton_19 = new QPushButton(layoutWidget1);
         pushButton_19->setObjectName(QStringLiteral("pushButton_19"));
 
         gridLayout_3->addWidget(pushButton_19, 3, 3, 1, 1);
 
-        pushButton_11 = new QPushButton(layoutWidget);
+        pushButton_11 = new QPushButton(layoutWidget1);
         pushButton_11->setObjectName(QStringLiteral("pushButton_11"));
 
         gridLayout_3->addWidget(pushButton_11, 1, 1, 1, 1);
 
-        pushButton_6 = new QPushButton(layoutWidget);
+        pushButton_6 = new QPushButton(layoutWidget1);
         pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
 
         gridLayout_3->addWidget(pushButton_6, 2, 0, 1, 1);
 
-        pushButton_7 = new QPushButton(layoutWidget);
+        pushButton_7 = new QPushButton(layoutWidget1);
         pushButton_7->setObjectName(QStringLiteral("pushButton_7"));
 
         gridLayout_3->addWidget(pushButton_7, 3, 0, 1, 1);
 
-        pushButton_12 = new QPushButton(layoutWidget);
+        pushButton_12 = new QPushButton(layoutWidget1);
         pushButton_12->setObjectName(QStringLiteral("pushButton_12"));
 
         gridLayout_3->addWidget(pushButton_12, 1, 2, 1, 1);
 
-        pushButton_20 = new QPushButton(layoutWidget);
+        pushButton_20 = new QPushButton(layoutWidget1);
         pushButton_20->setObjectName(QStringLiteral("pushButton_20"));
 
         gridLayout_3->addWidget(pushButton_20, 2, 3, 1, 1);
 
-        pushButton_5 = new QPushButton(layoutWidget);
+        pushButton_5 = new QPushButton(layoutWidget1);
         pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
 
         gridLayout_3->addWidget(pushButton_5, 1, 0, 1, 1);
 
-        pushButton_9 = new QPushButton(layoutWidget);
+        pushButton_9 = new QPushButton(layoutWidget1);
         pushButton_9->setObjectName(QStringLiteral("pushButton_9"));
 
         gridLayout_3->addWidget(pushButton_9, 0, 2, 1, 1);
 
-        pushButton_15 = new QPushButton(layoutWidget);
+        pushButton_15 = new QPushButton(layoutWidget1);
         pushButton_15->setObjectName(QStringLiteral("pushButton_15"));
 
         gridLayout_3->addWidget(pushButton_15, 2, 1, 1, 1);
 
-        pushButton_8 = new QPushButton(layoutWidget);
+        pushButton_8 = new QPushButton(layoutWidget1);
         pushButton_8->setObjectName(QStringLiteral("pushButton_8"));
 
         gridLayout_3->addWidget(pushButton_8, 0, 1, 1, 1);
 
-        pushButton_4 = new QPushButton(layoutWidget);
+        pushButton_4 = new QPushButton(layoutWidget1);
         pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
         pushButton_4->setEnabled(true);
 
@@ -228,97 +274,97 @@ public:
 
         gridLayout = new QGridLayout();
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        pushButton_3 = new QPushButton(layoutWidget);
+        pushButton_3 = new QPushButton(layoutWidget1);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
 
         gridLayout->addWidget(pushButton_3, 0, 0, 1, 1);
 
-        pushButton_22 = new QPushButton(layoutWidget);
+        pushButton_22 = new QPushButton(layoutWidget1);
         pushButton_22->setObjectName(QStringLiteral("pushButton_22"));
 
         gridLayout->addWidget(pushButton_22, 1, 0, 1, 1);
 
-        pushButton_33 = new QPushButton(layoutWidget);
+        pushButton_33 = new QPushButton(layoutWidget1);
         pushButton_33->setObjectName(QStringLiteral("pushButton_33"));
 
         gridLayout->addWidget(pushButton_33, 3, 2, 1, 1);
 
-        pushButton_10 = new QPushButton(layoutWidget);
+        pushButton_10 = new QPushButton(layoutWidget1);
         pushButton_10->setObjectName(QStringLiteral("pushButton_10"));
 
         gridLayout->addWidget(pushButton_10, 0, 1, 1, 1);
 
-        pushButton_25 = new QPushButton(layoutWidget);
+        pushButton_25 = new QPushButton(layoutWidget1);
         pushButton_25->setObjectName(QStringLiteral("pushButton_25"));
 
         gridLayout->addWidget(pushButton_25, 2, 1, 1, 1);
 
-        pushButton_31 = new QPushButton(layoutWidget);
+        pushButton_31 = new QPushButton(layoutWidget1);
         pushButton_31->setObjectName(QStringLiteral("pushButton_31"));
 
         gridLayout->addWidget(pushButton_31, 3, 0, 1, 1);
 
-        pushButton_34 = new QPushButton(layoutWidget);
+        pushButton_34 = new QPushButton(layoutWidget1);
         pushButton_34->setObjectName(QStringLiteral("pushButton_34"));
 
         gridLayout->addWidget(pushButton_34, 3, 3, 1, 1);
 
-        pushButton_32 = new QPushButton(layoutWidget);
+        pushButton_32 = new QPushButton(layoutWidget1);
         pushButton_32->setObjectName(QStringLiteral("pushButton_32"));
 
         gridLayout->addWidget(pushButton_32, 3, 1, 1, 1);
 
-        pushButton_27 = new QPushButton(layoutWidget);
+        pushButton_27 = new QPushButton(layoutWidget1);
         pushButton_27->setObjectName(QStringLiteral("pushButton_27"));
 
         gridLayout->addWidget(pushButton_27, 1, 2, 1, 1);
 
-        pushButton_30 = new QPushButton(layoutWidget);
+        pushButton_30 = new QPushButton(layoutWidget1);
         pushButton_30->setObjectName(QStringLiteral("pushButton_30"));
 
         gridLayout->addWidget(pushButton_30, 2, 3, 1, 1);
 
-        pushButton_29 = new QPushButton(layoutWidget);
+        pushButton_29 = new QPushButton(layoutWidget1);
         pushButton_29->setObjectName(QStringLiteral("pushButton_29"));
 
         gridLayout->addWidget(pushButton_29, 1, 3, 1, 1);
 
-        pushButton_14 = new QPushButton(layoutWidget);
+        pushButton_14 = new QPushButton(layoutWidget1);
         pushButton_14->setObjectName(QStringLiteral("pushButton_14"));
 
         gridLayout->addWidget(pushButton_14, 0, 2, 1, 1);
 
-        pushButton_28 = new QPushButton(layoutWidget);
+        pushButton_28 = new QPushButton(layoutWidget1);
         pushButton_28->setObjectName(QStringLiteral("pushButton_28"));
 
         gridLayout->addWidget(pushButton_28, 0, 3, 1, 1);
 
-        pushButton_23 = new QPushButton(layoutWidget);
+        pushButton_23 = new QPushButton(layoutWidget1);
         pushButton_23->setObjectName(QStringLiteral("pushButton_23"));
 
         gridLayout->addWidget(pushButton_23, 2, 0, 1, 1);
 
-        pushButton_24 = new QPushButton(layoutWidget);
+        pushButton_24 = new QPushButton(layoutWidget1);
         pushButton_24->setObjectName(QStringLiteral("pushButton_24"));
 
         gridLayout->addWidget(pushButton_24, 1, 1, 1, 1);
 
-        pushButton_26 = new QPushButton(layoutWidget);
+        pushButton_26 = new QPushButton(layoutWidget1);
         pushButton_26->setObjectName(QStringLiteral("pushButton_26"));
 
         gridLayout->addWidget(pushButton_26, 2, 2, 1, 1);
 
-        pushButton_35 = new QPushButton(layoutWidget);
+        pushButton_35 = new QPushButton(layoutWidget1);
         pushButton_35->setObjectName(QStringLiteral("pushButton_35"));
 
         gridLayout->addWidget(pushButton_35, 4, 0, 1, 1);
 
-        pushButton_36 = new QPushButton(layoutWidget);
+        pushButton_36 = new QPushButton(layoutWidget1);
         pushButton_36->setObjectName(QStringLiteral("pushButton_36"));
 
         gridLayout->addWidget(pushButton_36, 4, 1, 1, 1);
 
-        pushButton_37 = new QPushButton(layoutWidget);
+        pushButton_37 = new QPushButton(layoutWidget1);
         pushButton_37->setObjectName(QStringLiteral("pushButton_37"));
 
         gridLayout->addWidget(pushButton_37, 4, 2, 1, 1);
@@ -331,59 +377,59 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        pushButton = new QPushButton(layoutWidget);
+        pushButton = new QPushButton(layoutWidget1);
         pushButton->setObjectName(QStringLiteral("pushButton"));
 
         horizontalLayout_2->addWidget(pushButton);
 
-        pushButton_2 = new QPushButton(layoutWidget);
+        pushButton_2 = new QPushButton(layoutWidget1);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
 
         horizontalLayout_2->addWidget(pushButton_2);
 
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        pushButton_41 = new QPushButton(layoutWidget);
+        pushButton_41 = new QPushButton(layoutWidget1);
         pushButton_41->setObjectName(QStringLiteral("pushButton_41"));
 
         gridLayout_2->addWidget(pushButton_41, 1, 0, 1, 1);
 
-        pushButton_40 = new QPushButton(layoutWidget);
+        pushButton_40 = new QPushButton(layoutWidget1);
         pushButton_40->setObjectName(QStringLiteral("pushButton_40"));
 
         gridLayout_2->addWidget(pushButton_40, 0, 2, 1, 1);
 
-        pushButton_38 = new QPushButton(layoutWidget);
+        pushButton_38 = new QPushButton(layoutWidget1);
         pushButton_38->setObjectName(QStringLiteral("pushButton_38"));
 
         gridLayout_2->addWidget(pushButton_38, 0, 0, 1, 1);
 
-        pushButton_39 = new QPushButton(layoutWidget);
+        pushButton_39 = new QPushButton(layoutWidget1);
         pushButton_39->setObjectName(QStringLiteral("pushButton_39"));
 
         gridLayout_2->addWidget(pushButton_39, 0, 1, 1, 1);
 
-        pushButton_42 = new QPushButton(layoutWidget);
+        pushButton_42 = new QPushButton(layoutWidget1);
         pushButton_42->setObjectName(QStringLiteral("pushButton_42"));
 
         gridLayout_2->addWidget(pushButton_42, 2, 0, 1, 1);
 
-        pushButton_43 = new QPushButton(layoutWidget);
+        pushButton_43 = new QPushButton(layoutWidget1);
         pushButton_43->setObjectName(QStringLiteral("pushButton_43"));
 
         gridLayout_2->addWidget(pushButton_43, 1, 1, 1, 1);
 
-        pushButton_44 = new QPushButton(layoutWidget);
+        pushButton_44 = new QPushButton(layoutWidget1);
         pushButton_44->setObjectName(QStringLiteral("pushButton_44"));
 
         gridLayout_2->addWidget(pushButton_44, 2, 1, 1, 1);
 
-        pushButton_45 = new QPushButton(layoutWidget);
+        pushButton_45 = new QPushButton(layoutWidget1);
         pushButton_45->setObjectName(QStringLiteral("pushButton_45"));
 
         gridLayout_2->addWidget(pushButton_45, 1, 2, 1, 1);
 
-        pushButton_46 = new QPushButton(layoutWidget);
+        pushButton_46 = new QPushButton(layoutWidget1);
         pushButton_46->setObjectName(QStringLiteral("pushButton_46"));
 
         gridLayout_2->addWidget(pushButton_46, 2, 2, 1, 1);
@@ -394,17 +440,14 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout_2);
 
-        layoutWidget->raise();
         MainWindow->setCentralWidget(centralwidget);
-        tabWidget->raise();
-        groupBox->raise();
 
         retranslateUi(MainWindow);
-        QObject::connect(checkBox, SIGNAL(toggled(bool)), groupBox, SLOT(setHidden(bool)));
-        QObject::connect(checkBox, SIGNAL(pressed()), groupBox, SLOT(show()));
         QObject::connect(checkBox, SIGNAL(stateChanged(int)), MainWindow, SLOT(resized()));
+        QObject::connect(checkBox, SIGNAL(toggled(bool)), groupBox, SLOT(setHidden(bool)));
+        QObject::connect(horizontalSlider, SIGNAL(sliderMoved(int)), label_2, SLOT(setNum(int)));
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -420,24 +463,25 @@ public:
         tabWidget->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
 #endif // QT_NO_WHATSTHIS
 #ifndef QT_NO_TOOLTIP
-        Calculatrice->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
+        CalcTab->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_WHATSTHIS
-        Calculatrice->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
+        CalcTab->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
 #endif // QT_NO_WHATSTHIS
 #ifndef QT_NO_ACCESSIBILITY
-        Calculatrice->setAccessibleName(QApplication::translate("MainWindow", "Calculatrice", 0));
+        CalcTab->setAccessibleName(QApplication::translate("MainWindow", "Calculatrice", 0));
 #endif // QT_NO_ACCESSIBILITY
-        tabWidget->setTabText(tabWidget->indexOf(Calculatrice), QApplication::translate("MainWindow", "Calculatrice", 0));
+        tabWidget->setTabText(tabWidget->indexOf(CalcTab), QApplication::translate("MainWindow", "Calculatrice", 0));
         tabWidget->setTabText(tabWidget->indexOf(Variables), QApplication::translate("MainWindow", "Variables", 0));
         tabWidget->setTabText(tabWidget->indexOf(Programmes), QApplication::translate("MainWindow", "Programmes", 0));
         checkBox->setText(QApplication::translate("MainWindow", "D\303\251sactiver Clavier Virtuel", 0));
-        pushButton_47->setText(QApplication::translate("MainWindow", "PushButton", 0));
-        tabWidget->setTabText(tabWidget->indexOf(Paramtres), QApplication::translate("MainWindow", "Param\303\250tres", 0));
+        label->setText(QApplication::translate("MainWindow", "Nombre de Lignes affich\303\251es :", 0));
+        label_2->setText(QApplication::translate("MainWindow", "4", 0));
+        tabWidget->setTabText(tabWidget->indexOf(Parametres), QApplication::translate("MainWindow", "Param\303\250tres", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Clavier", 0));
         pushButton_21->setText(QApplication::translate("MainWindow", "+", 0));
         pushButton_16->setText(QApplication::translate("MainWindow", "9", 0));
-        pushButton_17->setText(QApplication::translate("MainWindow", "Esp", 0));
+        pushButton_17->setText(QString());
         pushButton_13->setText(QApplication::translate("MainWindow", "*", 0));
         pushButton_18->setText(QApplication::translate("MainWindow", ".", 0));
         pushButton_19->setText(QApplication::translate("MainWindow", "$", 0));

@@ -1,4 +1,5 @@
 #include "numeric.h"
+#include "real.h"
 
 //ANCIENNE VERSION:
 //Numeric& operator+(const Numeric& N1, const Numeric& N2)
@@ -16,7 +17,17 @@ void Numeric::print(QTextStream& f)const{
             f<<(num+mantisse);
 
     }
-std::string Numeric::toString()const{
+
+double Numeric::getVal()  const{
+    double n = (double)(num);
+    double d = (double)(denum);
+    double m = (double)(mantisse);
+    return (n+m)/d;
+
+}
+std::string Numeric::toString()const
+{
+
     std::string s="";
     if(mantisse!=0){
     s+=std::to_string(num);
@@ -32,17 +43,29 @@ std::string Numeric::toStringPars()const{
 }
 
 
-// Numeric Numeric::operator+ (const Numeric& N) const
-// {
-//     long nnum,ndenum;
-//     double nmantisse,temp;
-//     temp= (mantisse+num)*N.denum + (N.num+N.mantisse)*denum;
-//     nnum = trunc(temp);
-//     ndenum = denum*N.denum;
-//     nmantisse = temp-nnum;
-//     Numeric Rslt(nnum,ndenum,nmantisse);
-//     return Rslt;
-// }
+ Numeric Numeric::operator+ (const Numeric& N) const
+ {
+     std::cout<<"utilisation ope num";
+     double nmantisse,temp;
+     temp= (mantisse+num)*N.getDenum() + (N.getNum()+N.getMantisse())*denum;
+     nmantisse =temp-trunc(temp);
+
+     if(nmantisse==0)
+         {Rationnal Rslt((long)(temp), (N.getDenum()*getDenum()) );
+          return Rslt;}
+     if(nmantisse !=0)
+     {
+         double d = getVal() + N.getVal();
+         Real Rslt(d);
+         return Rslt;}
+     else
+     {
+         std::cout<<"construc numeric WTF";
+         Numeric N(0,1);
+         return N;
+     }
+
+ }
 // Numeric& Numeric::operator- (const Numeric& N) const
 // {
 //     long nnum,ndenum;
@@ -63,8 +86,11 @@ std::string Numeric::toStringPars()const{
 //     Numeric Rslt(nnum,ndenum,nmantisse);
 //     return Rslt;
 // }
-// Numeric& Numeric::operator* (const Numeric& N) const
 
-
-
+// Numeric Numeric::operator=(Numeric N){
+//     mantisse=N.getMantisse();
+//     num=N.getNum();
+//     denum=N.getDenum();
+//    return *this;
+// }
 

@@ -6,7 +6,7 @@
 class Integer: public Numeric{
 private:
 public:
-    Integer(long n=0): Numeric(n,1,0) {} //abs pour absolute value, c'est dans STD
+    Integer(long n=0): Numeric(n) {} //abs pour absolute value, c'est dans STD
 
     ~Integer() {}
     bool getSign() const {return num>=0;} //négatif == 0

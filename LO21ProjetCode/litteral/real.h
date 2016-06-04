@@ -8,11 +8,11 @@
 class Real : public Numeric {
 private:
 public:
-    Real(Real& R): Numeric(R.getNum(),R.getDenum(),R.getMantisse()) {std::cout<<"\nConstruction Real\n";}
+    Real(Real& R): Numeric(R.getNum()+R.getMantisse()) {std::cout<<"\nConstruction Real\n";}
     bool simplify() ;
     double getSignedValue() const ;
-    Real(double a=0): Numeric(static_cast<int>(truncf(a)),  1  ,a-truncf(a) ){}
-    Real(long in, double ma): Numeric(in,1,ma) {} //ma est entre 0 et 1
+    Real(double a=0): Numeric(a){}
+    Real(long in, double ma): Numeric(in+ma) {} //ma est entre 0 et 1
     bool getSign() const {return num>=0;} //négatif
     bool isInteger() const;
     void print(QTextStream& f)const;

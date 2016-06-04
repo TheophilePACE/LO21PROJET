@@ -16,6 +16,7 @@ HEADERS += \
     structures/parser.h \
     structures/identifierManager.h \
     structures/generalManager.h \
+    structures/operator.h\
     qvareditor.h \
     qprogrameditor.h \
     snapshots.h
@@ -39,6 +40,7 @@ SOURCES += \
     structures/parser.cpp \
     structures/identifierManager.cpp \
     structures/generalManager.cpp \
+    structures/operator.cpp \
     qvareditor.cpp \
     qprogrameditor.cpp \
     snapshots.cpp
