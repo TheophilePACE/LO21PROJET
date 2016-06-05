@@ -22,6 +22,7 @@ public:
    Complex operator-(const Complex& Cx)const ;
    Complex operator*(const Complex& Cx) const ;
    Complex operator/(const Complex& Cx) const;
+   bool operator==(const Complex& Cx) const ;
 
     bool isReal() const {return pImag->isNull();} //check si la partie imaginaire est nulle
     bool isImag() const {return pReal->isNull();}

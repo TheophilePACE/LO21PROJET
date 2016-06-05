@@ -137,7 +137,6 @@ Litteral* OperatorMul::execute()
         return N;
     }
 }
-
 Litteral*  OperatorDivision::execute()
 {
     if(typeid(*l1)==typeid(Complex)&&typeid(*l2)==typeid(Complex))
@@ -212,7 +211,6 @@ Litteral*  OperatorDiv::execute()
         *Rslt =(*I1).DIV(*I2);
         return Rslt;
 }
-
 void OperatorDiv::loadOperand(Stack *s){
     l2=s->top();
     s->pop();
@@ -239,7 +237,6 @@ Litteral*  OperatorMod::execute()
         *Rslt =(*I1).MOD(*I2);
         return Rslt;
 }
-
 void OperatorMod::loadOperand(Stack *s){
     l2=s->top();
     s->pop();
@@ -255,5 +252,230 @@ void OperatorMod::loadOperand(Stack *s){
         s->push(*I1);
         s->push(*I2);
         throw "BAD TYPE: il faut 2 entiers pour Mod";
+    }
+}
+
+
+Litteral*  OperatorSupS::execute()
+{
+        Numeric* I1 =dynamic_cast<Numeric*>(l1);
+        Numeric* I2 =dynamic_cast<Numeric*>(l2);
+        if((I1->getVal())>(I2->getVal())){
+            Integer* Rslt = new Integer(1);
+            return Rslt;
+        }
+        Integer* Rslt = new Integer(0);
+        return Rslt;
+}
+void OperatorSupS::loadOperand(Stack *s){
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 Numerique pour >";
+    }
+}
+
+Litteral*  OperatorSupE::execute()
+{
+        Numeric* I1 =dynamic_cast<Numeric*>(l1);
+        Numeric* I2 =dynamic_cast<Numeric*>(l2);
+        if((I1->getVal())>=(I2->getVal())){
+            Integer* Rslt = new Integer(1);
+            return Rslt;
+        }
+        Integer* Rslt = new Integer(0);
+        return Rslt;
+}
+void OperatorSupE::loadOperand(Stack *s){
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 Numerique pour >=";
+    }
+}
+
+Litteral*  OperatorLessS::execute()
+{
+        Numeric* I1 =dynamic_cast<Numeric*>(l1);
+        Numeric* I2 =dynamic_cast<Numeric*>(l2);
+        if((I1->getVal())<(I2->getVal())){
+            Integer* Rslt = new Integer(1);
+            return Rslt;
+        }
+        Integer* Rslt = new Integer(0);
+        return Rslt;
+}
+void OperatorLessS::loadOperand(Stack *s){
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 Numerique pour <";
+    }
+}
+
+Litteral*  OperatorLessE::execute()
+{
+        Numeric* I1 =dynamic_cast<Numeric*>(l1);
+        Numeric* I2 =dynamic_cast<Numeric*>(l2);
+        if((I1->getVal())<=(I2->getVal())){
+            Integer* Rslt = new Integer(1);
+            return Rslt;
+        }
+        Integer* Rslt = new Integer(0);
+        return Rslt;}
+void OperatorLessE::loadOperand(Stack *s){
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 Numerique pour <=";
+    }
+}
+
+Litteral*  OperatorEqu::execute()
+{
+    if((dynamic_cast<Numeric*>(l1))&&(dynamic_cast<Numeric*>(l2))){
+        Numeric* I1 =dynamic_cast<Numeric*>(l1);
+        Numeric* I2 =dynamic_cast<Numeric*>(l2);
+        if((*I1)==(*I2)){
+            Integer* Rslt = new Integer(1);
+            return Rslt;
+        }
+        Integer* Rslt = new Integer(0);
+        return Rslt;}
+    else{ //2 complexe
+        Complex* C1 =dynamic_cast<Complex*>(l1);
+        Complex* C2 =dynamic_cast<Complex*>(l2);
+        if((*C1)==(*C2)){
+            Integer* Rslt = new Integer(1);
+            return Rslt;
+        }
+        Integer* Rslt = new Integer(0);
+        return Rslt;}
+}
+
+void OperatorEqu::loadOperand(Stack *s){
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if(!(((dynamic_cast<Numeric*>(l1))&&(dynamic_cast<Numeric*>(l2)))||((dynamic_cast<Complex*>(l1))&&(dynamic_cast<Complex*>(l2))))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 Numerique pour =";
+    }
+}
+
+
+Litteral*  OperatorNEqu::execute()
+{
+    if((dynamic_cast<Numeric*>(l1))&&(dynamic_cast<Numeric*>(l2))){
+        Numeric* I1 =dynamic_cast<Numeric*>(l1);
+        Numeric* I2 =dynamic_cast<Numeric*>(l2);
+        if(!((*I1)==(*I2))){
+            Integer* Rslt = new Integer(1);
+            return Rslt;
+        }
+        Integer* Rslt = new Integer(0);
+        return Rslt;}
+    else{ //2 complexe
+        Complex* C1 =dynamic_cast<Complex*>(l1);
+        Complex* C2 =dynamic_cast<Complex*>(l2);
+        if(!((*C1)==(*C2))){
+            Integer* Rslt = new Integer(1);
+            return Rslt;
+        }
+        Integer* Rslt = new Integer(0);
+        return Rslt;}
+}
+void OperatorNEqu::loadOperand(Stack *s){
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if(!(((dynamic_cast<Numeric*>(l1))&&(dynamic_cast<Numeric*>(l2)))||((dynamic_cast<Complex*>(l1))&&(dynamic_cast<Complex*>(l2))))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 Numerique pour !=";
+    }
+}
+
+Litteral*  OperatorCplx::execute()
+{
+        Numeric* I1 =dynamic_cast<Numeric*>(l1);
+        Numeric* I2 =dynamic_cast<Numeric*>(l2);
+        if((I1->getVal())>(I2->getVal())){
+            Integer* Rslt = new Integer(1);
+            return Rslt;
+        }
+        Integer* Rslt = new Integer(0);
+        return Rslt;
+}
+void OperatorCplx::loadOperand(Stack *s){
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 Numerique pour $";
     }
 }

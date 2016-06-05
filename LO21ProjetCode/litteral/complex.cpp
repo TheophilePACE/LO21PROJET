@@ -96,6 +96,9 @@ Complex Complex::operator=(const Complex& Cx){
     return *this;
 }
 
+bool Complex::operator==(const Complex& Cx) const {
+    return ((*pReal== *Cx.pReal)&&(*pImag== *Cx.pImag));
+}
 
 
 

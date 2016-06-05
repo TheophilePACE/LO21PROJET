@@ -72,6 +72,50 @@ public:
 
 };
 
+class  OperatorSupS : public OperatorBinary {
+public:
+     OperatorSupS(): OperatorBinary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+
+};
+class  OperatorSupE : public OperatorBinary {
+public:
+     OperatorSupE(): OperatorBinary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+
+};
+class  OperatorLessS : public OperatorBinary {
+public:
+     OperatorLessS(): OperatorBinary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+
+};
+class  OperatorLessE : public OperatorBinary {
+public:
+     OperatorLessE(): OperatorBinary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+
+};
+
+class  OperatorEqu : public OperatorBinary {
+public:
+     OperatorEqu(): OperatorBinary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+
+};
+
+class  OperatorNEqu : public OperatorBinary {
+public:
+     OperatorNEqu(): OperatorBinary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+
+};
 
 
 #endif

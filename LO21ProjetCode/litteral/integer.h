@@ -21,7 +21,7 @@ public:
     Integer operator*(Integer integer) const ;
     Integer MOD(Integer integer) const ;
     Integer DIV(Integer integer) const ;
-    //Rationnal operator/(Integer integer) const;
+    //bool operator/(Integer integer) const;
     Integer NEG() { long a = num;
                     Integer I(-a);
                   return I;} //le retour permet une opération du type A+NEG(B)

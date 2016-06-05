@@ -126,6 +126,9 @@ std::string Numeric::toStringPars()const{
   }
 
 
+  bool  Numeric::operator==(const Numeric& N) const{
+      return ((num==N.getNum())&&(denum==N.getDenum())&&(mantisse==N.getMantisse()));
+  }
 
 
 // Numeric Numeric::operator=(Numeric N){
