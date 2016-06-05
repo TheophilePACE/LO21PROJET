@@ -189,7 +189,6 @@ void Controller::command(const QString& c){
                 }
             }
         }
-
     }
 }
 
