@@ -60,7 +60,7 @@ std::string Numeric::toString()const
  {
      std::cout<<"utilisation ope num";
      double nmantisse,temp;
-     temp=  ((N.getNum()+N.getMantisse())*denum)-(mantisse+num)*N.getDenum() ;
+     temp=  (mantisse+num)*N.getDenum() -((N.getNum()+N.getMantisse())*denum) ;
      nmantisse =temp-trunc(temp);
 
      if(nmantisse==0)
@@ -109,8 +109,8 @@ std::string Numeric::toString()const
 
       long ndenum,nnum;
       double dtemp,ntemp;
-      ntemp= (N.num+N.mantisse)*(getDenum());
-      dtemp = N.denum*(getNum()+getMantisse());
+      dtemp= (N.num+N.mantisse)*(getDenum());
+      ntemp = N.denum*(getNum()+getMantisse());
       nnum= trunc(ntemp);
       ndenum=trunc(dtemp);
       if((ntemp==nnum)&&(ndenum==dtemp)) //integer et ratio ou simplification

@@ -31,7 +31,7 @@ Complex Complex::operator-(const Complex & Cx) const
 Complex Complex::operator*(const Complex & Cx) const
 { //voir regeles de calculs ;)
     Numeric * N1 = new Numeric (0,1,0);
-    *N1= ((*pReal * (*(Cx.pReal))) - (*pImag) * (*Cx.pImag)) ;
+    *N1= (*pReal * (*(Cx.pReal)))-( (*pImag) * (*Cx.pImag)) ;
     Numeric* N2 = new Numeric(0,1,0);
     *N2=((*pReal) * (*Cx.pImag)) + ((*Cx.pReal) * (*pImag));
     return Complex(N1,N2);
@@ -40,7 +40,7 @@ Complex Complex::operator/(const Complex& Cx) const
 {
     Numeric * N1 = new Numeric (0,1,0);
     //grosse formule des familles merci wikipedia
-    *N1= ((*pReal) *(*Cx.pReal) - (*pImag * (*Cx.pImag)))   /   ((*pReal) * (*pReal) + (*Cx.pImag) *(*Cx.pImag))  ;
+    *N1= ((*pReal) *(*Cx.pReal) - ((*pImag) * (*Cx.pImag)))   /   ((*pReal) * (*pReal) + (*Cx.pImag) *(*Cx.pImag))  ;
     Numeric* N2 = new Numeric(0,1,0);
     *N2=((*Cx.pReal) *(*pImag) - (*pReal * (*Cx.pImag)))   /   ((*pReal) * (*pReal) + (*Cx.pImag) *(*Cx.pImag)) ;
     return Complex(N1,N2);

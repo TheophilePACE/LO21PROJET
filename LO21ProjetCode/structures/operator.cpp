@@ -5,10 +5,10 @@
 
 
 void OperatorBinary::loadOperand(Stack *s) {
-l1=s->top();
+l2=s->top();
 s->pop();
 
-l2=s->top();
+l1=s->top();
 s->pop();
 }
 
@@ -78,10 +78,10 @@ Litteral* OperatorSub::execute()
     }
     if(typeid(*l1)!=typeid(Complex)&&typeid(*l2)==typeid(Complex))
     {
+        Complex C1 =(dynamic_cast<Numeric*>(l1),nullptr);
         Complex* C2 =dynamic_cast<Complex*>(l2);
-        Complex C1(dynamic_cast<Numeric*>(l1),nullptr);
         Complex* C= new Complex();
-        *C=(C1) - (*C2);
+        *C=C1 - (*C2);
         return C;
     }
     else //Pointeurs sur classe filles de numeric. bcp de possibilités.
