@@ -31,3 +31,17 @@ Integer Integer::operator*(Integer integer) const {
     Integer rslt (this->getSignedValue()*integer.getSignedValue());
     return rslt;
 }
+
+Integer Integer::MOD(Integer integer) const
+{
+    long mod = getNum()%integer.getNum();
+    Integer Rslt(mod);
+    return Rslt;
+}
+
+Integer Integer::DIV(Integer integer) const {
+    long div = getNum()-(getNum()%integer.getNum());
+    div = div/integer.getNum();
+    Integer Rslt(div);
+    return Rslt;
+}
