@@ -68,14 +68,7 @@ void QComputer::getNextCommande()
     pile->setMessage("");
     //recuperation du texte de la ligne de commande
     QString c = commande->text();
-    //extraction de chaqye element de la ligne
-    QTextStream stream(&c);
-    QString com;
-    do {
-        stream >> com; //extraction d'un elem
-        //envoyer la commande au controller
-        if(com!="") controleur->command(com);
-    } while(com!="");
+    controleur->command(commande->text());
     commande->setText("");
     controleur->setStack(pile);
     refresh();

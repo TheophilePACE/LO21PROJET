@@ -121,6 +121,8 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
     }
     if (type=="Program")
     {
+        if(s[1]==' ') s.remove(1,1);
+        if(s[s.size()-2]==' ') s.remove(s.size()-2,1);
         Program * newProg = new Program(s.toStdString());
         Item * It = new Item;
         It->setLit(newProg);

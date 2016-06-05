@@ -89,7 +89,7 @@ MainWindow::MainWindow(QWidget *parent) :
     stack = doc.first_node();
     if(stack) {
         if (toQString(stack->value())!="") {
-            QStringList valuesSt = toQString(stack->value()).split(" ");
+            QStringList valuesSt = toQString(stack->value()).split("_");
             for (int i=0;  i < valuesSt.size(); ++i)
             {
                 Item * I = genMng->createItem(valuesSt.at(i));

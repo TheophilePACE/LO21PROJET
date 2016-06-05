@@ -56,7 +56,7 @@ bool isExpression(const QString s) //Pas fini
 }
 bool isProgram(const QString s) //Pas fini
 {
-        QRegExp regExp ("^[.*]$");
+        QRegExp regExp ("^\\[.*\\]$");
         return regExp.exactMatch(s);
 }
 bool isNumber(const QString s){

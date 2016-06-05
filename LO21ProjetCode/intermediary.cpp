@@ -28,16 +28,6 @@ void CheckButtons() {
             ui = widget;
     ui = dynamic_cast<QMainWindow*>(ui);
     if(s->undoPossible())
-        std::cout << "Undo possible";
-    else
-        std::cout << "Undo pas possible";
-    if(s->redoPossible())
-        std::cout << "Redo possible";
-    else
-        std::cout << "Redo pas possible";
-    std::cout << "\n" << s->nombre() << "\n";
-    std::cout << "\n" << s->current() << "\n";
-    if(s->undoPossible())
         dynamic_cast<QMainWindow*>(ui)->findChild<QPushButton*>("pushButton_35")->setEnabled(true);
     else
         dynamic_cast<QMainWindow*>(ui)->findChild<QPushButton*>("pushButton_35")->setEnabled(false);
