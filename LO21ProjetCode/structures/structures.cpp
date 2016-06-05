@@ -121,21 +121,57 @@ void Controller::command(const QString& c){
                     Rslt.setLit(OP.execute());
                     stack->push(Rslt);
                 }
+                else if (c=="$")
+                {
+                    Item Rslt;
+                    OperatorCplx OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
+                else if (c=="AND")
+                {
+                    Item Rslt;
+                    OperatorAND OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
+                else if (c=="OR")
+                {
+                    Item Rslt;
+                    OperatorOR OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
                 else {
                     stack->setMessage(toQString("Operateur Inconnu"));
                     }
                 }
-               // Expression& e=expMng.addExpression(res);
-              //  expAff.push(e);
 
         else{
-                //throw"Erreur : pas assez d'arguments";
                 break;
-             //   expAff.setMessage("Erreur : pas assez d'arguments");
             }
-        //else expAff.setMessage("Erreur : commande inconnue");
     }
-     else {
+        else if(p.isOperatorUnary(list.at(i))) {
+            SnapshotManager  * s = &(SnapshotManager::getInstance());
+            s->addSnapshot(stack, &(IdentifierManager::getInstance()));
+            if (stack->size()>=1) {
+                if (c=="NOT")
+                {
+
+                    Item Rslt;
+                    OperatorNOT OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
+
+            }
+        }
+
+        else {
             try {
                 Item * I = genMng.createItem(list.at(i));
                 if(I) {

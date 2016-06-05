@@ -22,6 +22,7 @@ public:
     virtual Numeric operator/ (const Numeric& N) const;
     virtual Numeric operator* (const Numeric& N) const;
     bool operator== (const Numeric& N) const;
+    Numeric NEG() const;
     //virtual Numeric operator< (const Numeric& N) const;
     virtual void print(QTextStream& f)const; //implémentée
     virtual std::string toString()const;//implémentée

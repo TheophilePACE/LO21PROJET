@@ -13,6 +13,7 @@ class Parser {
     };
     static Singleton sing;
 public:
+    bool isOperatorUnary(QString s);
     static Parser& getInstance();
     static void freeInstance();
     std::string getType(QString s);

@@ -100,6 +100,17 @@ bool Complex::operator==(const Complex& Cx) const {
     return ((*pReal== *Cx.pReal)&&(*pImag== *Cx.pImag));
 }
 
+Complex Complex::NEG() const{
+
+    Numeric* N1 = new Numeric();
+    *N1=pReal->NEG();
+    Numeric* N2 = new Numeric();
+    *N2=pImag->NEG();
+    Complex C(N1,N2);
+    return C;
+}
+
+
 
 
 
