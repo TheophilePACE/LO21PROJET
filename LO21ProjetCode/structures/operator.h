@@ -26,7 +26,7 @@ protected:
     Litteral * l2;
 public:
     OperatorBinary(): l1(nullptr),l2(nullptr){}
-    void loadOperand (Stack *s);
+    virtual void loadOperand (Stack *s);
     virtual Litteral* execute( )=0;
 };
 
@@ -49,10 +49,27 @@ public:
 };
 
 
-class OperatorDiv : public OperatorBinary {
+class  OperatorDivision : public OperatorBinary {
 public:
-    OperatorDiv(): OperatorBinary(){}
+     OperatorDivision(): OperatorBinary(){}
     Litteral* execute( );
+};
+
+class  OperatorDiv : public OperatorBinary {
+public:
+     OperatorDiv(): OperatorBinary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+
+};
+
+
+class  OperatorMod : public OperatorBinary {
+public:
+     OperatorMod(): OperatorBinary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+
 };
 
 

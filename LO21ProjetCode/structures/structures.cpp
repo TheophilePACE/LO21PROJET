@@ -52,7 +52,23 @@ void Controller::command(const QString& c){
                 else if (c=="/")
                 {
                     Item Rslt;
+                     OperatorDivision OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
+                else if (c=="DIV")
+                {
+                    Item Rslt;
                     OperatorDiv OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
+                else if (c=="MOD")
+                {
+                    Item Rslt;
+                    OperatorMod OP;
                     OP.loadOperand(stack);
                     Rslt.setLit(OP.execute());
                     stack->push(Rslt);

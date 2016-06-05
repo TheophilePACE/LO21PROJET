@@ -19,6 +19,8 @@ public:
     Integer operator+(Integer integer) const;
     Integer operator-(Integer integer)const ;
     Integer operator*(Integer integer) const ;
+    Integer MOD(Integer integer) const ;
+    Integer DIV(Integer integer) const ;
     //Rationnal operator/(Integer integer) const;
     Integer NEG() { long a = num;
                     Integer I(-a);
