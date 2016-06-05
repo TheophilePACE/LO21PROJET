@@ -28,11 +28,11 @@ public:
     virtual std::string toString()const;//implémentée
     virtual std::string toStringPars()const;//implémentée
     ~Numeric(){}
-    Numeric(long n,long d,double m): num(n), denum(d), mantisse(m) {std::cout<<"\nConstruction Num\n";}
-    Numeric(long n,long d): num(n), denum(d), mantisse(0) {std::cout<<"\nConstruction Num type frac\n";}
-    //Numeric(long n): num(n), denum(1), mantisse(0) {std::cout<<"\nConstruction Num\n";}
-    Numeric(double m): num(trunc(m)), denum(1), mantisse(m-trunc(m)) {std::cout<<"\nConstruction Num Avec Double\n";}
-    Numeric(): num(0), denum(1), mantisse(0) {std::cout<<"\nConstruction Num sans arg \n";}
+    Numeric(long n,long d,double m): num(n), denum(d), mantisse(m) {}
+    Numeric(long n,long d): num(n), denum(d), mantisse(0) {}
+    //Numeric(long n): num(n), denum(1), mantisse(0) {}
+    Numeric(double m): num(trunc(m)), denum(1), mantisse(m-trunc(m)) {}
+    Numeric(): num(0), denum(1), mantisse(0) {}
     Numeric (Numeric& N): num(N.num), denum(N.denum), mantisse(N.mantisse) {}
     //FONCTION POUR LES CONVERSIONS
     bool numIsInteger() const {return ((mantisse==0)&&(denum==1));} // A.0/1

@@ -40,7 +40,6 @@ std::string Numeric::toStringPars()const{
 //Operations sur les numerics
  Numeric Numeric::operator+ (const Numeric& N) const
  {
-     std::cout<<"utilisation ope num";
      double nmantisse,temp;
      temp= (mantisse+num)*N.getDenum() + (N.getNum()+N.getMantisse())*denum;
      nmantisse =temp-trunc(temp);
@@ -55,7 +54,6 @@ std::string Numeric::toStringPars()const{
          return Rslt;}
      else
      {
-         std::cout<<"construc numeric WTF";
          Numeric N(0,1);
          return N;
      }
@@ -63,14 +61,12 @@ std::string Numeric::toStringPars()const{
  }
  Numeric Numeric::operator- (const Numeric& N) const
  {
-     std::cout<<"utilisation ope num";
      double nmantisse,temp;
      temp=  (mantisse+num)*N.getDenum() -((N.getNum()+N.getMantisse())*denum) ;
      nmantisse =temp-trunc(temp);
 
      if(nmantisse==0)
          {Rationnal Rslt((long)(temp), (long)(N.getDenum()*getDenum()) );
-         std::cout<<"mantisse 0 ; temp ="<<temp<<"mb1:"<<(mantisse+num)*N.getDenum()<<"mb2"<<((N.getNum()+N.getMantisse())*denum);
           return Rslt;}
      if(nmantisse !=0)
      {
@@ -79,7 +75,6 @@ std::string Numeric::toStringPars()const{
          return Rslt;}
      else
      {
-         std::cout<<"construc numeric WTF";
          Numeric N(0,1);
          return N;
      }
@@ -95,7 +90,6 @@ std::string Numeric::toStringPars()const{
       nmantisse = temp - trunc(temp);
       if(nmantisse==0)
           {Rationnal Rslt(nnum, ndenum);
-          std::cout<<"mantisse 0 ; temp ="<<temp<<"mb1:"<<(mantisse+num)*N.getDenum()<<"mb2"<<((N.getNum()+N.getMantisse())*denum);
            return Rslt;}
       if(nmantisse !=0)
       {
@@ -103,7 +97,6 @@ std::string Numeric::toStringPars()const{
           return Rslt;}
       else
       {
-          std::cout<<"construc numeric WTF";
           Numeric N(0,1);
           return N;
       }  }

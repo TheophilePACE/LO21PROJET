@@ -38,9 +38,6 @@ public:
     Snapshot * redo() {if (!(redoPossible())) throw "Pas d'état suivant"; return snapshots[++currentState];}
     Snapshot * undo() {if (!(undoPossible())) throw "Pas d'état précédent"; return snapshots[--currentState];}
     Snapshot * getCurrentState() const {return snapshots[currentState];}
-    unsigned int nombre() {return nb;}
-    unsigned int max() {return maxi;}
-    unsigned int current() {return currentState; }
     static SnapshotManager& getInstance();
     static void freeInstance();
 };

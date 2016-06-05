@@ -9,7 +9,7 @@ class Rationnal : public Numeric {
 private:
 public:
 
-    Rationnal(long N, long D ): Numeric(N,D) {simplify(); std::cout<<"\nConstruction Ratio\n";} //utile en cas de division. Comment gérer le retour?
+    Rationnal(long N, long D ): Numeric(N,D) {simplify();} //utile en cas de division. Comment gérer le retour?
     Rationnal(Integer a, Integer b); //Attention au simplicifications
     Rationnal(Rationnal& R): Numeric(R.num,R.denum) {}
     void print(QTextStream& f)const;

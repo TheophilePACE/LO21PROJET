@@ -79,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
     xml_node<> * stack,* var,* prog;
 
     GeneralManager * genMng = &(GeneralManager::getInstance());
-    std::ifstream theFile ("/Users/pascalereghem/Documents/P16/LO21/LO21_PROJET/UTComputerGIT/UTComputer/UTComputer.xml");
+    std::ifstream theFile ("../UTComputer.xml");
     std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
     buffer.push_back('\0');
 

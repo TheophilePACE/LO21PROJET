@@ -8,7 +8,7 @@
 class Real : public Numeric {
 private:
 public:
-    Real(Real& R): Numeric(R.getNum()+R.getMantisse()) {std::cout<<"\nConstruction Real\n";}
+    Real(Real& R): Numeric(R.getNum()+R.getMantisse()) {}
     bool simplify() ;
     double getSignedValue() const ;
     Real(double a=0): Numeric(a){}

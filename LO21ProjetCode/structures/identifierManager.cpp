@@ -69,8 +69,6 @@ unsigned int IdentifierManager::sizeAtoms() const {
     unsigned int nProg = 0;
     for(IdentifierManager::Iterator it = getIterator(); !it.isDone(); it.next())
     {
-        //std::cout << "Lol";
-        //std::cout << (it.getCurrent().getPValue())->toString();
         if((typeid(*(it.getCurrent().getPValue())))==typeid(Program))
             nProg++;}
     return size()-nProg;
