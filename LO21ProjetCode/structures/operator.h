@@ -12,7 +12,7 @@ public:
     virtual Litteral* execute( )=0;
 };
 
-class OperatorUnaire : public OperatorAbstract {
+class OperatorUnary : public OperatorAbstract {
 protected:
     Litteral * l1;
 public:
@@ -114,8 +114,41 @@ public:
      OperatorNEqu(): OperatorBinary(){}
     Litteral* execute( );
     void loadOperand(Stack *s);
-
 };
 
+class  OperatorCplx : public OperatorBinary {
+public:
+     OperatorCplx(): OperatorBinary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+};
+
+class  OperatorAND : public OperatorBinary {
+public:
+     OperatorAND(): OperatorBinary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+};
+
+class  OperatorOR : public OperatorBinary {
+public:
+     OperatorOR(): OperatorBinary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+};
+
+class  OperatorNOT : public OperatorUnary {
+public:
+    OperatorNOT(): OperatorUnary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+};
+
+class  OperatorNEG : public OperatorUnary {
+public:
+    OperatorNEG(): OperatorUnary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+};
 
 #endif

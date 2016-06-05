@@ -12,7 +12,7 @@ l1=s->top();
 s->pop();
 }
 
-void OperatorUnaire::loadOperand(Stack * s) {
+void OperatorUnary::loadOperand(Stack * s) {
     l1=s->top();
     s->pop();
 }
@@ -455,11 +455,9 @@ Litteral*  OperatorCplx::execute()
 {
         Numeric* I1 =dynamic_cast<Numeric*>(l1);
         Numeric* I2 =dynamic_cast<Numeric*>(l2);
-        if((I1->getVal())>(I2->getVal())){
-            Integer* Rslt = new Integer(1);
-            return Rslt;
-        }
-        Integer* Rslt = new Integer(0);
+
+       Complex * Rslt = new Complex(I1,I2);
+
         return Rslt;
 }
 void OperatorCplx::loadOperand(Stack *s){
@@ -477,5 +475,114 @@ void OperatorCplx::loadOperand(Stack *s){
         s->push(*I1);
         s->push(*I2);
         throw "BAD TYPE: il faut 2 Numerique pour $";
+    }
+}
+
+Litteral*  OperatorAND::execute()
+{
+        Integer* I1 =dynamic_cast<Integer*>(l1);
+        Integer* I2 =dynamic_cast<Integer*>(l2);
+        if(I1->getAbsoluteValue() * (I2->getAbsoluteValue()))
+        {
+            Integer* I = new Integer(1);
+            return I;
+        }
+        Integer* I = new Integer(0);
+        return I;
+}
+void OperatorAND::loadOperand(Stack *s){
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if(typeid(*l1)!=typeid(Integer)||typeid(*l2)!=typeid(Integer))
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 entiers pour Mod";
+    }
+}
+
+Litteral*  OperatorOR::execute()
+{
+        Integer* I1 =dynamic_cast<Integer*>(l1);
+        Integer* I2 =dynamic_cast<Integer*>(l2);
+        if((I1->getAbsoluteValue())||(I2->getAbsoluteValue()))
+        {
+            Integer* I = new Integer(1);
+            return I;
+        }
+        Integer* I = new Integer(0);
+        return I;
+}
+void OperatorOR::loadOperand(Stack *s){
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if(typeid(*l1)!=typeid(Integer)||typeid(*l2)!=typeid(Integer))
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 entiers pour OR";
+    }
+}
+
+Litteral*  OperatorNOT::execute()
+{
+        Integer* I1 =dynamic_cast<Integer*>(l1);
+        if(I1->getAbsoluteValue())
+        {
+            Integer* I = new Integer(0);
+            return I;
+        }
+        Integer* I = new Integer(1);
+        return I;
+}
+void OperatorNOT::loadOperand(Stack *s){
+    l1=s->top();
+    s->pop();
+    if(typeid(*l1)!=typeid(Integer))
+    {
+        Item * I1 =new Item();
+        I1->setLit(l1);
+        s->push(*I1);
+        throw "BAD TYPE: il faut un entier pour NOT";
+    }
+}
+
+Litteral*  OperatorNEG::execute()
+{
+    if(dynamic_cast<Numeric*>(l1)){
+        Numeric* I1 =dynamic_cast<Numeric*>(l1);
+        Integer* Rslt = new Integer(0);
+        //(*Rslt)= I1->NEG();
+        return Rslt;}
+    //complexe
+    Complex * C1 = dynamic_cast<Complex *>(l1);
+    Complex * Rslt = new Complex();
+    *Rslt = C1->NEG();
+    return Rslt;
+
+}
+void OperatorNEG::loadOperand(Stack *s){
+    l1=s->top();
+    s->pop();
+    if(!(dynamic_cast<Numeric*>(l1)||dynamic_cast<Complex*>(l1)))
+    {
+        Item * I1 =new Item();
+        I1->setLit(l1);
+        s->push(*I1);
+        throw "BAD TYPE: il faut un numerique ou un complex pour NEG";
     }
 }

@@ -20,9 +20,36 @@ bool Parser::isOperator(QString s) {
     if (s=="DIV") return true;
     if (s=="MOD") return true;
     if (s=="$") return true;
+    if (s=="AND") return true;
+    if (s=="OR") return true;
+    if (s=="NOT") return true;
+    if (s=="NEG") return true;
+    return false;
+}
 
+bool Parser::isOperatorBinary(QString s) {
+    if (s=="+") return true;
+    if (s=="-") return true;
+    if (s=="*") return true;
+    if (s=="/") return true;
+    if (s=="<") return true;
+    if (s==">") return true;
+    if (s=="=") return true;
+    if (s=="<=") return true;
+    if (s==">=") return true;
+    if (s=="!=") return true;
+    if (s=="=") return true;
+    if (s=="DIV") return true;
+    if (s=="MOD") return true;
+    if (s=="$") return true;
+    if (s=="AND") return true;
+    if (s=="OR") return true;
+    return false;
+}
 
-
+bool Parser::isOperatorUnary(QString s) {
+    if (s=="NOT") return true;
+    if (s=="NEG") return true;
     return false;
 }
 

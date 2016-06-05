@@ -1,5 +1,6 @@
 #include "numeric.h"
 #include "real.h"
+#include "complex.h"
 
 void Numeric::print(QTextStream& f)const{
         if(mantisse!=0){
@@ -109,9 +110,7 @@ std::string Numeric::toStringPars()const{
 
 
   Numeric Numeric::operator/ (const Numeric& N) const
-  {
-
-      long ndenum,nnum;
+  {   long ndenum,nnum;
       double dtemp,ntemp;
       dtemp= (N.num+N.mantisse)*(getDenum());
       ntemp = N.denum*(getNum()+getMantisse());
@@ -122,19 +121,17 @@ std::string Numeric::toStringPars()const{
            return Rslt;}
 
           Real Rslt(ntemp/dtemp);
-          return Rslt;
-  }
+          return Rslt;}
 
 
   bool  Numeric::operator==(const Numeric& N) const{
       return ((num==N.getNum())&&(denum==N.getDenum())&&(mantisse==N.getMantisse()));
   }
 
-
-// Numeric Numeric::operator=(Numeric N){
-//     mantisse=N.getMantisse();
-//     num=N.getNum();
-//     denum=N.getDenum();
-//    return *this;
-// }
+  Numeric Numeric::NEG() const
+  {
+      Numeric *N = new Numeric(-num,-denum,-mantisse);
+      numericCast(&N);
+      return *N;
+  }
 
