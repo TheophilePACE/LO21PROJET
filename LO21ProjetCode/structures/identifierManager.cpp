@@ -1,5 +1,14 @@
 #include"identifierManager.h"
 
+IdentifierManager::IdentifierManager(const IdentifierManager& m){
+    Identifier ** newtab = new Identifier*[m.max];
+    for(unsigned int i=0;i<m.nb;i++)
+        newtab[i]=m.identifiers[i];
+    identifiers = newtab;
+    max = m.max;
+    nb = m.nb;
+}
+
 void IdentifierManager::increaseCap()
 {
     max = max*2+1;
@@ -38,6 +47,9 @@ IdentifierManager& IdentifierManager::getInstance(){
     if(sing.instance==nullptr) sing.instance = new IdentifierManager;
     return *sing.instance;
 }
+void IdentifierManager::setInstance(IdentifierManager * id){
+    sing.instance=id;
+}
 
 void IdentifierManager::freeInstance(){
     delete sing.instance;
@@ -56,8 +68,11 @@ Identifier* IdentifierManager::getIdentifier(Atom& a) const {
 unsigned int IdentifierManager::sizeAtoms() const {
     unsigned int nProg = 0;
     for(IdentifierManager::Iterator it = getIterator(); !it.isDone(); it.next())
+    {
+        //std::cout << "Lol";
+        //std::cout << (it.getCurrent().getPValue())->toString();
         if((typeid(*(it.getCurrent().getPValue())))==typeid(Program))
-            nProg++;
+            nProg++;}
     return size()-nProg;
 }
 

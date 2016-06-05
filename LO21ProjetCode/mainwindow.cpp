@@ -47,8 +47,8 @@ MainWindow::MainWindow(QWidget *parent) :
     signalGroup->addButton(ui->pushButton_32);
     signalGroup->addButton(ui->pushButton_33);
     signalGroup->addButton(ui->pushButton_34);
-    signalGroup->addButton(ui->pushButton_35);
-    signalGroup->addButton(ui->pushButton_36);
+    //signalGroup->addButton(ui->pushButton_35); //UNDO
+    //signalGroup->addButton(ui->pushButton_36); //REDO
     signalGroup->addButton(ui->pushButton_37);
     signalGroup->addButton(ui->pushButton_38);
     signalGroup->addButton(ui->pushButton_39);
@@ -66,6 +66,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(lignes,SIGNAL(sliderMoved(int)),
                 calcul
                 ,SLOT(sliderMoved(int)));
+    connect(ui->pushButton_35,SIGNAL(clicked()),
+                this
+                ,SLOT(undo()));
+    connect(ui->pushButton_36,SIGNAL(clicked()),
+                this
+                ,SLOT(redo()));
 
     using namespace rapidxml;
 
@@ -81,36 +87,46 @@ MainWindow::MainWindow(QWidget *parent) :
     doc.parse<0>(&buffer[0]);
     //Stack Treatment
     stack = doc.first_node();
-    QStringList valuesSt = toQString(stack->value()).split(" ");
-    for (int i=0;  i < valuesSt.size(); ++i)
-    {
-        Item * I = genMng->createItem(valuesSt.at(i));
-        calcul->getStack()->push(*I);
+    if (toQString(stack->value())!="") {
+        QStringList valuesSt = toQString(stack->value()).split(" ");
+        for (int i=0;  i < valuesSt.size(); ++i)
+        {
+            Item * I = genMng->createItem(valuesSt.at(i));
+            calcul->getStack()->push(*I);
+        }
     }
+    calcul->refresh();
     IdentifierManager * idMng = &(IdentifierManager::getInstance());
 
     //Var Treatment
     var = stack->next_sibling();
-    QStringList valuesVar = toQString(var->value()).split(" ");
+    if (toQString(var->value())!="") {
+        QStringList valuesVar = toQString(var->value()).split(" ");
 
-    for (int i=0;  i < valuesVar.size(); ++i)
-    {
-        QStringList variables = valuesVar.at(i).split("-");
-        idMng->addIdentifier(variables.at(0).toStdString(),genMng->createItem(variables.at(1))->getPLit());
+        for (int i=0;  i < valuesVar.size(); ++i)
+        {
+            QStringList variables = valuesVar.at(i).split("-");
+            idMng->addIdentifier(variables.at(0).toStdString(),genMng->createItem(variables.at(1))->getPLit());
+        }
     }
     variableManager->refresh();
 
     //Prog Treatment
     prog = var->next_sibling();
-    QStringList valuesProg = toQString(prog->value()).split("_");
-    for (int i=0;  i < valuesProg.size(); ++i)
-    {
-        QStringList programmes = valuesProg.at(i).split("[");
-        QString inter = programmes.at(1);
-        inter.remove(inter.size()-1, 1);
-        idMng->addIdentifier(programmes.at(0).toStdString(),genMng->createProgram(inter)->getPLit());
+    if (toQString(prog->value())!="") {
+        QStringList valuesProg = toQString(prog->value()).split("_");
+        for (int i=0;  i < valuesProg.size(); ++i)
+        {
+            QStringList programmes = valuesProg.at(i).split("[");
+            QString inter = programmes.at(1);
+            inter.remove(inter.size()-1, 1);
+            idMng->addIdentifier(programmes.at(0).toStdString(),genMng->createProgram(inter)->getPLit());
+        }
     }
     programManager->refresh();
+
+    SnapshotManager * s = &(SnapshotManager::getInstance());
+    s->addSnapshot(calcul->getStack(), &(IdentifierManager::getInstance()));
 }
 
 MainWindow::~MainWindow()
@@ -154,3 +170,46 @@ void MainWindow::resized(){
     else
         adjustSize();
 }
+void MainWindow::undo(){
+
+    SnapshotManager  * s = &(SnapshotManager::getInstance());
+    Snapshot * snapshot = s->undo();
+    QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
+    QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
+    QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
+    calcul->setStack(snapshot->getStack());
+    IdentifierManager::setInstance(snapshot->getIdManager());
+    calcul->refresh();
+    variableManager->refresh();
+    programManager->refresh();
+}
+void MainWindow::redo(){
+
+    SnapshotManager  * s = &(SnapshotManager::getInstance());
+    Snapshot * snapshot = s->redo();
+    QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
+    QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
+    QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
+    calcul->setStack(snapshot->getStack());
+    IdentifierManager::setInstance(snapshot->getIdManager());
+    calcul->refresh();
+    variableManager->refresh();
+    programManager->refresh();
+}
+/*
+bool MyWidget::event(QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        if (ke->key() == Qt::Key_Tab) {
+            // special tab handling here
+            return true;
+        }
+    } else if (event->type() == MyCustomEventType) {
+        MyCustomEvent *myEvent = static_cast<MyCustomEvent *>(event);
+        // custom event handling here
+        return true;
+    }
+
+    return QWidget::event(event);
+}*/

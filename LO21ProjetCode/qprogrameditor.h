@@ -33,6 +33,7 @@ class QprogramEditor : public QWidget{
         QLineEdit * newProgName;
     public:
         explicit QprogramEditor(QWidget * parent = 0);
+        void setIdentifierManager(IdentifierManager * id){prgMng=id;}
     public slots:
         void refresh();
         void choiceProgram(const QString&);

@@ -370,11 +370,15 @@ public:
 
         pushButton_35 = new QPushButton(layoutWidget1);
         pushButton_35->setObjectName(QStringLiteral("pushButton_35"));
+        pushButton_35->setEnabled(false);
+        pushButton_35->setCheckable(false);
+        pushButton_35->setAutoDefault(false);
 
         gridLayout->addWidget(pushButton_35, 4, 0, 1, 1);
 
         pushButton_36 = new QPushButton(layoutWidget1);
         pushButton_36->setObjectName(QStringLiteral("pushButton_36"));
+        pushButton_36->setEnabled(false);
 
         gridLayout->addWidget(pushButton_36, 4, 1, 1, 1);
 
@@ -470,6 +474,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+#ifndef QT_NO_ACCESSIBILITY
+        MainWindow->setAccessibleName(QApplication::translate("MainWindow", "MainWindow", 0));
+#endif // QT_NO_ACCESSIBILITY
 #ifndef QT_NO_TOOLTIP
         tabWidget->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
 #endif // QT_NO_TOOLTIP

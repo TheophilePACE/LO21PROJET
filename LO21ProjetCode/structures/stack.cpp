@@ -1,6 +1,15 @@
 #include "stack.h"
 #include "intermediary.h"
 
+Stack::Stack(const Stack& s){
+    Item* newtab=new Item[s.nbMax];
+    for(unsigned int i=0; i<s.nb; i++) newtab[i]=s.items[i];
+    items = newtab;
+    nbItemsDisplayed = s.nbItemsDisplayed;
+    nbMax = s.nbMax;
+    nb = s.nb;
+}
+
 void Stack::increaseCap() {
     Item* newtab=new Item[(nbMax+1)*2];
     for(unsigned int i=0; i<nb; i++) newtab[i]=items[i];
@@ -14,13 +23,11 @@ void Stack::push(Item e){
     if (nb==nbMax) increaseCap();
     items[nb]=e;
     nb++;
-    stateModification();
 }
 
 void Stack::pop(){
     nb--;
     items[nb].raz();
-    stateModification();
 }
 
 const std::string Stack::display() const{
@@ -35,7 +42,7 @@ const std::string Stack::display() const{
 
 
 Stack::~Stack(){
-    delete[] items;
+    //delete[] items;
 }
 
 Litteral* Stack::top() const {

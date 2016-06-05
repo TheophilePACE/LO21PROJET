@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="accessibleName">
+   <string>MainWindow</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
@@ -453,13 +456,25 @@
           </item>
           <item row="4" column="0">
            <widget class="QPushButton" name="pushButton_35">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>UNDO</string>
+            </property>
+            <property name="checkable">
+             <bool>false</bool>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
           <item row="4" column="1">
            <widget class="QPushButton" name="pushButton_36">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>REDO</string>
             </property>

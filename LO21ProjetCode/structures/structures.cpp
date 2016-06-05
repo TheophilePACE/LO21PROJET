@@ -7,13 +7,16 @@
 #include <QString>
 #include <QStringList>
 #include "operator.h"
+#include "snapshots.h"
 
 void Controller::command(const QString& c){
     Parser p = Parser::getInstance();
     QStringList list = c.split(" ");
     for (int i = 0; i < list.size(); ++i) {
         if(p.isOperator(list.at(i))) {
-            if (stack.size()>=2) {
+            SnapshotManager  * s = &(SnapshotManager::getInstance());
+            s->addSnapshot(stack, &(IdentifierManager::getInstance()));
+            if (stack->size()>=2) {
                  //récuperation des éléments
 
                 //SI On a un prgm ou une expression ou un atom: les évaluer.
@@ -24,9 +27,9 @@ void Controller::command(const QString& c){
 
                     Item Rslt;
                     OperatorSum OP;
-                    OP.loadOperand(&stack);
+                    OP.loadOperand(stack);
                     Rslt.setLit(OP.execute());
-                    stack.push(Rslt);
+                    stack->push(Rslt);
                 }
 //                if (c=="-") res=v1-v2;
 //                if (c=="*") res=v1*v2;
@@ -45,13 +48,15 @@ void Controller::command(const QString& c){
              //   expAff.setMessage("Erreur : pas assez d'arguments");
             }
         //else expAff.setMessage("Erreur : commande inconnue");
-
     }
      else {
             try {
                 Item * I = genMng.createItem(list.at(i));
-                if(I)
-                    stack.push(*I);
+                if(I) {
+                    SnapshotManager  * s = &(SnapshotManager::getInstance());
+                    s->addSnapshot(stack, &(IdentifierManager::getInstance()));
+                    stack->push(*I);
+                }
                 else
                     throw "Erreur : commande inconnue";
             }
@@ -64,7 +69,7 @@ void Controller::command(const QString& c){
                 }
                 if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
                     QSound::play("../wahoo.wav");
-                stack.setMessage(toQString(s));
+                stack->setMessage(toQString(s));
             }
         }
     }}

@@ -23,6 +23,7 @@ class QvarEditor : public QWidget{
     public:
         explicit QvarEditor(QWidget * parent = 0);
         IdentifierManager * getIdentifierManager() {return idMng;}
+        void setIdentifierManager(IdentifierManager * id){idMng=id;}
     public slots:
         void refresh();
         void getNextCommand();

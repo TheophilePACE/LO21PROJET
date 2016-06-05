@@ -9,6 +9,9 @@
 #include <QObject>
 #include <QDebug>
 #include <QList>
+#include <QApplication>
+#include <QCheckBox>
+#include <QMainWindow>
 #include "litteral/litteral.h"
 #include "litteral/atom.h"
 
@@ -37,5 +40,6 @@ public:
 };
 
 void ExceptionWindow(const char * s);
+void CheckButtons();
 
 #endif // INTERMEDIARY_H

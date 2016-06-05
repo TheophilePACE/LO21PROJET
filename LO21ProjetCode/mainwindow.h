@@ -36,6 +36,8 @@ public:
 private slots:
     void on_checkBox_stateChanged(int arg1);
     void resized();
+    void undo();
+    void redo();
 
 private:
     Ui::MainWindow *ui;

@@ -73,6 +73,8 @@ void QprogramEditor::saveProgram(){
         for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
             if(it.getCurrent().getLib()->toString()==programChoice->currentText().toStdString())
             {
+                SnapshotManager * s = &(SnapshotManager::getInstance());
+                s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
                 Program * prog = new Program(programText->toPlainText().toStdString());
                 it.getCurrent().setValue(prog);
             }
@@ -81,8 +83,6 @@ void QprogramEditor::saveProgram(){
             ExceptionWindow(s);
     }
     refresh();
-    //SnapshotManager s = SnapshotManager::getInstance();
-    //s.addSnapshot(s.getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
 }
 void QprogramEditor::newProgram(){
     GeneralManager mng = GeneralManager::getInstance();
@@ -95,6 +95,8 @@ void QprogramEditor::newProgram(){
         for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
             if(it.getCurrent().getLib()->toString()==newProgName->text().toStdString())
                 throw "Nom Existe déjà";
+        SnapshotManager * s = &(SnapshotManager::getInstance());
+        s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
         prgMng->addIdentifier(newProgName->text().toStdString(),mng.createProgram("")->getPLit());
     }
     catch (char const* s) {
@@ -103,11 +105,11 @@ void QprogramEditor::newProgram(){
     newProgName->setText("");
     newWindow->hide();
     refresh();
-    //SnapshotManager s = SnapshotManager::getInstance();
-    //s.addSnapshot(s.getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
 }
 
 void QprogramEditor::refresh(){
+    CheckButtons();
+    setIdentifierManager(&(IdentifierManager::getInstance()));
     QStringList names;
     for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
         if((typeid(*(it.getCurrent().getPValue())))==typeid(Program))
@@ -122,10 +124,11 @@ void QprogramEditor::destroyProgram(){
         nbElements++;
         it.next();
     }
-    if(nbElements!=prgMng->size())
+    if(nbElements!=prgMng->size()){
+        SnapshotManager  * s = &(SnapshotManager::getInstance());
+        s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
         prgMng->removeIdentifier(it.getCurrent());
+    }
     refresh();
-    //SnapshotManager s = SnapshotManager::getInstance();
-    //s.addSnapshot(s.getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
 }
 
