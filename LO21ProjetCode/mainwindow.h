@@ -9,7 +9,7 @@
 #include <QVBoxLayout>
 #include <QHeaderView>
 #include <QDebug>
-#include <stack>
+#include <QShortcut>
 #include <QtXml>
 #include <fstream>
 #include <ostream>

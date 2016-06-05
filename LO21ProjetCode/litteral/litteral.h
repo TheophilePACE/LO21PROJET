@@ -21,6 +21,7 @@ bool isNumber(const QString s);
 bool isComplex(const QString s);
 bool isAtom(const QString s);
 bool isExpression(const QString s);
+bool isProgram(const QString s);
 unsigned int pgcd(int a, int b);
 
 class Litteral {

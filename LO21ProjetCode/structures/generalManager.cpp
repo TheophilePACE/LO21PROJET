@@ -26,7 +26,7 @@ Item * GeneralManager::createItem(QString s) {
 
 
     std::string type = p.getType(s);
-    if(type=="Integer"||type=="Rationnal"||type=="Real"||type=="Atom"||type=="Expression")
+    if(type=="Integer"||type=="Rationnal"||type=="Real"||type=="Atom"||type=="Expression"||type=="Program")
         return createSimpleItem(s); //creation numeric
     if(type=="Complex")
     {
@@ -117,6 +117,13 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
         Expression * newExp = new Expression(s.toStdString());
         Item * It = new Item;
         It->setLit(newExp);
+        return It;
+    }
+    if (type=="Program")
+    {
+        Program * newProg = new Program(s.toStdString());
+        Item * It = new Item;
+        It->setLit(newProg);
         return It;
     }
     else

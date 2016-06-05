@@ -9,6 +9,7 @@
 #include <QHeaderView>
 #include <QPushButton>
 #include <QDebug>
+#include <QShortcut>
 #include <stack>
 #include "litteral/litteral.h"
 #include "intermediary.h"

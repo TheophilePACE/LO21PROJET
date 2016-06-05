@@ -79,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
     xml_node<> * stack,* var,* prog;
 
     GeneralManager * genMng = &(GeneralManager::getInstance());
-    std::ifstream theFile ("/Users/pascalereghem/Documents/P16/LO21/LO21_PROJET/UTComputerGIT/UTComputer/LO21PROJET/UTComputer.xml");
+    std::ifstream theFile ("../UTComputer.xml");
     std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
     buffer.push_back('\0');
 
@@ -87,46 +87,56 @@ MainWindow::MainWindow(QWidget *parent) :
     doc.parse<0>(&buffer[0]);
     //Stack Treatment
     stack = doc.first_node();
-    if (toQString(stack->value())!="") {
-        QStringList valuesSt = toQString(stack->value()).split(" ");
-        for (int i=0;  i < valuesSt.size(); ++i)
-        {
-            Item * I = genMng->createItem(valuesSt.at(i));
-            calcul->getStack()->push(*I);
+    if(stack) {
+        if (toQString(stack->value())!="") {
+            QStringList valuesSt = toQString(stack->value()).split(" ");
+            for (int i=0;  i < valuesSt.size(); ++i)
+            {
+                Item * I = genMng->createItem(valuesSt.at(i));
+                calcul->getStack()->push(*I);
+            }
+        }
+        calcul->refresh();
+        IdentifierManager * idMng = &(IdentifierManager::getInstance());
+
+        //Var Treatment
+        var = stack->next_sibling();
+        if (var) {
+            if (toQString(var->value())!="") {
+                QStringList valuesVar = toQString(var->value()).split(" ");
+
+                for (int i=0;  i < valuesVar.size(); ++i)
+                {
+                    QStringList variables = valuesVar.at(i).split("-");
+                    idMng->addIdentifier(variables.at(0).toStdString(),genMng->createItem(variables.at(1))->getPLit());
+                }
+            }
+            variableManager->refresh();
+
+            //Prog Treatment
+            prog = var->next_sibling();
+            if (prog) {
+                if (toQString(prog->value())!="") {
+                    QStringList valuesProg = toQString(prog->value()).split("_");
+                    for (int i=0;  i < valuesProg.size(); ++i)
+                    {
+                        QStringList programmes = valuesProg.at(i).split("[");
+                        QString inter = programmes.at(1);
+                        inter.remove(inter.size()-1, 1);
+                        idMng->addIdentifier(programmes.at(0).toStdString(),genMng->createProgram(inter)->getPLit());
+                    }
+                }
+                programManager->refresh();
+            }
         }
     }
-    calcul->refresh();
-    IdentifierManager * idMng = &(IdentifierManager::getInstance());
-
-    //Var Treatment
-    var = stack->next_sibling();
-    if (toQString(var->value())!="") {
-        QStringList valuesVar = toQString(var->value()).split(" ");
-
-        for (int i=0;  i < valuesVar.size(); ++i)
-        {
-            QStringList variables = valuesVar.at(i).split("-");
-            idMng->addIdentifier(variables.at(0).toStdString(),genMng->createItem(variables.at(1))->getPLit());
-        }
-    }
-    variableManager->refresh();
-
-    //Prog Treatment
-    prog = var->next_sibling();
-    if (toQString(prog->value())!="") {
-        QStringList valuesProg = toQString(prog->value()).split("_");
-        for (int i=0;  i < valuesProg.size(); ++i)
-        {
-            QStringList programmes = valuesProg.at(i).split("[");
-            QString inter = programmes.at(1);
-            inter.remove(inter.size()-1, 1);
-            idMng->addIdentifier(programmes.at(0).toStdString(),genMng->createProgram(inter)->getPLit());
-        }
-    }
-    programManager->refresh();
-
     SnapshotManager * s = &(SnapshotManager::getInstance());
     s->addSnapshot(calcul->getStack(), &(IdentifierManager::getInstance()));
+
+    QShortcut *shortcut1 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Z),this);
+    QObject::connect(shortcut1, SIGNAL(activated()), this, SLOT(undo()));
+    QShortcut *shortcut2 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Y),this);
+    QObject::connect(shortcut2, SIGNAL(activated()), this, SLOT(redo()));
 }
 
 MainWindow::~MainWindow()
@@ -171,45 +181,40 @@ void MainWindow::resized(){
         adjustSize();
 }
 void MainWindow::undo(){
-
     SnapshotManager  * s = &(SnapshotManager::getInstance());
-    Snapshot * snapshot = s->undo();
-    QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
-    QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
-    QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
-    calcul->setStack(snapshot->getStack());
-    IdentifierManager::setInstance(snapshot->getIdManager());
-    calcul->refresh();
-    variableManager->refresh();
-    programManager->refresh();
+    if(s->undoPossible()) {
+        Snapshot * snapshot = s->undo();
+        QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
+        QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
+        QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
+        calcul->setStack(snapshot->getStack());
+        IdentifierManager::setInstance(snapshot->getIdManager());
+        calcul->refresh();
+        variableManager->refresh();
+        programManager->refresh();
+    }
 }
 void MainWindow::redo(){
 
     SnapshotManager  * s = &(SnapshotManager::getInstance());
-    Snapshot * snapshot = s->redo();
-    QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
-    QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
-    QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
-    calcul->setStack(snapshot->getStack());
-    IdentifierManager::setInstance(snapshot->getIdManager());
-    calcul->refresh();
-    variableManager->refresh();
-    programManager->refresh();
+    if(s->redoPossible()) {
+        Snapshot * snapshot = s->redo();
+        QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
+        QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
+        QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
+        calcul->setStack(snapshot->getStack());
+        IdentifierManager::setInstance(snapshot->getIdManager());
+        calcul->refresh();
+        variableManager->refresh();
+        programManager->refresh();
+    }
 }
 /*
-bool MyWidget::event(QEvent *event)
+void MainWindow::event(QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-        if (ke->key() == Qt::Key_Tab) {
+        if (ke->key() == Qt::Key_Control) {
             // special tab handling here
-            return true;
         }
-    } else if (event->type() == MyCustomEventType) {
-        MyCustomEvent *myEvent = static_cast<MyCustomEvent *>(event);
-        // custom event handling here
-        return true;
-    }
-
-    return QWidget::event(event);
 }*/
