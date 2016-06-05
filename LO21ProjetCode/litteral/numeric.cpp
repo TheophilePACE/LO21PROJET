@@ -1,12 +1,6 @@
 #include "numeric.h"
 #include "real.h"
 
-//ANCIENNE VERSION:
-//Numeric& operator+(const Numeric& N1, const Numeric& N2)
-//{
-//    Numeric* result = &(N1+N2);
-//    return *result;
-//}
 void Numeric::print(QTextStream& f)const{
         if(mantisse!=0){
         f<<num;
@@ -62,26 +56,72 @@ std::string Numeric::toString()const
      }
 
  }
-// Numeric& Numeric::operator- (const Numeric& N) const
-// {
-//     long nnum,ndenum;
-//     double nmantisse;
-//     nnum= num*N.denum - N.num*denum;
-//     ndenum = denum*N.denum;
-//     nmantisse = mantisse-N.mantisse;
-//     Numeric Rslt(nnum,ndenum,nmantisse);
-//     return Rslt;
-// }
-// Numeric& Numeric::operator/ (const Numeric& N) const
-// {
-//     long nnum,ndenum;
-//     double nmantisse;
-//     nnum= num*N.denum
-//     ndenum = denum*N.num;
-//     nmantisse = mantisseN.mantisse;
-//     Numeric Rslt(nnum,ndenum,nmantisse);
-//     return Rslt;
-// }
+ Numeric Numeric::operator- (const Numeric& N) const
+ {
+     std::cout<<"utilisation ope num";
+     double nmantisse,temp;
+     temp=  ((N.getNum()+N.getMantisse())*denum)-(mantisse+num)*N.getDenum() ;
+     nmantisse =temp-trunc(temp);
+
+     if(nmantisse==0)
+         {Rationnal Rslt((long)(temp), (long)(N.getDenum()*getDenum()) );
+         std::cout<<"mantisse 0 ; temp ="<<temp<<"mb1:"<<(mantisse+num)*N.getDenum()<<"mb2"<<((N.getNum()+N.getMantisse())*denum);
+          return Rslt;}
+     if(nmantisse !=0)
+     {
+         double d = getVal() - N.getVal();
+         Real Rslt(d);
+         return Rslt;}
+     else
+     {
+         std::cout<<"construc numeric WTF";
+         Numeric N(0,1);
+         return N;
+     }
+
+ }
+ Numeric Numeric::operator* (const Numeric& N) const
+  {
+      long ndenum,nnum;
+      double temp,nmantisse;
+      temp= (num+mantisse)*(N.getNum()+N.getMantisse());
+      ndenum = denum*N.getDenum();
+      nnum= trunc((temp));
+      nmantisse = temp - trunc(temp);
+      if(nmantisse==0)
+          {Rationnal Rslt(nnum, ndenum);
+          std::cout<<"mantisse 0 ; temp ="<<temp<<"mb1:"<<(mantisse+num)*N.getDenum()<<"mb2"<<((N.getNum()+N.getMantisse())*denum);
+           return Rslt;}
+      if(nmantisse !=0)
+      {
+          Real Rslt(temp/ndenum);
+          return Rslt;}
+      else
+      {
+          std::cout<<"construc numeric WTF";
+          Numeric N(0,1);
+          return N;
+      }  }
+
+
+  Numeric Numeric::operator/ (const Numeric& N) const
+  {
+
+      long ndenum,nnum;
+      double dtemp,ntemp;
+      ntemp= (N.num+N.mantisse)*(getDenum());
+      dtemp = N.denum*(getNum()+getMantisse());
+      nnum= trunc(ntemp);
+      ndenum=trunc(dtemp);
+      if((ntemp==nnum)&&(ndenum==dtemp)) //integer et ratio ou simplification
+          {Rationnal Rslt(nnum,ndenum);
+           return Rslt;}
+
+          Real Rslt(ntemp/dtemp);
+          return Rslt;
+  }
+
+
 
 // Numeric Numeric::operator=(Numeric N){
 //     mantisse=N.getMantisse();

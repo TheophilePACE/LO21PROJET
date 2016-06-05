@@ -27,12 +27,34 @@ void Controller::command(const QString& c){
                     Rslt.setLit(OP.execute());
                     stack.push(Rslt);
                 }
-//                if (c=="-") res=v1-v2;
-//                if (c=="*") res=v1*v2;
-//                if (c=="/") {
-//                    if (v2!=0) res=v1/v2;
-                   else {
-                        throw "En construction!";
+                else if (c=="-")
+                {
+
+                    Item Rslt;
+                    OperatorSub OP;
+                    OP.loadOperand(&stack);
+                    Rslt.setLit(OP.execute());
+                    stack.push(Rslt);
+                }
+                else if (c=="*")
+                {
+
+                    Item Rslt;
+                    OperatorMul OP;
+                    OP.loadOperand(&stack);
+                    Rslt.setLit(OP.execute());
+                    stack.push(Rslt);
+                }
+                else if (c=="/")
+                {
+                    Item Rslt;
+                    OperatorDiv OP;
+                    OP.loadOperand(&stack);
+                    Rslt.setLit(OP.execute());
+                    stack.push(Rslt);
+                }
+                else {
+                    stack.setMessage(toQString("Operateur Inconnu"));
                     }
                 }
                // Expression& e=expMng.addExpression(res);

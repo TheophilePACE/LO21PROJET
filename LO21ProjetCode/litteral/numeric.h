@@ -5,7 +5,6 @@
 
 
 
-
 class Numeric : public ExpressionMaterial
 {
 protected:
@@ -19,9 +18,9 @@ public:
     const double& getMantisse() const { return mantisse;}
     bool isNull() const {return (num+mantisse ==0);}
     virtual Numeric operator+ (const Numeric& N) const;
-//    virtual Numeric operator- (const Numeric& N) const;
-//    virtual Numeric operator/ (const Numeric& N) const;
-//    virtual Numeric operator* (const Numeric& N) const;
+    virtual Numeric operator- (const Numeric& N) const;
+    virtual Numeric operator/ (const Numeric& N) const;
+    virtual Numeric operator* (const Numeric& N) const;
     virtual void print(QTextStream& f)const; //implémentée
     virtual std::string toString()const;//implémentée
     ~Numeric(){}

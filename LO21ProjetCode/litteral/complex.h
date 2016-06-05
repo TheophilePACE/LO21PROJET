@@ -16,15 +16,11 @@ public:
     void print(QTextStream& f)const;
     std::string toString()const;
     ~Complex(){}
-   Complex operator+(const Complex& Cx) const;
    Complex operator=(const Complex& Cx );
-//    Complex operator-(Complex Cx)const ;
-//    Complex operator*(Complex Cx) const ;
-//    Complex operator/(Complex Cx) const;
-//    Complex operator+(Numeric Cx) const;
-//    Complex operator-(Numeric Cx)const ;
-//    Complex operator*(Numeric Cx) const ;
-//    Complex operator/(Numeric Cx) const;
+   Complex operator+(const Complex& Cx) const;
+   Complex operator-(const Complex& Cx)const ;
+   Complex operator*(const Complex& Cx) const ;
+   Complex operator/(const Complex& Cx) const;
     bool isReal() const {return pImag->isNull();} //check si la partie imaginaire est nulle
     bool isImag() const {return pReal->isNull();}
 

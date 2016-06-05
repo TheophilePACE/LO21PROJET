@@ -10,6 +10,8 @@
 #include <QDebug>
 #include "litteral.h"
 #include "intermediary.h"
+#include "litteral/integer.h"
+#include "litteral/program.h"
 
 /*Fichier contenant les structures de controle*/
 
