@@ -41,12 +41,14 @@ public:
     QprogramEditor *Programmes;
     QWidget *Parametres;
     QWidget *layoutWidget;
+    QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
     QCheckBox *checkBox;
     QLabel *label;
     QHBoxLayout *horizontalLayout;
     QLabel *label_2;
     QSlider *horizontalSlider;
+    QCheckBox *checkBox_2;
     QGroupBox *groupBox;
     QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_3;
@@ -129,10 +131,12 @@ public:
         Parametres->setObjectName(QStringLiteral("Parametres"));
         layoutWidget = new QWidget(Parametres);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(20, 20, 177, 76));
-        verticalLayout = new QVBoxLayout(layoutWidget);
+        layoutWidget->setGeometry(QRect(20, 20, 179, 106));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
         checkBox = new QCheckBox(layoutWidget);
         checkBox->setObjectName(QStringLiteral("checkBox"));
         checkBox->setTristate(false);
@@ -168,16 +172,26 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+
+        verticalLayout_2->addLayout(verticalLayout);
+
+        checkBox_2 = new QCheckBox(layoutWidget);
+        checkBox_2->setObjectName(QStringLiteral("checkBox_2"));
+        checkBox_2->setChecked(false);
+
+        verticalLayout_2->addWidget(checkBox_2);
+
         tabWidget->addTab(Parametres, QString());
         groupBox = new QGroupBox(centralwidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
+        groupBox->setEnabled(true);
         groupBox->setGeometry(QRect(490, 30, 471, 261));
         groupBox->setMinimumSize(QSize(471, 261));
         groupBox->setMaximumSize(QSize(471, 261));
         groupBox->setBaseSize(QSize(471, 261));
         layoutWidget1 = new QWidget(groupBox);
         layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(0, 20, 730, 268));
+        layoutWidget1->setGeometry(QRect(0, 20, 461, 241));
         verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_3->setSizeConstraint(QLayout::SetNoConstraint);
@@ -356,11 +370,15 @@ public:
 
         pushButton_35 = new QPushButton(layoutWidget1);
         pushButton_35->setObjectName(QStringLiteral("pushButton_35"));
+        pushButton_35->setEnabled(false);
+        pushButton_35->setCheckable(false);
+        pushButton_35->setAutoDefault(false);
 
         gridLayout->addWidget(pushButton_35, 4, 0, 1, 1);
 
         pushButton_36 = new QPushButton(layoutWidget1);
         pushButton_36->setObjectName(QStringLiteral("pushButton_36"));
+        pushButton_36->setEnabled(false);
 
         gridLayout->addWidget(pushButton_36, 4, 1, 1, 1);
 
@@ -456,6 +474,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+#ifndef QT_NO_ACCESSIBILITY
+        MainWindow->setAccessibleName(QApplication::translate("MainWindow", "MainWindow", 0));
+#endif // QT_NO_ACCESSIBILITY
 #ifndef QT_NO_TOOLTIP
         tabWidget->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
@@ -477,6 +498,10 @@ public:
         checkBox->setText(QApplication::translate("MainWindow", "D\303\251sactiver Clavier Virtuel", 0));
         label->setText(QApplication::translate("MainWindow", "Nombre de Lignes affich\303\251es :", 0));
         label_2->setText(QApplication::translate("MainWindow", "4", 0));
+#ifndef QT_NO_ACCESSIBILITY
+        checkBox_2->setAccessibleName(QApplication::translate("MainWindow", "ButtonNoSound", 0));
+#endif // QT_NO_ACCESSIBILITY
+        checkBox_2->setText(QApplication::translate("MainWindow", "D\303\251sactiver Sons", 0));
         tabWidget->setTabText(tabWidget->indexOf(Parametres), QApplication::translate("MainWindow", "Param\303\250tres", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Clavier", 0));
         pushButton_21->setText(QApplication::translate("MainWindow", "+", 0));

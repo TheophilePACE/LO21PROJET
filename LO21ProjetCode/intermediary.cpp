@@ -1,3 +1,51 @@
 #include "litteral/litteral.h"
 #include "intermediary.h"
-#include <QString>
+#include "qvareditor.h"
+#include "snapshots.h"
+
+void ExceptionWindow(const char * s) {
+    QWindow2 *win = new QWindow2;
+    QLabel * lab = new QLabel;
+    QVBoxLayout * layout = new QVBoxLayout;
+    layout->addWidget(lab);
+    lab->setText(s);
+    win->setWindowTitle("Error Window");
+    win->setLayout(layout);
+    win->show();
+    QWidget * widgetSearched;
+    foreach (QWidget *widget, QApplication::allWidgets())
+        if(widget->accessibleName()=="ButtonNoSound")
+            widgetSearched = widget;
+    if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
+        QSound::play("../wahoo.wav");
+}
+
+void CheckButtons() {
+    QWidget * ui;
+    SnapshotManager * s = &(SnapshotManager::getInstance());
+    foreach (QWidget *widget, QApplication::allWidgets())
+        if(widget->accessibleName()=="MainWindow")
+            ui = widget;
+    ui = dynamic_cast<QMainWindow*>(ui);
+    if(s->undoPossible())
+        std::cout << "Undo possible";
+    else
+        std::cout << "Undo pas possible";
+    if(s->redoPossible())
+        std::cout << "Redo possible";
+    else
+        std::cout << "Redo pas possible";
+    std::cout << "\n" << s->nombre() << "\n";
+    std::cout << "\n" << s->current() << "\n";
+    if(s->undoPossible())
+        dynamic_cast<QMainWindow*>(ui)->findChild<QPushButton*>("pushButton_35")->setEnabled(true);
+    else
+        dynamic_cast<QMainWindow*>(ui)->findChild<QPushButton*>("pushButton_35")->setEnabled(false);
+    if(s->redoPossible())
+        dynamic_cast<QMainWindow*>(ui)->findChild<QPushButton*>("pushButton_36")->setEnabled(true);
+    else
+        dynamic_cast<QMainWindow*>(ui)->findChild<QPushButton*>("pushButton_36")->setEnabled(false);
+
+}
+
+

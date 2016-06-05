@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle("UTComputer 2.0");
     QButtonGroup * signalGroup = new QButtonGroup;
     QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
+    QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
+    QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
     QSlider * lignes = ui->tabWidget->findChild<QWidget*>("Parametres")->findChild<QSlider*>("horizontalSlider");
 
     signalGroup->addButton(ui->pushButton);
@@ -45,8 +47,8 @@ MainWindow::MainWindow(QWidget *parent) :
     signalGroup->addButton(ui->pushButton_32);
     signalGroup->addButton(ui->pushButton_33);
     signalGroup->addButton(ui->pushButton_34);
-    signalGroup->addButton(ui->pushButton_35);
-    signalGroup->addButton(ui->pushButton_36);
+    //signalGroup->addButton(ui->pushButton_35); //UNDO
+    //signalGroup->addButton(ui->pushButton_36); //REDO
     signalGroup->addButton(ui->pushButton_37);
     signalGroup->addButton(ui->pushButton_38);
     signalGroup->addButton(ui->pushButton_39);
@@ -62,34 +64,95 @@ MainWindow::MainWindow(QWidget *parent) :
             calcul
             ,SLOT(keyboardButtonPressed(QAbstractButton*)));
     connect(lignes,SIGNAL(sliderMoved(int)),
-            calcul
-            ,SLOT(sliderMoved(int)));
-
+                calcul
+                ,SLOT(sliderMoved(int)));
+    connect(ui->pushButton_35,SIGNAL(clicked()),
+                this
+                ,SLOT(undo()));
+    connect(ui->pushButton_36,SIGNAL(clicked()),
+                this
+                ,SLOT(redo()));
 
     using namespace rapidxml;
 
     xml_document<> doc;
-    xml_node<> * root;
+    xml_node<> * stack,* var,* prog;
 
     GeneralManager * genMng = &(GeneralManager::getInstance());
-    std::ifstream theFile ("UTComputer.xml");
+    std::ifstream theFile ("/Users/pascalereghem/Documents/P16/LO21/LO21_PROJET/UTComputerGIT/UTComputer/LO21PROJET/UTComputer.xml");
     std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
     buffer.push_back('\0');
+
     // Parse the buffer using the xml file parsing library into doc
     doc.parse<0>(&buffer[0]);
-
     //Stack Treatment
-    root = doc.first_node("Pile");
-    /*for (xml_node<> * item_node = root->first_node("Atom"); item_node; item_node = item_node->next_sibling())
+    stack = doc.first_node();
+    if (toQString(stack->value())!="") {
+        QStringList valuesSt = toQString(stack->value()).split(" ");
+        for (int i=0;  i < valuesSt.size(); ++i)
         {
-            Item * I = genMng->createItem(item_node->value());
+            Item * I = genMng->createItem(valuesSt.at(i));
             calcul->getStack()->push(*I);
-        }*/
-   // xml_node<> * item_node = root->first_node("Atom");
+        }
+    }
+    calcul->refresh();
+    IdentifierManager * idMng = &(IdentifierManager::getInstance());
+
+    //Var Treatment
+    var = stack->next_sibling();
+    if (toQString(var->value())!="") {
+        QStringList valuesVar = toQString(var->value()).split(" ");
+
+        for (int i=0;  i < valuesVar.size(); ++i)
+        {
+            QStringList variables = valuesVar.at(i).split("-");
+            idMng->addIdentifier(variables.at(0).toStdString(),genMng->createItem(variables.at(1))->getPLit());
+        }
+    }
+    variableManager->refresh();
+
+    //Prog Treatment
+    prog = var->next_sibling();
+    if (toQString(prog->value())!="") {
+        QStringList valuesProg = toQString(prog->value()).split("_");
+        for (int i=0;  i < valuesProg.size(); ++i)
+        {
+            QStringList programmes = valuesProg.at(i).split("[");
+            QString inter = programmes.at(1);
+            inter.remove(inter.size()-1, 1);
+            idMng->addIdentifier(programmes.at(0).toStdString(),genMng->createProgram(inter)->getPLit());
+        }
+    }
+    programManager->refresh();
+
+    SnapshotManager * s = &(SnapshotManager::getInstance());
+    s->addSnapshot(calcul->getStack(), &(IdentifierManager::getInstance()));
 }
 
 MainWindow::~MainWindow()
 {
+    using namespace rapidxml;
+
+    xml_document<> doc;
+
+    QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
+    Stack * stack = calcul->getStack();
+    std::string s = stack->display();
+
+    xml_node<> *node = doc.allocate_node(node_element, "Pile", s.c_str(),4 , s.size());
+    doc.append_node(node);
+
+    IdentifierManager * idMng = &(IdentifierManager::getInstance());
+    std::string s2 = idMng->displayVar();
+    xml_node<> *node2 = doc.allocate_node(node_element, "Variables", s2.c_str(),9 , s2.size());
+    doc.append_node(node2);
+
+    std::string s3 = idMng->displayProg();
+    xml_node<> *node3 = doc.allocate_node(node_element, "Programmes", s3.c_str(), 10, s3.size());
+    doc.append_node(node3);
+
+    std::ofstream theFile ("../UTComputer.xml");
+    theFile << doc;
     delete ui;
 }
 
@@ -107,3 +170,46 @@ void MainWindow::resized(){
     else
         adjustSize();
 }
+void MainWindow::undo(){
+
+    SnapshotManager  * s = &(SnapshotManager::getInstance());
+    Snapshot * snapshot = s->undo();
+    QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
+    QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
+    QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
+    calcul->setStack(snapshot->getStack());
+    IdentifierManager::setInstance(snapshot->getIdManager());
+    calcul->refresh();
+    variableManager->refresh();
+    programManager->refresh();
+}
+void MainWindow::redo(){
+
+    SnapshotManager  * s = &(SnapshotManager::getInstance());
+    Snapshot * snapshot = s->redo();
+    QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
+    QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
+    QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
+    calcul->setStack(snapshot->getStack());
+    IdentifierManager::setInstance(snapshot->getIdManager());
+    calcul->refresh();
+    variableManager->refresh();
+    programManager->refresh();
+}
+/*
+bool MyWidget::event(QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        if (ke->key() == Qt::Key_Tab) {
+            // special tab handling here
+            return true;
+        }
+    } else if (event->type() == MyCustomEventType) {
+        MyCustomEvent *myEvent = static_cast<MyCustomEvent *>(event);
+        // custom event handling here
+        return true;
+    }
+
+    return QWidget::event(event);
+}*/

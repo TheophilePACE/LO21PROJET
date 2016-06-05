@@ -8,7 +8,9 @@ class Snapshot {
     Stack * stack;
     IdentifierManager * idMng;
 public:
-    Snapshot(Stack * st, IdentifierManager * im):stack(st),idMng(im){}
+
+    Snapshot(Stack *st, IdentifierManager* im):stack(new Stack(*st)),idMng(new IdentifierManager(*im)){}
+    ~Snapshot(){delete stack; delete idMng;}
     Stack * getStack(){return stack;}
     IdentifierManager * getIdManager(){return idMng;}
 };
@@ -17,9 +19,10 @@ class SnapshotManager {
     Snapshot ** snapshots;
     unsigned int currentState;
     unsigned int nb;
-    unsigned int max;
+
+    unsigned int maxi;
     void increaseCap();
-    SnapshotManager():snapshots(nullptr),currentState(0),nb(0),max(0){}
+    SnapshotManager():snapshots(nullptr),currentState(0),nb(0),maxi(0){}
     struct Singleton{
         SnapshotManager* instance;
         Singleton():instance(nullptr){}
@@ -29,11 +32,15 @@ class SnapshotManager {
 public:
     ~SnapshotManager(){}
     void addSnapshot(Stack * st, IdentifierManager * im);
-    bool redoPossible() {return currentState<nb;}
-    bool undoPossible() {return currentState>1;}
-    Snapshot * redo() {if (redoPossible()) throw "Pas d'état suivant"; return snapshots[++currentState];}
-    Snapshot * undo() {if (undoPossible()) throw "Pas d'état précédent"; return snapshots[--currentState];}
+
+    bool redoPossible() { if(nb!=0) return currentState<nb-1; else return false;}
+    bool undoPossible() {return currentState>0;}
+    Snapshot * redo() {if (!(redoPossible())) throw "Pas d'état suivant"; return snapshots[++currentState];}
+    Snapshot * undo() {if (!(undoPossible())) throw "Pas d'état précédent"; return snapshots[--currentState];}
     Snapshot * getCurrentState() const {return snapshots[currentState];}
+    unsigned int nombre() {return nb;}
+    unsigned int max() {return maxi;}
+    unsigned int current() {return currentState; }
     static SnapshotManager& getInstance();
     static void freeInstance();
 };

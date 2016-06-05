@@ -2,9 +2,10 @@
 #define STACK_H
 
 #include <QObject>
+#include <sstream>
 #include "../intermediary.h"
-class Stack : public QObject {
-    Q_OBJECT
+
+class Stack {
 
     Item* items;
     unsigned int nb;
@@ -14,16 +15,17 @@ class Stack : public QObject {
     unsigned int nbItemsDisplayed;
 public:
     Stack():items(nullptr),nb(0),nbMax(0),message(""),nbItemsDisplayed(4){}
+    Stack(const Stack& s);
     ~Stack();
     void push(Item e);
     void pop();
     bool empty() const { return nb==0; }
     unsigned int size() const { return nb; }
-    void display(QTextStream& f) const;
+    const std::string display() const;
     Litteral* top() const;
     void setNbItemsDisplayed(unsigned int n) { nbItemsDisplayed=n; }
     unsigned int getNbItemsDisplayed() const { return nbItemsDisplayed; }
-    void setMessage(const QString& m) { message=m; stateModification(); }
+    void setMessage(const QString& m) { message=m; }
     QString getMessage() const { return message; }
     class iterator {
         Item* current;
@@ -50,9 +52,6 @@ public:
     };
     const_iterator begin() const { return const_iterator(items+nb-1); }
     const_iterator end() const { return const_iterator(items-1); }
-
-signals:
-    void stateModification();
 };
 
 #endif // STACK_H

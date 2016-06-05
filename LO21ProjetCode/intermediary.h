@@ -8,6 +8,10 @@
 #include <QTextStream>
 #include <QObject>
 #include <QDebug>
+#include <QList>
+#include <QApplication>
+#include <QCheckBox>
+#include <QMainWindow>
 #include "litteral/litteral.h"
 #include "litteral/atom.h"
 
@@ -34,5 +38,8 @@ public:
     Atom* getLib()const{return lib;}
     Litteral* getPValue()const{return value;}
 };
+
+void ExceptionWindow(const char * s);
+void CheckButtons();
 
 #endif // INTERMEDIARY_H

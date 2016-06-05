@@ -12,10 +12,14 @@
 #include <stack>
 #include <QtXml>
 #include <fstream>
-#include "../rapidxml-1.13/rapidxml.hpp"
+#include <ostream>
+#include <sstream>
+#include <iterator>
+#include "../rapidxml-1.13/rapidxml_print.hpp"
 #include "litteral/litteral.h"
 #include "intermediary.h"
 #include "structures/structures.h"
+#include "snapshots.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +36,8 @@ public:
 private slots:
     void on_checkBox_stateChanged(int arg1);
     void resized();
+    void undo();
+    void redo();
 
 private:
     Ui::MainWindow *ui;

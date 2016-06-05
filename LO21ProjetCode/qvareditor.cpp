@@ -68,6 +68,9 @@ void stateModification(){
 
 void QvarEditor::refresh()
 {
+    CheckButtons();
+    //setIdentifierManager(&(IdentifierManager::getInstance()));
+    idMng = &(IdentifierManager::getInstance());
     unsigned int NbElements =0;
     QStringList numberList;
     varView->setRowCount(idMng->sizeAtoms());
@@ -91,15 +94,15 @@ void QvarEditor::validationButtonPressed() {
                 getNextCommand();
                 stateModification();
             }
-            catch (char const* s) {
-                std::cout << "Exception de : " << s;
+            catch (char const* s){
+                ExceptionWindow(s);
             }
             refresh();
-
         }
 }
 void QvarEditor::getNextCommand(){
 
+    idMng = &(IdentifierManager::getInstance());
     IdentifierManager::Iterator it = idMng->getIterator();
     unsigned int NbElements =0;
     Parser p = Parser::getInstance();
@@ -117,12 +120,20 @@ void QvarEditor::getNextCommand(){
         GeneralManager mng = GeneralManager::getInstance();
 
         if(NbElements!=idMng->size())
-            if(typeid(*(it.getCurrent().getPValue()))!=typeid(Program))
+            if(typeid(*(it.getCurrent().getPValue()))!=typeid(Program)) {
+                SnapshotManager * s = &(SnapshotManager::getInstance());
+                s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
                 it.getCurrent().setValue(mng.createItem(commandValue->text())->getPLit());
+            }
+
             else
-                throw "Modification de Programme Impossible d'ici";
-        else
+                throw "Modification d'un' Programme Impossible d'ici";
+        else {
+            SnapshotManager * s = &(SnapshotManager::getInstance());
+            s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
             idMng->addIdentifier(commandIdentifier->text().toStdString(),mng.createItem(commandValue->text())->getPLit());
+        }
+
     }
     else
         throw "Type Error Creation Var";
@@ -136,7 +147,10 @@ void QvarEditor::destroyVar(){
         nbElements++;
         it.next();
     }
-    if(nbElements!=prgMng->size())
+    if(nbElements!=prgMng->size()) {
+        SnapshotManager * s = &(SnapshotManager::getInstance());
+        s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
         prgMng->removeIdentifier(it.getCurrent());
+    }
     refresh();
 }

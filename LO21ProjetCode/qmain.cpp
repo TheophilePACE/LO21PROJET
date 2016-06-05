@@ -29,7 +29,7 @@ QComputer::QComputer(QWidget *parent) : QWidget(parent)
     vuePile->setEditTriggers(QAbstractItemView::NoEditTriggers);
     vuePile->horizontalHeader()->setVisible(false);
     vuePile->horizontalHeader()->setStretchLastSection(true);
-    controleur = new Controller(GeneralManager::getInstance(),*pile);
+    controleur = new Controller(GeneralManager::getInstance(),pile);
 
     couche->addWidget(commande);
 
@@ -41,7 +41,6 @@ QComputer::QComputer(QWidget *parent) : QWidget(parent)
     message->setReadOnly(true);
 
    //Affectation sinaux-slots
-   connect(pile,SIGNAL(stateModification()),this,SLOT(refresh()));
    connect(commande,SIGNAL(returnPressed()),this,SLOT(getNextCommande()));
 
     //Message
@@ -52,6 +51,7 @@ QComputer::QComputer(QWidget *parent) : QWidget(parent)
 }
 void QComputer::refresh()
 {
+    CheckButtons();
     message->setText(pile->getMessage());
     //effacer tout
     for(unsigned int i=0;i<pile->getNbItemsDisplayed();i++)
@@ -64,6 +64,7 @@ void QComputer::refresh()
 
 void QComputer::getNextCommande()
 {
+    controleur->setStack(pile);
     pile->setMessage("");
     //recuperation du texte de la ligne de commande
     QString c = commande->text();
@@ -76,6 +77,7 @@ void QComputer::getNextCommande()
         if(com!="") controleur->command(com);
     } while(com!="");
     commande->setText("");
+    controleur->setStack(pile);
     refresh();
 }
 void QComputer::keyboardButtonPressed(QAbstractButton* g) {
@@ -99,7 +101,6 @@ void QComputer::sliderMoved(int n) {
         vuePile->setItem(i-1,0,new QTableWidgetItem(""));
     }
     vuePile->setVerticalHeaderLabels(numberList);
-
     refresh();
 }
 

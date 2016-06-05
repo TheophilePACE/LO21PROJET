@@ -14,12 +14,12 @@ HEADERS += \
     structures/structures.h \
     structures/stack.h \
     structures/parser.h \
-    structures/programManager.h \
     structures/identifierManager.h \
     structures/generalManager.h \
     structures/operator.h\
     qvareditor.h \
-    qprogrameditor.h
+    qprogrameditor.h \
+    snapshots.h
 
 SOURCES += \
     main.cpp \
@@ -38,16 +38,19 @@ SOURCES += \
     structures/structures.cpp \
     structures/stack.cpp \
     structures/parser.cpp \
-    structures/programManager.cpp \
     structures/identifierManager.cpp \
     structures/generalManager.cpp \
     structures/operator.cpp \
     qvareditor.cpp \
-    qprogrameditor.cpp
+    qprogrameditor.cpp \
+    snapshots.cpp
     
 QMAKE_CXXFLAGS += -std=c++0x
 QT += widgets
 QT += xml
+
+QT += core gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 FORMS += \
     mainwindow.ui

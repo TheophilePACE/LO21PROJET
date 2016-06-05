@@ -21,6 +21,7 @@ double Numeric::getVal()  const{
 }
 std::string Numeric::toString()const
 {
+
     std::string s="";
     if(mantisse!=0){
     s+=std::to_string(num);
@@ -31,8 +32,11 @@ std::string Numeric::toString()const
         s+=(std::to_string(num+mantisse));
     return s;
 }
+std::string Numeric::toStringPars()const{
+    return toString();
+}
 
-
+//Operations sur les numerics
  Numeric Numeric::operator+ (const Numeric& N) const
  {
      std::cout<<"utilisation ope num";
@@ -120,6 +124,7 @@ std::string Numeric::toString()const
           Real Rslt(ntemp/dtemp);
           return Rslt;
   }
+
 
 
 

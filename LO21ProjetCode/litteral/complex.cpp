@@ -7,11 +7,15 @@ void Complex::print(QTextStream& f)const
     pImag->print(f);
     f<<"i";
 }
-std::string Complex::toString()const
-{
-    return (*pReal).toString()+  " + "   + (*pImag).toString() + "i";
+std::string Complex::toString()const {
+    return (*pReal).toString() + " + " + (*pImag).toString() + "i";
+}
+std::string Complex::toStringPars()const {
+    return (*pReal).toString() + "$" + (*pImag).toString();
 }
 
+
+//operatior entre complex. Pas besoin de gérer Complex/Num, fait par l'operator
 Complex Complex::operator+(const Complex & Cx) const
 {
     Numeric * N1 = new Numeric (0,1,0);
@@ -45,6 +49,7 @@ Complex Complex::operator/(const Complex& Cx) const
     *N2=((*Cx.pReal) *(*pImag) - (*pReal * (*Cx.pImag)))   /   ((*pReal) * (*pReal) + (*Cx.pImag) *(*Cx.pImag)) ;
     return Complex(N1,N2);
 }
+
 
 
 void numericCast(Numeric ** N)

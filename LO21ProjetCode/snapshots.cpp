@@ -1,27 +1,30 @@
 #include "snapshots.h"
 
 void SnapshotManager::increaseCap() {
-    max = max*2+1;
-    Snapshot ** newtab = new Snapshot*[max];
+
+    maxi = maxi*2+1;
+    Snapshot ** newtab = new Snapshot*[maxi];
     for(unsigned int i=0;i<nb;i++)
         newtab[i]=snapshots[i];
     Snapshot ** old = snapshots;
     snapshots = newtab;
-    /*for(unsigned int i=0;i<nb;i++)
-        delete old[i];
-    delete[] old;*/
+
+    delete[] old;
 }
 
 void SnapshotManager::addSnapshot(Stack * st, IdentifierManager * im) {
     Snapshot * newsnap = new Snapshot(st,im);
-    if(nb==max)
+
+    if((nb==maxi)||(nb==maxi-1))
         increaseCap();
     if(nb==0)
         snapshots[0]=newsnap;
     else {
-        for(unsigned int i=currentState+1;i<nb+1;i++)
+
+        for(unsigned int i=currentState;i<nb+1;i++)
             snapshots[i+1]=snapshots[i];
-        snapshots[++currentState]=newsnap;
+        snapshots[currentState]=newsnap;
+        currentState++;
     }
     nb++;
 }

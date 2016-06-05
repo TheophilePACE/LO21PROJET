@@ -9,7 +9,6 @@ class IdentifierManager {
     unsigned int max;
     void increaseCap();
     IdentifierManager():identifiers(nullptr),nb(0),max(0){}
-    IdentifierManager(const IdentifierManager& m);
     IdentifierManager& operator=(const IdentifierManager& m);
     //friend class QComputer;
     struct Singleton{
@@ -20,12 +19,16 @@ class IdentifierManager {
     static Singleton sing;
 public:
     ~IdentifierManager(){}
+    IdentifierManager(const IdentifierManager& m);
     void addIdentifier(std::string s, Litteral* l);
     void removeIdentifier(Identifier& e);
-    Identifier * getIdentifier(Atom& a);
-    unsigned int size(){return nb;}
-    unsigned int sizeAtoms();
+    Identifier * getIdentifier(Atom& a) const;
+    const std::string displayVar() const;
+    const std::string displayProg() const;
+    unsigned int size() const {return nb;}
+    unsigned int sizeAtoms() const;
     static IdentifierManager& getInstance();
+    static void setInstance(IdentifierManager * id);
     static void freeInstance();
     class Iterator {
         friend class IdentifierManager;
@@ -47,7 +50,7 @@ public:
             return **current;
         }
     };
-    Iterator getIterator() {
+    Iterator getIterator() const {
         return Iterator(identifiers,nb);
     }
 };

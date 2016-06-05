@@ -4,6 +4,7 @@
 #include "structures/identifierManager.h"
 #include "intermediary.h"
 #include "litteral/litteral.h"
+#include "snapshots.h"
 
 #include <QWidget>
 #include <QComboBox>
@@ -32,6 +33,7 @@ class QprogramEditor : public QWidget{
         QLineEdit * newProgName;
     public:
         explicit QprogramEditor(QWidget * parent = 0);
+        void setIdentifierManager(IdentifierManager * id){prgMng=id;}
     public slots:
         void refresh();
         void choiceProgram(const QString&);

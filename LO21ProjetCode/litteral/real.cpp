@@ -23,7 +23,12 @@ bool Real::isInteger() const{
 }
 std::string Real::toString()const{
     double f=getSignedValue();
-    return std::to_string(f);
+    std::string str = std::to_string(f);
+    str.erase ( str.find_last_not_of('0') + 1, std::string::npos );
+    return str;
+}
+std::string Real::toStringPars()const {
+    return toQString(toString()).replace(",",".").toStdString();
 }
 void Real::print(QTextStream& f)const
 {
