@@ -35,7 +35,7 @@ const std::string Stack::display() const{
     for(unsigned int i=0; i<nb; i++) {
                 f << (*(items[i].getPLit())).toStringPars();
                 if(i!=nb-1)
-                    f<<" ";
+                    f<<"_";
     }
     return f.str();
 }

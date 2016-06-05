@@ -18,6 +18,7 @@ public:
     static void freeInstance();
     std::string getType(QString s);
     bool isOperator(QString s);
+    bool isOperatorBinary(QString s);
     long getNum(QString s);
     long getDenum(QString s);
     long getInteger(QString s); //renvoie tout ce qu'il y a avant le .
