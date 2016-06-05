@@ -73,6 +73,54 @@ void Controller::command(const QString& c){
                     Rslt.setLit(OP.execute());
                     stack->push(Rslt);
                 }
+                else if (c==">")
+                {
+                    Item Rslt;
+                    OperatorSupS OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
+                else if (c==">=")
+                {
+                    Item Rslt;
+                    OperatorSupE OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
+                else if (c=="<")
+                {
+                    Item Rslt;
+                    OperatorLessS OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
+                else if (c=="<=")
+                {
+                    Item Rslt;
+                    OperatorLessE OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
+                else if (c=="=")
+                {
+                    Item Rslt;
+                    OperatorEqu OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
+                else if (c=="!=")
+                {
+                    Item Rslt;
+                    OperatorNEqu OP;
+                    OP.loadOperand(stack);
+                    Rslt.setLit(OP.execute());
+                    stack->push(Rslt);
+                }
                 else {
                     stack->setMessage(toQString("Operateur Inconnu"));
                     }

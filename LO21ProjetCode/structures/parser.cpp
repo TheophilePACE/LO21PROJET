@@ -16,6 +16,7 @@ bool Parser::isOperator(QString s) {
     if (s=="<=") return true;
     if (s==">=") return true;
     if (s=="!=") return true;
+    if (s=="=") return true;
     if (s=="DIV") return true;
     if (s=="MOD") return true;
     if (s=="$") return true;
