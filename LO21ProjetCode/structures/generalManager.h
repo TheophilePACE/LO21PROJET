@@ -2,7 +2,9 @@
 #define GENERALMANAGER_H
 
 #include "parser.h"
-#include "../intermediary.h"
+
+class Litteral;
+class Item;
 
 class GeneralManager {
     Litteral** litterals;

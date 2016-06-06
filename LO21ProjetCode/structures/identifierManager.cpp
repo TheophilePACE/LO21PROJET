@@ -8,6 +8,12 @@ IdentifierManager::IdentifierManager(const IdentifierManager& m){
         addIdentifier(m.identifiers[i]->getLib()->toString(),m.identifiers[i]->getPValue());
 
 }
+IdentifierManager::~IdentifierManager(){
+    for(unsigned int i=0; i<nb; i++) {
+        delete identifiers[i];
+    }
+    delete[] identifiers;
+}
 
 void IdentifierManager::increaseCap()
 {

@@ -1,9 +1,10 @@
 #ifndef RATIONNAL_H
 #define RATIONNAL_H
 
-#include "integer.h"
-#include "litteral.h"
 
+#include "numeric.h"
+class Litteral;
+class Integer;
 
 class Rationnal : public Numeric {
 private:

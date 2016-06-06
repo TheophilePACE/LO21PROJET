@@ -1,9 +1,10 @@
 #ifndef REAL_H
 #define REAL_H
 
-#include "litteral.h"
-#include "integer.h"
 #include "rationnal.h"
+
+class Litteral;
+class Integer;
 
 class Real : public Numeric {
 private:

@@ -3,8 +3,6 @@
 
 #include "expression.h"
 
-
-
 class Numeric : public ExpressionMaterial
 {
 protected:
