@@ -27,7 +27,7 @@ class QComputer : public QWidget{
     public:
         Stack* getStack(){return pile;}
         explicit QComputer(QWidget * parent = 0);
-        void setStack(Stack * s) { /*delete pile*/ pile = s;}
+        void setStack(Stack * s) { delete pile; pile = s;}
     public slots:
         void refresh();
         void getNextCommande();

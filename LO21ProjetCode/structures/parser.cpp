@@ -41,6 +41,7 @@ bool Parser::isOperatorUnary(QString s) {
     if(s=="DROP") return true;
     if(s=="DUP") return true;
     if(s=="CLEAR") return true;
+    if(s=="EVAL") return true;
     return false;
 }
 

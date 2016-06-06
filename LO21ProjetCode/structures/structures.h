@@ -20,12 +20,12 @@
 
 /*Fichier contenant les structures de controle*/
 
-class ComputerException {
+/*class ComputerException {
     QString info;
 public:
     ComputerException(const QString& str):info(str){}
     QString getInfo() const { return info; }
-};
+};*/
 
 class Controller {
     GeneralManager& genMng;
@@ -33,7 +33,7 @@ class Controller {
 public:
     Controller(GeneralManager& m,Stack * p):genMng(m), stack(p){}
     void command(const QString& c);
-    void setStack(Stack * s) { /*delete stack*/ stack = s;}
+    void setStack(Stack * s) {stack = s;}
 
 };
 

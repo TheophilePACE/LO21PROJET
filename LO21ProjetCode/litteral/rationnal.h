@@ -13,6 +13,7 @@ public:
     Rationnal(long N, long D ): Numeric(N,D) {simplify();} //utile en cas de division. Comment gérer le retour?
     Rationnal(Integer a, Integer b); //Attention au simplicifications
     Rationnal(Rationnal& R): Numeric(R.num,R.denum) {}
+    ~Rationnal(){}
     void print(QTextStream& f)const;
     std::string toString()const;
     std::string toStringPars()const;

@@ -18,7 +18,7 @@ void Controller::command(const QString& c){
     for (int i = 0; i < list.size(); ++i) {
 
         str = list.at(i);
-        if((str[0]=='[')&&(str[str.size()-1]!=']')) {
+        if((str[0]=='[')&&(str[str.size()-1]!=']')&&(!listest)) {
             d = str;
             prog = true;
         }
@@ -29,7 +29,7 @@ void Controller::command(const QString& c){
             d = d + " " + str;
             str = d;
         }
-        if((str[0]=='\'')&&(str[str.size()-1]!='\'')&&(!prog)) {
+        if((str[0]=='\'')&&((str[str.size()-1]!='\'')||((str+(str.size()-1))==str))&&(!prog)) {
             d = str;
             listest = true;
         }
@@ -268,6 +268,12 @@ void Controller::command(const QString& c){
 
                             stack->pop();
                         }
+                        else if (str=="EVAL")
+                        {
+                            OperatorEVAL OP(this);
+                            OP.loadOperand(stack);
+                            OP.execute();
+                        }
 
                         else
                             throw "Operateur pas encore défini";
@@ -275,18 +281,18 @@ void Controller::command(const QString& c){
                     else throw" Pas assez d'argument dans la pile!";
                 }
         }
-        catch(char const* s)
-        {
-            QWidget * widgetSearched;
-            foreach (QWidget *widget, QApplication::allWidgets()) {
-                if(widget->accessibleName()=="ButtonNoSound")
-                    widgetSearched = widget;
-            }
-            if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
-                QSound::play("../wahoo.wav");
-            stack->setMessage(toQString(s));
-        }
-        }
+                catch(char const* s)
+                {
+                    QWidget * widgetSearched;
+                    foreach (QWidget *widget, QApplication::allWidgets()) {
+                        if(widget->accessibleName()=="ButtonNoSound")
+                            widgetSearched = widget;
+                    }
+                    if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
+                        QSound::play("../wahoo.wav");
+                    stack->setMessage(toQString(s));
+                }
+                }
          else {
                 try {
                     Item * I = genMng.createItem(str);

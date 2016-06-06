@@ -1,8 +1,8 @@
 #include "snapshots.h"
 
 Snapshot::~Snapshot() {
-    delete stack;
-    delete idMng;
+    //delete stack;
+    //delete idMng;
 }
 
 void SnapshotManager::increaseCap() {

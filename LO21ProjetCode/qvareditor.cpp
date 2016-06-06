@@ -117,13 +117,13 @@ void QvarEditor::getNextCommand(){
     std::string type = p.getType(commandValue->text());
     if(type!="Atom" && type !="Program")
     {
-        GeneralManager mng = GeneralManager::getInstance();
+        GeneralManager * mng = &(GeneralManager::getInstance());
 
         if(NbElements!=idMng->size())
             if(typeid(*(it.getCurrent().getPValue()))!=typeid(Program)) {
                 SnapshotManager * s = &(SnapshotManager::getInstance());
                 s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
-                it.getCurrent().setValue(mng.createItem(commandValue->text())->getPLit());
+                it.getCurrent().setValue(mng->createItem(commandValue->text())->getPLit());
             }
 
             else
@@ -131,7 +131,7 @@ void QvarEditor::getNextCommand(){
         else {
             SnapshotManager * s = &(SnapshotManager::getInstance());
             s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
-            idMng->addIdentifier(commandIdentifier->text().toStdString(),mng.createItem(commandValue->text())->getPLit());
+            idMng->addIdentifier(commandIdentifier->text().toStdString(),mng->createItem(commandValue->text())->getPLit());
         }
 
     }
