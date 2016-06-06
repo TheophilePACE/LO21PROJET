@@ -83,7 +83,7 @@ Litteral* OperatorSub::execute()
         Complex C1 =(dynamic_cast<Numeric*>(l1),nullptr);
         Complex* C2 =dynamic_cast<Complex*>(l2);
         Complex* C= new Complex();
-        *C=C1 - (*C2);
+        *C= C1 - (*C2);
         return C;
     }
     else //Pointeurs sur classe filles de numeric. bcp de possibilités.
@@ -229,6 +229,16 @@ void OperatorDiv::loadOperand(Stack *s){
         s->push(*I2);
         throw "BAD TYPE: il faut 2 entiers pour Div";
     }
+    if(dynamic_cast<Numeric*>(l2)->isNull())
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "DIV par 0";
+    }
 }
 
 Litteral*  OperatorMod::execute()
@@ -254,6 +264,16 @@ void OperatorMod::loadOperand(Stack *s){
         s->push(*I1);
         s->push(*I2);
         throw "BAD TYPE: il faut 2 entiers pour Mod";
+    }
+    if(dynamic_cast<Numeric*>(l2)->isNull())
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "MOD par 0";
     }
 }
 
@@ -592,7 +612,7 @@ void OperatorSTO::loadOperand(Stack *s){
     l1=s->top();
     s->pop();
 
-    Litteral* I1 =dynamic_cast<Litteral*>(l1);
+    //Litteral* I1 =dynamic_cast<Litteral*>(l1);
     Item * I = new Item;
     I->setLit(l1);
     l2=s->top();
@@ -602,6 +622,8 @@ void OperatorSTO::loadOperand(Stack *s){
 Litteral * OperatorSTO::execute(){
     Litteral* I1 =dynamic_cast<Litteral*>(l1);
     Expression* I2 =dynamic_cast<Expression*>(l2);
+    if(!(I2))
+        throw"Problème de type pour le STO!";
 
     QString str = toQString(I2->toString());
     str.remove(0,1);
@@ -632,3 +654,91 @@ Litteral * OperatorSTO::execute(){
         throw "Type Error Creation Var";
     return l1;
 }
+
+Litteral*  OperatorNUM::execute()
+{
+
+    Numeric * N1 = dynamic_cast<Numeric *>(l1);
+    Integer* Rslt = new Integer(N1->getNum());
+    return Rslt;
+
+}
+void OperatorNUM::loadOperand(Stack *s){
+    l1=s->top();
+    s->pop();
+    if(!(dynamic_cast<Integer*>(l1)||dynamic_cast<Rationnal*>(l1)))
+    {
+        Item * I1 =new Item();
+        I1->setLit(l1);
+        s->push(*I1);
+        throw "BAD TYPE: il faut un rationnel ou un entier pour NUM";
+    }
+}
+
+Litteral*  OperatorDEN::execute()
+{
+
+    Numeric * N1 = dynamic_cast<Numeric *>(l1);
+    Integer* Rslt = new Integer(N1->getDenum());
+    return Rslt;
+
+}
+void OperatorDEN::loadOperand(Stack *s){
+    l1=s->top();
+    s->pop();
+    if(!(dynamic_cast<Integer*>(l1)||dynamic_cast<Rationnal*>(l1)))
+    {
+        Item * I1 =new Item();
+        I1->setLit(l1);
+        s->push(*I1);
+        throw "BAD TYPE: il faut un rationnel ou un entier pour DEN";
+    }
+}
+
+Litteral*  OperatorRE::execute()
+{
+    if(dynamic_cast<Numeric*>(l1)){
+        return l1;
+    }
+    Complex * C1 = dynamic_cast<Complex *>(l1);
+    Numeric* Rslt = new Numeric(C1->getReal());
+    numericCast(&Rslt);
+    return Rslt;
+
+}
+void OperatorRE::loadOperand(Stack *s){
+    l1=s->top();
+    s->pop();
+    if(!(dynamic_cast<Numeric*>(l1)||dynamic_cast<Complex*>(l1)))
+    {
+        Item * I1 =new Item();
+        I1->setLit(l1);
+        s->push(*I1);
+        throw "BAD TYPE: il faut un numerique ou un complx pour RE";
+    }
+}
+
+Litteral*  OperatorIM::execute()
+{
+    if(dynamic_cast<Numeric*>(l1)){
+        Numeric* Rslt = new Integer(0);
+        return Rslt;
+    }
+    Complex * C1 = dynamic_cast<Complex *>(l1);
+    Numeric* Rslt = new Numeric(C1->getImag());
+    numericCast(&Rslt);
+    return Rslt;
+
+}
+void OperatorIM::loadOperand(Stack *s){
+    l1=s->top();
+    s->pop();
+    if(!(dynamic_cast<Numeric*>(l1)||dynamic_cast<Complex*>(l1)))
+    {
+        Item * I1 =new Item();
+        I1->setLit(l1);
+        s->push(*I1);
+        throw "BAD TYPE: il faut un numerique ou un complx pour IM";
+    }
+}
+

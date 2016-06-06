@@ -12,8 +12,10 @@ private:
     Numeric* pImag;
 public:
     Complex (Numeric* Re=nullptr, Numeric* Im=nullptr): pReal(Re), pImag(Im) {if (pImag==nullptr)
-                                                                     pImag= new Integer();} //correspond à la construction avec  $ (voir sujet)
+                                                        pImag= new Integer();} //correspond à la construction avec  $ (voir sujet)
     void print(QTextStream& f)const;
+    Numeric& getReal() const { return *pReal;}
+    Numeric& getImag() const { return *pImag;}
     std::string toString()const;
     std::string toStringPars()const;
     ~Complex(){}

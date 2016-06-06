@@ -131,14 +131,19 @@ public:
     Litteral* execute( );
     void loadOperand(Stack *s);
 };
-
+class  OperatorSTO : public OperatorBinary {
+public:
+    OperatorSTO(): OperatorBinary(){}
+    Litteral * execute();
+    void loadOperand(Stack *s);
+};
 class  OperatorOR : public OperatorBinary {
 public:
      OperatorOR(): OperatorBinary(){}
     Litteral* execute( );
     void loadOperand(Stack *s);
 };
-
+//OPE UNAIRE
 class  OperatorNOT : public OperatorUnary {
 public:
     OperatorNOT(): OperatorUnary(){}
@@ -152,11 +157,34 @@ public:
     Litteral* execute( );
     void loadOperand(Stack *s);
 };
-class  OperatorSTO : public OperatorBinary {
+
+class  OperatorNUM : public OperatorUnary {
 public:
-    OperatorSTO(): OperatorBinary(){}
-    Litteral * execute();
+    OperatorNUM(): OperatorUnary(){}
+    Litteral* execute( );
     void loadOperand(Stack *s);
 };
+
+class  OperatorDEN : public OperatorUnary {
+public:
+    OperatorDEN(): OperatorUnary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+};
+
+class  OperatorIM : public OperatorUnary {
+public:
+    OperatorIM(): OperatorUnary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+};
+
+class  OperatorRE : public OperatorUnary {
+public:
+    OperatorRE(): OperatorUnary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+};
+
 
 #endif

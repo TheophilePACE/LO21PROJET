@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[7];
-    char stringdata0[60];
+    QByteArrayData data[6];
+    char stringdata0[43];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,16 +30,15 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
-QT_MOC_LITERAL(1, 11, 24), // "on_checkBox_stateChanged"
-QT_MOC_LITERAL(2, 36, 0), // ""
-QT_MOC_LITERAL(3, 37, 4), // "arg1"
-QT_MOC_LITERAL(4, 42, 7), // "resized"
-QT_MOC_LITERAL(5, 50, 4), // "undo"
-QT_MOC_LITERAL(6, 55, 4) // "redo"
+QT_MOC_LITERAL(1, 11, 7), // "resized"
+QT_MOC_LITERAL(2, 19, 0), // ""
+QT_MOC_LITERAL(3, 20, 4), // "undo"
+QT_MOC_LITERAL(4, 25, 12), // "stateChanged"
+QT_MOC_LITERAL(5, 38, 4) // "redo"
 
     },
-    "MainWindow\0on_checkBox_stateChanged\0"
-    "\0arg1\0resized\0undo\0redo"
+    "MainWindow\0resized\0\0undo\0stateChanged\0"
+    "redo"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,14 +57,14 @@ static const uint qt_meta_data_MainWindow[] = {
 
  // slots: name, argc, parameters, tag, flags
        1,    1,   34,    2, 0x08 /* Private */,
-       4,    0,   37,    2, 0x08 /* Private */,
-       5,    0,   38,    2, 0x08 /* Private */,
-       6,    0,   39,    2, 0x08 /* Private */,
+       3,    0,   37,    2, 0x08 /* Private */,
+       4,    1,   38,    2, 0x08 /* Private */,
+       5,    0,   41,    2, 0x08 /* Private */,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, QMetaType::Bool,    2,
     QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    2,
     QMetaType::Void,
 
        0        // eod
@@ -77,9 +76,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         MainWindow *_t = static_cast<MainWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_checkBox_stateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 1: _t->resized(); break;
-        case 2: _t->undo(); break;
+        case 0: _t->resized((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 1: _t->undo(); break;
+        case 2: _t->stateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->redo(); break;
         default: ;
         }

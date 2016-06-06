@@ -182,6 +182,16 @@ void Controller::command(const QString& c){
                             OP.loadOperand(stack);
                             OP.execute();
                         }
+                        else if (str=="SWAP")
+                        {
+                            Item Rslt1, Rslt2;
+                            Rslt1.setLit(stack->top());
+                            stack->pop();
+                            Rslt2.setLit(stack->top());
+                            stack->pop();
+                            stack->push(Rslt1);
+                            stack->push(Rslt2);
+                        }
                         else {
                             stack->setMessage(toQString("Operateur Inconnu"));
                             }
@@ -201,7 +211,7 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
-                        if (c=="NEG")
+                        else if (str=="NEG")
                         {
 
                             Item Rslt;
@@ -210,6 +220,55 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
+                        else if (str=="NUM")
+                        {
+
+                            Item Rslt;
+                            OperatorNUM OP;
+                            OP.loadOperand(stack);
+                            Rslt.setLit(OP.execute());
+                            stack->push(Rslt);
+                        }
+                        else if (str=="DEN")
+                        {
+
+                            Item Rslt;
+                            OperatorDEN OP;
+                            OP.loadOperand(stack);
+                            Rslt.setLit(OP.execute());
+                            stack->push(Rslt);
+                        }
+                        else if (str=="RE")
+                        {
+
+                            Item Rslt;
+                            OperatorRE OP;
+                            OP.loadOperand(stack);
+                            Rslt.setLit(OP.execute());
+                            stack->push(Rslt);
+                        }
+                        else if (str=="IM")
+                        {
+
+                            Item Rslt;
+                            OperatorIM OP;
+                            OP.loadOperand(stack);
+                            Rslt.setLit(OP.execute());
+                            stack->push(Rslt);
+                        }
+                        else if (str=="DUP")
+                        {
+
+                            Item Rslt;
+                            Rslt.setLit(stack->top());
+                            stack->push(Rslt);
+                        }
+                        else if (str=="DROP")
+                        {
+
+                            stack->pop();
+                        }
+
                         else
                             throw "Operateur pas encore défini";
                     }

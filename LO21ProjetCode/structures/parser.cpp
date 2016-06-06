@@ -27,12 +27,19 @@ bool Parser::isOperatorBinary(QString s) {
     if (s=="AND") return true;
     if (s=="OR") return true;
     if (s=="STO") return true;
+    if (s=="SWAP") return true;
     return false;
 }
 
 bool Parser::isOperatorUnary(QString s) {
     if (s=="NOT") return true;
     if (s=="NEG") return true;
+    if (s=="RE") return true;
+    if (s=="IM") return true;
+    if (s=="DEN") return true;
+    if (s=="NUM") return true;
+    if(s=="DROP") return true;
+    if(s=="DUP") return true;
     return false;
 }
 
