@@ -5,11 +5,11 @@
 
 
 void OperatorBinary::loadOperand(Stack *s) {
-l2=s->top();
-s->pop();
+    l2=s->top();
+    s->pop();
 
-l1=s->top();
-s->pop();
+    l1=s->top();
+    s->pop();
 }
 
 void OperatorUnary::loadOperand(Stack * s) {

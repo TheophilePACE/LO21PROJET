@@ -13,7 +13,7 @@ Stack::Stack(const Stack& s){
 void Stack::increaseCap() {
     Item* newtab=new Item[(nbMax+1)*2];
     for(unsigned int i=0; i<nb; i++) newtab[i]=items[i];
-    Item*  old=items;
+    Item* old=items;
     items=newtab;
     nbMax=(nbMax+1)*2;
     delete[] old;
@@ -42,7 +42,10 @@ const std::string Stack::display() const{
 
 
 Stack::~Stack(){
-    //delete[] items;
+    for(unsigned int i=0; i<nb; i++) {
+        delete &items[i];
+    }
+    delete[] items;
 }
 
 Litteral* Stack::top() const {

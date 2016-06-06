@@ -1,5 +1,9 @@
 #include "snapshots.h"
 
+Snapshot::~Snapshot() {
+
+}
+
 void SnapshotManager::increaseCap() {
 
     maxi = maxi*2+1;

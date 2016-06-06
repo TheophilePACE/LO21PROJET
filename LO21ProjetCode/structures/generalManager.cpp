@@ -9,6 +9,26 @@ GeneralManager& GeneralManager::getInstance(){
     if(sing.instance==nullptr) sing.instance = new GeneralManager;
     return *sing.instance;
 }
+void GeneralManager::increaseCap()
+{
+    max = max*2+1;
+    Litteral ** newtab = new Litteral*[max];
+    for(unsigned int i=0;i<nb;i++)
+        newtab[i]=litterals[i];
+    Litteral ** old = litterals;
+    litterals = newtab;
+    delete[] old;
+}
+void GeneralManager::addLitteral(Litteral* const l){
+    if(nb==max)
+       increaseCap();
+    litterals[nb++]=l;
+}
+GeneralManager::~GeneralManager(){
+    for(unsigned int i=0;i<nb;i++)
+        delete litterals[i];
+    delete[] litterals;
+}
 
 void GeneralManager::freeInstance(){
     delete sing.instance;

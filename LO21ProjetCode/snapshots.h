@@ -10,7 +10,7 @@ class Snapshot {
 public:
 
     Snapshot(Stack *st, IdentifierManager* im):stack(new Stack(*st)),idMng(new IdentifierManager(*im)){}
-    ~Snapshot(){delete stack; delete idMng;}
+    ~Snapshot();
     Stack * getStack(){return stack;}
     IdentifierManager * getIdManager(){return idMng;}
 };
