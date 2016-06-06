@@ -268,7 +268,14 @@ void Controller::command(const QString& c){
 
                             stack->pop();
                         }
+                        else if (str=="CLEAR")
+                        {
 
+                            Item Rslt;
+                            OperatorCLEAR OP;
+                            OP.loadOperand(stack);
+                            Rslt.setLit(OP.execute());
+                        }
                         else
                             throw "Operateur pas encore défini";
                     }

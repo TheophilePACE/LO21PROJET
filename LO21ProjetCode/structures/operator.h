@@ -190,5 +190,11 @@ public:
     void loadOperand(Stack *s);
 };
 
+class  OperatorCLEAR : public OperatorUnary {
+public:
+    OperatorCLEAR(): OperatorUnary(){}
+    Litteral* execute( );
+    void loadOperand(Stack *s);
+};
 
 #endif

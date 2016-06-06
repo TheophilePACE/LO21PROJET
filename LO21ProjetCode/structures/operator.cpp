@@ -822,3 +822,15 @@ void OperatorIM::loadOperand(Stack *s){
     }
 }
 
+Litteral*  OperatorCLEAR::execute()
+{
+    return nullptr;
+}
+
+void  OperatorCLEAR::loadOperand(Stack *s)
+{
+    do{
+    s->pop();
+    }
+    while(!s->empty());
+}
