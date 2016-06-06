@@ -160,7 +160,8 @@ Litteral*  OperatorDivision::execute()
     if(typeid(*l1)==typeid(Complex)&&typeid(*l2)!=typeid(Complex)) // NotComplex = numeric et classes filles
     {
         Complex* C1 =dynamic_cast<Complex*>(l1);
-        Complex C2(dynamic_cast<Numeric*>(l2),nullptr);
+        Integer I1(0);
+        Complex C2(dynamic_cast<Numeric*>(l2),&I1);
         if(C2.isImag()) // càd nul
         {
             throw  ("Impossible de diviser par une valeur nulle !");
@@ -168,13 +169,14 @@ Litteral*  OperatorDivision::execute()
              return I;
         }
         Complex* C= new Complex();
-        *C=(*C1) / (C2);
+        *C= ((*C1) / (C2));
         return C;
     }
     if(typeid(*l1)!=typeid(Complex)&&typeid(*l2)==typeid(Complex))
     {
         Complex* C2 =dynamic_cast<Complex*>(l2);
-        Complex C1(dynamic_cast<Numeric*>(l1),nullptr);
+        Integer I1(0);
+        Complex C1(dynamic_cast<Numeric*>(l1),&I1);
         if((C2->isImag())&&C2->isReal()) // càd nul
         {
             throw  ("Impossible de diviser par une valeur nulle !");
@@ -392,7 +394,6 @@ Litteral*  OperatorEqu::execute()
         Integer* Rslt = new Integer(0);
         return Rslt;}
 }
-
 void OperatorEqu::loadOperand(Stack *s){
     l2=s->top();
     s->pop();
@@ -564,9 +565,9 @@ void OperatorNOT::loadOperand(Stack *s){
 Litteral*  OperatorNEG::execute()
 {
     if(dynamic_cast<Numeric*>(l1)){
-        Numeric* I1 =dynamic_cast<Numeric*>(l1);
-        Integer* Rslt = new Integer(0);
-        //(*Rslt)= I1->NEG();
+        Numeric* Rslt = new Numeric();
+        (*Rslt) = (dynamic_cast<Numeric*>(l1))->NEG();
+        numericCast(&Rslt);
         return Rslt;}
     //complexe
     Complex * C1 = dynamic_cast<Complex *>(l1);

@@ -123,7 +123,7 @@ std::string Numeric::toStringPars()const{
 
   Numeric Numeric::NEG() const
   {
-      Numeric *N = new Numeric(-num,-denum,-mantisse);
+      Numeric *N = new Numeric(-num,denum,-mantisse);
       numericCast(&N);
       return *N;
   }

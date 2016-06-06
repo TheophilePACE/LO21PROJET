@@ -195,6 +195,15 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
+                        if (c=="NEG")
+                        {
+
+                            Item Rslt;
+                            OperatorNEG OP;
+                            OP.loadOperand(stack);
+                            Rslt.setLit(OP.execute());
+                            stack->push(Rslt);
+                        }
                         else
                             throw "Operateur pas encore défini";
                     }
