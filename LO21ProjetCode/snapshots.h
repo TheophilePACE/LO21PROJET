@@ -32,7 +32,7 @@ class SnapshotManager {
 public:
     ~SnapshotManager(){}
     void addSnapshot(Stack * st, IdentifierManager * im);
-
+    void updateCurrentSnapshot(Stack * st, IdentifierManager * im);
     bool redoPossible() { if(nb!=0) return currentState<nb-1; else return false;}
     bool undoPossible() {return currentState>0;}
     Snapshot * redo() {if (!(redoPossible())) throw "Pas d'état suivant"; return snapshots[++currentState];}

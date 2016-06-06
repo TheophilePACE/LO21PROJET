@@ -28,6 +28,12 @@ void SnapshotManager::addSnapshot(Stack * st, IdentifierManager * im) {
     }
     nb++;
 }
+void SnapshotManager::updateCurrentSnapshot(Stack * st, IdentifierManager * im) {
+    Snapshot * newsnap = new Snapshot(st,im);
+    Snapshot * old = snapshots[currentState];
+    snapshots[currentState]=newsnap;
+    delete old;
+}
 
 SnapshotManager::Singleton SnapshotManager::sing=SnapshotManager::Singleton();
 SnapshotManager& SnapshotManager::getInstance(){

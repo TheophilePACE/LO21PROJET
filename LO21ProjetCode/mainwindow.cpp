@@ -183,6 +183,8 @@ void MainWindow::resized(){
 void MainWindow::undo(){
     SnapshotManager  * s = &(SnapshotManager::getInstance());
     if(s->undoPossible()) {
+        QComputer * calcul1 = ui->tabWidget->findChild<QComputer*>("CalcTab");
+        s->updateCurrentSnapshot(calcul1->getStack(), &(IdentifierManager::getInstance()));
         Snapshot * snapshot = s->undo();
         QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
         QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
