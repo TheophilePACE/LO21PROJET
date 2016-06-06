@@ -19,7 +19,8 @@ HEADERS += \
     structures/operator.h\
     qvareditor.h \
     qprogrameditor.h \
-    snapshots.h
+    snapshots.h \
+    structures/shunting_yard_algorithm.h
 
 SOURCES += \
     main.cpp \
@@ -43,7 +44,8 @@ SOURCES += \
     structures/operator.cpp \
     qvareditor.cpp \
     qprogrameditor.cpp \
-    snapshots.cpp
+    snapshots.cpp \
+    structures/shunting_yard_algorithm.cpp
     
 QMAKE_CXXFLAGS += -std=c++0x
 QT += widgets
