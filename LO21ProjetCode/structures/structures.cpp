@@ -274,6 +274,12 @@ void Controller::command(const QString& c){
                             OP.loadOperand(stack);
                             OP.execute();
                         }
+                        else if (str=="FORGET")
+                        {
+                            OperatorFORGET OP;
+                            OP.loadOperand(stack);
+                            OP.execute();
+                        }
 
                         else
                             throw "Operateur pas encore défini";

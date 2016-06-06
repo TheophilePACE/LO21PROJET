@@ -819,7 +819,7 @@ void OperatorIM::loadOperand(Stack *s){
 }
 void OperatorEVAL::loadOperand(Stack *s){
     l1=s->top();
-    //s->pop();
+    s->pop();
 }
 Litteral * OperatorEVAL::execute(){
     Parser p = Parser::getInstance();
@@ -865,11 +865,28 @@ Litteral * OperatorEVAL::execute(){
     int size = vect.size();
     std::vector<std::string> strArray;
     infixToRPN(vect,size,strArray);
-    //for(unsigned int i=0;i<strArray.size();i++)
-    //    temp = temp + toQString(strArray[i]);
-    std::cout << temp.toStdString();
+    for(unsigned int i=0;i<strArray.size();i++)
+        temp = temp + toQString(strArray[i]);
+    //std::cout << temp.toStdString();
     ctrl->command(temp);
     return nullptr;
 }
+Litteral*  OperatorFORGET::execute()
+{
+    QString str = toQString(l1->toString());
+    str.remove(0,1);
+    str.remove(str.size()-1,1);
 
+    IdentifierManager * idMng = &(IdentifierManager::getInstance());
 
+    Identifier * id = idMng->getIdentifier(*(new Atom(str.toStdString())));
+    if(!id)
+        throw "Identifiant n'existe pas !";
+    idMng->removeIdentifier(*id);
+    return l1;
+
+}
+void OperatorFORGET::loadOperand(Stack *s){
+    l1=s->top();
+    s->pop();
+}

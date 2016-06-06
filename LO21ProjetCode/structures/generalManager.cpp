@@ -132,14 +132,13 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
             }
             else
             {
-                std::string type2 = typeid((*id->getPValue())).name();
-                if(type2=="Program")
+                if(typeid((*id->getPValue()))==typeid(Program))
                 {
                     //Controller::getInstance().command(id.getPValue()->toString());
                     return NULL;
                 }
 
-                else if(type2=="Integer" || type2=="Rationnal" || type2=="Complex" || type2=="Real") {
+                else {
                     Item * It = new Item;
                     It->setLit(id->getPValue());
                     return It;

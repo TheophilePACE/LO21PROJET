@@ -196,6 +196,12 @@ public:
     void loadOperand(Stack *s);
     Litteral* execute( );
 };
+class  OperatorFORGET : public OperatorUnary {
+public:
+    OperatorFORGET(): OperatorUnary(){}
+    void loadOperand(Stack *s);
+    Litteral* execute( );
+};
 
 
 #endif
