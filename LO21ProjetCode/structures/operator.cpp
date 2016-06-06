@@ -59,6 +59,24 @@ Litteral* OperatorSum::execute()
         return N;
     }
 }
+void OperatorSum::loadOperand(Stack *s)
+{
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 Numeriques ou complexe pour +";
+    }
+}
 
 Litteral* OperatorSub::execute()
 {
@@ -94,6 +112,24 @@ Litteral* OperatorSub::execute()
         *N=(*N1) - (*N2);
         numericCast(&N);
         return N;
+    }
+}
+void OperatorSub::loadOperand(Stack *s)
+{
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 Numeriques ou complexe pour -";
     }
 }
 
@@ -137,6 +173,23 @@ Litteral* OperatorMul::execute()
         return N;
     }
 }
+void OperatorMul::loadOperand(Stack *s){
+l2=s->top();
+s->pop();
+
+l1=s->top();
+s->pop();
+if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
+{
+    Item * I1 =new Item();
+    Item * I2 =new Item();
+    I1->setLit(l1);
+    I2->setLit(l2);
+    s->push(*I1);
+    s->push(*I2);
+    throw "BAD TYPE: il faut 2 Numeriques ou complexe pour *";
+}}
+
 Litteral*  OperatorDivision::execute()
 {
     if(typeid(*l1)==typeid(Complex)&&typeid(*l2)==typeid(Complex))
@@ -203,6 +256,33 @@ Litteral*  OperatorDivision::execute()
         return N;
     }
 
+}
+void OperatorDivision::loadOperand(Stack *s) {
+    l2=s->top();
+    s->pop();
+
+    l1=s->top();
+    s->pop();
+    if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "BAD TYPE: il faut 2 Numeriques ou complexe pour /";
+    }
+    if(((dynamic_cast<Numeric*>(l2))&&dynamic_cast<Numeric*>(l2)->isNull())||((dynamic_cast<Complex*>(l2))&&(dynamic_cast<Complex*>(l2)->isImag()&&dynamic_cast<Complex*>(l2)->isReal())))
+    {
+        Item * I1 =new Item();
+        Item * I2 =new Item();
+        I1->setLit(l1);
+        I2->setLit(l2);
+        s->push(*I1);
+        s->push(*I2);
+        throw "Impossible de / par 0";
+    }
 }
 
 Litteral*  OperatorDiv::execute()

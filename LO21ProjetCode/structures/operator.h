@@ -34,18 +34,21 @@ public:
 
 class OperatorSum : public OperatorBinary {
 public:
+    void loadOperand(Stack *s);
     OperatorSum(): OperatorBinary(){}
     Litteral* execute( );
 };
 
 class OperatorSub : public OperatorBinary {
 public:
+    void loadOperand(Stack *s);
     OperatorSub(): OperatorBinary(){}
     Litteral* execute( );
 };
 
 class OperatorMul : public OperatorBinary {
 public:
+    void loadOperand(Stack *s);
     OperatorMul(): OperatorBinary(){}
     Litteral* execute( );
 };
@@ -53,6 +56,7 @@ public:
 
 class  OperatorDivision : public OperatorBinary {
 public:
+    void loadOperand(Stack *s);
      OperatorDivision(): OperatorBinary(){}
     Litteral* execute( );
 };
