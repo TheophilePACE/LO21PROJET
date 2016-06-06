@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
     QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
     QSlider * lignes = ui->tabWidget->findChild<QWidget*>("Parametres")->findChild<QSlider*>("horizontalSlider");
+    QCheckBox * checkKeybord = ui->tabWidget->findChild<QWidget*>("Parametres")->findChild<QCheckBox*>("checkBox");
 
     signalGroup->addButton(ui->pushButton);
     signalGroup->addButton(ui->pushButton_2);
@@ -72,6 +73,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton_36,SIGNAL(clicked()),
                 this
                 ,SLOT(redo()));
+    connect(checkKeybord,SIGNAL(toggled(bool)),
+                this
+                ,SLOT(resized(bool)));
+    connect(ui->tabWidget,SIGNAL(currentChanged(int)),
+                this
+                ,SLOT(stateChanged(int)));
 
     using namespace rapidxml;
 
@@ -137,6 +144,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(shortcut1, SIGNAL(activated()), this, SLOT(undo()));
     QShortcut *shortcut2 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Y),this);
     QObject::connect(shortcut2, SIGNAL(activated()), this, SLOT(redo()));
+
+
 }
 
 MainWindow::~MainWindow()
@@ -166,23 +175,39 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_checkBox_stateChanged(int arg1)
-{
-    /*if(checkBox->checkState()==0)
-        groupBox->hide();
-    else
-        groupBox->show();*/
-}
-void MainWindow::resized(){
+void MainWindow::resized(bool b){
     QGroupBox* group = findChild<QGroupBox*>("groupBox");
-    if (group->isVisible())
-        resize(959,304);
+    unsigned int widthg = group->width();
+    group->setVisible(!b);
+    if(b)
+        resize(width()-widthg,height());
     else
-        adjustSize();
+        resize(width()+widthg,height());
 }
+
+void MainWindow::stateChanged(int i) {
+
+    QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
+    QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
+    QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");
+
+    switch (i) {
+    case 0 :
+        calcul->refresh();
+    case 1 :
+        variableManager->refresh();
+    case 2 :
+        programManager->refresh();
+    default:
+    break;
+    }
+}
+
 void MainWindow::undo(){
     SnapshotManager  * s = &(SnapshotManager::getInstance());
     if(s->undoPossible()) {
+        QComputer * calcul1 = ui->tabWidget->findChild<QComputer*>("CalcTab");
+        s->updateCurrentSnapshot(calcul1->getStack(), &(IdentifierManager::getInstance()));
         Snapshot * snapshot = s->undo();
         QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
         QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");

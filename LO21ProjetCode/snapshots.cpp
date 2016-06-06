@@ -1,5 +1,9 @@
 #include "snapshots.h"
 
+Snapshot::~Snapshot() {
+
+}
+
 void SnapshotManager::increaseCap() {
 
     maxi = maxi*2+1;
@@ -27,6 +31,12 @@ void SnapshotManager::addSnapshot(Stack * st, IdentifierManager * im) {
         currentState++;
     }
     nb++;
+}
+void SnapshotManager::updateCurrentSnapshot(Stack * st, IdentifierManager * im) {
+    Snapshot * newsnap = new Snapshot(st,im);
+    Snapshot * old = snapshots[currentState];
+    snapshots[currentState]=newsnap;
+    delete old;
 }
 
 SnapshotManager::Singleton SnapshotManager::sing=SnapshotManager::Singleton();

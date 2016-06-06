@@ -1,12 +1,12 @@
 #include"identifierManager.h"
 
 IdentifierManager::IdentifierManager(const IdentifierManager& m){
-    Identifier ** newtab = new Identifier*[m.max];
-    for(unsigned int i=0;i<m.nb;i++)
-        newtab[i]=m.identifiers[i];
-    identifiers = newtab;
     max = m.max;
-    nb = m.nb;
+    nb = 0;
+    identifiers = new Identifier *[max];
+    for(unsigned int i=0;i<m.nb;i++)
+        addIdentifier(m.identifiers[i]->getLib()->toString(),m.identifiers[i]->getPValue());
+
 }
 
 void IdentifierManager::increaseCap()

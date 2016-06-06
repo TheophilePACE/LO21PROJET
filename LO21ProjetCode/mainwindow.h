@@ -34,9 +34,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_checkBox_stateChanged(int arg1);
-    void resized();
+    void resized(bool);
     void undo();
+    void stateChanged(int);
     void redo();
 
 private:

@@ -22,6 +22,7 @@ class Item {
     Litteral * lit;
 public:
     Item(): lit(nullptr){}
+    ~Item(){}
     void setLit(Litteral* l){lit = l;}
     Litteral* getPLit()const{return lit;}
     void raz() {lit=nullptr;}
