@@ -18,7 +18,7 @@ class IdentifierManager {
     };
     static Singleton sing;
 public:
-    ~IdentifierManager(){}
+    ~IdentifierManager();
     IdentifierManager(const IdentifierManager& m);
     void addIdentifier(std::string s, Litteral* l);
     void removeIdentifier(Identifier& e);

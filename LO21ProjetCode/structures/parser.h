@@ -2,8 +2,8 @@
 #define PARSER_H
 
 #include <QString>
+#include <QStringList>
 #include <string>
-#include "litteral/integer.h"
 
 class Parser {
     struct Singleton{
@@ -29,5 +29,14 @@ public:
     QString getImPart(QString s);
 
 };
+
+bool isRationnal(const QString s);
+bool isReal(const QString s);
+bool isInteger(const QString s);
+bool isNumber(const QString s);
+bool isComplex(const QString s);
+bool isAtom(const QString s);
+bool isExpression(const QString s);
+bool isProgram(const QString s);
 
 #endif // PARSER_H
