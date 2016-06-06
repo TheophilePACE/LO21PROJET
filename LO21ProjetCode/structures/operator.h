@@ -2,6 +2,8 @@
 #define OPERATOR_H
 #include "stack.h"
 #include "../litteral/complex.h"
+#include "identifierManager.h"
+#include "parser.h"
 
 
 #include "structures/structures.h"
@@ -148,6 +150,12 @@ class  OperatorNEG : public OperatorUnary {
 public:
     OperatorNEG(): OperatorUnary(){}
     Litteral* execute( );
+    void loadOperand(Stack *s);
+};
+class  OperatorSTO : public OperatorBinary {
+public:
+    OperatorSTO(): OperatorBinary(){}
+    Litteral * execute();
     void loadOperand(Stack *s);
 };
 

@@ -48,6 +48,7 @@ Stack::~Stack(){
 Litteral* Stack::top() const {
 
     if (nb==0) throw "aucune expression sur la Stack";
+    //delete item
     return items[nb-1].getPLit();
 }
 

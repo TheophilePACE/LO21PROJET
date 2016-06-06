@@ -15,15 +15,6 @@ std::string doubleToString(double f) {
    return ost.str();
 
 }
-
-bool isOperator(const QString s){
-    if (s=="+") return true;
-    if (s=="-") return true;
-    if (s=="*") return true;
-    if (s=="/") return true;
-    if (s=="NEG") return true;
-    return false;
-}
 bool isRationnal(const QString s)
 {
     QRegExp ratioExp ("[+-]?\\d+\\/[+-]?\\d+");

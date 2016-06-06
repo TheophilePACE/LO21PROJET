@@ -79,7 +79,7 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
     }
     if(type=="Atom")
     {
-        if(isOperator(s))
+        if(p.isOperator(s))
         {
             throw "C'est un operateur bordel";
         }

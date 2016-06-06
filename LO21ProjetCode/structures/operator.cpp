@@ -586,3 +586,48 @@ void OperatorNEG::loadOperand(Stack *s){
         throw "BAD TYPE: il faut un numerique ou un complex pour NEG";
     }
 }
+
+void OperatorSTO::loadOperand(Stack *s){
+    l1=s->top();
+    s->pop();
+
+    Litteral* I1 =dynamic_cast<Litteral*>(l1);
+    Item * I = new Item;
+    I->setLit(l1);
+    l2=s->top();
+    s->push(*I);
+    s->setMessage("Variable Affectée");
+}
+Litteral * OperatorSTO::execute(){
+    Litteral* I1 =dynamic_cast<Litteral*>(l1);
+    Expression* I2 =dynamic_cast<Expression*>(l2);
+
+    QString str = toQString(I2->toString());
+    str.remove(0,1);
+    str.remove(str.size()-1,1);
+
+    IdentifierManager * idMng = &(IdentifierManager::getInstance());
+    IdentifierManager::Iterator it = idMng->getIterator();
+    unsigned int NbElements =0;
+    Parser p = Parser::getInstance();
+
+    if(p.getType(str) != "Atom")
+        throw "Type Error of the identifier";
+    while(!it.isDone() &&
+          it.getCurrent().getLib()->toString()!=str.toStdString())
+    {
+        it.next(); ++NbElements;
+    }
+    std::string type = p.getType(toQString(I1->toString()));
+    if(type!="Atom" && type !="Program")
+        if(NbElements!=idMng->size())
+            if(typeid(*(it.getCurrent().getPValue()))!=typeid(Program))
+                it.getCurrent().setValue(I1);
+            else
+                throw "Modification d'un' Programme Impossible avec STO";
+        else
+            idMng->addIdentifier(str.toStdString(),I1);
+    else
+        throw "Type Error Creation Var";
+    return l1;
+}

@@ -5,26 +5,8 @@ Parser& Parser::getInstance(){
     if(sing.instance==nullptr) sing.instance = new Parser;
     return *sing.instance;
 }
-bool Parser::isOperator(QString s) {
-    if (s=="+") return true;
-    if (s=="-") return true;
-    if (s=="*") return true;
-    if (s=="/") return true;
-    if (s=="<") return true;
-    if (s==">") return true;
-    if (s=="=") return true;
-    if (s=="<=") return true;
-    if (s==">=") return true;
-    if (s=="!=") return true;
-    if (s=="=") return true;
-    if (s=="DIV") return true;
-    if (s=="MOD") return true;
-    if (s=="$") return true;
-    if (s=="AND") return true;
-    if (s=="OR") return true;
-    if (s=="NOT") return true;
-    if (s=="NEG") return true;
-    return false;
+bool Parser::isOperator(const QString s){
+    return isOperatorUnary(s)||isOperatorBinary(s);
 }
 
 bool Parser::isOperatorBinary(QString s) {
@@ -44,6 +26,7 @@ bool Parser::isOperatorBinary(QString s) {
     if (s=="$") return true;
     if (s=="AND") return true;
     if (s=="OR") return true;
+    if (s=="STO") return true;
     return false;
 }
 

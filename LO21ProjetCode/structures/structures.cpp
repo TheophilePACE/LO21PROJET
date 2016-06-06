@@ -41,7 +41,7 @@ void Controller::command(const QString& c){
             str = d;
         }
 
-        if(((prog)== false)&&(listest==false)) {
+        if((!prog)&&(!listest)) {
             if(p.isOperator(str)) {
                 SnapshotManager  * s = &(SnapshotManager::getInstance());
                 s->addSnapshot(stack, &(IdentifierManager::getInstance()));
@@ -104,7 +104,7 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
-                        else if (c==">")
+                        else if (str==">")
                         {
                             Item Rslt;
                             OperatorSupS OP;
@@ -112,7 +112,7 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
-                        else if (c==">=")
+                        else if (str==">=")
                         {
                             Item Rslt;
                             OperatorSupE OP;
@@ -120,7 +120,7 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
-                        else if (c=="<")
+                        else if (str=="<")
                         {
                             Item Rslt;
                             OperatorLessS OP;
@@ -128,7 +128,7 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
-                        else if (c=="<=")
+                        else if (str=="<=")
                         {
                             Item Rslt;
                             OperatorLessE OP;
@@ -136,7 +136,7 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
-                        else if (c=="=")
+                        else if (str=="=")
                         {
                             Item Rslt;
                             OperatorEqu OP;
@@ -144,7 +144,7 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
-                        else if (c=="!=")
+                        else if (str=="!=")
                         {
                             Item Rslt;
                             OperatorNEqu OP;
@@ -152,7 +152,7 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
-                        else if (c=="$")
+                        else if (str=="$")
                         {
                             Item Rslt;
                             OperatorCplx OP;
@@ -160,7 +160,7 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
-                        else if (c=="AND")
+                        else if (str=="AND")
                         {
                             Item Rslt;
                             OperatorAND OP;
@@ -168,13 +168,19 @@ void Controller::command(const QString& c){
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
                         }
-                        else if (c=="OR")
+                        else if (str=="OR")
                         {
                             Item Rslt;
                             OperatorOR OP;
                             OP.loadOperand(stack);
                             Rslt.setLit(OP.execute());
                             stack->push(Rslt);
+                        }
+                        else if (str=="STO")
+                        {
+                            OperatorSTO OP;
+                            OP.loadOperand(stack);
+                            OP.execute();
                         }
                         else {
                             stack->setMessage(toQString("Operateur Inconnu"));
@@ -186,7 +192,7 @@ void Controller::command(const QString& c){
 
                 else if(p.isOperatorUnary(list.at(i))) {
                     if (stack->size()>=1) {
-                        if (c=="NOT")
+                        if (str=="NOT")
                         {
 
                             Item Rslt;
