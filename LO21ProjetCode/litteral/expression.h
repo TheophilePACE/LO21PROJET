@@ -3,14 +3,6 @@
 
 #include "litteral.h"
 
-class ExpressionMaterial : public Litteral {
-public:
-    virtual void print(QTextStream& f)const=0;
-    virtual std::string toString()const=0;
-    virtual QString toQStringPars()const=0;
-    virtual ~ExpressionMaterial(){}
-};
-
 class Expression : public Litteral {
     QString instructions;
 public:

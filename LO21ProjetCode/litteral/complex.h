@@ -5,7 +5,7 @@
 #include "rationnal.h"
 #include "integer.h"
 
-class Complex : public ExpressionMaterial {
+class Complex : public Litteral {
 private:
     Numeric* pReal;
     Numeric* pImag;

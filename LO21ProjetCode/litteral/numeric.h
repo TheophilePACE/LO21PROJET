@@ -3,8 +3,7 @@
 
 #include "expression.h"
 
-class Numeric : public ExpressionMaterial
-{
+class Numeric : public Litteral {
 protected:
     long num;
     long denum;

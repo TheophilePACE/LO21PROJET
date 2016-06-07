@@ -3,7 +3,7 @@
 
 #include "expression.h"
 
-class Atom : public ExpressionMaterial {
+class Atom : public Litteral {
     QString lib;
 public:
     Atom(QString s):lib(s){}
