@@ -19,6 +19,7 @@ public:
     bool isOperator(QString s);
     bool isOperatorBinary(QString s);
     bool isOperatorUnary(QString s);
+    bool isOperatorStack(QString s);
     long getNum(QString s);
     long getDenum(QString s);
     long getInteger(QString s); //renvoie tout ce qu'il y a avant le .

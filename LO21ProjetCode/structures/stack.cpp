@@ -55,3 +55,42 @@ Litteral* Stack::top() const {
     return items[nb-1].getPLit();
 }
 
+
+//LAST STRUC
+
+void LastStruc::getOpe1(Stack* s,QString op){
+    std::cout<<"getOpe1";
+    ope ="";
+    ope+=op;
+    item1->setLit(s->top());
+    item2->setLit(nullptr);
+}
+
+void LastStruc::getOpe2(Stack* s,QString op){
+    std::cout<<"getOpe2";
+    ope ="";
+    ope+=op;
+    item2->setLit(s->top());
+    s->pop();
+    item1->setLit(s->top());
+    s->push(*item2);
+
+}
+
+void LastStruc::lastArgu (Stack* s){
+    std::cout<<"lastArgu";
+
+    if(item1->getPLit()!=nullptr)
+        s->push(*item1);
+    if(item2!=nullptr)
+        s->push(*item2);
+}
+
+QString LastStruc::lastOpe () const {
+    std::cout<<"lastOpe";
+
+    if(ope!="")
+        return ope;
+    if(ope=="")
+        throw "Pas d operateurs en memoire";
+}

@@ -54,4 +54,21 @@ public:
     const_iterator end() const { return const_iterator(items-1); }
 };
 
+
+//class pour les operateurs last
+class LastStruc {
+    Item * item1;
+    Item * item2;
+    QString ope;
+public:
+    LastStruc():  ope("") {item1 = new Item;item1->setLit(nullptr); item2 = new Item;item2->setLit(nullptr); }
+    void getOpe1(Stack* s,QString op);
+    void getOpe2(Stack* s,QString op);
+    void lastArgu (Stack* s);
+    QString lastOpe () const ;
+
+
+
+};
+
 #endif // STACK_H

@@ -16,7 +16,6 @@ void Controller::command(const QString& c){
     bool prog = false;
     bool listest = false;
     for (int i = 0; i < list.size(); ++i) {
-
         str = list.at(i);
         if((str[0]=='[')&&(str[str.size()-1]!=']')) {
             d = str;
@@ -46,8 +45,13 @@ void Controller::command(const QString& c){
                 SnapshotManager  * s = &(SnapshotManager::getInstance());
                 s->addSnapshot(stack, &(IdentifierManager::getInstance()));
                 try {
-                    if(p.isOperatorBinary(str)){
+                if(str=="LASTOP"){
+                    str=lastStruc->lastOpe();
+
+                    }
+                if(p.isOperatorBinary(str)){
                     if (stack->size()>=2) {
+                        lastStruc->getOpe2(stack,str); //stockage des deux derniers arg ainsique de l'operateur
                          //récuperation des éléments
 
                         //SI On a un prgm ou une expression ou un atom: les évaluer.
@@ -202,6 +206,7 @@ void Controller::command(const QString& c){
 
                 else if(p.isOperatorUnary(list.at(i))) {
                     if (stack->size()>=1) {
+                        lastStruc->getOpe1(stack,str); //stockage dy dernier arg ainsique de l'operateur
                         if (str=="NOT")
                         {
 
@@ -281,7 +286,15 @@ void Controller::command(const QString& c){
                     }
                     else throw" Pas assez d'argument dans la pile!";
                 }
-        }
+
+                else if(p.isOperatorStack(list.at(i))) {
+                    if(str=="LASTARGS")
+                    {
+                        lastStruc->lastArgu(stack);
+                    }
+
+                }
+                }
         catch(char const* s)
         {
             QWidget * widgetSearched;

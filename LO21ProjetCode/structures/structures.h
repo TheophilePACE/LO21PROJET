@@ -30,8 +30,10 @@ public:
 class Controller {
     GeneralManager& genMng;
     Stack * stack;
+    LastStruc * lastStruc;
+
 public:
-    Controller(GeneralManager& m,Stack * p):genMng(m), stack(p){}
+    Controller(GeneralManager& m,Stack * p):genMng(m), stack(p){lastStruc= new LastStruc;}
     void command(const QString& c);
     void setStack(Stack * s) { /*delete stack*/ stack = s;}
 
