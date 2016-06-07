@@ -87,9 +87,9 @@ const QString IdentifierManager::displayVar() const {
             if((typeid(*(identifiers[i]->getPValue()))!=typeid(Program)))
             {
                 j++;
-                f << (*(identifiers[i]->getLib())).toString();
+                f << (*(identifiers[i]->getLib())).toQStringPars().toStdString();;
                 f << "-";
-                f << (*(identifiers[i]->getPValue())).toString();
+                f << (*(identifiers[i]->getPValue())).toQStringPars().toStdString();;
                 if(j!=sizeAtoms())
                     f<<" ";
             }

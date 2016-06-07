@@ -34,7 +34,7 @@ void Stack::pop(){
 const QString Stack::display() const{
     std::stringstream f;
     for(unsigned int i=0; i<nb; i++) {
-                f << (*(items[i].getPLit())).toString();
+                f << (*(items[i].getPLit())).toQStringPars().toStdString();
                 if(i!=nb-1)
                     f<<"_";
     }

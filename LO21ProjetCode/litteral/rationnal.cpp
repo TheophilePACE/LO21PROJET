@@ -28,9 +28,9 @@ std::string Rationnal::toString()const{
     return toQStringPars().toStdString();
 }
 QString Rationnal::toQStringPars()const{
-    QTextStream sf;
-    sf<<num<<"/"<<denum;
-    return *sf.string();
+    std::stringstream sf;
+    sf<< std::to_string(num) <<"/"<<std::to_string(denum);
+    return toQString(sf.str());
 }
 Rationnal Rationnal::operator +(Rationnal frac) const
 {
