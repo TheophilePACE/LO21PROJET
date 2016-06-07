@@ -132,9 +132,17 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
             }
             else
             {
-                Item * It = new Item;
-                It->setLit(id->getPValue());
-                return It;
+                if(typeid((*id->getPValue()))==typeid(Program))
+                {
+                    //Controller::getInstance().command(id.getPValue()->toString());
+                    return NULL;
+                }
+
+                else {
+                    Item * It = new Item;
+                    It->setLit(id->getPValue());
+                    return It;
+                }
             }
 
         }

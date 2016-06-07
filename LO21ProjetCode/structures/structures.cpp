@@ -200,7 +200,7 @@ void Controller::command(const QString& c){
 
                         else throw"Pas assez d elements dans la pile";}
 
-                    else if(p.isOperatorUnary(list.at(i))) {
+                    else if(p.isOperatorUnary(str)) {
                         if (stack->size()>=1) {
                             if (str=="NOT")
                             {
@@ -298,13 +298,13 @@ void Controller::command(const QString& c){
                         if(I) {
                             SnapshotManager  * s = &(SnapshotManager::getInstance());
                             s->addSnapshot(stack, &(IdentifierManager::getInstance()));
-                            if(typeid(*(I->getPLit()))==typeid(Program))
-                                command(toQString((*(I->getPLit())).toString()));
-                            else
-                                stack->push(*I);
+                            stack->push(*I);
                         }
-                        else
-                            throw "Erreur : commande inconnue";
+                        else {
+                            Identifier * id = IdentifierManager::getInstance().getIdentifier(*(new Atom(str.toStdString())));
+                            command(toQString((*(id->getPValue())).toString()));
+                        }
+
                 }
             }
         }
