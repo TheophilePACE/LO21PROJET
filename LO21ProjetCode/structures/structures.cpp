@@ -305,7 +305,10 @@ void Controller::command(const QString& c){
                     if(I) {
                         SnapshotManager  * s = &(SnapshotManager::getInstance());
                         s->addSnapshot(stack, &(IdentifierManager::getInstance()));
-                        stack->push(*I);
+                        if(typeid(*(I->getPLit()))==typeid(Program))
+                            command(toQString((*(I->getPLit())).toString()));
+                        else
+                            stack->push(*I);
                     }
                     else
                         throw "Erreur : commande inconnue";
