@@ -69,20 +69,20 @@ void QprogramEditor::choiceProgram(const QString& s) {
 void QprogramEditor::saveProgram(){
     try {
         if(programChoice->count()==0)
-            throw "Pas de programme sélectionné";
+            throw ComputerException("Pas de programme sélectionné");
         if(programText->toPlainText().contains('[') || programText->toPlainText().contains(']') || programText->toPlainText().contains('_'))
-            throw "Caractères Interdits dans un Programme : '[', ']', '_'";
+            throw ComputerException("Caractères Interdits dans un Programme : '[', ']', '_'");
         for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
             if(it.getCurrent().getLib()->toString()==programChoice->currentText().toStdString())
             {
                 SnapshotManager * s = &(SnapshotManager::getInstance());
                 s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
-                Program * prog = new Program(programText->toPlainText().toStdString());
+                Program * prog = new Program(programText->toPlainText());
                 it.getCurrent().setValue(prog);
             }
     }
-    catch (char const* s) {
-            ExceptionWindow(s);
+    catch (ComputerException exp) {
+            ExceptionWindow(exp.getInfo());
     }
     refresh();
 }
@@ -91,18 +91,18 @@ void QprogramEditor::newProgram(){
     Parser p = Parser::getInstance();
     try {
         if(newProgName->text()=="")
-            throw "Nom Vide !";
+            throw ComputerException("Nom Vide !");
         if(p.getType(newProgName->text()) != "Atom")
-            throw "Nom non Valide !";
+            throw ComputerException("Nom non Valide !");
         for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
             if(it.getCurrent().getLib()->toString()==newProgName->text().toStdString())
-                throw "Nom Existe déjà";
+                throw ComputerException("Nom Existe déjà");
         SnapshotManager * s = &(SnapshotManager::getInstance());
         s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
-        prgMng->addIdentifier(newProgName->text().toStdString(),mng->createProgram("")->getPLit());
+        prgMng->addIdentifier(newProgName->text(),mng->createProgram("")->getPLit());
     }
-    catch (char const* s) {
-            ExceptionWindow(s);
+    catch (ComputerException exp) {
+            ExceptionWindow(exp.getInfo());
     }
     newProgName->setText("");
     newWindow->hide();

@@ -70,7 +70,7 @@ void OperatorSum::loadOperand(Stack *s)
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 Numeriques ou complexe pour +";
+        throw ComputerException("BAD TYPE: il faut 2 Numeriques ou complexe pour +");
     }
 }
 
@@ -125,7 +125,7 @@ void OperatorSub::loadOperand(Stack *s)
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 Numeriques ou complexe pour -";
+        throw ComputerException("BAD TYPE: il faut 2 Numeriques ou complexe pour -");
     }
 }
 
@@ -183,7 +183,7 @@ if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*
     I2->setLit(l2);
     s->push(*I1);
     s->push(*I2);
-    throw "BAD TYPE: il faut 2 Numeriques ou complexe pour *";
+    throw ComputerException("BAD TYPE: il faut 2 Numeriques ou complexe pour *");
 }}
 
 Litteral*  OperatorDivision::execute()
@@ -196,7 +196,7 @@ Litteral*  OperatorDivision::execute()
 
         if((C2->isImag())&&C2->isReal()) // càd nul
         {
-            throw ("Impossible de diviser par une valeur nulle !");
+            throw ComputerException("Impossible de diviser par une valeur nulle !");
              Integer * I = new Integer(0);
              return I;
         }
@@ -213,7 +213,7 @@ Litteral*  OperatorDivision::execute()
         Complex C2(dynamic_cast<Numeric*>(l2),&I1);
         if(C2.isImag()) // càd nul
         {
-            throw  ("Impossible de diviser par une valeur nulle !");
+            throw  ComputerException("Impossible de diviser par une valeur nulle !");
              Integer * I = new Integer(0);
              return I;
         }
@@ -228,7 +228,7 @@ Litteral*  OperatorDivision::execute()
         Complex C1(dynamic_cast<Numeric*>(l1),&I1);
         if((C2->isImag())&&C2->isReal()) // càd nul
         {
-            throw  ("Impossible de diviser par une valeur nulle !");
+            throw  ComputerException("Impossible de diviser par une valeur nulle !");
              Integer * I = new Integer(0);
              return I;
         }
@@ -242,7 +242,7 @@ Litteral*  OperatorDivision::execute()
         Numeric* N2 =dynamic_cast<Numeric*>(l2);
         if(N2->isNull()) // càd nul
         {
-            throw  ("Impossible de diviser par une valeur nulle !");
+            throw  ComputerException("Impossible de diviser par une valeur nulle !");
              Integer * I = new Integer(0);
              return I;
         }
@@ -267,7 +267,7 @@ void OperatorDivision::loadOperand(Stack *s) {
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 Numeriques ou complexe pour /";
+        throw ComputerException("BAD TYPE: il faut 2 Numeriques ou complexe pour /");
     }
     if(((dynamic_cast<Numeric*>(l2))&&dynamic_cast<Numeric*>(l2)->isNull())||((dynamic_cast<Complex*>(l2))&&(dynamic_cast<Complex*>(l2)->isImag()&&dynamic_cast<Complex*>(l2)->isReal())))
     {
@@ -277,7 +277,7 @@ void OperatorDivision::loadOperand(Stack *s) {
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "Impossible de / par 0";
+        throw ComputerException("Impossible de / par 0");
     }
 }
 
@@ -303,7 +303,7 @@ void OperatorDiv::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 entiers pour Div";
+        throw ComputerException("BAD TYPE: il faut 2 entiers pour Div");
     }
     if(dynamic_cast<Numeric*>(l2)->isNull())
     {
@@ -313,7 +313,7 @@ void OperatorDiv::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "DIV par 0";
+        throw ComputerException("DIV par 0");
     }
 }
 
@@ -339,7 +339,7 @@ void OperatorMod::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 entiers pour Mod";
+        throw ComputerException("BAD TYPE: il faut 2 entiers pour Mod");
     }
     if(dynamic_cast<Numeric*>(l2)->isNull())
     {
@@ -349,7 +349,7 @@ void OperatorMod::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "MOD par 0";
+        throw ComputerException("MOD par 0");
     }
 }
 
@@ -379,7 +379,7 @@ void OperatorSupS::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 Numerique pour >";
+        throw ComputerException("BAD TYPE: il faut 2 Numerique pour >");
     }
 }
 
@@ -408,7 +408,7 @@ void OperatorSupE::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 Numerique pour >=";
+        throw ComputerException("BAD TYPE: il faut 2 Numerique pour >=");
     }
 }
 
@@ -437,7 +437,7 @@ void OperatorLessS::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 Numerique pour <";
+        throw ComputerException("BAD TYPE: il faut 2 Numerique pour <");
     }
 }
 
@@ -465,7 +465,7 @@ void OperatorLessE::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 Numerique pour <=";
+        throw ComputerException("BAD TYPE: il faut 2 Numerique pour <=");
     }
 }
 
@@ -504,7 +504,7 @@ void OperatorEqu::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 Numerique pour =";
+        throw ComputerException("BAD TYPE: il faut 2 Numerique pour =");
     }
 }
 
@@ -544,7 +544,7 @@ void OperatorNEqu::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 Numerique pour !=";
+        throw ComputerException("BAD TYPE: il faut 2 Numerique pour !=");
     }
 }
 
@@ -571,7 +571,7 @@ void OperatorCplx::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 Numerique pour $";
+        throw ComputerException("BAD TYPE: il faut 2 Numerique pour $");
     }
 }
 
@@ -601,7 +601,7 @@ void OperatorAND::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 entiers pour Mod";
+        throw ComputerException("BAD TYPE: il faut 2 entiers pour Mod");
     }
 }
 
@@ -631,7 +631,7 @@ void OperatorOR::loadOperand(Stack *s){
         I2->setLit(l2);
         s->push(*I1);
         s->push(*I2);
-        throw "BAD TYPE: il faut 2 entiers pour OR";
+        throw ComputerException("BAD TYPE: il faut 2 entiers pour OR");
     }
 }
 
@@ -654,7 +654,7 @@ void OperatorNOT::loadOperand(Stack *s){
         Item * I1 =new Item();
         I1->setLit(l1);
         s->push(*I1);
-        throw "BAD TYPE: il faut un entier pour NOT";
+        throw ComputerException("BAD TYPE: il faut un entier pour NOT");
     }
 }
 
@@ -680,7 +680,7 @@ void OperatorNEG::loadOperand(Stack *s){
         Item * I1 =new Item();
         I1->setLit(l1);
         s->push(*I1);
-        throw "BAD TYPE: il faut un numerique ou un complex pour NEG";
+        throw ComputerException("BAD TYPE: il faut un numerique ou un complex pour NEG");
     }
 }
 
@@ -699,7 +699,7 @@ Litteral * OperatorSTO::execute(){
     Litteral* I1 =dynamic_cast<Litteral*>(l1);
     Expression* I2 =dynamic_cast<Expression*>(l2);
     if(!(I2))
-        throw"Problème de type pour le STO!";
+        throw ComputerException("Problème de type pour le STO!");
 
     QString str = toQString(I2->toString());
     str.remove(0,1);
@@ -711,7 +711,7 @@ Litteral * OperatorSTO::execute(){
     Parser p = Parser::getInstance();
 
     if(p.getType(str) != "Atom")
-        throw "Type Error of the identifier";
+        throw ComputerException("Type Error of the identifier");
     while(!it.isDone() &&
           it.getCurrent().getLib()->toString()!=str.toStdString())
     {
@@ -723,11 +723,11 @@ Litteral * OperatorSTO::execute(){
             if(typeid(*(it.getCurrent().getPValue()))!=typeid(Program))
                 it.getCurrent().setValue(I1);
             else
-                throw "Modification d'un' Programme Impossible avec STO";
+                throw ComputerException("Modification d'un' Programme Impossible avec STO");
         else
-            idMng->addIdentifier(str.toStdString(),I1);
+            idMng->addIdentifier(str,I1);
     else
-        throw "Type Error Creation Var";
+        throw ComputerException("Type Error Creation Var");
     return l1;
 }
 
@@ -747,7 +747,7 @@ void OperatorNUM::loadOperand(Stack *s){
         Item * I1 =new Item();
         I1->setLit(l1);
         s->push(*I1);
-        throw "BAD TYPE: il faut un rationnel ou un entier pour NUM";
+        throw ComputerException("BAD TYPE: il faut un rationnel ou un entier pour NUM");
     }
 }
 
@@ -767,7 +767,7 @@ void OperatorDEN::loadOperand(Stack *s){
         Item * I1 =new Item();
         I1->setLit(l1);
         s->push(*I1);
-        throw "BAD TYPE: il faut un rationnel ou un entier pour DEN";
+        throw ComputerException("BAD TYPE: il faut un rationnel ou un entier pour DEN");
     }
 }
 
@@ -790,7 +790,7 @@ void OperatorRE::loadOperand(Stack *s){
         Item * I1 =new Item();
         I1->setLit(l1);
         s->push(*I1);
-        throw "BAD TYPE: il faut un numerique ou un complx pour RE";
+        throw ComputerException("BAD TYPE: il faut un numerique ou un complx pour RE");
     }
 }
 
@@ -814,7 +814,7 @@ void OperatorIM::loadOperand(Stack *s){
         Item * I1 =new Item();
         I1->setLit(l1);
         s->push(*I1);
-        throw "BAD TYPE: il faut un numerique ou un complx pour IM";
+        throw ComputerException("BAD TYPE: il faut un numerique ou un complx pour IM");
     }
 }
 void OperatorEVAL::loadOperand(Stack *s){
@@ -878,9 +878,9 @@ Litteral*  OperatorFORGET::execute()
 
     IdentifierManager * idMng = &(IdentifierManager::getInstance());
 
-    Identifier * id = idMng->getIdentifier(*(new Atom(str.toStdString())));
+    Identifier * id = idMng->getIdentifier(*(new Atom(str)));
     if(!id)
-        throw "Identifiant n'existe pas !";
+        throw ComputerException("Identifiant n'existe pas !");
     idMng->removeIdentifier(*id);
     return l1;
 
@@ -898,9 +898,9 @@ Litteral*  OperatorEDIT::execute()
 
     IdentifierManager * idMng = &(IdentifierManager::getInstance());
 
-    Identifier * id = idMng->getIdentifier(*(new Atom(str.toStdString())));
+    Identifier * id = idMng->getIdentifier(*(new Atom(str)));
     if(!id)
-        throw "Identifiant n'existe pas !";
+        throw ComputerException("Identifiant n'existe pas !");
     QWidget * ui;
     foreach (QWidget *widget, QApplication::allWidgets())
         if(widget->accessibleName()=="MainWindow")

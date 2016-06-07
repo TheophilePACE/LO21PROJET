@@ -8,8 +8,8 @@ void Integer::print(QTextStream& f)const
 std::string Integer::toString()const{
     return std::to_string(num);
 }
-std::string Integer::toStringPars()const{
-    return toString();
+QString Integer::toQStringPars()const{
+    return QString::number(num);
 }
 long Integer::setValue(long integer) {
     this->num=integer;

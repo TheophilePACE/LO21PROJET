@@ -22,19 +22,18 @@ double Numeric::getVal()  const{
 }
 std::string Numeric::toString()const
 {
-
-    std::string s="";
+    return toQStringPars().toStdString();
+}
+QString Numeric::toQStringPars()const{
+    QString s = "";
     if(mantisse!=0){
-    s+=std::to_string(num);
+    s += num;
     if(denum!=1)
-        s+=("/"+std::to_string(denum));}
+        s+=("/"+QString::number(denum));}
     else
             //(mantisse!=0)
-        s+=(std::to_string(num+mantisse));
+        s+=(QString::number(num+mantisse));
     return s;
-}
-std::string Numeric::toStringPars()const{
-    return toString();
 }
 
 //Operations sur les numerics

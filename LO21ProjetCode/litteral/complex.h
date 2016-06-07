@@ -16,7 +16,7 @@ public:
     Numeric& getReal() const { return *pReal;}
     Numeric& getImag() const { return *pImag;}
     std::string toString()const;
-    std::string toStringPars()const;
+    QString toQStringPars()const;
     ~Complex(){}
    Complex operator=(const Complex& Cx );
    Complex operator+(const Complex& Cx) const;

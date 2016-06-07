@@ -16,7 +16,7 @@ public:
     ~Rationnal(){}
     void print(QTextStream& f)const;
     std::string toString()const;
-    std::string toStringPars()const;
+    QString toQStringPars()const;
     Rationnal simplify() ; //retour de type pointeur sur classe mere
     Rationnal operator+(Rationnal frac) const;
     Rationnal operator-(Rationnal frac)const;

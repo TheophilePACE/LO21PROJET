@@ -1,5 +1,6 @@
 #include "stack.h"
 #include "intermediary.h"
+#include "structures.h"
 
 Stack::Stack(const Stack& s){
     Item* newtab=new Item[s.nbMax];
@@ -30,14 +31,14 @@ void Stack::pop(){
     items[nb].raz();
 }
 
-const std::string Stack::display() const{
+const QString Stack::display() const{
     std::stringstream f;
     for(unsigned int i=0; i<nb; i++) {
-                f << (*(items[i].getPLit())).toStringPars();
+                f << (*(items[i].getPLit())).toString();
                 if(i!=nb-1)
                     f<<"_";
     }
-    return f.str();
+    return toQString(f.str());
 }
 
 
@@ -47,7 +48,7 @@ Stack::~Stack(){
 
 Litteral* Stack::top() const {
 
-    if (nb==0) throw "aucune expression sur la Stack";
+    if (nb==0) throw ComputerException("aucune expression sur la Stack");
     //delete item
     return items[nb-1].getPLit();
 }

@@ -94,8 +94,8 @@ void QvarEditor::validationButtonPressed() {
                 getNextCommand();
                 stateModification();
             }
-            catch (char const* s){
-                ExceptionWindow(s);
+            catch (ComputerException exp){
+                ExceptionWindow(exp.getInfo());
             }
             refresh();
         }
@@ -108,7 +108,7 @@ void QvarEditor::getNextCommand(){
     Parser p = Parser::getInstance();
 
     if(p.getType(commandIdentifier->text()) != "Atom")
-        throw "Type Error of the identifier";
+        throw ComputerException("Type Error of the identifier");
     while(!it.isDone() &&
           it.getCurrent().getLib()->toString()!=commandIdentifier->text().toStdString())
     {
@@ -127,16 +127,16 @@ void QvarEditor::getNextCommand(){
             }
 
             else
-                throw "Modification d'un' Programme Impossible d'ici";
+                throw ComputerException("Modification d'un' Programme Impossible d'ici");
         else {
             SnapshotManager * s = &(SnapshotManager::getInstance());
             s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
-            idMng->addIdentifier(commandIdentifier->text().toStdString(),mng->createItem(commandValue->text())->getPLit());
+            idMng->addIdentifier(commandIdentifier->text(),mng->createItem(commandValue->text())->getPLit());
         }
 
     }
     else
-        throw "Type Error Creation Var";
+        throw ComputerException("Type Error Creation Var");
 
 }
 void QvarEditor::destroyVar(){

@@ -23,7 +23,7 @@ QComputer::QComputer(QWidget *parent) : QWidget(parent)
     vuePile->setVerticalHeaderLabels(numberList);
     vuePile->setFixedHeight(pile->getNbItemsDisplayed()*vuePile->rowHeight(0)+2);
     couche->addWidget(vuePile);
-    vuePile->setStyleSheet("background : cyan; color : white");
+    vuePile->setStyleSheet("background : magenta; color : white");
     vuePile->verticalHeader()->setStyleSheet("color: orange");
 
     vuePile->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -78,6 +78,9 @@ void QComputer::keyboardButtonPressed(QAbstractButton* g) {
             getNextCommande();
         else
             commande->setText(commande->text()+g->text());
+}
+void QComputer::insertBlank() {
+    commande->setText(commande->text() + " ");
 }
 void QComputer::sliderMoved(int n) {
     pile->setNbItemsDisplayed(n);

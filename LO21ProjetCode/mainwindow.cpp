@@ -30,14 +30,13 @@ MainWindow::MainWindow(QWidget *parent) :
     signalGroup->addButton(ui->pushButton_14);
     signalGroup->addButton(ui->pushButton_15);
     signalGroup->addButton(ui->pushButton_16);
-    signalGroup->addButton(ui->pushButton_17);
+    // signalGroup->addButton(ui->pushButton_17); BLANK
     signalGroup->addButton(ui->pushButton_18);
     signalGroup->addButton(ui->pushButton_19);
     signalGroup->addButton(ui->pushButton_20);
     signalGroup->addButton(ui->pushButton_21);
     signalGroup->addButton(ui->pushButton_22);
     signalGroup->addButton(ui->pushButton_23);
-    signalGroup->addButton(ui->pushButton_24);
     signalGroup->addButton(ui->pushButton_25);
     signalGroup->addButton(ui->pushButton_26);
     signalGroup->addButton(ui->pushButton_27);
@@ -48,8 +47,8 @@ MainWindow::MainWindow(QWidget *parent) :
     signalGroup->addButton(ui->pushButton_32);
     signalGroup->addButton(ui->pushButton_33);
     signalGroup->addButton(ui->pushButton_34);
-    //signalGroup->addButton(ui->pushButton_35); //UNDO
-    //signalGroup->addButton(ui->pushButton_36); //REDO
+    //signalGroup->addButton(ui->pushButton_35); UNDO
+    //signalGroup->addButton(ui->pushButton_36); REDO
     signalGroup->addButton(ui->pushButton_37);
     signalGroup->addButton(ui->pushButton_38);
     signalGroup->addButton(ui->pushButton_39);
@@ -73,6 +72,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton_36,SIGNAL(clicked()),
                 this
                 ,SLOT(redo()));
+    connect(ui->pushButton_17,SIGNAL(clicked()),
+                calcul
+                ,SLOT(insertBlank()));
     connect(checkKeybord,SIGNAL(toggled(bool)),
                 this
                 ,SLOT(resized(bool)));
@@ -115,7 +117,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 for (int i=0;  i < valuesVar.size(); ++i)
                 {
                     QStringList variables = valuesVar.at(i).split("-");
-                    idMng->addIdentifier(variables.at(0).toStdString(),genMng->createItem(variables.at(1))->getPLit());
+                    idMng->addIdentifier(variables.at(0),genMng->createItem(variables.at(1))->getPLit());
                 }
             }
             variableManager->refresh();
@@ -130,7 +132,7 @@ MainWindow::MainWindow(QWidget *parent) :
                         QStringList programmes = valuesProg.at(i).split("[");
                         QString inter = programmes.at(1);
                         inter.remove(inter.size()-1, 1);
-                        idMng->addIdentifier(programmes.at(0).toStdString(),genMng->createProgram(inter)->getPLit());
+                        idMng->addIdentifier(programmes.at(0),genMng->createProgram(inter)->getPLit());
                     }
                 }
                 programManager->refresh();
@@ -156,17 +158,17 @@ MainWindow::~MainWindow()
 
     QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
     Stack * stack = calcul->getStack();
-    std::string s = stack->display();
+    std::string s = stack->display().toStdString();
 
     xml_node<> *node = doc.allocate_node(node_element, "Pile", s.c_str(),4 , s.size());
     doc.append_node(node);
 
     IdentifierManager * idMng = &(IdentifierManager::getInstance());
-    std::string s2 = idMng->displayVar();
+    std::string s2 = idMng->displayVar().toStdString();
     xml_node<> *node2 = doc.allocate_node(node_element, "Variables", s2.c_str(),9 , s2.size());
     doc.append_node(node2);
 
-    std::string s3 = idMng->displayProg();
+    std::string s3 = idMng->displayProg().toStdString();
     xml_node<> *node3 = doc.allocate_node(node_element, "Programmes", s3.c_str(), 10, s3.size());
     doc.append_node(node3);
 
@@ -236,12 +238,3 @@ void MainWindow::redo(){
         programManager->refresh();
     }
 }
-/*
-void MainWindow::event(QEvent *event)
-{
-    if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-        if (ke->key() == Qt::Key_Control) {
-            // special tab handling here
-        }
-}*/

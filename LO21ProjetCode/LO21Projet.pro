@@ -20,7 +20,8 @@ HEADERS += \
     qvareditor.h \
     qprogrameditor.h \
     snapshots.h \
-    structures/shunting_yard_algorithm.h
+    structures/shunting_yard_algorithm.h \
+    structures/computerException.h
 
 SOURCES += \
     main.cpp \

@@ -10,8 +10,8 @@ void Complex::print(QTextStream& f)const
 std::string Complex::toString()const {
     return (*pReal).toString() + " + " + (*pImag).toString() + "i";
 }
-std::string Complex::toStringPars()const {
-    return (*pReal).toString() + "$" + (*pImag).toString();
+QString Complex::toQStringPars()const {
+    return (*pReal).toQStringPars() + "$" + (*pImag).toQStringPars();
 }
 
 

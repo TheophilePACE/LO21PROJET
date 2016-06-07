@@ -3,7 +3,7 @@
 #include "qvareditor.h"
 #include "snapshots.h"
 
-void ExceptionWindow(const char * s) {
+void ExceptionWindow(QString s) {
     QWindow2 *win = new QWindow2;
     QLabel * lab = new QLabel;
     QVBoxLayout * layout = new QVBoxLayout;

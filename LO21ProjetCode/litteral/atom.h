@@ -4,12 +4,12 @@
 #include "expression.h"
 
 class Atom : public ExpressionMaterial {
-    std::string lib;
+    QString lib;
 public:
-    Atom(std::string s):lib(s){}
-    void print(QTextStream& f) const {f<<toQString(lib);}
-    std::string toString()const{return lib;}
-    std::string toStringPars()const{return toString();}
+    Atom(QString s):lib(s){}
+    void print(QTextStream& f) const {f<<lib;}
+    std::string toString()const{return lib.toStdString();}
+    QString toQStringPars()const{return lib;}
     ~Atom(){}
 };
 

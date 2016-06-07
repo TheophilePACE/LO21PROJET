@@ -2,6 +2,7 @@
 #define IDENTIFIERMANAGER_H
 
 #include "structures.h"
+#include "computerException.h"
 
 class IdentifierManager {
     Identifier** identifiers;
@@ -20,11 +21,11 @@ class IdentifierManager {
 public:
     ~IdentifierManager();
     IdentifierManager(const IdentifierManager& m);
-    void addIdentifier(std::string s, Litteral* l);
+    void addIdentifier(QString s, Litteral* l);
     void removeIdentifier(Identifier& e);
     Identifier * getIdentifier(Atom& a) const;
-    const std::string displayVar() const;
-    const std::string displayProg() const;
+    const QString displayVar() const;
+    const QString displayProg() const;
     unsigned int size() const {return nb;}
     unsigned int sizeAtoms() const;
     static IdentifierManager& getInstance();
@@ -40,13 +41,13 @@ public:
         bool isDone() const { return nbRemain==0; }
         void next() {
             if (isDone())
-                throw "error, next on an iterator which is done";
+                throw ComputerException("error, next on an iterator which is done");
             nbRemain--;
             current++;
         }
         Identifier& getCurrent() const {
             if (isDone())
-                throw "error, indirection on an iterator which is done";
+                throw ComputerException("error, indirection on an iterator which is done");
             return **current;
         }
     };

@@ -198,7 +198,7 @@ void Controller::command(const QString& c){
                             }
 
 
-                        else throw"Pas assez d elements dans la pile";}
+                        else throw ComputerException("Pas assez d elements dans la pile");}
 
                     else if(p.isOperatorUnary(str)) {
                         if (stack->size()>=1) {
@@ -288,9 +288,9 @@ void Controller::command(const QString& c){
                             }
 
                             else
-                                throw "Operateur pas encore défini";
+                                throw ComputerException("Operateur pas encore défini");
                         }
-                        else throw" Pas assez d'argument dans la pile!";
+                        else throw ComputerException(" Pas assez d'argument dans la pile!");
                     }
                     }
              else {
@@ -301,7 +301,7 @@ void Controller::command(const QString& c){
                             stack->push(*I);
                         }
                         else {
-                            Identifier * id = IdentifierManager::getInstance().getIdentifier(*(new Atom(str.toStdString())));
+                            Identifier * id = IdentifierManager::getInstance().getIdentifier(*(new Atom(str)));
                             command(toQString((*(id->getPValue())).toString()));
                         }
 
@@ -317,7 +317,7 @@ void Controller::command(const QString& c){
     QComputer * comp = tab->findChild<QComputer*>("CalcTab");
     comp->accessLineEdit()->setText("");
     }
-    catch(char const* s)
+    catch(ComputerException exp)
     {
 
         QWidget * widgetSearched;
@@ -328,6 +328,6 @@ void Controller::command(const QString& c){
 
         if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
             QSound::play("../wahoo.wav");
-        stack->setMessage(toQString(s));
+        stack->setMessage(exp.getInfo());
     }
 }
