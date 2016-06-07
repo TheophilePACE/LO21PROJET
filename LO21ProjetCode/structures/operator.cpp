@@ -841,7 +841,7 @@ Litteral * OperatorEVAL::execute(){
             vect.insert(vect.begin()+j,std::string(1,str.toStdString().at(i)));
         }
         else if ((number) &&
-                ((str.at(i)=='(')||(str.at(i)==')')||
+                (isParenthesis(std::string(1,str.toStdString().at(i)))||
                  p.isOperator(QString(str.at(i))))) {
             number = false;
             vect.insert(vect.begin()+j,temp.toStdString());
@@ -867,7 +867,6 @@ Litteral * OperatorEVAL::execute(){
     infixToRPN(vect,size,strArray);
     for(unsigned int i=0;i<strArray.size();i++)
         temp = temp + toQString(strArray[i]);
-    //std::cout << temp.toStdString();
     ctrl->command(temp);
     return nullptr;
 }
@@ -890,3 +889,31 @@ void OperatorFORGET::loadOperand(Stack *s){
     l1=s->top();
     s->pop();
 }
+Litteral*  OperatorEDIT::execute()
+{
+
+    QString str = toQString(l1->toString());
+    str.remove(0,1);
+    str.remove(str.size()-1,1);
+
+    IdentifierManager * idMng = &(IdentifierManager::getInstance());
+
+    Identifier * id = idMng->getIdentifier(*(new Atom(str.toStdString())));
+    if(!id)
+        throw "Identifiant n'existe pas !";
+    QWidget * ui;
+    foreach (QWidget *widget, QApplication::allWidgets())
+        if(widget->accessibleName()=="MainWindow")
+            ui = widget;
+    QTabWidget * tab = (dynamic_cast<QMainWindow*>(ui))->findChild<QTabWidget*>("tabWidget");
+    tab->setCurrentIndex(2);
+    QprogramEditor * prog = tab->findChild<QprogramEditor*>("Programmes");
+    prog->accessProgramChoice()->setCurrentText(str);
+
+    return nullptr;
+
+}
+void OperatorEDIT::loadOperand(Stack *s){
+    l1=s->top();
+}
+

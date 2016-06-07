@@ -27,6 +27,8 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
     generalView = new QVBoxLayout(this);
     commandView = new QHBoxLayout();
 
+    programChoice->setAccessibleName("programChoice");
+
     validation->setText("Valider");
     QLabel * text1 = new QLabel;
 
@@ -131,4 +133,6 @@ void QprogramEditor::destroyProgram(){
     }
     refresh();
 }
-
+QComboBox * QprogramEditor::accessProgramChoice() {
+    return programChoice;
+}

@@ -280,6 +280,12 @@ void Controller::command(const QString& c){
                             OP.loadOperand(stack);
                             OP.execute();
                         }
+                        else if (str=="EDIT")
+                        {
+                            OperatorEDIT OP;
+                            OP.loadOperand(stack);
+                            OP.execute();
+                        }
 
                         else
                             throw "Operateur pas encore défini";

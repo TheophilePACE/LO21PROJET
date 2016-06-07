@@ -7,6 +7,8 @@
 #include "../litteral/litteral.h"
 #include "structures/structures.h"
 #include "shunting_yard_algorithm.h"
+#include "qprogrameditor.h"
+#include "mainwindow.h"
 
 class OperatorAbstract {
 public:
@@ -202,6 +204,13 @@ public:
     void loadOperand(Stack *s);
     Litteral* execute( );
 };
+class  OperatorEDIT : public OperatorUnary {
+public:
+    OperatorEDIT(): OperatorUnary(){}
+    void loadOperand(Stack *s);
+    Litteral* execute( );
+};
+
 
 
 #endif

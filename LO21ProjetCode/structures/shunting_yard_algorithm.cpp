@@ -5,8 +5,6 @@
 
 // Map the different operators: +, -, *, / etc
 typedef std::map< std::string, std::pair< int,int > > OpMap;
-typedef std::vector<std::string>::const_iterator cv_iter;
-typedef std::string::iterator s_iter;
 
 const OpMap::value_type assocs[] =
     {  OpMap::value_type( "+", std::make_pair<int,int>( 0, LEFT_ASSOC ) ),

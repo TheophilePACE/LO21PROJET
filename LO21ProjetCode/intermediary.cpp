@@ -26,7 +26,6 @@ void CheckButtons() {
     foreach (QWidget *widget, QApplication::allWidgets())
         if(widget->accessibleName()=="MainWindow")
             ui = widget;
-    ui = dynamic_cast<QMainWindow*>(ui);
     if(s->undoPossible())
         dynamic_cast<QMainWindow*>(ui)->findChild<QPushButton*>("pushButton_35")->setEnabled(true);
     else
