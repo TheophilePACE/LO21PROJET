@@ -89,5 +89,5 @@ QString LastStruc::lastOpe () const {
     if(ope!="")
         return ope;
     if(ope=="")
-        throw "Pas d operateurs en memoire";
+        throw ComputerException("Pas d operateurs en memoire");
 }

@@ -49,8 +49,10 @@ void Controller::command(const QString& c){
                     if (str=="LASTOP")
                     {
                         str=lastStruc->lastOpe();
+                        std::cout<<str.toStdString();
+                        //throw ComputerException("str");
                     }
-                    else if(p.isOperatorBinary(str)){
+                    if(p.isOperatorBinary(str)){
                         if (stack->size()>=2) {
                              //récuperation des éléments
                             lastStruc->getOpe2(stack,str);
