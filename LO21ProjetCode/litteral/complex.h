@@ -5,7 +5,8 @@
 #include "rationnal.h"
 #include "integer.h"
 
-class Complex : public Litteral {
+class Complex : public Litteral {///réprésente un nombre de complexe. Les parties imaginaires et complexes sont donc des numeriques (càd entiers, rationnels ou réel).
+    ///Les types de chaques parties sont revues en fonction de leur valeur (partie décimale nulle, denominateur égal à 0).
 private:
     Numeric* pReal;
     Numeric* pImag;

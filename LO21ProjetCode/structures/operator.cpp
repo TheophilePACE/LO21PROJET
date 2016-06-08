@@ -949,11 +949,10 @@ Litteral* OperatorIFT::execute( )
     if(N->isNull()){ ///Le test est négatif
         return nullptr;
     }
-    if(!dynamic_cast<Expression*>(l2)){
-        throw ComputerException("Le 2e argu doit être une expression");
-    }
-    ///Ici, on évalue. on va donc passer par EVAL
-    ///On va rempiler l2 puis l'évaluer.
+//    if(!dynamic_cast<Expression*>(l2)){
+//        throw ComputerException("Le 2e argu doit être une expression");
+//    }
+    ///On va rempiler l2 puis l'évaluer car le test est positif
     return l2;
 
 }

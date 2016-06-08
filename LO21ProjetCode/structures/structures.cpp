@@ -204,9 +204,10 @@ void Controller::command(const QString& c){
                                 Rslt.setLit(OP.execute());
                                 if(Rslt.getPLit()!=nullptr){
                                     stack->push(Rslt);
+                                    if(dynamic_cast<Expression*>(stack->top())){
                                     OperatorEVAL OP(this);
                                     OP.loadOperand(stack);
-                                    OP.execute();
+                                    OP.execute();}
 
                                 }
 

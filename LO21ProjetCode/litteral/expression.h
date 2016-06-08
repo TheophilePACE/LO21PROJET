@@ -3,7 +3,7 @@
 
 #include "litteral.h"
 
-class Expression : public Litteral {
+class Expression : public Litteral { ///Cette classe représente les instructions telles que décrites dans le sujet: suite d'instructions pouvant être empilées et évaluées. Une expression doit pouvoir renvoyer une valeur de type numérique ou complexe.
     QString instructions;
 public:
     Expression(QString s): instructions(s){}
