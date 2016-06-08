@@ -17,7 +17,10 @@ void ExceptionWindow(QString s) {
         if(widget->accessibleName()=="ButtonNoSound")
             widgetSearched = widget;
     if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
+    {
+        QApplication::beep();
         QSound::play("../wahoo.wav");
+    }
 }
 
 void CheckButtons() {

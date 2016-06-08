@@ -37,91 +37,91 @@ void Real::print(QTextStream& f)const
 
 Real Real::operator +(Real re) const
 {
-    Real rslt(getSignedValue()+re.getSignedValue());
-    rslt.simplify();
-    return rslt;
+    Real * rslt = new Real(getSignedValue()+re.getSignedValue());
+    rslt->simplify();
+    return *rslt;
 }
 Real Real::operator- (Real re)const{
-    Real rslt(getSignedValue()-re.getSignedValue());
-    rslt.simplify();
-    return rslt;
+    Real * rslt = new Real(getSignedValue()-re.getSignedValue());
+    rslt->simplify();
+    return *rslt;
 }
 Real Real::operator * (Real re) const{
-    Real rslt(getSignedValue()*re.getSignedValue());
-    rslt.simplify();
-    return rslt;
+    Real * rslt = new Real(getSignedValue()*re.getSignedValue());
+    rslt->simplify();
+    return *rslt;
 }
 
 Real Real::operator / (Real re) const{
-    Real rslt(getSignedValue()/re.getSignedValue());
-    rslt.simplify();
-    return rslt;
+    Real * rslt = new Real(getSignedValue()/re.getSignedValue());
+    rslt->simplify();
+    return *rslt;
 }
 Real operator+(int a, Real Re){
     double af = static_cast<double>(a);
-    Real rslt(af+Re.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(af+Re.getSignedValue());
+    return *rslt;
 }
 Real operator-(int a, Real Re){
     double af = static_cast<double>(a);
-    Real rslt(af-Re.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(af-Re.getSignedValue());
+    return *rslt;
 }
 Real operator-( Real Re,int a){
     double af = static_cast<double>(a);
-    Real rslt(-af+Re.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(-af+Re.getSignedValue());
+    return *rslt;
 }
 Real operator*(int a, Real Re){
     double af = static_cast<double>(a);
-    Real rslt(af+Re.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(af+Re.getSignedValue());
+    return *rslt;
 }
 Real operator/(int a, Real Re){
     double af = static_cast<double>(a);
-    Real rslt(af/Re.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(af/Re.getSignedValue());
+    return *rslt;
 }
 Real operator/( Real Re, int a){
     double af = static_cast<double>(a);
-    Real rslt(Re.getSignedValue()/af);
-    return rslt;
+    Real * rslt = new Real(Re.getSignedValue()/af);
+    return *rslt;
 }
 
 
 //REAL RATIONNAL
 Real operator+(Real Re, Rationnal Ra) {
-    Real rslt(Re.getSignedValue()+Ra.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(Re.getSignedValue()+Ra.getSignedValue());
+    return *rslt;
 }
 
 Real operator+(Rationnal Ra, Real Re){
-    Real rslt(Re.getSignedValue()+Ra.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(Re.getSignedValue()+Ra.getSignedValue());
+    return * rslt;
 }
 
 
 Real operator-(Real Re, Rationnal Ra) {
-    Real rslt(Re.getSignedValue()-Ra.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(Re.getSignedValue()-Ra.getSignedValue());
+    return *rslt;
 }
 
 Real operator-(Rationnal Ra, Real Re) {
-    Real rslt(-Re.getSignedValue()+Ra.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(-Re.getSignedValue()+Ra.getSignedValue());
+    return * rslt;
 }
 
 Real operator*(Real Re, Rationnal Ra) {
-    Real rslt(Re.getSignedValue()*Ra.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(Re.getSignedValue()*Ra.getSignedValue());
+    return *rslt;
 }
 
 Real operator/(Real Re, Rationnal Ra) {
-    Real rslt(Re.getSignedValue()/Ra.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(Re.getSignedValue()/Ra.getSignedValue());
+    return *rslt;
 }
 
 Real operator/(Rationnal Ra, Real Re) {
-    Real rslt(Ra.getSignedValue()/Re.getSignedValue());
-    return rslt;
+    Real * rslt = new Real(Ra.getSignedValue()/Re.getSignedValue());
+    return *rslt;
 }

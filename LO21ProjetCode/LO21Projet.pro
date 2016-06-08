@@ -29,7 +29,6 @@ SOURCES += \
     intermediary.cpp \
     mainwindow.cpp \
     litteral/litteral.cpp \
-    litteral/atom.cpp \
     litteral/numeric.cpp \
     litteral/real.cpp \
     litteral/rationnal.cpp \

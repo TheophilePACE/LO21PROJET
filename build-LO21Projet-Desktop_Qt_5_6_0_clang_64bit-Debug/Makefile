@@ -53,7 +53,6 @@ SOURCES       = ../LO21ProjetCode/main.cpp \
 		../LO21ProjetCode/intermediary.cpp \
 		../LO21ProjetCode/mainwindow.cpp \
 		../LO21ProjetCode/litteral/litteral.cpp \
-		../LO21ProjetCode/litteral/atom.cpp \
 		../LO21ProjetCode/litteral/numeric.cpp \
 		../LO21ProjetCode/litteral/real.cpp \
 		../LO21ProjetCode/litteral/rationnal.cpp \
@@ -79,7 +78,6 @@ OBJECTS       = main.o \
 		intermediary.o \
 		mainwindow.o \
 		litteral.o \
-		atom.o \
 		numeric.o \
 		real.o \
 		rationnal.o \
@@ -269,7 +267,6 @@ DIST          = /Users/pascalereghem/Qt/5.6/clang_64/mkspecs/features/spec_pre.p
 		../LO21ProjetCode/intermediary.cpp \
 		../LO21ProjetCode/mainwindow.cpp \
 		../LO21ProjetCode/litteral/litteral.cpp \
-		../LO21ProjetCode/litteral/atom.cpp \
 		../LO21ProjetCode/litteral/numeric.cpp \
 		../LO21ProjetCode/litteral/real.cpp \
 		../LO21ProjetCode/litteral/rationnal.cpp \
@@ -626,7 +623,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../LO21ProjetCode/qmain.h ../LO21ProjetCode/intermediary.h ../LO21ProjetCode/mainwindow.h ../LO21ProjetCode/litteral/litteral.h ../LO21ProjetCode/litteral/atom.h ../LO21ProjetCode/litteral/numeric.h ../LO21ProjetCode/litteral/real.h ../LO21ProjetCode/litteral/rationnal.h ../LO21ProjetCode/litteral/integer.h ../LO21ProjetCode/litteral/complex.h ../LO21ProjetCode/litteral/program.h ../LO21ProjetCode/litteral/expression.h ../LO21ProjetCode/structures/structures.h ../LO21ProjetCode/structures/stack.h ../LO21ProjetCode/structures/parser.h ../LO21ProjetCode/structures/identifierManager.h ../LO21ProjetCode/structures/generalManager.h ../LO21ProjetCode/structures/operator.h ../LO21ProjetCode/qvareditor.h ../LO21ProjetCode/qprogrameditor.h ../LO21ProjetCode/snapshots.h ../LO21ProjetCode/structures/shunting_yard_algorithm.h ../LO21ProjetCode/structures/computerException.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../LO21ProjetCode/main.cpp ../LO21ProjetCode/qmain.cpp ../LO21ProjetCode/intermediary.cpp ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/litteral/litteral.cpp ../LO21ProjetCode/litteral/atom.cpp ../LO21ProjetCode/litteral/numeric.cpp ../LO21ProjetCode/litteral/real.cpp ../LO21ProjetCode/litteral/rationnal.cpp ../LO21ProjetCode/litteral/integer.cpp ../LO21ProjetCode/litteral/complex.cpp ../LO21ProjetCode/litteral/expression.cpp ../LO21ProjetCode/litteral/program.cpp ../LO21ProjetCode/structures/structures.cpp ../LO21ProjetCode/structures/stack.cpp ../LO21ProjetCode/structures/parser.cpp ../LO21ProjetCode/structures/identifierManager.cpp ../LO21ProjetCode/structures/generalManager.cpp ../LO21ProjetCode/structures/operator.cpp ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qprogrameditor.cpp ../LO21ProjetCode/snapshots.cpp ../LO21ProjetCode/structures/shunting_yard_algorithm.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../LO21ProjetCode/main.cpp ../LO21ProjetCode/qmain.cpp ../LO21ProjetCode/intermediary.cpp ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/litteral/litteral.cpp ../LO21ProjetCode/litteral/numeric.cpp ../LO21ProjetCode/litteral/real.cpp ../LO21ProjetCode/litteral/rationnal.cpp ../LO21ProjetCode/litteral/integer.cpp ../LO21ProjetCode/litteral/complex.cpp ../LO21ProjetCode/litteral/expression.cpp ../LO21ProjetCode/litteral/program.cpp ../LO21ProjetCode/structures/structures.cpp ../LO21ProjetCode/structures/stack.cpp ../LO21ProjetCode/structures/parser.cpp ../LO21ProjetCode/structures/identifierManager.cpp ../LO21ProjetCode/structures/generalManager.cpp ../LO21ProjetCode/structures/operator.cpp ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qprogrameditor.cpp ../LO21ProjetCode/snapshots.cpp ../LO21ProjetCode/structures/shunting_yard_algorithm.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../LO21ProjetCode/mainwindow.ui $(DISTDIR)/
 
 
@@ -1341,23 +1338,6 @@ litteral.o: ../LO21ProjetCode/litteral/litteral.cpp ../LO21ProjetCode/litteral/l
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/QRegExp \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qregexp.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o litteral.o ../LO21ProjetCode/litteral/litteral.cpp
-
-atom.o: ../LO21ProjetCode/litteral/atom.cpp ../LO21ProjetCode/litteral/atom.h \
-		../LO21ProjetCode/litteral/expression.h \
-		../LO21ProjetCode/litteral/litteral.h \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/QString \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qstring.h \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/QTextStream \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qtextstream.h \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/QObject \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qobject.h \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/QDebug \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
-		../LO21ProjetCode/structures/generalManager.h \
-		../LO21ProjetCode/structures/parser.h \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/QStringList \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qstringlist.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o atom.o ../LO21ProjetCode/litteral/atom.cpp
 
 numeric.o: ../LO21ProjetCode/litteral/numeric.cpp ../LO21ProjetCode/litteral/numeric.h \
 		../LO21ProjetCode/litteral/expression.h \

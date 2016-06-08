@@ -30,7 +30,7 @@ Complex Complex::operator-(const Complex & Cx) const
     *N1= (*pReal - *(Cx.pReal));
     Numeric* N2 = new Numeric(0,1,0);
     *N2=((*pImag) - (*Cx.pImag));
-    return Complex(N1,N2);
+    return *(new Complex(N1,N2));
 }
 Complex Complex::operator*(const Complex & Cx) const
 { //voir regeles de calculs ;)
