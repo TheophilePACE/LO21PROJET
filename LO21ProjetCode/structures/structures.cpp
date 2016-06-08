@@ -46,10 +46,14 @@ void Controller::command(const QString& c){
                 if(p.isOperator(str)) {
                     SnapshotManager  * s = &(SnapshotManager::getInstance());
                     s->addSnapshot(stack, &(IdentifierManager::getInstance()));
-                        if(p.isOperatorBinary(str)){
+                    if (str=="LASTOP")
+                    {
+                        str=lastStruc->lastOpe();
+                    }
+                    if(p.isOperatorBinary(str)){
                         if (stack->size()>=2) {
                              //récuperation des éléments
-
+                            lastStruc->getOpe2(stack,str);
                             //SI On a un prgm ou une expression ou un atom: les évaluer.
                             //----evaluation des prgm et des expressions et des atomes
                             //Ici, il ne reste plus que des cmplx et des numeriques
@@ -192,6 +196,22 @@ void Controller::command(const QString& c){
                                 stack->push(Rslt1);
                                 stack->push(Rslt2);
                             }
+                            else if (str=="IFT")
+                            {
+                                OperatorIFT OP;
+                                OP.loadOperand(stack);
+                                Item Rslt ;
+                                Rslt.setLit(OP.execute());
+                                if(Rslt.getPLit()!=nullptr){
+                                    stack->push(Rslt);
+                                    OperatorEVAL OP(this);
+                                    OP.loadOperand(stack);
+                                    OP.execute();
+
+                                }
+
+                            }
+
                             else {
                                 stack->setMessage(toQString("Operateur Inconnu"));
                                 }
@@ -199,9 +219,10 @@ void Controller::command(const QString& c){
 
 
                         else throw ComputerException("Pas assez d elements dans la pile");}
-
                     else if(p.isOperatorUnary(str)) {
                         if (stack->size()>=1) {
+                            lastStruc->getOpe1(stack,str);
+
                             if (str=="NOT")
                             {
 
@@ -286,11 +307,26 @@ void Controller::command(const QString& c){
                                 OP.loadOperand(stack);
                                 OP.execute();
                             }
+                            else if (str=="CLEAR")
+                            {
+                                OperatorCLEAR OP;
+                                OP.loadOperand(stack);
+                                OP.execute();
+                            }
+
+
 
                             else
                                 throw ComputerException("Operateur pas encore défini");
                         }
                         else throw ComputerException(" Pas assez d'argument dans la pile!");
+                    }
+                    else if(p.isOperatorStack(str)) {
+                         if (str=="LASTARGS")
+                        {
+                            lastStruc->lastArgu(stack);
+                        }
+
                     }
                     }
              else {

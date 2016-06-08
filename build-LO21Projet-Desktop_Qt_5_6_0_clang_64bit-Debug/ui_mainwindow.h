@@ -89,7 +89,6 @@ public:
     QPushButton *pushButton_14;
     QPushButton *pushButton_28;
     QPushButton *pushButton_23;
-    QPushButton *pushButton_24;
     QPushButton *pushButton_26;
     QPushButton *pushButton_35;
     QPushButton *pushButton_36;
@@ -373,11 +372,6 @@ public:
 
         gridLayout->addWidget(pushButton_23, 2, 0, 1, 1);
 
-        pushButton_24 = new QPushButton(groupBox);
-        pushButton_24->setObjectName(QStringLiteral("pushButton_24"));
-
-        gridLayout->addWidget(pushButton_24, 1, 1, 1, 1);
-
         pushButton_26 = new QPushButton(groupBox);
         pushButton_26->setObjectName(QStringLiteral("pushButton_26"));
 
@@ -400,7 +394,7 @@ public:
         pushButton_37 = new QPushButton(groupBox);
         pushButton_37->setObjectName(QStringLiteral("pushButton_37"));
 
-        gridLayout->addWidget(pushButton_37, 4, 2, 1, 1);
+        gridLayout->addWidget(pushButton_37, 1, 1, 1, 1);
 
 
         horizontalLayout_5->addLayout(gridLayout);
@@ -525,7 +519,7 @@ public:
         groupBox->setTitle(QApplication::translate("MainWindow", "Clavier", 0));
         pushButton_21->setText(QApplication::translate("MainWindow", "+", 0));
         pushButton_16->setText(QApplication::translate("MainWindow", "9", 0));
-        pushButton_17->setText(QString());
+        pushButton_17->setText(QApplication::translate("MainWindow", "Esp", 0));
         pushButton_13->setText(QApplication::translate("MainWindow", "*", 0));
         pushButton_18->setText(QApplication::translate("MainWindow", ".", 0));
         pushButton_19->setText(QApplication::translate("MainWindow", "$", 0));
@@ -553,7 +547,6 @@ public:
         pushButton_14->setText(QApplication::translate("MainWindow", "MOD", 0));
         pushButton_28->setText(QApplication::translate("MainWindow", "NUM", 0));
         pushButton_23->setText(QApplication::translate("MainWindow", "IFT", 0));
-        pushButton_24->setText(QApplication::translate("MainWindow", "OP", 0));
         pushButton_26->setText(QApplication::translate("MainWindow", "DROP", 0));
         pushButton_35->setText(QApplication::translate("MainWindow", "UNDO", 0));
         pushButton_36->setText(QApplication::translate("MainWindow", "REDO", 0));

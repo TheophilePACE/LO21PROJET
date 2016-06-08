@@ -4,6 +4,12 @@
 #include "expression.h"
 
 class Numeric : public Litteral {
+
+    /*!
+     * Ceci est la classe mère pour les numériques dans R, c'est à dire les réels, entiers et rationnels.
+     * Il n'y a pas d'objet permanents de cette classe, elle n'est instanciée que de manière temporaire.
+     * */
+
 protected:
     long num;
     long denum;

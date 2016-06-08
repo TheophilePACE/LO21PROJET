@@ -17,10 +17,12 @@ long Integer::setValue(long integer) {
 }
 Integer Integer::operator+(Integer integer) const
 {
-    Integer *rslt = new Integer(this->getSignedValue()+integer.getSignedValue()); //creation de a+b
-    return *rslt; //passage par valeur. Necessaire car rslt sera locale à la boucle sinon.
 
+    Integer* rslt = new Integer(this->getSignedValue()+integer.getSignedValue()); //creation de a+b
+
+    return *rslt; //passage par valeur. Necessaire car rslt sera locale à la boucle sinon.
 }
+
 Integer Integer::operator-(Integer integer) const {
     Integer *rslt = new Integer(this->getSignedValue()-integer.getSignedValue());
     return *rslt;

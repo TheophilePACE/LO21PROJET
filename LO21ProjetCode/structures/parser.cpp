@@ -7,7 +7,7 @@ Parser& Parser::getInstance(){
     return *sing.instance;
 }
 bool Parser::isOperator(const QString s){
-    return isOperatorUnary(s)||isOperatorBinary(s);
+    return isOperatorUnary(s)||isOperatorBinary(s)||isOperatorStack(s);
 }
 
 bool Parser::isOperatorBinary(QString s) {
@@ -27,6 +27,7 @@ bool Parser::isOperatorBinary(QString s) {
     if(s=="AND") return true;
     if(s=="OR") return true;
     if(s=="SWAP") return true;
+    if(s=="IFT") return true;
     return false;
 }
 
@@ -44,6 +45,12 @@ bool Parser::isOperatorUnary(QString s) {
     if(s=="STO") return true;
     if(s=="FORGET") return true;
     if(s=="EDIT") return true;
+    return false;
+}
+
+bool Parser::isOperatorStack(QString s) {
+    if(s=="LASTARGS") return true;
+    if(s=="LASTOP") return true;
     return false;
 }
 
