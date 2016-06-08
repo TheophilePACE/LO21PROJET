@@ -35,6 +35,7 @@ class QprogramEditor : public QWidget{
         explicit QprogramEditor(QWidget * parent = 0);
         void setIdentifierManager(IdentifierManager * id){prgMng=id;}
         QComboBox * accessProgramChoice();
+        ~QprogramEditor(){}
     public slots:
         void refresh();
         void choiceProgram(const QString&);

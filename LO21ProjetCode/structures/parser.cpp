@@ -63,6 +63,8 @@ std::string Parser::getType(QString s)
         return "Program";
     if(isExpression(s))
         return "Expression";
+    if(isOperator(s))
+        return "Operator";
     throw ComputerException("Type inconnu !!");
 
 }

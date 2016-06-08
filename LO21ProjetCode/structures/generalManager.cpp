@@ -23,27 +23,25 @@ void GeneralManager::addLitteral(Litteral* const l){
     if(nb==max)
        increaseCap();
     litterals[nb++]=l;
-    std::cout << "\nJ'add la litérale" << nb <<"\n";
 }
 void GeneralManager::removeLitteral(Litteral * p){
     unsigned int i=nb;
 
-    //while((i>0) && (p != litterals[i])){i--;}
-    //if(i==nb)
-    //    throw ComputerException("Suppression Impossible");
-    //delete litterals[i];
-    //std::cout << "\nJe remove la litérale" << nb-i <<"\n";
-    //do
-    //{
-    //    litterals[i]=litterals[i+1];
-    //    i++;
-    //}while(i<--nb);
+    while((i>0) && (p != litterals[i])){i--;}
+    if(i==nb)
+        throw ComputerException("Suppression Impossible");
+    do
+    {
+        litterals[i]=litterals[i+1];
+       i++;
+    }while(i<--nb);
 
 }
 
 GeneralManager::~GeneralManager(){
-   // for(unsigned int i=0;i<nb;i++)
-        //delete litterals[i];
+   for(unsigned int i=0;i<nb;i++) {
+       delete litterals[i];
+   }
     delete[] litterals;
 }
 
