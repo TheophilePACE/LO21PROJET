@@ -10,51 +10,6 @@
 #include "snapshots.h"
 
 void Controller::command(const QString& c){
-<<<<<<< HEAD
-    Parser p = Parser::getInstance();
-    QStringList list = c.split(" ", QString::SkipEmptyParts);
-    QString d = "", str;
-    bool prog = false;
-    bool listest = false;
-    for (int i = 0; i < list.size(); ++i) {
-        str = list.at(i);
-        if((str[0]=='[')&&(str[str.size()-1]!=']')) {
-            d = str;
-            prog = true;
-        }
-        else if((prog)&&(str[str.size()-1]!=']'))
-            d = d + " " + str;
-        else if((prog)&&(str[str.size()-1]==']')) {
-            prog = false;
-            d = d + " " + str;
-            str = d;
-        }
-        if((str[0]=='\'')&&(str[str.size()-1]!='\'')&&(!prog)) {
-            d = str;
-            listest = true;
-        }
-        else if((listest)&&(str[str.size()-1]!='\''))
-            d = d + str;
-        else if((listest)&&(str[str.size()-1]=='\'')) {
-            listest = false;
-            d = d + str;
-            str = d;
-        }
-
-        if((!prog)&&(!listest)) {
-            if(p.isOperator(str)) {
-                SnapshotManager  * s = &(SnapshotManager::getInstance());
-                s->addSnapshot(stack, &(IdentifierManager::getInstance()));
-                try {
-                if(str=="LASTOP"){
-                    str=lastStruc->lastOpe();
-
-                    }
-                if(p.isOperatorBinary(str)){
-                    if (stack->size()>=2) {
-                        lastStruc->getOpe2(stack,str); //stockage des deux derniers arg ainsique de l'operateur
-                         //récuperation des éléments
-=======
     try {
         Parser p = Parser::getInstance();
         QStringList list = c.split(" ", QString::SkipEmptyParts);
@@ -94,7 +49,6 @@ void Controller::command(const QString& c){
                         if(p.isOperatorBinary(str)){
                         if (stack->size()>=2) {
                              //récuperation des éléments
->>>>>>> 2cf714eaec94e37c62ec473c021e7e9258827d92
 
                             //SI On a un prgm ou une expression ou un atom: les évaluer.
                             //----evaluation des prgm et des expressions et des atomes
@@ -244,13 +198,12 @@ void Controller::command(const QString& c){
                             }
 
 
-                        else throw"Pas assez d elements dans la pile";}
+                        else throw ComputerException("Pas assez d elements dans la pile");}
 
-                else if(p.isOperatorUnary(list.at(i))) {
-                    if (stack->size()>=1) {
-                        lastStruc->getOpe1(stack,str); //stockage dy dernier arg ainsique de l'operateur
-                        if (str=="NOT")
-                        {
+                    else if(p.isOperatorUnary(str)) {
+                        if (stack->size()>=1) {
+                            if (str=="NOT")
+                            {
 
                                 Item Rslt;
                                 OperatorNOT OP;
@@ -313,43 +266,6 @@ void Controller::command(const QString& c){
                             else if (str=="DROP")
                             {
 
-<<<<<<< HEAD
-                            stack->pop();
-                        }
-                        else if (str=="CLEAR")
-                        {
-
-                            Item Rslt;
-                            OperatorCLEAR OP;
-                            OP.loadOperand(stack);
-                            Rslt.setLit(OP.execute());
-                        }
-                        else
-                            throw "Operateur pas encore défini";
-                    }
-                    else throw" Pas assez d'argument dans la pile!";
-                }
-
-                else if(p.isOperatorStack(list.at(i))) {
-                    if(str=="LASTARGS")
-                    {
-                        lastStruc->lastArgu(stack);
-                    }
-
-                }
-                }
-        catch(char const* s)
-        {
-            QWidget * widgetSearched;
-            foreach (QWidget *widget, QApplication::allWidgets()) {
-                if(widget->accessibleName()=="ButtonNoSound")
-                    widgetSearched = widget;
-            }
-            if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
-                QSound::play("../wahoo.wav");
-            stack->setMessage(toQString(s));
-        }
-        }
                                 stack->pop();
                             }
                             else if (str=="EVAL")
@@ -372,10 +288,9 @@ void Controller::command(const QString& c){
                             }
 
                             else
-                                throw "Operateur pas encore défini";
+                                throw ComputerException("Operateur pas encore défini");
                         }
-                        else throw" Pas assez d'argument dans la pile!";
->>>>>>> 2cf714eaec94e37c62ec473c021e7e9258827d92
+                        else throw ComputerException(" Pas assez d'argument dans la pile!");
                     }
                     }
              else {
@@ -383,13 +298,13 @@ void Controller::command(const QString& c){
                         if(I) {
                             SnapshotManager  * s = &(SnapshotManager::getInstance());
                             s->addSnapshot(stack, &(IdentifierManager::getInstance()));
-                            if(typeid(*(I->getPLit()))==typeid(Program))
-                                command(toQString((*(I->getPLit())).toString()));
-                            else
-                                stack->push(*I);
+                            stack->push(*I);
                         }
-                        else
-                            throw "Erreur : commande inconnue";
+                        else {
+                            Identifier * id = IdentifierManager::getInstance().getIdentifier(*(new Atom(str)));
+                            command(toQString((*(id->getPValue())).toString()));
+                        }
+
                 }
             }
         }
@@ -402,7 +317,7 @@ void Controller::command(const QString& c){
     QComputer * comp = tab->findChild<QComputer*>("CalcTab");
     comp->accessLineEdit()->setText("");
     }
-    catch(char const* s)
+    catch(ComputerException exp)
     {
 
         QWidget * widgetSearched;
@@ -411,8 +326,10 @@ void Controller::command(const QString& c){
                 widgetSearched = widget;
         }
 
-        if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
+        if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked())) {
+            QApplication::beep();
             QSound::play("../wahoo.wav");
-        stack->setMessage(toQString(s));
+        }
+        stack->setMessage(exp.getInfo());
     }
 }

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <sstream>
 #include "../intermediary.h"
+#include "computerException.h"
 
 class Stack {
 
@@ -21,7 +22,7 @@ public:
     void pop();
     bool empty() const { return nb==0; }
     unsigned int size() const { return nb; }
-    const std::string display() const;
+    const QString display() const;
     Litteral* top() const;
     void setNbItemsDisplayed(unsigned int n) { nbItemsDisplayed=n; }
     unsigned int getNbItemsDisplayed() const { return nbItemsDisplayed; }

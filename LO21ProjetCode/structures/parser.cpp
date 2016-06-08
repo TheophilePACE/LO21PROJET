@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "computerException.h"
 
 Parser::Singleton Parser::sing=Parser::Singleton();
 Parser& Parser::getInstance(){
@@ -10,38 +11,37 @@ bool Parser::isOperator(const QString s){
 }
 
 bool Parser::isOperatorBinary(QString s) {
-    if (s=="+") return true;
-    if (s=="-") return true;
-    if (s=="*") return true;
-    if (s=="/") return true;
-    if (s=="<") return true;
-    if (s==">") return true;
-    if (s=="=") return true;
-    if (s=="<=") return true;
-    if (s==">=") return true;
-    if (s=="!=") return true;
-    if (s=="=") return true;
-    if (s=="DIV") return true;
-    if (s=="MOD") return true;
-    if (s=="$") return true;
-    if (s=="AND") return true;
-    if (s=="OR") return true;
-    if (s=="STO") return true;
-    if (s=="SWAP") return true;
+    if(s=="+") return true;
+    if(s=="-") return true;
+    if(s=="*") return true;
+    if(s=="/") return true;
+    if(s=="<") return true;
+    if(s==">") return true;
+    if(s=="=") return true;
+    if(s=="<=") return true;
+    if(s==">=") return true;
+    if(s=="!=") return true;
+    if(s=="DIV") return true;
+    if(s=="MOD") return true;
+    if(s=="$") return true;
+    if(s=="AND") return true;
+    if(s=="OR") return true;
+    if(s=="SWAP") return true;
     return false;
 }
 
 bool Parser::isOperatorUnary(QString s) {
-    if (s=="NOT") return true;
-    if (s=="NEG") return true;
-    if (s=="RE") return true;
-    if (s=="IM") return true;
-    if (s=="DEN") return true;
-    if (s=="NUM") return true;
+    if(s=="NOT") return true;
+    if(s=="NEG") return true;
+    if(s=="RE") return true;
+    if(s=="IM") return true;
+    if(s=="DEN") return true;
+    if(s=="NUM") return true;
     if(s=="DROP") return true;
     if(s=="DUP") return true;
     if(s=="CLEAR") return true;
     if(s=="EVAL") return true;
+    if(s=="STO") return true;
     if(s=="FORGET") return true;
     if(s=="EDIT") return true;
     return false;
@@ -69,7 +69,7 @@ std::string Parser::getType(QString s)
         return "Program";
     if(isExpression(s))
         return "Expression";
-    throw "Type inconnu !!";
+    throw ComputerException("Type inconnu !!");
 
 }
 long Parser::getNum(QString s){

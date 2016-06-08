@@ -3,12 +3,13 @@
 
 #include "expression.h"
 
-class Numeric : public ExpressionMaterial
-{
+class Numeric : public Litteral {
+
     /*!
      * Ceci est la classe mère pour les numériques dans R, c'est à dire les réels, entiers et rationnels.
      * Il n'y a pas d'objet permanents de cette classe, elle n'est instanciée que de manière temporaire.
      * */
+
 protected:
     long num;
     long denum;
@@ -28,7 +29,7 @@ public:
     //virtual Numeric operator< (const Numeric& N) const;
     virtual void print(QTextStream& f)const; //implémentée
     virtual std::string toString()const;//implémentée
-    virtual std::string toStringPars()const;//implémentée
+    virtual QString toQStringPars()const;//implémentée
     ~Numeric(){}
     Numeric(long n,long d,double m): num(n), denum(d), mantisse(m) {}
     Numeric(long n,long d): num(n), denum(d), mantisse(0) {}

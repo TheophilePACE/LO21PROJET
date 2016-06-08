@@ -30,9 +30,9 @@ void GeneralManager::removeLitteral(Litteral * p){
 
     //while((i>0) && (p != litterals[i])){i--;}
     //if(i==nb)
-    //    throw "Suppression Impossible";
+    //    throw ComputerException("Suppression Impossible");
     //delete litterals[i];
-    std::cout << "\nJe remove la litérale" << nb-i <<"\n";
+    //std::cout << "\nJe remove la litérale" << nb-i <<"\n";
     //do
     //{
     //    litterals[i]=litterals[i+1];
@@ -52,7 +52,7 @@ void GeneralManager::freeInstance(){
     sing.instance = nullptr;
 }
 Item * GeneralManager::createProgram(QString s){
-    Program * newProg = new Program(s.toStdString());
+    Program * newProg = new Program(s);
     Item * It = new Item;
     It->setLit(newProg);
     return It;
@@ -76,7 +76,7 @@ Item * GeneralManager::createItem(QString s) {
         return It;
     }
         else
-            throw "Erreur de type";
+            throw ComputerException("Erreur de type");
 }
 
 Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de numeric
@@ -118,23 +118,27 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
     {
         if(p.isOperator(s))
         {
-            throw "C'est un operateur donc pas de création";
+            throw ComputerException("C'est un operateur donc pas de création");
         }
         else
         {
-            Identifier * id = IdentifierManager::getInstance().getIdentifier(*(new Atom(s.toStdString())));
+            Identifier * id = IdentifierManager::getInstance().getIdentifier(*(new Atom(s)));
             if(id==NULL)
             {
-                Expression * newExp = new Expression(s.insert(0,'\'').insert(s.size()+1,'\'').toStdString());
+                Expression * newExp = new Expression(s.insert(0,'\'').insert(s.size()+1,'\''));
                 Item * It = new Item;
                 It->setLit(newExp);
                 return It;
             }
             else
             {
-                Item * It = new Item;
-                It->setLit(id->getPValue());
-                return It;
+                if(typeid((*id->getPValue()))==typeid(Program))
+                    return NULL;
+                else {
+                    Item * It = new Item;
+                    It->setLit(id->getPValue());
+                    return It;
+                }
             }
 
         }
@@ -142,7 +146,7 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
     }
     if (type=="Expression")
     {
-        Expression * newExp = new Expression(s.toStdString());
+        Expression * newExp = new Expression(s);
         Item * It = new Item;
         It->setLit(newExp);
         return It;
@@ -151,11 +155,11 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
     {
         if(s[1]==' ') s.remove(1,1);
         if(s[s.size()-2]==' ') s.remove(s.size()-2,1);
-        Program * newProg = new Program(s.toStdString());
+        Program * newProg = new Program(s);
         Item * It = new Item;
         It->setLit(newProg);
         return It;
     }
     else
-        throw "Erreur de type";
+        throw ComputerException("Erreur de type");
 }

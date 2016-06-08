@@ -19,7 +19,7 @@ public:
     bool isInteger() const;
     void print(QTextStream& f)const;
     std::string toString()const;
-    std::string toStringPars()const;
+    QString toQStringPars()const;
     Real operator+(Real re) const;
     Real operator-(Real re)const ;
     Real operator*(Real re) const ;

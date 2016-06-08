@@ -263,7 +263,8 @@ DIST          = /Users/pascalereghem/Qt/5.6/clang_64/mkspecs/features/spec_pre.p
 		../LO21ProjetCode/qvareditor.h \
 		../LO21ProjetCode/qprogrameditor.h \
 		../LO21ProjetCode/snapshots.h \
-		../LO21ProjetCode/structures/shunting_yard_algorithm.h ../LO21ProjetCode/main.cpp \
+		../LO21ProjetCode/structures/shunting_yard_algorithm.h \
+		../LO21ProjetCode/structures/computerException.h ../LO21ProjetCode/main.cpp \
 		../LO21ProjetCode/qmain.cpp \
 		../LO21ProjetCode/intermediary.cpp \
 		../LO21ProjetCode/mainwindow.cpp \
@@ -624,7 +625,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../LO21ProjetCode/qmain.h ../LO21ProjetCode/intermediary.h ../LO21ProjetCode/mainwindow.h ../LO21ProjetCode/litteral/litteral.h ../LO21ProjetCode/litteral/atom.h ../LO21ProjetCode/litteral/numeric.h ../LO21ProjetCode/litteral/real.h ../LO21ProjetCode/litteral/rationnal.h ../LO21ProjetCode/litteral/integer.h ../LO21ProjetCode/litteral/complex.h ../LO21ProjetCode/litteral/program.h ../LO21ProjetCode/litteral/expression.h ../LO21ProjetCode/structures/structures.h ../LO21ProjetCode/structures/stack.h ../LO21ProjetCode/structures/parser.h ../LO21ProjetCode/structures/identifierManager.h ../LO21ProjetCode/structures/generalManager.h ../LO21ProjetCode/structures/operator.h ../LO21ProjetCode/qvareditor.h ../LO21ProjetCode/qprogrameditor.h ../LO21ProjetCode/snapshots.h ../LO21ProjetCode/structures/shunting_yard_algorithm.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../LO21ProjetCode/qmain.h ../LO21ProjetCode/intermediary.h ../LO21ProjetCode/mainwindow.h ../LO21ProjetCode/litteral/litteral.h ../LO21ProjetCode/litteral/atom.h ../LO21ProjetCode/litteral/numeric.h ../LO21ProjetCode/litteral/real.h ../LO21ProjetCode/litteral/rationnal.h ../LO21ProjetCode/litteral/integer.h ../LO21ProjetCode/litteral/complex.h ../LO21ProjetCode/litteral/program.h ../LO21ProjetCode/litteral/expression.h ../LO21ProjetCode/structures/structures.h ../LO21ProjetCode/structures/stack.h ../LO21ProjetCode/structures/parser.h ../LO21ProjetCode/structures/identifierManager.h ../LO21ProjetCode/structures/generalManager.h ../LO21ProjetCode/structures/operator.h ../LO21ProjetCode/qvareditor.h ../LO21ProjetCode/qprogrameditor.h ../LO21ProjetCode/snapshots.h ../LO21ProjetCode/structures/shunting_yard_algorithm.h ../LO21ProjetCode/structures/computerException.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../LO21ProjetCode/main.cpp ../LO21ProjetCode/qmain.cpp ../LO21ProjetCode/intermediary.cpp ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/litteral/litteral.cpp ../LO21ProjetCode/litteral/atom.cpp ../LO21ProjetCode/litteral/numeric.cpp ../LO21ProjetCode/litteral/real.cpp ../LO21ProjetCode/litteral/rationnal.cpp ../LO21ProjetCode/litteral/integer.cpp ../LO21ProjetCode/litteral/complex.cpp ../LO21ProjetCode/litteral/expression.cpp ../LO21ProjetCode/litteral/program.cpp ../LO21ProjetCode/structures/structures.cpp ../LO21ProjetCode/structures/stack.cpp ../LO21ProjetCode/structures/parser.cpp ../LO21ProjetCode/structures/identifierManager.cpp ../LO21ProjetCode/structures/generalManager.cpp ../LO21ProjetCode/structures/operator.cpp ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qprogrameditor.cpp ../LO21ProjetCode/snapshots.cpp ../LO21ProjetCode/structures/shunting_yard_algorithm.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../LO21ProjetCode/mainwindow.ui $(DISTDIR)/
 
@@ -702,6 +703,7 @@ moc_qmain.cpp: /Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Head
 		../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/program.h \
 		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		../LO21ProjetCode/structures/identifierManager.h \
 		../LO21ProjetCode/qmain.h
@@ -761,6 +763,7 @@ moc_mainwindow.cpp: /Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework
 		../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/program.h \
 		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		../LO21ProjetCode/structures/identifierManager.h \
 		../LO21ProjetCode/mainwindow.h
@@ -805,6 +808,7 @@ moc_qvareditor.cpp: /Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework
 		../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/program.h \
 		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -860,6 +864,7 @@ moc_qprogrameditor.cpp: ../LO21ProjetCode/structures/identifierManager.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../LO21ProjetCode/litteral/atom.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -929,6 +934,7 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/program.h \
 		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -996,6 +1002,7 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/program.h \
 		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		../LO21ProjetCode/structures/identifierManager.h \
 		../LO21ProjetCode/structures/identifierManager.h \
@@ -1032,6 +1039,7 @@ ui_mainwindow.h: ../LO21ProjetCode/mainwindow.ui \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../LO21ProjetCode/litteral/atom.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -1097,6 +1105,7 @@ main.o: ../LO21ProjetCode/main.cpp ../LO21ProjetCode/litteral/litteral.h \
 		../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/program.h \
 		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/qmain.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -1177,6 +1186,7 @@ qmain.o: ../LO21ProjetCode/qmain.cpp ../LO21ProjetCode/qmain.h \
 		../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/program.h \
 		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		../LO21ProjetCode/structures/identifierManager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qmain.o ../LO21ProjetCode/qmain.cpp
@@ -1221,6 +1231,7 @@ intermediary.o: ../LO21ProjetCode/intermediary.cpp ../LO21ProjetCode/litteral/li
 		../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/program.h \
 		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -1296,6 +1307,7 @@ mainwindow.o: ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/mainwindow.h \
 		../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/program.h \
 		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		../LO21ProjetCode/structures/identifierManager.h \
 		ui_mainwindow.h \
@@ -1511,6 +1523,7 @@ structures.o: ../LO21ProjetCode/structures/structures.cpp ../LO21ProjetCode/litt
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../LO21ProjetCode/litteral/atom.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/qmain.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -1531,7 +1544,24 @@ structures.o: ../LO21ProjetCode/structures/structures.cpp ../LO21ProjetCode/litt
 		../LO21ProjetCode/snapshots.h \
 		../LO21ProjetCode/structures/identifierManager.h \
 		../LO21ProjetCode/structures/operator.h \
-		../LO21ProjetCode/litteral/complex.h
+		../LO21ProjetCode/litteral/complex.h \
+		../LO21ProjetCode/structures/shunting_yard_algorithm.h \
+		../LO21ProjetCode/qprogrameditor.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QComboBox \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QLabel \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtGui.framework/Headers/QWindow \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtGui.framework/Headers/qwindow.h \
+		../LO21ProjetCode/mainwindow.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtXml.framework/Headers/QtXml \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtXml.framework/Headers/qtxmlglobal.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtXml.framework/Headers/qdom.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtXml.framework/Headers/qxml.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtXml.framework/Headers/qtxmlversion.h \
+		../rapidxml-1.13/rapidxml_print.hpp \
+		../rapidxml-1.13/rapidxml.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o structures.o ../LO21ProjetCode/structures/structures.cpp
 
 stack.o: ../LO21ProjetCode/structures/stack.cpp ../LO21ProjetCode/structures/stack.h \
@@ -1558,14 +1588,24 @@ stack.o: ../LO21ProjetCode/structures/stack.cpp ../LO21ProjetCode/structures/sta
 		../LO21ProjetCode/structures/generalManager.h \
 		../LO21ProjetCode/structures/parser.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/QStringList \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qstringlist.h
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		../LO21ProjetCode/structures/computerException.h \
+		../LO21ProjetCode/structures/structures.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtMultimedia.framework/Headers/QSound \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtMultimedia.framework/Headers/qsound.h \
+		../LO21ProjetCode/litteral/integer.h \
+		../LO21ProjetCode/litteral/numeric.h \
+		../LO21ProjetCode/litteral/real.h \
+		../LO21ProjetCode/litteral/rationnal.h \
+		../LO21ProjetCode/litteral/program.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o stack.o ../LO21ProjetCode/structures/stack.cpp
 
 parser.o: ../LO21ProjetCode/structures/parser.cpp ../LO21ProjetCode/structures/parser.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/QString \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/QStringList \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qstringlist.h
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		../LO21ProjetCode/structures/computerException.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parser.o ../LO21ProjetCode/structures/parser.cpp
 
 identifierManager.o: ../LO21ProjetCode/structures/identifierManager.cpp ../LO21ProjetCode/structures/identifierManager.h \
@@ -1601,7 +1641,8 @@ identifierManager.o: ../LO21ProjetCode/structures/identifierManager.cpp ../LO21P
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		../LO21ProjetCode/litteral/atom.h
+		../LO21ProjetCode/litteral/atom.h \
+		../LO21ProjetCode/structures/computerException.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o identifierManager.o ../LO21ProjetCode/structures/identifierManager.cpp
 
 generalManager.o: ../LO21ProjetCode/structures/generalManager.cpp ../LO21ProjetCode/structures/generalManager.h \
@@ -1638,6 +1679,7 @@ generalManager.o: ../LO21ProjetCode/structures/generalManager.cpp ../LO21ProjetC
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../LO21ProjetCode/litteral/atom.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/litteral/complex.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o generalManager.o ../LO21ProjetCode/structures/generalManager.cpp
 
@@ -1667,6 +1709,7 @@ operator.o: ../LO21ProjetCode/structures/operator.cpp ../LO21ProjetCode/structur
 		../LO21ProjetCode/structures/parser.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/QStringList \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/litteral/complex.h \
 		../LO21ProjetCode/litteral/real.h \
 		../LO21ProjetCode/litteral/rationnal.h \
@@ -1676,7 +1719,41 @@ operator.o: ../LO21ProjetCode/structures/operator.cpp ../LO21ProjetCode/structur
 		../LO21ProjetCode/structures/structures.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtMultimedia.framework/Headers/QSound \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtMultimedia.framework/Headers/qsound.h \
-		../LO21ProjetCode/litteral/program.h
+		../LO21ProjetCode/litteral/program.h \
+		../LO21ProjetCode/structures/shunting_yard_algorithm.h \
+		../LO21ProjetCode/qprogrameditor.h \
+		../LO21ProjetCode/snapshots.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QComboBox \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QTextEdit \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QLineEdit \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QLabel \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtGui.framework/Headers/QWindow \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtGui.framework/Headers/qwindow.h \
+		../LO21ProjetCode/mainwindow.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QTableWidget \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QHeaderView \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qheaderview.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QShortcut \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qshortcut.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtXml.framework/Headers/QtXml \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtXml.framework/Headers/qtxmlglobal.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtXml.framework/Headers/qdom.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtXml.framework/Headers/qxml.h \
+		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtXml.framework/Headers/qtxmlversion.h \
+		../rapidxml-1.13/rapidxml_print.hpp \
+		../rapidxml-1.13/rapidxml.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o operator.o ../LO21ProjetCode/structures/operator.cpp
 
 qvareditor.o: ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qvareditor.h \
@@ -1719,6 +1796,7 @@ qvareditor.o: ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qvareditor.h \
 		../LO21ProjetCode/litteral/rationnal.h \
 		../LO21ProjetCode/litteral/program.h \
 		../LO21ProjetCode/structures/stack.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -1774,6 +1852,7 @@ qprogrameditor.o: ../LO21ProjetCode/qprogrameditor.cpp ../LO21ProjetCode/qprogra
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../LO21ProjetCode/litteral/atom.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -1820,6 +1899,7 @@ snapshots.o: ../LO21ProjetCode/snapshots.cpp ../LO21ProjetCode/snapshots.h \
 		../LO21ProjetCode/structures/parser.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/QStringList \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/structures/identifierManager.h \
 		../LO21ProjetCode/structures/structures.h \
 		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtMultimedia.framework/Headers/QSound \

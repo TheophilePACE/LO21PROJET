@@ -25,12 +25,12 @@ void Rationnal::print(QTextStream& f)const{
 
 }
 std::string Rationnal::toString()const{
-    std::stringstream sf;
-    sf<<num<<"/"<<denum;
-    return sf.str();
+    return toQStringPars().toStdString();
 }
-std::string Rationnal::toStringPars()const{
-    return toString();
+QString Rationnal::toQStringPars()const{
+    std::stringstream sf;
+    sf<< std::to_string(num) <<"/"<<std::to_string(denum);
+    return toQString(sf.str());
 }
 Rationnal Rationnal::operator +(Rationnal frac) const
 {

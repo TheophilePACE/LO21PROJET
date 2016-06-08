@@ -34,6 +34,7 @@ class QComputer : public QWidget{
         void getNextCommande();
         void keyboardButtonPressed(QAbstractButton* g);
         void sliderMoved(int n);
+        void insertBlank();
 };
 
 

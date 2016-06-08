@@ -27,8 +27,8 @@ std::string Real::toString()const{
     str.erase ( str.find_last_not_of('0') + 1, std::string::npos );
     return str;
 }
-std::string Real::toStringPars()const {
-    return toQString(toString()).replace(",",".").toStdString();
+QString Real::toQStringPars()const {
+    return toQString(toString()).replace(",",".");
 }
 void Real::print(QTextStream& f)const
 {

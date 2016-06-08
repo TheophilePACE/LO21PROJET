@@ -42,7 +42,7 @@ public:
     Litteral* getPValue()const{return value;}
 };
 
-void ExceptionWindow(const char * s);
+void ExceptionWindow(QString s);
 void CheckButtons();
 
 #endif // INTERMEDIARY_H

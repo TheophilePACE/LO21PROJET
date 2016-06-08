@@ -7,10 +7,23 @@
 typedef std::map< std::string, std::pair< int,int > > OpMap;
 
 const OpMap::value_type assocs[] =
-    {  OpMap::value_type( "+", std::make_pair<int,int>( 0, LEFT_ASSOC ) ),
-       OpMap::value_type( "-", std::make_pair<int,int>( 0, LEFT_ASSOC ) ),
-       OpMap::value_type( "*", std::make_pair<int,int>( 5, LEFT_ASSOC ) ),
-       OpMap::value_type( "/", std::make_pair<int,int>( 5, LEFT_ASSOC ) ) };
+    {  OpMap::value_type( "+", std::make_pair<int,int>( 5, LEFT_ASSOC ) ),
+       OpMap::value_type( "-", std::make_pair<int,int>( 5, LEFT_ASSOC ) ),
+       OpMap::value_type( "*", std::make_pair<int,int>( 10, LEFT_ASSOC ) ),
+       OpMap::value_type( "/", std::make_pair<int,int>( 10, LEFT_ASSOC ) ),
+       OpMap::value_type( "<", std::make_pair<int,int>( 15, LEFT_ASSOC ) ),
+       OpMap::value_type( ">", std::make_pair<int,int>( 15, LEFT_ASSOC ) ),
+       OpMap::value_type( "=", std::make_pair<int,int>( 20, LEFT_ASSOC ) ),
+       OpMap::value_type( "<=", std::make_pair<int,int>( 15, LEFT_ASSOC ) ),
+       OpMap::value_type( ">=", std::make_pair<int,int>( 15, LEFT_ASSOC ) ),
+       OpMap::value_type( "!=", std::make_pair<int,int>( 15, LEFT_ASSOC ) ),
+       OpMap::value_type( "DIV", std::make_pair<int,int>( 5, LEFT_ASSOC ) ),
+       OpMap::value_type( "MOD", std::make_pair<int,int>( 5, LEFT_ASSOC ) ),
+       OpMap::value_type( "$", std::make_pair<int,int>( 11, LEFT_ASSOC ) ),
+       OpMap::value_type( "AND", std::make_pair<int,int>( 15, LEFT_ASSOC ) ),
+       OpMap::value_type( "OR", std::make_pair<int,int>( 15, LEFT_ASSOC ) ),
+       OpMap::value_type( "SWAP", std::make_pair<int,int>( 20, LEFT_ASSOC ) )
+    };
 
 const OpMap opmap( assocs, assocs + sizeof( assocs ) / sizeof( assocs[ 0 ] ) );
 

@@ -5,13 +5,12 @@ IdentifierManager::IdentifierManager(const IdentifierManager& m){
     nb = 0;
     identifiers = new Identifier *[max];
     for(unsigned int i=0;i<m.nb;i++)
-        addIdentifier(m.identifiers[i]->getLib()->toString(),m.identifiers[i]->getPValue());
+        addIdentifier(toQString(m.identifiers[i]->getLib()->toString()),m.identifiers[i]->getPValue());
 
 }
 IdentifierManager::~IdentifierManager(){
-    //for(unsigned int i=0; i<nb; i++) {
-    //    delete identifiers[i];
-   // }
+    for(unsigned int i=0; i<nb; i++)
+        delete identifiers[i];
     delete[] identifiers;
 }
 
@@ -25,7 +24,7 @@ void IdentifierManager::increaseCap()
     identifiers = newtab;
     delete[] old;
 }
-void IdentifierManager::addIdentifier(std::string s, Litteral* l){
+void IdentifierManager::addIdentifier(QString s, Litteral* l){
     if(nb==max)
        increaseCap();
     Atom * at = new Atom(s);
@@ -39,8 +38,8 @@ void IdentifierManager::removeIdentifier(Identifier& p){
 
     while((i<nb) && (&p != identifiers[i])){i++;}
     if(i==nb)
-        throw "Suppression Impossible";
-    //delete identifiers[i];
+        throw ComputerException("Suppression Impossible");
+    delete identifiers[i];
     do
     {
         identifiers[i]=identifiers[i+1];
@@ -80,36 +79,36 @@ unsigned int IdentifierManager::sizeAtoms() const {
     return size()-nProg;
 }
 
-const std::string IdentifierManager::displayVar() const {
+const QString IdentifierManager::displayVar() const {
     std::stringstream f;
     unsigned int j=0;
     for(unsigned int i=0; i<nb; i++) {
             if((typeid(*(identifiers[i]->getPValue()))!=typeid(Program)))
             {
                 j++;
-                f << (*(identifiers[i]->getLib())).toStringPars();
+                f << (*(identifiers[i]->getLib())).toQStringPars().toStdString();;
                 f << "-";
-                f << (*(identifiers[i]->getPValue())).toStringPars();
+                f << (*(identifiers[i]->getPValue())).toQStringPars().toStdString();;
                 if(j!=sizeAtoms())
                     f<<" ";
             }
     }
-    return f.str();
+    return toQString(f.str());
 }
-const std::string IdentifierManager::displayProg() const {
+const QString IdentifierManager::displayProg() const {
     std::stringstream f;
     unsigned int j=0;
     for(unsigned int i=0; i<nb; i++) {
         if((typeid(*(identifiers[i]->getPValue()))==typeid(Program)))
         {
                 j++;
-                f << (*(identifiers[i]->getLib())).toStringPars();
+                f << (*(identifiers[i]->getLib())).toString();
                 f << "[";
-                f << (*(identifiers[i]->getPValue())).toStringPars();
+                f << (*(identifiers[i]->getPValue())).toString();
                 f << "]";
                 if(j!=size()-sizeAtoms())
                     f<<"_";
         }
     }
-    return f.str();
+    return toQString(f.str());
 }

@@ -8,8 +8,8 @@ void Integer::print(QTextStream& f)const
 std::string Integer::toString()const{
     return std::to_string(num);
 }
-std::string Integer::toStringPars()const{
-    return toString();
+QString Integer::toQStringPars()const{
+    return QString::number(num);
 }
 long Integer::setValue(long integer) {
     this->num=integer;
@@ -17,8 +17,8 @@ long Integer::setValue(long integer) {
 }
 Integer Integer::operator+(Integer integer) const
 {
-    Integer rslt(this->getSignedValue()+integer.getSignedValue()); //creation de a+b
-    return rslt; //passage par valeur. Necessaire car rslt sera locale à la boucle sinon.
+    Integer* rslt = new Integer(this->getSignedValue()+integer.getSignedValue()); //creation de a+b
+    return *rslt; //passage par valeur. Necessaire car rslt sera locale à la boucle sinon.
 
 }
 Integer Integer::operator-(Integer integer) const {

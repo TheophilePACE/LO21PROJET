@@ -14,7 +14,7 @@ public:
     long getSignedValue() const {return num;}
     void print (QTextStream& f)const;
     std::string toString()const;
-    std::string toStringPars()const;
+    QString toQStringPars()const;
     long setValue(long integer);
     Integer operator+(Integer integer) const;
     Integer operator-(Integer integer)const ;

@@ -4,13 +4,13 @@
 #include "litteral.h"
 
 class Program : public Litteral {
-    std::string instructions;
+    QString instructions;
 public:
-    Program(std::string s):instructions(s){}
+    Program(QString s):instructions(s){}
     ~Program(){}
     void print(QTextStream& f)const;
-    std::string toString()const{return instructions;}
-    std::string toStringPars()const{return toString();}
+    std::string toString()const{return instructions.toStdString();}
+    QString toQStringPars()const{return instructions;}
 };
 
 #endif // PROGRAM_H
