@@ -18,9 +18,7 @@ bool Real::simplify() {
     }
     return 0;
 }
-bool Real::isInteger() const{
-    return (mantisse==0);
-}
+
 std::string Real::toString()const{
     double f=getSignedValue();
     std::string str = std::to_string(f);
