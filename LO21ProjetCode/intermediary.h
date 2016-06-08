@@ -24,6 +24,7 @@ class Item {
 public:
     Item(): lit(nullptr){}
     ~Item(){}
+    Item(Item& i){lit=i.lit;}
     void setLit(Litteral* l){lit = l;}
     Litteral* getPLit()const{return lit;}
     void raz() {lit=nullptr;}

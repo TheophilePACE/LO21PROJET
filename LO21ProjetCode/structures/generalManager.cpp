@@ -76,7 +76,7 @@ Item * GeneralManager::createItem(QString s) {
             throw ComputerException("Erreur de type");
 }
 
-Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de numeric
+Item * GeneralManager::createSimpleItem(QString s) //factoriser la création de numeric
 {
     Parser p = Parser::getInstance();
     std::string type = p.getType(s);
