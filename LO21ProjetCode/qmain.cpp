@@ -67,22 +67,7 @@ void QComputer::getNextCommande()
     controleur->setStack(pile);
     pile->setMessage("");
     //recuperation du texte de la ligne de commande
-    QString c = commande->text();
-    try {
-        controleur->command(commande->text());
-    }
-    catch (char const* s) {
-        QWidget * widgetSearched;
-        foreach (QWidget *widget, QApplication::allWidgets()) {
-            if(widget->accessibleName()=="ButtonNoSound")
-                widgetSearched = widget;
-        }
-        if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
-            QSound::play("../wahoo.wav");
-        pile->setMessage(toQString(s));
-    }
-
-    commande->setText("");
+    controleur->command(commande->text());
     controleur->setStack(pile);
     refresh();
 }

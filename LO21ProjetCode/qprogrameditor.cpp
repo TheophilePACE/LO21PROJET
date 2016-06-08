@@ -27,6 +27,8 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
     generalView = new QVBoxLayout(this);
     commandView = new QHBoxLayout();
 
+    programChoice->setAccessibleName("programChoice");
+
     validation->setText("Valider");
     QLabel * text1 = new QLabel;
 
@@ -85,7 +87,7 @@ void QprogramEditor::saveProgram(){
     refresh();
 }
 void QprogramEditor::newProgram(){
-    GeneralManager mng = GeneralManager::getInstance();
+    GeneralManager * mng = &(GeneralManager::getInstance());
     Parser p = Parser::getInstance();
     try {
         if(newProgName->text()=="")
@@ -97,7 +99,7 @@ void QprogramEditor::newProgram(){
                 throw "Nom Existe déjà";
         SnapshotManager * s = &(SnapshotManager::getInstance());
         s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
-        prgMng->addIdentifier(newProgName->text().toStdString(),mng.createProgram("")->getPLit());
+        prgMng->addIdentifier(newProgName->text().toStdString(),mng->createProgram("")->getPLit());
     }
     catch (char const* s) {
             ExceptionWindow(s);
@@ -131,4 +133,6 @@ void QprogramEditor::destroyProgram(){
     }
     refresh();
 }
-
+QComboBox * QprogramEditor::accessProgramChoice() {
+    return programChoice;
+}

@@ -25,10 +25,9 @@ public:
     virtual Numeric operator* (const Numeric& N) const;
     bool operator== (const Numeric& N) const;
     Numeric NEG() const;
-    //virtual Numeric operator< (const Numeric& N) const;
-    virtual void print(QTextStream& f)const; //implémentée
-    virtual std::string toString()const;//implémentée
-    virtual std::string toStringPars()const;//implémentée
+    virtual void print(QTextStream& f)const; ///implémentée
+    virtual std::string toString()const;///implémentée
+    virtual std::string toStringPars()const;///implémentée
     ~Numeric(){}
     Numeric(long n,long d,double m): num(n), denum(d), mantisse(m) {}
     Numeric(long n,long d): num(n), denum(d), mantisse(0) {}
@@ -36,25 +35,16 @@ public:
     Numeric(double m): num(trunc(m)), denum(1), mantisse(m-trunc(m)) {}
     Numeric(): num(0), denum(1), mantisse(0) {}
     Numeric (Numeric& N): num(N.num), denum(N.denum), mantisse(N.mantisse) {}
-    //FONCTION POUR LES CONVERSIONS
+    ///FONCTION POUR LES CONVERSIONS
     bool numIsInteger() const {return ((mantisse==0)&&(denum==1));} // A.0/1
     bool numIsRationnal() const {return ((mantisse==0)&&(denum!=1));}//A.0/B, A PEUT ETRE 0, PAS B
     bool numIsReal() const {return ((mantisse!=0)&&(denum==1));}//A.B/1
     double getVal() const;
-   // Numeric operator=(Numeric N );
 };
 
 
 
-//TEMPLATE POUR ADDITION Numeric
-/*template <class T1, class T2>
-Numeric* addNum (T1* N1,T2* N2)
-{
-    Numeric * Rslt;
-    Rslt=dynamic_cast<Numeric*>( &( *(N1) + *(N2) ) );
-    return Rslt;
-}
-*/
+
 
 
 #endif // NUMERIC_H

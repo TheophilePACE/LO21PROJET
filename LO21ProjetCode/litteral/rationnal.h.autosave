@@ -6,18 +6,18 @@
 class Litteral;
 class Integer;
 
-class Rationnal : public Numeric {
+class Rationnal : public Numeric { ///Classes des fractions. Cette classe ne contient pas d'Integers, les num et denum sont stockés sous forme de long.
 private:
 public:
 
-    Rationnal(long N, long D ): Numeric(N,D) {simplify();} //utile en cas de division. Comment gérer le retour?
-    Rationnal(Integer a, Integer b); //Attention au simplicifications
+    Rationnal(long N, long D ): Numeric(N,D) {simplify();} ///utile en cas de division. Comment gérer le retour?
+    Rationnal(Integer a, Integer b); ///Attention aux simplicifications
     Rationnal(Rationnal& R): Numeric(R.num,R.denum) {}
     ~Rationnal(){}
     void print(QTextStream& f)const;
     std::string toString()const;
     std::string toStringPars()const;
-    Rationnal simplify() ; //retour de type pointeur sur classe mere
+    Rationnal simplify() ; ///retour de type pointeur sur classe mere
     Rationnal operator+(Rationnal frac) const;
     Rationnal operator-(Rationnal frac)const;
     Rationnal operator*(Rationnal frac) const;

@@ -2801,36 +2801,7 @@ mainwindow.o: ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/mainwindow.h \
 		../LO21ProjetCode/structures/stack.h \
 		../LO21ProjetCode/snapshots.h \
 		../LO21ProjetCode/structures/identifierManager.h \
-		ui_mainwindow.h \
-		/usr/include/qt5/QtCore/QVariant \
-		/usr/include/qt5/QtWidgets/QAction \
-		/usr/include/qt5/QtWidgets/qaction.h \
-		/usr/include/qt5/QtWidgets/qactiongroup.h \
-		/usr/include/qt5/QtWidgets/QButtonGroup \
-		/usr/include/qt5/QtWidgets/qbuttongroup.h \
-		/usr/include/qt5/QtWidgets/QGridLayout \
-		/usr/include/qt5/QtWidgets/QGroupBox \
-		/usr/include/qt5/QtWidgets/qgroupbox.h \
-		/usr/include/qt5/QtWidgets/QHBoxLayout \
-		/usr/include/qt5/QtWidgets/QLabel \
-		/usr/include/qt5/QtWidgets/qlabel.h \
-		/usr/include/qt5/QtWidgets/QPushButton \
-		/usr/include/qt5/QtWidgets/qpushbutton.h \
-		/usr/include/qt5/QtWidgets/QSlider \
-		/usr/include/qt5/QtWidgets/QSpacerItem \
-		/usr/include/qt5/QtWidgets/QTabWidget \
-		../LO21ProjetCode/qmain.h \
-		../LO21ProjetCode/qprogrameditor.h \
-		/usr/include/qt5/QtWidgets/QComboBox \
-		/usr/include/qt5/QtWidgets/qcombobox.h \
-		/usr/include/qt5/QtGui/QWindow \
-		/usr/include/qt5/QtGui/qwindow.h \
-		/usr/include/qt5/QtCore/QEvent \
-		/usr/include/qt5/QtCore/QMargins \
-		/usr/include/qt5/QtCore/QRect \
-		/usr/include/qt5/QtGui/qsurface.h \
-		/usr/include/qt5/QtGui/qsurfaceformat.h \
-		../LO21ProjetCode/qvareditor.h
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../LO21ProjetCode/mainwindow.cpp
 
 litteral.o: ../LO21ProjetCode/litteral/litteral.cpp ../LO21ProjetCode/litteral/litteral.h \
@@ -3795,7 +3766,8 @@ structures.o: ../LO21ProjetCode/structures/structures.cpp ../LO21ProjetCode/litt
 		../LO21ProjetCode/snapshots.h \
 		../LO21ProjetCode/structures/identifierManager.h \
 		../LO21ProjetCode/structures/operator.h \
-		../LO21ProjetCode/litteral/complex.h
+		../LO21ProjetCode/litteral/complex.h \
+		../LO21ProjetCode/structures/shunting_yard_algorithm.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o structures.o ../LO21ProjetCode/structures/structures.cpp
 
 stack.o: ../LO21ProjetCode/structures/stack.cpp ../LO21ProjetCode/structures/stack.h \
@@ -4439,7 +4411,8 @@ operator.o: ../LO21ProjetCode/structures/operator.cpp ../LO21ProjetCode/structur
 		/usr/include/qt5/QtMultimedia/QSound \
 		/usr/include/qt5/QtMultimedia/qsound.h \
 		/usr/include/qt5/QtMultimedia/qtmultimediadefs.h \
-		../LO21ProjetCode/litteral/program.h
+		../LO21ProjetCode/litteral/program.h \
+		../LO21ProjetCode/structures/shunting_yard_algorithm.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o operator.o ../LO21ProjetCode/structures/operator.cpp
 
 qvareditor.o: ../LO21ProjetCode/qvareditor.cpp ../LO21ProjetCode/qvareditor.h \

@@ -41,6 +41,9 @@ bool Parser::isOperatorUnary(QString s) {
     if(s=="DROP") return true;
     if(s=="DUP") return true;
     if(s=="CLEAR") return true;
+    if(s=="EVAL") return true;
+    if(s=="FORGET") return true;
+    if(s=="EDIT") return true;
     return false;
 }
 
@@ -62,10 +65,10 @@ std::string Parser::getType(QString s)
         return "Complex";
     if(isAtom(s))
         return "Atom";
-    if(isExpression(s))
-        return "Expression";
     if(isProgram(s))
         return "Program";
+    if(isExpression(s))
+        return "Expression";
     throw "Type inconnu !!";
 
 }
@@ -121,12 +124,12 @@ bool isAtom(const QString s)
 }
 bool isExpression(const QString s) //Pas fini
 {
-        QRegExp regExp ("^\\'.*\\'$");
+        QRegExp regExp ("\\'.*\\'");
         return regExp.exactMatch(s);
 }
 bool isProgram(const QString s) //Pas fini
 {
-        QRegExp regExp ("^\\[.*\\]$");
+        QRegExp regExp ("\\[.*\\]");
         return regExp.exactMatch(s);
 }
 bool isNumber(const QString s){

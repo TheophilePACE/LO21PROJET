@@ -10,6 +10,7 @@ class Real : public Numeric {
 private:
 public:
     Real(Real& R): Numeric(R.getNum()+R.getMantisse()) {}
+    ~Real(){}
     bool simplify() ;
     double getSignedValue() const ;
     Real(double a=0): Numeric(a){}
@@ -23,7 +24,6 @@ public:
     Real operator-(Real re)const ;
     Real operator*(Real re) const ;
     Real operator/(Real re) const;
-    //~Real() {delete integer; delete ;} inutile
 };
 
 Real operator+(Real Re, Rationnal Ra);

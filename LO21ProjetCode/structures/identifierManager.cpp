@@ -9,9 +9,9 @@ IdentifierManager::IdentifierManager(const IdentifierManager& m){
 
 }
 IdentifierManager::~IdentifierManager(){
-    for(unsigned int i=0; i<nb; i++) {
-        delete identifiers[i];
-    }
+    //for(unsigned int i=0; i<nb; i++) {
+    //    delete identifiers[i];
+   // }
     delete[] identifiers;
 }
 
@@ -40,7 +40,7 @@ void IdentifierManager::removeIdentifier(Identifier& p){
     while((i<nb) && (&p != identifiers[i])){i++;}
     if(i==nb)
         throw "Suppression Impossible";
-    delete identifiers[i];
+    //delete identifiers[i];
     do
     {
         identifiers[i]=identifiers[i+1];

@@ -24,6 +24,7 @@ public:
     void operator<<(ExpressionMaterial* e);*/
     std::string toString()const;
     std::string toStringPars()const;
+    void setInstructions(std::string s){instructions = s;}
     void print(QTextStream& f)const;
 };
 

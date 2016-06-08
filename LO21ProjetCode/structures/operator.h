@@ -4,9 +4,11 @@
 #include "../litteral/complex.h"
 #include "identifierManager.h"
 #include "parser.h"
-
-
+#include "../litteral/litteral.h"
 #include "structures/structures.h"
+#include "shunting_yard_algorithm.h"
+#include "qprogrameditor.h"
+#include "mainwindow.h"
 
 class OperatorAbstract {
 public:
@@ -189,6 +191,26 @@ public:
     Litteral* execute( );
     void loadOperand(Stack *s);
 };
+class  OperatorEVAL : public OperatorUnary {
+    Controller * ctrl;
+public:
+    OperatorEVAL(Controller * c): OperatorUnary(), ctrl(c){}
+    void loadOperand(Stack *s);
+    Litteral* execute( );
+};
+class  OperatorFORGET : public OperatorUnary {
+public:
+    OperatorFORGET(): OperatorUnary(){}
+    void loadOperand(Stack *s);
+    Litteral* execute( );
+};
+class  OperatorEDIT : public OperatorUnary {
+public:
+    OperatorEDIT(): OperatorUnary(){}
+    void loadOperand(Stack *s);
+    Litteral* execute( );
+};
+
 
 class  OperatorCLEAR : public OperatorUnary {
 public:

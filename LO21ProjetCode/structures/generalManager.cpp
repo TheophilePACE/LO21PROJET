@@ -23,10 +23,27 @@ void GeneralManager::addLitteral(Litteral* const l){
     if(nb==max)
        increaseCap();
     litterals[nb++]=l;
+    std::cout << "\nJ'add la litérale" << nb <<"\n";
 }
+void GeneralManager::removeLitteral(Litteral * p){
+    unsigned int i=nb;
+
+    //while((i>0) && (p != litterals[i])){i--;}
+    //if(i==nb)
+    //    throw "Suppression Impossible";
+    //delete litterals[i];
+    std::cout << "\nJe remove la litérale" << nb-i <<"\n";
+    //do
+    //{
+    //    litterals[i]=litterals[i+1];
+    //    i++;
+    //}while(i<--nb);
+
+}
+
 GeneralManager::~GeneralManager(){
-    for(unsigned int i=0;i<nb;i++)
-        delete litterals[i];
+   // for(unsigned int i=0;i<nb;i++)
+        //delete litterals[i];
     delete[] litterals;
 }
 
@@ -80,7 +97,7 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
         if(newRat->isInteger()) //simplification vers integer
         {
             long val = newRat->getNum();
-            delete newRat;
+            removeLitteral(newRat);
             Integer * newRat = new Integer(val);
             Item * It = new Item;
             It->setLit(newRat);
@@ -101,7 +118,7 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
     {
         if(p.isOperator(s))
         {
-            throw "C'est un operateur bordel";
+            throw "C'est un operateur donc pas de création";
         }
         else
         {
@@ -115,18 +132,9 @@ Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de
             }
             else
             {
-                std::string type2 = typeid((*id->getPValue())).name();
-                if(type2=="Program")
-                {
-                    //Controller::getInstance().command(id.getPValue()->toString());
-                    return NULL;
-                }
-
-                else if(type2=="Integer" || type2=="Rationnal" || type2=="Complex" || type2=="Real") {
-                    Item * It = new Item;
-                    It->setLit(id->getPValue());
-                    return It;
-                }
+                Item * It = new Item;
+                It->setLit(id->getPValue());
+                return It;
             }
 
         }

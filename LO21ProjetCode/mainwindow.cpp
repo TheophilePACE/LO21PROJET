@@ -223,6 +223,8 @@ void MainWindow::redo(){
 
     SnapshotManager  * s = &(SnapshotManager::getInstance());
     if(s->redoPossible()) {
+        QComputer * calcul1 = ui->tabWidget->findChild<QComputer*>("CalcTab");
+        s->updateCurrentSnapshot(calcul1->getStack(), &(IdentifierManager::getInstance()));
         Snapshot * snapshot = s->redo();
         QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
         QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");

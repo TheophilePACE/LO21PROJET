@@ -1,12 +1,10 @@
 #include "shunting_yard_algorithm.h"
-/*
-const int LEFT_ASSOC  = 0;
-const int RIGHT_ASSOC = 1;
+
+#define LEFT_ASSOC 0
+#define RIGHT_ASSOC 1;
 
 // Map the different operators: +, -, *, / etc
 typedef std::map< std::string, std::pair< int,int > > OpMap;
-typedef std::vector<std::string>::const_iterator cv_iter;
-typedef std::string::iterator s_iter;
 
 const OpMap::value_type assocs[] =
     {  OpMap::value_type( "+", std::make_pair<int,int>( 0, LEFT_ASSOC ) ),
@@ -21,7 +19,6 @@ bool isParenthesis( const std::string& token)
 {
     return token == "(" || token == ")";
 }
-
 // Test if token is an operator
 bool isOperator( const std::string& token)
 {
@@ -52,6 +49,7 @@ bool infixToRPN( const std::vector<std::string>& inputTokens,
 {
     bool success = true;
 
+
     std::list<std::string> out;
     std::stack<std::string> stack;
 
@@ -59,7 +57,7 @@ bool infixToRPN( const std::vector<std::string>& inputTokens,
     for ( int i = 0; i < size; i++ )
     {
         // Read the token
-        const std::string token = inputTokens[ i ];
+        const std::string token = inputTokens[i];
 
         // If token is an operator
         if ( isOperator( token ) )
@@ -80,6 +78,7 @@ bool infixToRPN( const std::vector<std::string>& inputTokens,
                     // pop o2 off the stack, onto the output queue;
                     stack.pop();
                     out.push_back( o2 );
+                    out.push_back(" ");
 
                     if ( !stack.empty() )
                         o2 = stack.top();
@@ -107,6 +106,7 @@ bool infixToRPN( const std::vector<std::string>& inputTokens,
             while ( topToken != "(" )
             {
                 out.push_back(topToken );
+                out.push_back(" ");
                 stack.pop();
 
                 if ( stack.empty() ) break;
@@ -127,6 +127,7 @@ bool infixToRPN( const std::vector<std::string>& inputTokens,
         else
         {
             out.push_back( token );
+            out.push_back(" ");
         }
     }
 
@@ -144,11 +145,12 @@ bool infixToRPN( const std::vector<std::string>& inputTokens,
 
         // Pop the operator onto the output queue./
         out.push_back( stackToken );
+        out.push_back(" ");
         stack.pop();
     }
-
+    if(out.back()==" ")
+        out.pop_back();
     strArray.assign( out.begin(), out.end() );
 
     return success;
 }
-*/

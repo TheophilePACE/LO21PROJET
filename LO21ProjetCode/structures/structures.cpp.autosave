@@ -10,51 +10,7 @@
 #include "snapshots.h"
 
 void Controller::command(const QString& c){
-<<<<<<< HEAD
-    Parser p = Parser::getInstance();
-    QStringList list = c.split(" ", QString::SkipEmptyParts);
-    QString d = "", str;
-    bool prog = false;
-    bool listest = false;
-    for (int i = 0; i < list.size(); ++i) {
-        str = list.at(i);
-        if((str[0]=='[')&&(str[str.size()-1]!=']')) {
-            d = str;
-            prog = true;
-        }
-        else if((prog)&&(str[str.size()-1]!=']'))
-            d = d + " " + str;
-        else if((prog)&&(str[str.size()-1]==']')) {
-            prog = false;
-            d = d + " " + str;
-            str = d;
-        }
-        if((str[0]=='\'')&&(str[str.size()-1]!='\'')&&(!prog)) {
-            d = str;
-            listest = true;
-        }
-        else if((listest)&&(str[str.size()-1]!='\''))
-            d = d + str;
-        else if((listest)&&(str[str.size()-1]=='\'')) {
-            listest = false;
-            d = d + str;
-            str = d;
-        }
 
-        if((!prog)&&(!listest)) {
-            if(p.isOperator(str)) {
-                SnapshotManager  * s = &(SnapshotManager::getInstance());
-                s->addSnapshot(stack, &(IdentifierManager::getInstance()));
-                try {
-                if(str=="LASTOP"){
-                    str=lastStruc->lastOpe();
-
-                    }
-                if(p.isOperatorBinary(str)){
-                    if (stack->size()>=2) {
-                        lastStruc->getOpe2(stack,str); //stockage des deux derniers arg ainsique de l'operateur
-                         //récuperation des éléments
-=======
     try {
         Parser p = Parser::getInstance();
         QStringList list = c.split(" ", QString::SkipEmptyParts);
@@ -91,10 +47,15 @@ void Controller::command(const QString& c){
                 if(p.isOperator(str)) {
                     SnapshotManager  * s = &(SnapshotManager::getInstance());
                     s->addSnapshot(stack, &(IdentifierManager::getInstance()));
+                    if(str=="LASTOP"){
+                        str=lastStruc->lastOpe();
+    
+                        }
                         if(p.isOperatorBinary(str)){
                         if (stack->size()>=2) {
                              //récuperation des éléments
->>>>>>> 2cf714eaec94e37c62ec473c021e7e9258827d92
+                            lastStruc->getOpe2(stack,str); //stockage des deux derniers arg ainsique de l'operateur
+                            
 
                             //SI On a un prgm ou une expression ou un atom: les évaluer.
                             //----evaluation des prgm et des expressions et des atomes
@@ -312,8 +273,6 @@ void Controller::command(const QString& c){
                             }
                             else if (str=="DROP")
                             {
-
-<<<<<<< HEAD
                             stack->pop();
                         }
                         else if (str=="CLEAR")
@@ -323,6 +282,24 @@ void Controller::command(const QString& c){
                             OperatorCLEAR OP;
                             OP.loadOperand(stack);
                             Rslt.setLit(OP.execute());
+                        }
+                        else if (str=="EVAL")
+                        {
+                            OperatorEVAL OP(this);
+                            OP.loadOperand(stack);
+                            OP.execute();
+                        }
+                        else if (str=="FORGET")
+                        {
+                            OperatorFORGET OP;
+                            OP.loadOperand(stack);
+                            OP.execute();
+                        }
+                        else if (str=="EDIT")
+                        {
+                            OperatorEDIT OP;
+                            OP.loadOperand(stack);
+                            OP.execute();
                         }
                         else
                             throw "Operateur pas encore défini";
@@ -350,32 +327,7 @@ void Controller::command(const QString& c){
             stack->setMessage(toQString(s));
         }
         }
-                                stack->pop();
-                            }
-                            else if (str=="EVAL")
-                            {
-                                OperatorEVAL OP(this);
-                                OP.loadOperand(stack);
-                                OP.execute();
-                            }
-                            else if (str=="FORGET")
-                            {
-                                OperatorFORGET OP;
-                                OP.loadOperand(stack);
-                                OP.execute();
-                            }
-                            else if (str=="EDIT")
-                            {
-                                OperatorEDIT OP;
-                                OP.loadOperand(stack);
-                                OP.execute();
-                            }
-
-                            else
-                                throw "Operateur pas encore défini";
-                        }
-                        else throw" Pas assez d'argument dans la pile!";
->>>>>>> 2cf714eaec94e37c62ec473c021e7e9258827d92
+                              
                     }
                     }
              else {

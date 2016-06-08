@@ -21,6 +21,7 @@ class GeneralManager {
 public:
     static GeneralManager& getInstance();
     void addLitteral(Litteral * const);
+    void removeLitteral(Litteral *);
     ~GeneralManager();
     static void freeInstance();
     Item * createItem(QString s);

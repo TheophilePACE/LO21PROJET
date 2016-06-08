@@ -1,8 +1,4 @@
 #include "operator.h"
-#include "stack.h"
-#include "../litteral/complex.h"
-#include "../litteral/litteral.h"
-
 
 void OperatorBinary::loadOperand(Stack *s) {
     l2=s->top();
@@ -820,6 +816,105 @@ void OperatorIM::loadOperand(Stack *s){
         s->push(*I1);
         throw "BAD TYPE: il faut un numerique ou un complx pour IM";
     }
+}
+void OperatorEVAL::loadOperand(Stack *s){
+    l1=s->top();
+    s->pop();
+}
+Litteral * OperatorEVAL::execute(){
+    Parser p = Parser::getInstance();
+    Expression * exp = dynamic_cast<Expression *>(l1);
+    QString str = toQString(exp->toString());
+    str.remove(0,1);
+    str.remove(str.size()-1,1);
+    std::vector<std::string> vect;
+    bool number = false;
+    int i=0,j=0;
+    QString temp ="";
+    while(i<str.size()) {
+        if(i==(str.size()-1)){
+            if(number) {
+                vect.insert(vect.begin()+j,temp.toStdString());
+                vect.insert(vect.begin()+(++j),std::string(1,str.toStdString().at(i)));
+            }
+            else
+            vect.insert(vect.begin()+j,std::string(1,str.toStdString().at(i)));
+        }
+        else if ((number) &&
+                (isParenthesis(std::string(1,str.toStdString().at(i)))||
+                 p.isOperator(QString(str.at(i))))) {
+            number = false;
+            vect.insert(vect.begin()+j,temp.toStdString());
+            vect.insert(vect.begin()+(++j),std::string(1,str.toStdString().at(i)));
+            temp = "";
+            j++;
+        }
+        else if(((str.at(i)=='(')||(str.at(i)==')')||
+                 p.isOperator(QString(str.at(i))))
+                &&(!number)) {
+            vect.insert(vect.begin()+j,std::string(1,str.toStdString().at(i)));
+            j++;
+        }
+        else {
+            number = true;
+            temp = temp + toQString(std::string(1,str.toStdString().at(i)));
+        }
+        i++;
+    }
+    temp = "";
+    int size = vect.size();
+    std::vector<std::string> strArray;
+    infixToRPN(vect,size,strArray);
+    for(unsigned int i=0;i<strArray.size();i++)
+        temp = temp + toQString(strArray[i]);
+    ctrl->command(temp);
+    return nullptr;
+}
+Litteral*  OperatorFORGET::execute()
+{
+    QString str = toQString(l1->toString());
+    str.remove(0,1);
+    str.remove(str.size()-1,1);
+
+    IdentifierManager * idMng = &(IdentifierManager::getInstance());
+
+    Identifier * id = idMng->getIdentifier(*(new Atom(str.toStdString())));
+    if(!id)
+        throw "Identifiant n'existe pas !";
+    idMng->removeIdentifier(*id);
+    return l1;
+
+}
+void OperatorFORGET::loadOperand(Stack *s){
+    l1=s->top();
+    s->pop();
+}
+Litteral*  OperatorEDIT::execute()
+{
+
+    QString str = toQString(l1->toString());
+    str.remove(0,1);
+    str.remove(str.size()-1,1);
+
+    IdentifierManager * idMng = &(IdentifierManager::getInstance());
+
+    Identifier * id = idMng->getIdentifier(*(new Atom(str.toStdString())));
+    if(!id)
+        throw "Identifiant n'existe pas !";
+    QWidget * ui;
+    foreach (QWidget *widget, QApplication::allWidgets())
+        if(widget->accessibleName()=="MainWindow")
+            ui = widget;
+    QTabWidget * tab = (dynamic_cast<QMainWindow*>(ui))->findChild<QTabWidget*>("tabWidget");
+    tab->setCurrentIndex(2);
+    QprogramEditor * prog = tab->findChild<QprogramEditor*>("Programmes");
+    prog->accessProgramChoice()->setCurrentText(str);
+
+    return nullptr;
+
+}
+void OperatorEDIT::loadOperand(Stack *s){
+    l1=s->top();
 }
 
 Litteral*  OperatorCLEAR::execute()

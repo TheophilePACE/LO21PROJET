@@ -69,11 +69,12 @@ void numericCast(Numeric ** N)
 }
 
 Complex Complex::operator=(const Complex& Cx){
-    delete pReal;
+    GeneralManager * m = &(GeneralManager::getInstance());
+    m->removeLitteral(pReal);
            pReal= new Numeric();
            *pReal = *(Cx.pReal);
            numericCast(&pReal);
-    delete pImag;
+    m->removeLitteral(pImag);
             pImag=new Numeric();
             *pImag = (*(Cx.pImag));
             numericCast(&pImag);
