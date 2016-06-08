@@ -28,8 +28,7 @@ void GeneralManager::removeLitteral(Litteral * p){
     unsigned int i=nb;
 
     while((i>0) && (p != litterals[i])){i--;}
-    if(i==nb)
-        throw ComputerException("Suppression Impossible");
+    if(!(i==nb))
     do
     {
         litterals[i]=litterals[i+1];
@@ -77,7 +76,7 @@ Item * GeneralManager::createItem(QString s) {
             throw ComputerException("Erreur de type");
 }
 
-Item *  GeneralManager::createSimpleItem(QString s) //factoriser la création de numeric
+Item * GeneralManager::createSimpleItem(QString s) //factoriser la création de numeric
 {
     Parser p = Parser::getInstance();
     std::string type = p.getType(s);

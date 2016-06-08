@@ -29,6 +29,7 @@ class QComputer : public QWidget{
         explicit QComputer(QWidget * parent = 0);
         void setStack(Stack * s) { delete pile; pile = s;}
         QLineEdit * accessLineEdit() {return commande;}
+        ~QComputer(){delete controleur; delete pile;}
     public slots:
         void refresh();
         void getNextCommande();

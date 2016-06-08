@@ -4,7 +4,7 @@
 
 Stack::Stack(const Stack& s){
     Item* newtab=new Item[s.nbMax];
-    for(unsigned int i=0; i<s.nb; i++) { newtab[i]=s.items[i]; }
+    for(unsigned int i=0; i<s.nb; i++) { newtab[i] = s.items[i]; }
     items = newtab;
     nbItemsDisplayed = s.nbItemsDisplayed;
     nbMax = s.nbMax;
@@ -43,6 +43,8 @@ const QString Stack::display() const{
 
 
 Stack::~Stack(){
+//    for(unsigned int i=0; i<nb; i++)
+//        delete &(items[i]);
     delete[] items;
 }
 

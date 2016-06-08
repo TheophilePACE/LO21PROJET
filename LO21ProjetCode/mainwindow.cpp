@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("UTComputer 2.0");
-    QButtonGroup * signalGroup = new QButtonGroup;
+    QButtonGroup * signalGroup = new QButtonGroup(this);
     QComputer * calcul = ui->tabWidget->findChild<QComputer*>("CalcTab");
     QvarEditor * variableManager = ui->tabWidget->findChild<QvarEditor*>("Variables");
     QprogramEditor * programManager = ui->tabWidget->findChild<QprogramEditor*>("Programmes");

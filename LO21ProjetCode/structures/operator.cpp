@@ -3,10 +3,7 @@
 void OperatorBinary::loadOperand(Stack *s) {
     l2=s->top();
     s->pop();
-    /*
-     if(typeid(*l1)==typeid(Expression)&&typeid(*l2)==typeid(Expression))
-        l1->toQStringPars() + l2->toQStringPars()
-     */
+
     l1=s->top();
     s->pop();
 }

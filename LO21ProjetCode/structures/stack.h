@@ -63,13 +63,11 @@ class LastStruc {
     QString ope;
 public:
     LastStruc():  ope("") {item1 = new Item;item1->setLit(nullptr); item2 = new Item;item2->setLit(nullptr); }
+    ~LastStruc(){delete item1; delete item2;}
     void getOpe1(Stack* s,QString op);
     void getOpe2(Stack* s,QString op);
     void lastArgu (Stack* s);
     QString lastOpe () const ;
-
-
-
 };
 
 #endif // STACK_H
