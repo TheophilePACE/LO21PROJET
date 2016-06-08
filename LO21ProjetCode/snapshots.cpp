@@ -1,8 +1,14 @@
 #include "snapshots.h"
 
 Snapshot::~Snapshot() {
-    //delete stack;
-    //delete idMng;
+    delete stack;
+    delete idMng;
+}
+
+SnapshotManager::~SnapshotManager() {
+    for(unsigned int i=0;i<nb;i++)
+        delete snapshots[i];
+    delete[] snapshots;
 }
 
 void SnapshotManager::increaseCap() {

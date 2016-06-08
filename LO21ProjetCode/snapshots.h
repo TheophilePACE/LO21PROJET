@@ -31,7 +31,7 @@ class SnapshotManager {
     };
     static Singleton sing;
 public:
-    ~SnapshotManager(){}
+    ~SnapshotManager();
     void addSnapshot(Stack * st, IdentifierManager * im);
     void updateCurrentSnapshot(Stack * st, IdentifierManager * im);
     bool redoPossible() { if(nb!=0) return currentState<nb-1; else return false;}

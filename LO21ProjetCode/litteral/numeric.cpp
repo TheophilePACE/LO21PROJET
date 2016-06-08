@@ -42,9 +42,9 @@ QString Numeric::toQStringPars()const{
      double nmantisse,temp;
      temp= (mantisse+num)*N.getDenum() + (N.getNum()+N.getMantisse())*denum;
      nmantisse =temp-trunc(temp);
-
      if(nmantisse==0)
-         {Rationnal *Rslt = new Rationnal((long)(temp), (N.getDenum()*getDenum()) );
+         {
+         Rationnal *Rslt = new Rationnal((long)(temp), (N.getDenum()*getDenum()) );
           return *Rslt;}
      if(nmantisse !=0)
      {

@@ -12,7 +12,7 @@ Rationnal Rationnal::simplify(){
     return *this;
 }
 
-Rationnal::Rationnal(Integer a, Integer b) //Attention au simplicification
+Rationnal::Rationnal(Integer a, Integer b) //Attention aux simplicifications
 {
     num= a.getSignedValue();
     denum = b.getSignedValue();

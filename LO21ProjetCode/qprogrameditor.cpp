@@ -4,15 +4,15 @@
 
 QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
 {
-    QPushButton * newProg = new QPushButton;
+    QPushButton * newProg = new QPushButton();
 
-    newWindow = new QWindow2;
+    newWindow = new QWindow2();
     QHBoxLayout * newWLay = new QHBoxLayout();
-    QPushButton * saveNewProg = new QPushButton;
+    QPushButton * saveNewProg = new QPushButton();
     saveNewProg->setText("Créer");
-    QPushButton * rmProg = new QPushButton;
+    QPushButton * rmProg = new QPushButton();
     rmProg->setText("Supprimer");
-    newProgName = new QLineEdit;
+    newProgName = new QLineEdit();
     QLabel * newProgLabel = new QLabel("Nom Programme");
 
     newWLay->addWidget(newProgLabel);
@@ -30,7 +30,7 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
     programChoice->setAccessibleName("programChoice");
 
     validation->setText("Valider");
-    QLabel * text1 = new QLabel;
+    QLabel * text1 = new QLabel();
 
     text1->setText("Nom Programme");
 

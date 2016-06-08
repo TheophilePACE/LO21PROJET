@@ -50,6 +50,7 @@ Litteral* OperatorSum::execute()
     }
     else //Pointeurs sur classe filles de numeric. bcp de possibilités.
     {
+        std::cout << "Au debut";
         Numeric* N1 =dynamic_cast<Numeric*>(l1);
         Numeric* N2 =dynamic_cast<Numeric*>(l2);
         Numeric* N= new Numeric();
@@ -841,7 +842,7 @@ Litteral * OperatorEVAL::execute(){
                 vect.insert(vect.begin()+(++j),std::string(1,str.toStdString().at(i)));
             }
             else
-            vect.insert(vect.begin()+j,std::string(1,str.toStdString().at(i)));
+                vect.insert(vect.begin()+j,std::string(1,str.toStdString().at(i)));
         }
         else if ((number) &&
                 (isParenthesis(std::string(1,str.toStdString().at(i)))||
@@ -865,6 +866,12 @@ Litteral * OperatorEVAL::execute(){
         i++;
     }
     temp = "";
+    for(unsigned int i=0;i<vect.size();i++)
+        std::cout << " " << vect[i] << " ";
+    for(unsigned int i=0;i<vect.size();i++)
+        if(!(vect[i]=="("||vect[i]==")"))
+            if((p.getType(toQString(vect[i]))=="Atom")&&(!(p.isOperator(toQString(vect[i])))))
+                throw ComputerException("Atome non autorisé dans l'évaluation d'une expression !");
     int size = vect.size();
     std::vector<std::string> strArray;
     infixToRPN(vect,size,strArray);
