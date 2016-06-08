@@ -28,8 +28,7 @@ void GeneralManager::removeLitteral(Litteral * p){
     unsigned int i=nb;
 
     while((i>0) && (p != litterals[i])){i--;}
-    if(i==nb)
-        throw ComputerException("Suppression Impossible");
+    if(!(i==nb))
     do
     {
         litterals[i]=litterals[i+1];

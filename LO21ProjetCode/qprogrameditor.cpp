@@ -6,14 +6,14 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
 {
     QPushButton * newProg = new QPushButton();
 
-    newWindow = new QWindow2();
-    QHBoxLayout * newWLay = new QHBoxLayout();
-    QPushButton * saveNewProg = new QPushButton();
+    newWindow = new QWindow2(this);
+    QHBoxLayout * newWLay = new QHBoxLayout(this);
+    QPushButton * saveNewProg = new QPushButton(this);
     saveNewProg->setText("Créer");
-    QPushButton * rmProg = new QPushButton();
+    QPushButton * rmProg = new QPushButton(this);
     rmProg->setText("Supprimer");
-    newProgName = new QLineEdit();
-    QLabel * newProgLabel = new QLabel("Nom Programme");
+    newProgName = new QLineEdit(this);
+    QLabel * newProgLabel = new QLabel("Nom Programme", this);
 
     newWLay->addWidget(newProgLabel);
     newWLay->addWidget(newProgName);
@@ -21,9 +21,9 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
     newWindow->setLayout(newWLay);
 
     prgMng = &(IdentifierManager::getInstance());
-    programChoice = new QComboBox();
-    programText = new QTextEdit();
-    validation = new QPushButton();
+    programChoice = new QComboBox(this);
+    programText = new QTextEdit(this);
+    validation = new QPushButton(this);
     generalView = new QVBoxLayout(this);
     commandView = new QHBoxLayout();
 

@@ -18,7 +18,8 @@
 #include <QWindow>
 
 class QWindow2 : public QWidget {
-
+public:
+    explicit QWindow2(QWidget * parent = 0):QWidget(parent){}
 };
 
 class QprogramEditor : public QWidget{
@@ -29,7 +30,7 @@ class QprogramEditor : public QWidget{
         QHBoxLayout * commandView;
         QVBoxLayout * generalView;
         IdentifierManager * prgMng;
-        QWindow2 * newWindow;
+        QWidget * newWindow;
         QLineEdit * newProgName;
     public:
         explicit QprogramEditor(QWidget * parent = 0);

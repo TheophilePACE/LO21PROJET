@@ -25,6 +25,7 @@ class Controller {
     Stack * stack;
 public:
     Controller(GeneralManager& m,Stack * p):genMng(m), stack(p){}
+    ~Controller(){}
     void command(const QString& c);
     void setStack(Stack * s) {stack = s;}
 
