@@ -326,8 +326,10 @@ void Controller::command(const QString& c){
                 widgetSearched = widget;
         }
 
-        if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked()))
+        if(!((dynamic_cast<QAbstractButton*>(widgetSearched))->isChecked())) {
+            QApplication::beep();
             QSound::play("../wahoo.wav");
+        }
         stack->setMessage(exp.getInfo());
     }
 }

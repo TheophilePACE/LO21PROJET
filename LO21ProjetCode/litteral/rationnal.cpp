@@ -36,67 +36,67 @@ Rationnal Rationnal::operator +(Rationnal frac) const
 {
     long NvNum= num*frac.denum+frac.num*denum;
     long Nvdenum = denum*frac.denum;
-    Rationnal rslt(NvNum,Nvdenum);
-    rslt.simplify();
-    return rslt;
+    Rationnal * rslt = new Rationnal(NvNum,Nvdenum);
+    rslt->simplify();
+    return *rslt;
 }
 Rationnal Rationnal::operator- (Rationnal frac)const
 {
     long NvNum= num*frac.denum-frac.num*denum;
     long Nvdenum = denum*frac.denum;
-    Rationnal rslt(NvNum,Nvdenum);
-    rslt.simplify();
-    return rslt;
+    Rationnal * rslt = new Rationnal(NvNum,Nvdenum);
+    rslt->simplify();
+    return *rslt;
 
 }
 Rationnal Rationnal::operator * (Rationnal frac) const
 {
-    Rationnal rslt(num*frac.num,denum*frac.denum);
-    rslt.simplify();
-    return rslt;
+    Rationnal * rslt = new Rationnal(num*frac.num,denum*frac.denum);
+    rslt->simplify();
+    return *rslt;
 }
 Rationnal Rationnal::operator / (Rationnal frac) const //multiplier par l'inverse
 {
     long NvNum=num*frac.denum;
     long Nvdenum=denum*frac.num;
-    Rationnal rslt(NvNum,Nvdenum);
-    rslt.simplify();
-    return rslt;
+    Rationnal * rslt = new Rationnal(NvNum,Nvdenum);
+    rslt->simplify();
+    return *rslt;
 }
 
 bool Rationnal::isInteger () const{return(denum==1);}
 
 Rationnal operator+(Integer a, Rationnal Ra)
 {
-    Rationnal rslt(a.getSignedValue()*Ra.getDenum()+ Ra.getNum()  ,  Ra.getDenum());
-    return rslt;
+    Rationnal * rslt = new Rationnal(a.getSignedValue()*Ra.getDenum()+ Ra.getNum()  ,  Ra.getDenum());
+    return *rslt;
 }
 Rationnal operator-(Integer a, Rationnal Ra)
 {
-    Rationnal rslt(a.getSignedValue()*Ra.getDenum()-Ra.getNum(),Ra.getDenum());
-    return rslt;
+    Rationnal * rslt = new Rationnal(a.getSignedValue()*Ra.getDenum()-Ra.getNum(),Ra.getDenum());
+    return *rslt;
 }
 Rationnal operator-(Rationnal Ra, Integer a)
 {
-    Rationnal rslt(-a.getSignedValue()*Ra.getDenum()+Ra.getNum(),Ra.getDenum());
-    return rslt;
+    Rationnal * rslt = new Rationnal(-a.getSignedValue()*Ra.getDenum()+Ra.getNum(),Ra.getDenum());
+    return *rslt;
 }
 Rationnal operator*(Integer a, Rationnal Ra)
 {
-    Rationnal rslt(a.getSignedValue()*Ra.getNum(),Ra.getDenum());
-    return rslt;
+    Rationnal * rslt = new Rationnal(a.getSignedValue()*Ra.getNum(),Ra.getDenum());
+    return *rslt;
 }
 Rationnal operator/(Integer a, Rationnal Ra)
 {
-    Rationnal rslt(Ra.getNum(),Ra.getDenum()*a.getSignedValue());
-    return rslt;
+    Rationnal * rslt = new Rationnal(Ra.getNum(),Ra.getDenum()*a.getSignedValue());
+    return *rslt;
 }
 Rationnal operator/(Rationnal Ra, Integer a)
 {
-    Rationnal rslt(Ra.getDenum()*a.getSignedValue(),Ra.getNum());
-    return rslt;
+    Rationnal * rslt = new Rationnal(Ra.getDenum()*a.getSignedValue(),Ra.getNum());
+    return *rslt;
 }
 Rationnal operator/(Integer int1, Integer int2) {
-    Rationnal R(int1.getSignedValue(),int2.getSignedValue());
-    return R;
+    Rationnal * R = new Rationnal(int1.getSignedValue(),int2.getSignedValue());
+    return *R;
 }

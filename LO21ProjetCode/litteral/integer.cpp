@@ -17,31 +17,31 @@ long Integer::setValue(long integer) {
 }
 Integer Integer::operator+(Integer integer) const
 {
-    Integer rslt = new Integer(this->getSignedValue()+integer.getSignedValue()); //creation de a+b
-    return rslt; //passage par valeur. Necessaire car rslt sera locale à la boucle sinon.
+    Integer *rslt = new Integer(this->getSignedValue()+integer.getSignedValue()); //creation de a+b
+    return *rslt; //passage par valeur. Necessaire car rslt sera locale à la boucle sinon.
 
 }
 Integer Integer::operator-(Integer integer) const {
-    Integer rslt(this->getSignedValue()-integer.getSignedValue());
-    return rslt;
+    Integer *rslt = new Integer(this->getSignedValue()-integer.getSignedValue());
+    return *rslt;
 
 }
 Integer Integer::operator*(Integer integer) const {
 
-    Integer rslt (this->getSignedValue()*integer.getSignedValue());
-    return rslt;
+    Integer *rslt = new Integer (this->getSignedValue()*integer.getSignedValue());
+    return *rslt;
 }
 
 Integer Integer::MOD(Integer integer) const
 {
     long mod = getNum()%integer.getNum();
-    Integer Rslt(mod);
-    return Rslt;
+    Integer * Rslt = new Integer(mod);
+    return *Rslt;
 }
 
 Integer Integer::DIV(Integer integer) const {
     long div = getNum()-(getNum()%integer.getNum());
     div = div/integer.getNum();
-    Integer Rslt(div);
-    return Rslt;
+    Integer *Rslt = new Integer(div);
+    return *Rslt;
 }

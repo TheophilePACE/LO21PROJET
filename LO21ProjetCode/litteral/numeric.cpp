@@ -44,17 +44,17 @@ QString Numeric::toQStringPars()const{
      nmantisse =temp-trunc(temp);
 
      if(nmantisse==0)
-         {Rationnal Rslt((long)(temp), (N.getDenum()*getDenum()) );
-          return Rslt;}
+         {Rationnal *Rslt = new Rationnal((long)(temp), (N.getDenum()*getDenum()) );
+          return *Rslt;}
      if(nmantisse !=0)
      {
          double d = getVal() + N.getVal();
-         Real Rslt(d);
-         return Rslt;}
+         Real * Rslt = new Real(d);
+         return *Rslt;}
      else
      {
-         Numeric N(0,1);
-         return N;
+         Numeric * N = new Numeric(0,1);
+         return *N;
      }
 
  }
@@ -65,17 +65,17 @@ QString Numeric::toQStringPars()const{
      nmantisse =temp-trunc(temp);
 
      if(nmantisse==0)
-         {Rationnal Rslt((long)(temp), (long)(N.getDenum()*getDenum()) );
-          return Rslt;}
+         {Rationnal * Rslt = new Rationnal((long)(temp), (long)(N.getDenum()*getDenum()) );
+          return *Rslt;}
      if(nmantisse !=0)
      {
          double d = getVal() - N.getVal();
-         Real Rslt(d);
-         return Rslt;}
+         Real * Rslt = new Real(d);
+         return *Rslt;}
      else
      {
-         Numeric N(0,1);
-         return N;
+         Numeric * N = new Numeric(0,1);
+         return *N;
      }
 
  }
@@ -88,16 +88,16 @@ QString Numeric::toQStringPars()const{
       nnum= trunc((temp));
       nmantisse = temp - trunc(temp);
       if(nmantisse==0)
-          {Rationnal Rslt(nnum, ndenum);
-           return Rslt;}
+          {Rationnal * Rslt = new Rationnal(nnum, ndenum);
+           return *Rslt;}
       if(nmantisse !=0)
       {
-          Real Rslt(temp/ndenum);
-          return Rslt;}
+          Real * Rslt = new Real(temp/ndenum);
+          return *Rslt;}
       else
       {
-          Numeric N(0,1);
-          return N;
+          Numeric * N = new Numeric(0,1);
+          return *N;
       }  }
 
 
@@ -109,11 +109,11 @@ QString Numeric::toQStringPars()const{
       nnum= trunc(ntemp);
       ndenum=trunc(dtemp);
       if((ntemp==nnum)&&(ndenum==dtemp)) //integer et ratio ou simplification
-          {Rationnal Rslt(nnum,ndenum);
-           return Rslt;}
+          {Rationnal * Rslt = new Rationnal(nnum,ndenum);
+           return *Rslt;}
 
-          Real Rslt(ntemp/dtemp);
-          return Rslt;}
+          Real * Rslt = new Real(ntemp/dtemp);
+          return *Rslt;}
 
 
   bool  Numeric::operator==(const Numeric& N) const{
