@@ -219,4 +219,10 @@ public:
     void loadOperand(Stack *s);
 };
 
+class  OperatorIFT : public OperatorBinary {
+public:
+    OperatorIFT(): OperatorBinary(){}
+    Litteral* execute( );
+};
+
 #endif

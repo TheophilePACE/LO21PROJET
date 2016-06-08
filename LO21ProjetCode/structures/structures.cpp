@@ -49,8 +49,6 @@ void Controller::command(const QString& c){
                     if (str=="LASTOP")
                     {
                         str=lastStruc->lastOpe();
-                        std::cout<<str.toStdString();
-                        //throw ComputerException("str");
                     }
                     if(p.isOperatorBinary(str)){
                         if (stack->size()>=2) {
@@ -198,6 +196,22 @@ void Controller::command(const QString& c){
                                 stack->push(Rslt1);
                                 stack->push(Rslt2);
                             }
+                            else if (str=="IFT")
+                            {
+                                OperatorIFT OP;
+                                OP.loadOperand(stack);
+                                Item Rslt ;
+                                Rslt.setLit(OP.execute());
+                                if(Rslt.getPLit()!=nullptr){
+                                    stack->push(Rslt);
+                                    OperatorEVAL OP(this);
+                                    OP.loadOperand(stack);
+                                    OP.execute();
+
+                                }
+
+                            }
+
                             else {
                                 stack->setMessage(toQString("Operateur Inconnu"));
                                 }
@@ -205,7 +219,6 @@ void Controller::command(const QString& c){
 
 
                         else throw ComputerException("Pas assez d elements dans la pile");}
-
                     else if(p.isOperatorUnary(str)) {
                         if (stack->size()>=1) {
                             lastStruc->getOpe1(stack,str);

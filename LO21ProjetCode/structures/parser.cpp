@@ -27,6 +27,7 @@ bool Parser::isOperatorBinary(QString s) {
     if(s=="AND") return true;
     if(s=="OR") return true;
     if(s=="SWAP") return true;
+    if(s=="IFT") return true;
     return false;
 }
 

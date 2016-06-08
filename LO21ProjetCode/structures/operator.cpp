@@ -40,12 +40,12 @@ Litteral* OperatorSum::execute()
     }
     if(typeid(*l1)!=typeid(Complex)&&typeid(*l2)==typeid(Complex))
     {
-        Complex* C1 =dynamic_cast<Complex*>(l2);
-        Complex C2(dynamic_cast<Numeric*>(l1),nullptr);
+        Complex C1(dynamic_cast<Numeric*>(l1),nullptr);
+        Complex* C2=dynamic_cast<Complex*>(l2);
         Numeric* N1 = new Numeric();
         Numeric * N2 = new Numeric() ;
         Complex* C= new Complex(N1,N2);
-        *C=(*C1) + (C2);
+        *C=(C1) + (*C2);
         return C;
     }
     else //Pointeurs sur classe filles de numeric. bcp de possibilités.
@@ -98,10 +98,10 @@ Litteral* OperatorSub::execute()
     }
     if(typeid(*l1)!=typeid(Complex)&&typeid(*l2)==typeid(Complex))
     {
-        Complex C1 =(dynamic_cast<Numeric*>(l1),nullptr);
-        Complex* C2 =dynamic_cast<Complex*>(l2);
+        Complex C1(dynamic_cast<Numeric*>(l1),nullptr);
+        Complex* C2=dynamic_cast<Complex*>(l2);
         Complex* C= new Complex();
-        *C= C1 - (*C2);
+        *C=(C1) - (*C2);
         return C;
     }
     else //Pointeurs sur classe filles de numeric. bcp de possibilités.
@@ -938,4 +938,25 @@ void  OperatorCLEAR::loadOperand(Stack *s)
     s->pop();
     }
     while(!s->empty());
+}
+
+
+
+
+Litteral* OperatorIFT::execute( )
+{
+    if(!dynamic_cast<Numeric*>(l1)){
+        throw ComputerException("Le 1er argu doit être un test logique");
+    }
+    Numeric* N =dynamic_cast<Numeric*>(l1);
+    if(N->isNull()){ ///Le test est négatif
+        return nullptr;
+    }
+    if(!dynamic_cast<Expression*>(l2)){
+        throw ComputerException("Le 2e argu doit être une expression");
+    }
+    ///Ici, on évalue. on va donc passer par EVAL
+    ///On va rempiler l2 puis l'évaluer.
+    return l2;
+
 }
