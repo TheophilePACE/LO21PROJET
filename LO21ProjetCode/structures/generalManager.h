@@ -8,8 +8,8 @@ class Item;
 
 
 /*!
- * \brief The GeneralManager class : gère les items dans la pile.
- * Cette classe gère les items qui constituent les éléments de la pile.
+ * \brief The GeneralManager class : gère la création des littérales.
+ * Cette classe gère les littérales qui constituent les éléments pointés par les items de la pile.
  */
 class GeneralManager {
     Litteral** litterals;
