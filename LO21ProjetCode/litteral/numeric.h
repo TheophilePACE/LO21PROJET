@@ -27,10 +27,9 @@ public:
     virtual Numeric operator* (const Numeric& N) const;
     bool operator== (const Numeric& N) const;
     Numeric NEG() const;
-    //virtual Numeric operator< (const Numeric& N) const;
-    //@{
     /*! Fonctions surchargées dans les classes filles de manière à n'afficher que les parties utiles (différentes des valeurs standards) du nombre.
     */
+    //@{
     virtual void print(QTextStream& f)const; //implémentée
     virtual std::string toString()const;//implémentée
     virtual QString toQStringPars()const;//implémentée

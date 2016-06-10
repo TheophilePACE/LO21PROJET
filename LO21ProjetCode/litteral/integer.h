@@ -20,9 +20,11 @@ public:
     std::string toString()const;
     QString toQStringPars()const;
     long setValue(long integer);
-     /*! Operateurs sur Z. La division décimale créant un rationnel, elle est implémentée avec la classe rationnal dans la fichier rationnal.h
+     /*! \name Operateurs sur Z. La division décimale créant un rationnel, elle est implémentée avec la classe rationnal dans la fichier rationnal.h
+      * Retour par valeur
     */
     //@{
+
     Integer operator+(Integer integer) const;
     Integer operator-(Integer integer)const ;
     Integer operator*(Integer integer) const ;

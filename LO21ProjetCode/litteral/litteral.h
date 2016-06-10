@@ -23,7 +23,7 @@ class Litteral {
 public:
     ///La création et la destruction d'une littérale est gérée par le General Manager. Le constructeur fait donc explicitememnt à la fonction add litteral de ce dernier.
     Litteral(){(&(GeneralManager::getInstance()))->addLitteral(this);}
-    ///Ces fonctions sont redéfinies dans les classes filles. Elles permettent d'uniformiser l'affichage des éléments présents dans la pile.
+     /*! Ces fonctions sont redéfinies dans les classes filles. Elles permettent d'uniformiser l'affichage des éléments présents dans la pile. */
     //@{
     virtual void print(QTextStream& f)const=0;
     virtual std::string toString()const=0;

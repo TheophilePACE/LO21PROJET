@@ -22,7 +22,8 @@ public:
     std::string toString()const;
     QString toQStringPars()const;
     ~Complex(){}
-    ///Operateurs dans Z. le retour se fait également dans Z.
+     /*! Operateurs dans Z. le retour se fait également dans Z.
+    */
     //@{
    Complex operator=(const Complex& Cx );
    Complex operator+(const Complex& Cx) const;
