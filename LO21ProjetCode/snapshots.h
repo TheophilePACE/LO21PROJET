@@ -1,4 +1,4 @@
-na#ifndef SNAPSHOTS_H
+#ifndef SNAPSHOTS_H
 #define SNAPSHOTS_H
 
 #include "structures/stack.h"
