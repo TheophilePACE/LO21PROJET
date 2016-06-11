@@ -6,7 +6,7 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
 {
     QPushButton * newProg = new QPushButton();
 
-    newWindow = new QWindow2(this);
+    newWindow = new QWindow2(parent);
     QHBoxLayout * newWLay = new QHBoxLayout(this);
     QPushButton * saveNewProg = new QPushButton(this);
     saveNewProg->setText("Créer");

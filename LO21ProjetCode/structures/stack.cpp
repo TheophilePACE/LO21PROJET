@@ -58,7 +58,6 @@ Litteral* Stack::top() const {
 //LAST STRUC
 
 void LastStruc::getOpe1(Stack* s,QString op){
-    std::cout<<"getOpe1";
     ope ="";
     ope+=op;
     item1->setLit(s->top());
@@ -66,7 +65,6 @@ void LastStruc::getOpe1(Stack* s,QString op){
 }
 
 void LastStruc::getOpe2(Stack* s,QString op){
-    std::cout<<"getOpe2";
     ope ="";
     ope+=op;
     item2->setLit(s->top());
@@ -77,7 +75,6 @@ void LastStruc::getOpe2(Stack* s,QString op){
 }
 
 void LastStruc::lastArgu (Stack* s){
-    std::cout<<"lastArgu";
 
     if(item1->getPLit()!=nullptr)
         s->push(*item1);
@@ -86,7 +83,6 @@ void LastStruc::lastArgu (Stack* s){
 }
 
 QString LastStruc::lastOpe () const {
-    std::cout<<"lastOpe";
 
     if(ope!="")
         return ope;
