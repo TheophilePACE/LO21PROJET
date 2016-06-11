@@ -1,4 +1,4 @@
-<Pile>4_4.5_5/8_5$8_4$5_1/2$5.6_5_4</Pile>
-<Variables>C-2 CD-48</Variables>
-<Programmes/>
+<Pile>'PLUSPETIT'_4_-985/4$22</Pile>
+<Variables>E-2 C-2$2</Variables>
+<Programmes>INC[1 +]_PLUSPETIT[2 +]</Programmes>
 

@@ -108,7 +108,7 @@ void QvarEditor::getNextCommand(){
     Parser p = Parser::getInstance();
 
     if(p.getType(commandIdentifier->text()) != "Atom")
-        throw ComputerException("Type Error of the identifier");
+        throw ComputerException("Erreur : Identificateur de Mauvais Type");
     while(!it.isDone() &&
           it.getCurrent().getLib()->toString()!=commandIdentifier->text().toStdString())
     {
@@ -127,7 +127,7 @@ void QvarEditor::getNextCommand(){
             }
 
             else
-                throw ComputerException("Modification d'un' Programme Impossible d'ici");
+                throw ComputerException("Erreur : Modification d'un Programme Impossible d'ici");
         else {
             SnapshotManager * s = &(SnapshotManager::getInstance());
             s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
@@ -136,7 +136,7 @@ void QvarEditor::getNextCommand(){
 
     }
     else
-        throw ComputerException("Type Error Creation Var");
+        throw ComputerException("Erreur : Type de La Variable Incorrect");
 
 }
 void QvarEditor::destroyVar(){

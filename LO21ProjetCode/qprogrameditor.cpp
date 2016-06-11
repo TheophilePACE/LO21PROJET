@@ -6,7 +6,7 @@ QprogramEditor::QprogramEditor(QWidget *parent) : QWidget(parent)
 {
     QPushButton * newProg = new QPushButton();
 
-    newWindow = new QWindow2(parent);
+    newWindow = new QWindow2();
     QHBoxLayout * newWLay = new QHBoxLayout(this);
     QPushButton * saveNewProg = new QPushButton(this);
     saveNewProg->setText("Créer");
@@ -69,9 +69,9 @@ void QprogramEditor::choiceProgram(const QString& s) {
 void QprogramEditor::saveProgram(){
     try {
         if(programChoice->count()==0)
-            throw ComputerException("Pas de programme sélectionné");
+            throw ComputerException("Erreur : Pas de programme sélectionné");
         if(programText->toPlainText().contains('[') || programText->toPlainText().contains(']') || programText->toPlainText().contains('_'))
-            throw ComputerException("Caractères Interdits dans un Programme : '[', ']', '_'");
+            throw ComputerException("Erreur : Caractères Interdits dans un Programme : '[', ']', '_'");
         for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
             if(it.getCurrent().getLib()->toString()==programChoice->currentText().toStdString())
             {
@@ -91,12 +91,12 @@ void QprogramEditor::newProgram(){
     Parser p = Parser::getInstance();
     try {
         if(newProgName->text()=="")
-            throw ComputerException("Nom Vide !");
+            throw ComputerException("Erreur : Nom Vide ");
         if(p.getType(newProgName->text()) != "Atom")
-            throw ComputerException("Nom non Valide !");
+            throw ComputerException("Erreur : Nom non Valide ");
         for(IdentifierManager::Iterator it = prgMng->getIterator(); !it.isDone(); it.next())
             if(it.getCurrent().getLib()->toString()==newProgName->text().toStdString())
-                throw ComputerException("Nom Existe déjà");
+                throw ComputerException("Erreur : Nom Existe déjà");
         SnapshotManager * s = &(SnapshotManager::getInstance());
         s->addSnapshot(s->getCurrentState()->getStack(), &(IdentifierManager::getInstance()));
         prgMng->addIdentifier(newProgName->text(),mng->createProgram("")->getPLit());

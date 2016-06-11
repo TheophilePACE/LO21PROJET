@@ -21,6 +21,11 @@ class QWindow2 : public QWidget {
 public:
     explicit QWindow2(QWidget * parent = 0):QWidget(parent){}
 };
+class QWindow3 : public QWidget {
+public:
+     QWindow3(QWidget * parent = 0):QWidget(parent){}
+    ~QWindow3(){delete this;}
+};
 
 class QprogramEditor : public QWidget{
         Q_OBJECT
@@ -30,13 +35,13 @@ class QprogramEditor : public QWidget{
         QHBoxLayout * commandView;
         QVBoxLayout * generalView;
         IdentifierManager * prgMng;
-        QWidget * newWindow;
         QLineEdit * newProgName;
+        QWindow2 * newWindow;
     public:
         explicit QprogramEditor(QWidget * parent = 0);
+        ~QprogramEditor(){delete newWindow;}
         void setIdentifierManager(IdentifierManager * id){prgMng=id;}
         QComboBox * accessProgramChoice();
-        ~QprogramEditor(){}
     public slots:
         void refresh();
         void choiceProgram(const QString&);

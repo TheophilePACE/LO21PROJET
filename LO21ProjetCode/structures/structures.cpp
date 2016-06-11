@@ -212,14 +212,10 @@ void Controller::command(const QString& c){
                                 }
 
                             }
-
-                            else {
-                                stack->setMessage(toQString("Operateur Inconnu"));
-                                }
-                            }
-
-
-                        else throw ComputerException("Pas assez d elements dans la pile");}
+                            else
+                                throw ComputerException("Erreur : Operateur pas Défini");
+                        }
+                        else throw ComputerException("Erreur : Pas Assez d'Elements dans la Pile");}
                     else if(p.isOperatorUnary(str)) {
                         if (stack->size()>=1) {
                             lastStruc->getOpe1(stack,str);
@@ -314,19 +310,14 @@ void Controller::command(const QString& c){
                                 OP.loadOperand(stack);
                                 OP.execute();
                             }
-
-
-
                             else
-                                throw ComputerException("Operateur pas encore défini");
+                                throw ComputerException("Erreur : Operateur pas Défini");
                         }
-                        else throw ComputerException(" Pas assez d'argument dans la pile!");
+                        else throw ComputerException("Erreur : Pas assez d'Arguments dans la Pile");
                     }
                     else if(p.isOperatorStack(str)) {
                          if (str=="LASTARGS")
-                        {
                             lastStruc->lastArgu(stack);
-                        }
 
                     }
                     }

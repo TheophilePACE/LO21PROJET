@@ -73,7 +73,7 @@ Item * GeneralManager::createItem(QString s) {
         return It;
     }
         else
-            throw ComputerException("Erreur de type");
+            throw ComputerException("Erreur : Type Incorrect");
 }
 
 Item * GeneralManager::createSimpleItem(QString s) //factoriser la création de numeric
@@ -115,7 +115,7 @@ Item * GeneralManager::createSimpleItem(QString s) //factoriser la création de 
     {
         if(p.isOperator(s))
         {
-            throw ComputerException("C'est un operateur donc pas de création");
+            throw ComputerException("Erreur : C'est un Opérateur");
         }
         else
         {
@@ -158,5 +158,5 @@ Item * GeneralManager::createSimpleItem(QString s) //factoriser la création de 
         return It;
     }
     else
-        throw ComputerException("Erreur de type");
+        throw ComputerException("Erreur : Type Incorrect");
 }

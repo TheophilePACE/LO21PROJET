@@ -4,7 +4,7 @@
 #include "snapshots.h"
 
 void ExceptionWindow(QString s) {
-    QWindow2 *win = new QWindow2;
+    QWindow2 *win = new QWindow2();
     QLabel * lab = new QLabel;
     QVBoxLayout * layout = new QVBoxLayout;
     layout->addWidget(lab);

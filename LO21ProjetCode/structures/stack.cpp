@@ -50,7 +50,7 @@ Stack::~Stack(){
 
 Litteral* Stack::top() const {
 
-    if (nb==0) throw ComputerException("aucune expression sur la Stack");
+    if (nb==0) throw ComputerException("Erreur : Aucune Expression à Dépiler");
     return items[nb-1].getPLit();
 }
 
@@ -76,16 +76,19 @@ void LastStruc::getOpe2(Stack* s,QString op){
 
 void LastStruc::lastArgu (Stack* s){
 
-    if(item1->getPLit()!=nullptr)
+    if(((item1->getPLit())!=nullptr)&&((item2->getPLit())!=nullptr))
+    {
         s->push(*item1);
-    if(item2!=nullptr)
         s->push(*item2);
+    }
+    else
+        throw ComputerException("Erreur : Pas d'Opérateur Utilisé");
 }
 
 QString LastStruc::lastOpe () const {
 
     if(ope!="")
         return ope;
-    if(ope=="")
-        throw ComputerException("Pas d operateurs en memoire");
+    throw ComputerException("Erreur : Pas d'Opérateur Utilisé");
+
 }
