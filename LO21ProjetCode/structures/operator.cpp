@@ -881,7 +881,7 @@ void  OperatorIFT::verify(Stack *s)
     if(!dynamic_cast<Numeric*>(l1)){
         throw ComputerException("Erreur : Le 1er Argument doit être un Test Logique");
     }
-
+}
 
 
 Litteral* OperatorIFT::execute( )
@@ -895,3 +895,4 @@ Litteral* OperatorIFT::execute( )
     return l2;
 
 }
+
