@@ -41,13 +41,13 @@ public:
         bool isDone() const { return nbRemain==0; }
         void next() {
             if (isDone())
-                throw ComputerException("error, next on an iterator which is done");
+                throw ComputerException("Erreur : Itérateur Terminé");
             nbRemain--;
             current++;
         }
         Identifier& getCurrent() const {
             if (isDone())
-                throw ComputerException("error, indirection on an iterator which is done");
+                throw ComputerException("Erreur : Itérateur Terminé");
             return **current;
         }
     };

@@ -1,7 +1,7 @@
 #include "snapshots.h"
 
 Snapshot::~Snapshot() {
-    delete stack;
+    //delete stack;
     delete idMng;
 }
 

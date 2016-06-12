@@ -26,6 +26,7 @@ bool Parser::isOperatorBinary(QString s) {
     if(s=="$") return true;
     if(s=="AND") return true;
     if(s=="OR") return true;
+    if(s=="STO") return true;
     if(s=="SWAP") return true;
     if(s=="IFT") return true;
     return false;
@@ -42,7 +43,6 @@ bool Parser::isOperatorUnary(QString s) {
     if(s=="DUP") return true;
     if(s=="CLEAR") return true;
     if(s=="EVAL") return true;
-    if(s=="STO") return true;
     if(s=="FORGET") return true;
     if(s=="EDIT") return true;
     return false;
@@ -72,7 +72,7 @@ std::string Parser::getType(QString s)
         return "Expression";
     if(isOperator(s))
         return "Operator";
-    throw ComputerException("Type inconnu !!");
+    throw ComputerException("Erreur : Type Incorrect");
 
 }
 long Parser::getNum(QString s){

@@ -1,4 +1,4 @@
-na#ifndef SNAPSHOTS_H
+#ifndef SNAPSHOTS_H
 #define SNAPSHOTS_H
 
 #include "structures/stack.h"
@@ -36,8 +36,8 @@ public:
     void updateCurrentSnapshot(Stack * st, IdentifierManager * im);
     bool redoPossible() { if(nb!=0) return currentState<nb-1; else return false;}
     bool undoPossible() {return currentState>0;}
-    Snapshot * redo() {if (!(redoPossible())) throw ComputerException("Pas d'état suivant"); return snapshots[++currentState];}
-    Snapshot * undo() {if (!(undoPossible())) throw ComputerException("Pas d'état précédent"); return snapshots[--currentState];}
+    Snapshot * redo() {if (!(redoPossible())) throw ComputerException("Erreur : Pas d'état suivant"); return snapshots[++currentState];}
+    Snapshot * undo() {if (!(undoPossible())) throw ComputerException("Erreur : Pas d'état précédent"); return snapshots[--currentState];}
     Snapshot * getCurrentState() const {return snapshots[currentState];}
     static SnapshotManager& getInstance();
     static void freeInstance();
