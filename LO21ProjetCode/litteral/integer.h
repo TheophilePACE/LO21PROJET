@@ -31,9 +31,7 @@ public:
     Integer MOD(Integer integer) const ;
     Integer DIV(Integer integer) const ;
     //@}
-    ///Retourne l'opposé de l'Integer.
-    Integer NEG() { long a = num;
-                    Integer I(-a);
-                  return I;} //le retour permet une opération du type A+NEG(B)
+
+
 };
 #endif // INTEGER_H

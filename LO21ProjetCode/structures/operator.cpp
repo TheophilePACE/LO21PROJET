@@ -6,16 +6,31 @@ void OperatorBinary::loadOperand(Stack *s) {
 
     l1=s->top();
     s->pop();
-    verify(s);
+    correctType(s);
+}
+
+void OperatorBinary::unLoadOperand(Stack *s) {
+    Item * I1 =new Item();
+    Item * I2 =new Item();
+    I1->setLit(l1);
+    I2->setLit(l2);
+    s->push(*I1);
+    s->push(*I2);
 }
 
 void OperatorUnary::loadOperand(Stack * s) {
     l1=s->top();
     s->pop();
-    verify(s);
+    correctType(s);
 
 }
 
+void OperatorUnary::unLoadOperand(Stack * s) {
+    Item * I1 =new Item();
+    I1->setLit(l1);
+    s->push(*I1);
+
+}
 
 //Somme
 Litteral* OperatorSum::execute()
@@ -58,17 +73,12 @@ Litteral* OperatorSum::execute()
         return N;
     }
 }
-void OperatorSum::verify(Stack *s)
+void OperatorSum::correctType(Stack *s)
 {
 
     if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Numeriques ou Complexes pour cet Opérateur");
     }
 }
@@ -109,17 +119,12 @@ Litteral* OperatorSub::execute()
         return N;
     }
 }
-void OperatorSub::verify(Stack *s)
+void OperatorSub::correctType(Stack *s)
 {
 
     if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Numeriques ou Complexes pour cet Opérateur");
     }
 }
@@ -164,16 +169,11 @@ Litteral* OperatorMul::execute()
         return N;
     }
 }
-void OperatorMul::verify(Stack *s){
+void OperatorMul::correctType(Stack *s){
 
 if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
 {
-    Item * I1 =new Item();
-    Item * I2 =new Item();
-    I1->setLit(l1);
-    I2->setLit(l2);
-    s->push(*I1);
-    s->push(*I2);
+    unLoadOperand(s);
     throw ComputerException("Erreur : Il faut 2 Numeriques ou Complexes pour cet Opérateur");
 }}
 
@@ -244,26 +244,16 @@ Litteral*  OperatorDivision::execute()
     }
 
 }
-void OperatorDivision::verify(Stack *s) {
+void OperatorDivision::correctType(Stack *s) {
 
     if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Numeriques ou Complexes pour cet Opérateur");
     }
     if(((dynamic_cast<Numeric*>(l2))&&dynamic_cast<Numeric*>(l2)->isNull())||((dynamic_cast<Complex*>(l2))&&(dynamic_cast<Complex*>(l2)->isImag()&&dynamic_cast<Complex*>(l2)->isReal())))
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Division par 0");
     }
 }
@@ -276,26 +266,16 @@ Litteral*  OperatorDiv::execute()
         *Rslt =(*I1).DIV(*I2);
         return Rslt;
 }
-void OperatorDiv::verify(Stack *s){
+void OperatorDiv::correctType(Stack *s){
 
     if(typeid(*l1)!=typeid(Integer)||typeid(*l2)!=typeid(Integer))
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Division par 0");
     }
     if(dynamic_cast<Numeric*>(l2)->isNull())
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Division par 0");
     }
 }
@@ -308,26 +288,16 @@ Litteral*  OperatorMod::execute()
         *Rslt =(*I1).MOD(*I2);
         return Rslt;
 }
-void OperatorMod::verify(Stack *s){
+void OperatorMod::correctType(Stack *s){
 
     if(typeid(*l1)!=typeid(Integer)||typeid(*l2)!=typeid(Integer))
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Entiers pour cet Opérateur");
     }
     if(dynamic_cast<Numeric*>(l2)->isNull())
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Modulo par 0");
     }
 }
@@ -344,16 +314,11 @@ Litteral*  OperatorSupS::execute()
         Integer* Rslt = new Integer(0);
         return Rslt;
 }
-void OperatorSupS::verify(Stack *s){
+void OperatorSupS::correctType(Stack *s){
 
     if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Numeriques pour cet Opérateur");
     }
 }
@@ -369,16 +334,11 @@ Litteral*  OperatorSupE::execute()
         Integer* Rslt = new Integer(0);
         return Rslt;
 }
-void OperatorSupE::verify(Stack *s){
+void OperatorSupE::correctType(Stack *s){
 
     if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Numeriques pour cet Opérateur");
     }
 }
@@ -394,7 +354,7 @@ Litteral*  OperatorLessS::execute()
         Integer* Rslt = new Integer(0);
         return Rslt;
 }
-void OperatorLessS::verify(Stack *s){
+void OperatorLessS::correctType(Stack *s){
     l2=s->top();
     s->pop();
 
@@ -402,12 +362,8 @@ void OperatorLessS::verify(Stack *s){
     s->pop();
     if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
+
         throw ComputerException("Erreur : Il faut 2 Numeriques pour cet Opérateur");
     }
 }
@@ -422,16 +378,11 @@ Litteral*  OperatorLessE::execute()
         }
         Integer* Rslt = new Integer(0);
         return Rslt;}
-void OperatorLessE::verify(Stack *s){
+void OperatorLessE::correctType(Stack *s){
 
     if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Numeriques pour cet Opérateur");
     }
 }
@@ -457,16 +408,11 @@ Litteral*  OperatorEqu::execute()
         Integer* Rslt = new Integer(0);
         return Rslt;}
 }
-void OperatorEqu::verify(Stack *s){
+void OperatorEqu::correctType(Stack *s){
 
     if(!(((dynamic_cast<Numeric*>(l1))&&(dynamic_cast<Numeric*>(l2)))||((dynamic_cast<Complex*>(l1))&&(dynamic_cast<Complex*>(l2))))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Numeriques pour cet Opérateur");
     }
 }
@@ -493,7 +439,7 @@ Litteral*  OperatorNEqu::execute()
         Integer* Rslt = new Integer(0);
         return Rslt;}
 }
-void OperatorNEqu::verify(Stack *s){
+void OperatorNEqu::correctType(Stack *s){
     l2=s->top();
     s->pop();
 
@@ -501,12 +447,7 @@ void OperatorNEqu::verify(Stack *s){
     s->pop();
     if(!(((dynamic_cast<Numeric*>(l1))&&(dynamic_cast<Numeric*>(l2)))||((dynamic_cast<Complex*>(l1))&&(dynamic_cast<Complex*>(l2))))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Numeriques pour cet Opérateur");
     }
 }
@@ -520,16 +461,11 @@ Litteral*  OperatorCplx::execute()
 
         return Rslt;
 }
-void OperatorCplx::verify(Stack *s){
+void OperatorCplx::correctType(Stack *s){
 
     if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Numeriques pour cet Opérateur");
     }
 }
@@ -546,15 +482,10 @@ Litteral*  OperatorAND::execute()
         Integer* I = new Integer(0);
         return I;
 }
-void OperatorAND::verify(Stack *s){
+void OperatorAND::correctType(Stack *s){
     if(typeid(*l1)!=typeid(Integer)||typeid(*l2)!=typeid(Integer))
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Entiers pour cet Opérateur");
     }
 }
@@ -571,16 +502,11 @@ Litteral*  OperatorOR::execute()
         Integer* I = new Integer(0);
         return I;
 }
-void OperatorOR::verify(Stack *s){
+void OperatorOR::correctType(Stack *s){
 
     if(typeid(*l1)!=typeid(Integer)||typeid(*l2)!=typeid(Integer))
     {
-        Item * I1 =new Item();
-        Item * I2 =new Item();
-        I1->setLit(l1);
-        I2->setLit(l2);
-        s->push(*I1);
-        s->push(*I2);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 2 Entiers pour cet Opérateur");
     }
 }
@@ -596,13 +522,11 @@ Litteral*  OperatorNOT::execute()
         Integer* I = new Integer(1);
         return I;
 }
-void OperatorNOT::verify(Stack *s){
+void OperatorNOT::correctType(Stack *s){
 
     if(typeid(*l1)!=typeid(Integer))
     {
-        Item * I1 =new Item();
-        I1->setLit(l1);
-        s->push(*I1);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 1 Entier pour cet Opérateur");
     }
 }
@@ -621,18 +545,15 @@ Litteral*  OperatorNEG::execute()
     return Rslt;
 
 }
-void OperatorNEG::verify(Stack *s){
+void OperatorNEG::correctType(Stack *s){
 
     if(!(dynamic_cast<Numeric*>(l1)||dynamic_cast<Complex*>(l1)))
-    {
-        Item * I1 =new Item();
-        I1->setLit(l1);
-        s->push(*I1);
+    {        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 1 Numerique ou 1 Complexe pour cet Opérateur");
     }
 }
 
-void OperatorSTO::verify(Stack *s){
+void OperatorSTO::correctType(Stack *s){
     
     //Litteral* I1 =dynamic_cast<Litteral*>(l1);
     Item * I = new Item;
@@ -685,13 +606,11 @@ Litteral*  OperatorNUM::execute()
     return Rslt;
 
 }
-void OperatorNUM::verify(Stack *s){
+void OperatorNUM::correctType(Stack *s){
 
     if(!(dynamic_cast<Integer*>(l1)||dynamic_cast<Rationnal*>(l1)))
     {
-        Item * I1 =new Item();
-        I1->setLit(l1);
-        s->push(*I1);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 1 Rationnel ou 1 Entier pour NUM");
     }
 }
@@ -704,13 +623,11 @@ Litteral*  OperatorDEN::execute()
     return Rslt;
 
 }
-void OperatorDEN::verify(Stack *s){
+void OperatorDEN::correctType(Stack *s){
 
     if(!(dynamic_cast<Integer*>(l1)||dynamic_cast<Rationnal*>(l1)))
     {
-        Item * I1 =new Item();
-        I1->setLit(l1);
-        s->push(*I1);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 1 Rationnel ou 1 Entier pour DEN");
     }
 }
@@ -726,13 +643,11 @@ Litteral*  OperatorRE::execute()
     return Rslt;
 
 }
-void OperatorRE::verify(Stack *s){
+void OperatorRE::correctType(Stack *s){
 
     if(!(dynamic_cast<Numeric*>(l1)||dynamic_cast<Complex*>(l1)))
     {
-        Item * I1 =new Item();
-        I1->setLit(l1);
-        s->push(*I1);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 1 Numérique ou 1 Complexe pour RE");
     }
 }
@@ -749,18 +664,16 @@ Litteral*  OperatorIM::execute()
     return Rslt;
 
 }
-void OperatorIM::verify(Stack *s){
+void OperatorIM::correctType(Stack *s){
 
     if(!(dynamic_cast<Numeric*>(l1)||dynamic_cast<Complex*>(l1)))
     {
-        Item * I1 =new Item();
-        I1->setLit(l1);
-        s->push(*I1);
+        unLoadOperand(s);
         throw ComputerException("Erreur : Il faut 1 Complexe pour IM");
     }
 }
 
-void OperatorEVAL::verify(Stack *s){
+void OperatorEVAL::correctType(Stack *s){
 
 }
 Litteral * OperatorEVAL::execute(){
@@ -832,7 +745,7 @@ Litteral*  OperatorFORGET::execute()
     return l1;
 
 }
-void OperatorFORGET::verify(Stack *s){
+void OperatorFORGET::correctType(Stack *s){
 
 }
 
@@ -861,13 +774,13 @@ Litteral*  OperatorEDIT::execute()
 
 }
 
-void OperatorEDIT::verify(Stack *s){}
+void OperatorEDIT::correctType(Stack *s){}
 Litteral*  OperatorCLEAR::execute()
 {
     return nullptr;
 }
 
-void  OperatorCLEAR::verify(Stack *s)
+void  OperatorCLEAR::correctType(Stack *s)
 {
     do{
     s->pop();
@@ -876,7 +789,7 @@ void  OperatorCLEAR::verify(Stack *s)
 }
 
 
-void  OperatorIFT::verify(Stack *s)
+void  OperatorIFT::correctType(Stack *s)
 {
     if(!dynamic_cast<Numeric*>(l1)){
         throw ComputerException("Erreur : Le 1er Argument doit être un Test Logique");

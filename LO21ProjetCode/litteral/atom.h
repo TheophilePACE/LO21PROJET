@@ -2,7 +2,7 @@
 #define ATOM_H
 
 #include "expression.h"
-
+///forme
 class Atom : public Litteral {
     QString lib;
 public:
