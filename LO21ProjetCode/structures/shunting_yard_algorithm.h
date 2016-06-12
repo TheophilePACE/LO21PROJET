@@ -13,6 +13,10 @@
 #include <stdlib.h>
 //#include "parser.h"
 
+/*! \name      Les algorithmes suivants viennent du site Technical recipes, publié par Andy :
+ *http://www.technical-recipes.com/2011/a-mathematical-expression-parser-in-java-and-cpp/
+* Ils permettent d'interpréter des chaine en Reverse Polish Notation.
+*/
 bool isParenthesis(const std::string& token);
 bool isOperator( const std::string& token);
 bool isAssociative( const std::string& token, const int& type);

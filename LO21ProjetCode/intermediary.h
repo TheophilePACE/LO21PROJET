@@ -19,7 +19,11 @@
 
 class Litteral;
 
+/*! \name      Élement de base de la pile.
+* Permet de stock une littérale. La litterale peut être une Expression, un Numeric un Program un Complexe.
+*/
 class Item {
+    ///Littérale pointée par l'Item
     Litteral * lit;
 public:
     Item(): lit(nullptr){}
@@ -30,8 +34,15 @@ public:
     void raz() {lit=nullptr;}
 };
 
+/*! \name     Un identifier est un structure qui relie une littérale à son nom.
+* L'atom permet de désigner une littérale par une QString. la valeur correspondant àcette QString est pointé par value.
+* Les identifiers désignent des variavles, des expressions ou des programmes.
+*/
+
 class Identifier {
+    ///Libellé de la litteral
     Atom* lib;
+    ///Valeur qui sera empilé quand on écrira la désignation.
     Litteral* value;
 public:
     Identifier():lib(nullptr),value(nullptr){}

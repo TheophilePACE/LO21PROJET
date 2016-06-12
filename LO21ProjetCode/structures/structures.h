@@ -20,15 +20,25 @@
 
 /*Fichier contenant les structures de controle*/
 
+/*! \name   Interface entre les différents manager.
+* A travers la fonction command, le controller fait appel au parser pour déterminer l'action à mener,
+* Il fait appel au GeneralManager s'il faut créer un nouvel élément ou aux operateurs s'il faut executer une opération.
+*
+*/
+
 class Controller {
+    ///Singleton qui créer les items ou les programmes ou encore les expressions.
     GeneralManager& genMng;
+    ///Pointeur sur la pile actuellement utilisée. En effet, il en existe plusieurs (grâce aux snaphshots)
     Stack * stack;
+    ///Structure de suavegarde de la dernière opération.
     LastStruc * lastStruc;
 
 public:
 
     Controller(GeneralManager& m,Stack * p):genMng(m), stack(p){lastStruc= new LastStruc;}
     ~Controller(){delete lastStruc;}
+    ///Fonction centrale chargé de l'interprétation et de l'execution des entrés de l'utilisateurs.
     void command(const QString& c);
     void setStack(Stack * s) {stack = s;}
 

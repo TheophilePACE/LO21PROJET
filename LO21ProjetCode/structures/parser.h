@@ -5,6 +5,10 @@
 #include <QStringList>
 #include <string>
 
+/*! \name      Le parser est un singleton qui interprète des chianes de caractère.
+* Le parser est appelé par le GeneralManager ou le Controller via Controller::command.
+* Cette fonction est capable de retourner le type et, si c'est possible, la valeur d'une littéral.
+*/
 class Parser {
     struct Singleton{
         Parser* instance;
@@ -15,11 +19,16 @@ class Parser {
 public:
     static Parser& getInstance();
     static void freeInstance();
+    ///Retourne le type de s sous forme de string. Utilise les fonctions booléeennes is... définies dans Parser.h
     std::string getType(QString s);
     bool isOperator(QString s);
     bool isOperatorBinary(QString s);
     bool isOperatorUnary(QString s);
     bool isOperatorStack(QString s);
+
+    /*! \name       A l'aide d'un split sur s, ces fnction retourne une partie de la chaine correspodante à la valeur de l'objet à créer.
+   */
+    //@{
     long getNum(QString s);
     long getDenum(QString s);
     long getInteger(QString s); //renvoie tout ce qu'il y a avant le .
@@ -28,6 +37,7 @@ public:
     float getFloat(QString s); //non implémentée
     QString getRealPart(QString s); //renvoie la premiereparti du ima
     QString getImPart(QString s);
+    //@}
 
 };
 

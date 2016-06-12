@@ -25,9 +25,10 @@ public:
     void print(QTextStream& f)const;
     std::string toString()const;
     QString toQStringPars()const;
-     /*! Operateurs de R vers R
-    Le changement de type sera assurer par la classe operateur au travers de numericcast.*/
 
+    /*! \name       Operateurs de R vers R
+    * Le changement de type sera assurer par la classe operateur au travers de numericcast.
+   */
     //@{
     Real operator+(Real re) const;
     Real operator-(Real re)const ;

@@ -4,14 +4,19 @@
 #include "structures.h"
 #include "computerException.h"
 
+/*! \name       L'IdentifierManager gère les Identifier au sein d'un snapshot.
+* Ce manager conserve un tableau des identifiers présent dans un snapshot.
+* Il existe un IdentifierManager par snapshot.
+*/
 class IdentifierManager {
+    ///Tableau des identifiers présents dans le snapshot.
     Identifier** identifiers;
     unsigned int nb;
     unsigned int max;
     void increaseCap();
     IdentifierManager():identifiers(nullptr),nb(0),max(0){}
+    ///Interdiction de la recopie d'un Identifier manager : il faut éviter les partages d'identifiers. On utilisera le constructeur de recopie.
     IdentifierManager& operator=(const IdentifierManager& m);
-    //friend class QComputer;
     struct Singleton{
         IdentifierManager* instance;
         Singleton():instance(nullptr){}
