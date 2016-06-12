@@ -4,18 +4,18 @@
 #include "structures.h"
 #include "computerException.h"
 
-/*! \name       L'IdentifierManager gère les Identifier au sein d'un snapshot.
-* Ce manager conserve un tableau des identifiers présent dans un snapshot.
+/*! \brief       L'IdentifierManager gère les Identifier au sein d'un Snapshot.
+* Ce manager conserve un tableau des identifier présents dans un snapshot.
 * Il existe un IdentifierManager par snapshot.
 */
 class IdentifierManager {
-    ///Tableau des identifiers présents dans le snapshot.
+    ///Tableau des Identifier présents dans le snapshot.
     Identifier** identifiers;
     unsigned int nb;
     unsigned int max;
     void increaseCap();
     IdentifierManager():identifiers(nullptr),nb(0),max(0){}
-    ///Interdiction de la recopie d'un Identifier manager : il faut éviter les partages d'identifiers. On utilisera le constructeur de recopie.
+    ///Interdiction de la recopie d'un IdentifierManager via l'operateur= : on utilisera le constructeur de recopie.
     IdentifierManager& operator=(const IdentifierManager& m);
     struct Singleton{
         IdentifierManager* instance;
@@ -29,9 +29,12 @@ public:
     void addIdentifier(QString s, Litteral* l);
     void removeIdentifier(Identifier& e);
     Identifier * getIdentifier(Atom& a) const;
+    ///Renvoie une string contenant les informations relatives à toutess les variables selon un certain format (utilisée pour l'export XML)
     const QString displayVar() const;
+    ///Renvoie une string contenant les informations relatives à tous les programmes selon un certain format (utilisée pour l'export XML)
     const QString displayProg() const;
     unsigned int size() const {return nb;}
+    ///Renvoie le nombre de variables enregistrées
     unsigned int sizeAtoms() const;
     static IdentifierManager& getInstance();
     static void setInstance(IdentifierManager * id);

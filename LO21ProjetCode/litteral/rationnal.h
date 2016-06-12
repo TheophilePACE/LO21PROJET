@@ -5,17 +5,18 @@
 #include "numeric.h"
 class Litteral;
 class Integer;
-//! Classe représentant les nombres de Q, les rationnels ou fractions.
-//! la valeur d'un rationnel est stocké dans le num et le denum  déclarés dans Numeric. la mantisse garde sa valeur par défaut   c'est à dire 0 .
-//! Cette classe ne comporte donc pas de nouveaux attributs.
+/*! \brief Classe représentant les nombres de Q, les rationnels ou fractions.
+* la valeur d'un rationnel est stocké dans le num et le denum  déclarés dans Numeric. la mantisse garde sa valeur par défaut   c'est à dire 0 .
+* Cette classe ne comporte donc pas de nouveaux attributs. */
 class Rationnal : public Numeric {
 private:
 public:
-     /*! Ces méthodes appliquent une simplification via le pgcd de manière à simplifiée la fonction crée. L'objet retourné est toujours un rationnal. le changement de type sera assuré par la manager.*/
+     /*! \brief Ces méthodes appliquent une simplification via le pgcd de manière à simplifier le rationnal crée.
+      * L'objet retourné est toujours un rationnal. Le changement de type sera assuré par le manager.*/
     //@{
     //!Création à partir de deux valeurs de type long. Correspond à une construction directe par l'utilisateur.
     Rationnal(long N, long D ): Numeric(N,D) {simplify();} //utile en cas de division. Comment gérer le retour?
-    ///Création à partir de deux integer. Correspond à la division d'un entier par un autre.
+    ///Création à partir de deux integer. Correspond à la division d'un entier par un autre entier.
     Rationnal(Integer a, Integer b); //Attention au simplicifications
     Rationnal(Rationnal& R): Numeric(R.num,R.denum) {}
     //@}
@@ -25,7 +26,7 @@ public:
     QString toQStringPars()const;
     ///Simplification de fraction  vers une fraction irréductible: on divise num et denum par pgcd(num,denum).
     Rationnal simplify() ;
-     /*! \name Operateur de Q vers Q.
+     /*! \brief Operateurs de Q vers Q.
     * Le changement de type sera assurer par la classe operateur au travers de numericcast.
     */
     //@{
@@ -41,7 +42,7 @@ public:
     double getSignedValue() const {return (double)(((double)(getNum())) / (double)((getDenum())));}
 
 };
-/*! \name Operateur de Q et Z vers Q.
+/*! \brief Operateur de Q et Z vers Q.
 * Le changement de type sera assurer par la classe operateur au travers de numericcast.*/
 //@{
 Rationnal operator+(Integer a, Rationnal Ra);

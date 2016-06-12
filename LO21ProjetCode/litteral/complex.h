@@ -4,9 +4,8 @@
 #include "real.h"
 #include "rationnal.h"
 #include "integer.h"
-///réprésente un nombre de complexe. Les parties imaginaires et complexes sont donc des numeriques (càd entiers, rationnels ou réel).
-//!Les types de chaques parties sont revues en fonction de leur valeur (partie décimale nulle, denominateur égal à 0).
-
+/*! \brief réprésente un nombre complexe. Les parties imaginaires et complexes sont donc des numeric (càd entiers, rationnels ou réels).
+*Les types de chaque partie sont revus en fonction de la valeur (partie décimale nulle, denominateur égal à 0). */
 class Complex : public Litteral {
 private:///Partie réelle, implémentée par un pointeur sur un numérique. L'objet pointé est en réalité un objet d'une des classes filles de numériques.
     Numeric* pReal;///Partie Imaginaire, implémentée par un pointeur sur un numérique. L'objet pointé est en réalité un objet d'une des classes filles de numériques.
@@ -15,14 +14,14 @@ public:
     Complex (Numeric* Re=nullptr, Numeric* Im=nullptr): pReal(Re), pImag(Im) {if (pImag==nullptr)
                                                         pImag= new Integer();} //correspond à la construction avec  $ (voir sujet)
     void print(QTextStream& f)const;
-    ///Accesseur à la partie réelle du complexe.
-    Numeric& getReal() const { return *pReal;}
-    ///Accesseur à la partie Imaginaire du complexe.
-    Numeric& getImag() const { return *pImag;}
+    ///Accesseur en lecture à la partie réelle du complexe.
+    const Numeric& getReal() const { return *pReal;}
+    ///Accesseur en lecture à la partie Imaginaire du complexe.
+    const Numeric& getImag() const { return *pImag;}
     std::string toString()const;
     QString toQStringPars()const;
     ~Complex(){}
-     /*! Operateurs dans Z. le retour se fait également dans Z.
+     /*! \brief Operateurs dans C. le retour se fait également dans C
     */
     //@{
    Complex operator=(const Complex& Cx );

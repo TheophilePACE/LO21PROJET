@@ -3,11 +3,11 @@
 
 #include "litteral.h"
 
-///Un programme est une suite de caractère entre deux crochets. Cette suite de caractère est interprétable par l'UTComputer.
-/// Un programme est stocké sous forme de chaine de caractère et est interprété lors de son appel par l'utilisateur.
-/// Il est crée et édité dans l'onglet programme de l'UTComputer.
+/*! \brief Un programme est une suite de caractères entre deux crochets. Cette suite de caractère est interprétable par l'UTComputer.
+* Un programme est stocké sous forme de chaine de caractères et est interprété lors de son appel par l'utilisateur.
+*Il est crée et édité dans l'onglet programme de l'UTComputer.*/
 class Program : public Litteral {
-    ///Cette attribut stocke le 'code' du programme sous forme de QSTring. C'est donc un ensemble d'instructions qui sera interprété par l'UTComputer.
+    ///Cet attribut stocke le 'code' du programme sous forme de QSTring. C'est donc un ensemble d'instructions qui pourra êtr interprété par l'UTComputer.
     QString instructions;
 public:
     Program(QString s):instructions(s){}

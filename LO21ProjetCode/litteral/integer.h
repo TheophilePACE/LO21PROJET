@@ -2,15 +2,15 @@
 #define INTEGER_H
 
 #include "numeric.h"
-/*! Classe représentant les nombres de Z, les entiers relatifs.
- *la valeur d'un entier est stocké dans le num déclaré dans Numeric. les autres attributs restent à leur valeurs par défaut: 1 pour denum et 0 pour la mantisse.
+/*! \brief Classe représentant les nombres de Z, les entiers relatifs.
+ *la valeur d'un entier est stockée dans l'attribut  num déclaré dans Numeric. les autres attributs restent à leur valeurs par défaut: 1 pour denum et 0 pour la mantisse.
   * Cette classe ne comporte donc pas de nouveaux attributs.
   */
 
 class Integer: public Numeric{
 private:
 public:
-    //! Fait appel au cnstructeur de numerique à un argument, en attribuant la valeur passé en argument comme num.
+    //! Fait appel au constructeur de numerique à un argument, en attribuant la valeur passée en argument comme num.
     Integer(long n=0): Numeric(n) {}
 
     ~Integer() {}
@@ -22,7 +22,7 @@ public:
     QString toQStringPars()const;
     long setValue(long integer);
 
-     /*! \name Operateurs sur Z.
+     /*! \brief Operateurs sur Z.
       *  La division exacte créant un rationnel, elle est implémentée avec la classe rationnal dans la fichier rationnal.h
       * Retour par valeur car on connait à l'avance le type de retour.
     */

@@ -5,16 +5,16 @@
 
 class Litteral;
 class Integer;
-//! Classe représentant les nombres de R, les réels.
-//! la valeur d'un réels est stocké dans le num et la mantisse  déclarés dans Numeric. le denum garde sa valeur par défaut   c'est à dire 1 .
-//! Cette classe ne comporte donc pas de nouveaux attributs.
-//! La mantisse est toujours comprise entre 0 et 1. Si elle vaut plus de 1 ou moins de -1, la valeur est ramené entre 0 et 1 en ajustant num.
+/*! \brief Classe représentant les nombres de R, les réels.
+* la valeur d'un réel est stockée dans le num et la mantisse  déclarés dans Numeric. le denum garde sa valeur par défaut   c'est à dire 1 .
+* Cette classe ne comporte donc pas de nouveaux attributs.
+* La mantisse est toujours comprise entre 0 et 1. Si elle vaut plus de 1 ou moins de -1, la valeur est ramenée entre 0 et 1 en ajustant num. */
 class Real : public Numeric {
 private:
 public:
     Real(Real& R): Numeric(R.getNum()+R.getMantisse()) {}
     ~Real(){}
-    ///Vérifie que -1<mantisse<1. Augmente ou diminue mantisse de 1, en répercutant le changement sur num sinon.
+    ///Vérifie que -1<mantisse<1.Sinon,  augmente ou diminue mantisse de 1, en répercutant le changement sur num .
     bool simplify() ;
     ///Renvoie la valeur du réel, c'est à dire la somme de num et mantisse sous forme de double.
     double getSignedValue() const ;
@@ -26,8 +26,8 @@ public:
     std::string toString()const;
     QString toQStringPars()const;
 
-    /*! \name       Operateurs de R vers R
-    * Le changement de type sera assurer par la classe operateur au travers de numericcast.
+    /*! \brief       Operateurs de R vers R
+    * Le changement de type sera assuré par la classe operateur au travers de numericcast.
    */
     //@{
     Real operator+(Real re) const;
@@ -38,7 +38,7 @@ public:
 
 };
 
- /*! Le changement de type sera assurer par la classe operateur au travers de numericcast.*/
+ /*! Le changement de type sera assuré par la classe operateur au travers de numericcast.*/
 //@{
  /*! Operateurs de R et Q vers R*/
 

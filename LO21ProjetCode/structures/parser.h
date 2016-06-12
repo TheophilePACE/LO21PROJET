@@ -5,7 +5,7 @@
 #include <QStringList>
 #include <string>
 
-/*! \name      Le parser est un singleton qui interprète des chianes de caractère.
+/*! \brief      Le parser est un singleton qui interprète des chaines de caractères.
 * Le parser est appelé par le GeneralManager ou le Controller via Controller::command.
 * Cette fonction est capable de retourner le type et, si c'est possible, la valeur d'une littéral.
 */
@@ -26,7 +26,7 @@ public:
     bool isOperatorUnary(QString s);
     bool isOperatorStack(QString s);
 
-    /*! \name       A l'aide d'un split sur s, ces fnction retourne une partie de la chaine correspodante à la valeur de l'objet à créer.
+    /*! \brief       A l'aide d'un split sur s, ces fnction retourne une partie de la chaine correspodante à la valeur de l'objet à créer.
    */
     //@{
     long getNum(QString s);

@@ -10,24 +10,24 @@
 #include "qprogrameditor.h"
 #include "mainwindow.h"
 
-/*! \name Classe mere de tous les operateurs
+/*! \brief Classe mère de tous les operateurs
  * Les 4 méthodes sont les seules méthodes à implémenter pour un opérateur. Elle définissent une architecture pour les opérateurs.
  *
  */
 class OperatorAbstract {
 public:
-    ///En cas de problème avec les littérales dépilées, cette fonctions permet de rempiler la ou les littérales sur la pile.
+    ///En cas de problème avec les littérales dépilées, cette fonction permet de rempiler la ou les littérales sur la pile.
     virtual void unLoadOperand(Stack *s) = 0;
     ///Dépile suffisament de littérales puis fait appel à correctType qui vérifie que les littérales correspondent aux types attendus.
     virtual void loadOperand(Stack *s) = 0;
-    ///Réalise l'action de l'opérateur à proprement dit. Cette méthode utilise donc les littérales.
+    ///Réalise l'action de l'opérateur à proprement parler. Cette méthode utilise donc les littérales.
     virtual Litteral* execute( )=0;
-    ///Vérifie que les littérales récupéres correspond(ent) bien au(x) type(s) attendu(s). Si ce n'est pas la cas, la fonction appel unLoadOperand.
+    ///Vérifie que les littérales récupéres correspond(ent) bien au(x) type(s) attendu(s). Si ce n'est pas la cas, la fonction appelle unLoadOperand.
     virtual void correctType(Stack * s) =0 ;
 
 };
 
-/*! \name Classe mere de tous les operateurs Unaires
+/*! \brief Classe mère de tous les opérateurs Unaires
  * Les méthodes unLoadOperand et loadOperand sont codées ici car elles sont communes à tous les opérateurs unaires. elles ne sont donc pas virtuelles.
  * Les méthodes execute et correctType dépendent de chaque opérateur, elles seront implémentées dans les classes filles.
  *
@@ -39,13 +39,13 @@ protected:
 public:
     ///Rempile un Item pointant sur l1.
     void unLoadOperand(Stack *s);
-    ///Charge le premier élément de la pile.
+    ///Charge le premier élément sur pile.
     void loadOperand(Stack *s);
     virtual Litteral* execute( )=0;
     virtual void correctType(Stack * s) =0 ;
 };
 
-/*! \name Classe mere de tous les operateurs Binaires
+/*! \brief Classe mère de tous les operateurs Binaires
  * Les méthodes unLoadOperand et loadOperand sont codées ici car elles sont communes à tous les opérateurs binaires. elles ne sont donc pas virtuelles.
  * Les méthodes execute et correctType dépendent de chaque opérateur, elles seront implémentées dans les classes filles.
  *
@@ -56,9 +56,9 @@ protected:
     Litteral * l2;
 public:
     OperatorBinary(): l1(nullptr),l2(nullptr){}
-    ///Rempile un Item pointant sur l1.
+    ///Rempile 2 Item pointant sur l1 et l2.
     void unLoadOperand(Stack *s);
-    ///Dépile les 2 derniers éléments de la pile.
+    ///Dépile les 2 premiers éléments sur la pile.
     void loadOperand (Stack *s);
     virtual Litteral* execute( )=0;
     virtual void correctType(Stack * s) =0 ;

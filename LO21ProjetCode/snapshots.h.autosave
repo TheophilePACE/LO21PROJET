@@ -32,7 +32,7 @@ public:
 
 class SnapshotManager {
     Snapshot ** snapshots;
-    ///Désigne le  snapshot actuel.Il n'estréllement actualisé que lors de l'utilisation de updateCurrentSnapshot (avant Undo/Redo).
+    ///Désigne le  snapshot actuel.Il n'estréllement actualisé que lors de l'utilisation de updateCurrentSnapshot (avant Undo/Redo).    
     unsigned int nb;
 
     unsigned int maxi;

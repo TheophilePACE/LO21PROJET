@@ -2,7 +2,7 @@
 #define ATOM_H
 
 #include "expression.h"
-///Un atom sert à nommer un programme ou une variable. Il est utilisé dans un identifier.
+///Un atom sert à nommer un programme ou une variable. Il est toujours utilisé dans un identifier.
 class Atom : public Litteral {
     QString lib;
 public:
