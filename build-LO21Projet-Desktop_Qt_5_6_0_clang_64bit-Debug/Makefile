@@ -1307,19 +1307,7 @@ mainwindow.o: ../LO21ProjetCode/mainwindow.cpp ../LO21ProjetCode/mainwindow.h \
 		../LO21ProjetCode/structures/computerException.h \
 		../LO21ProjetCode/snapshots.h \
 		../LO21ProjetCode/structures/identifierManager.h \
-		ui_mainwindow.h \
-		../LO21ProjetCode/qmain.h \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		../LO21ProjetCode/qprogrameditor.h \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QComboBox \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/QLabel \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtGui.framework/Headers/QWindow \
-		/Users/pascalereghem/Qt/5.6/clang_64/lib/QtGui.framework/Headers/qwindow.h \
-		../LO21ProjetCode/qvareditor.h
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../LO21ProjetCode/mainwindow.cpp
 
 litteral.o: ../LO21ProjetCode/litteral/litteral.cpp ../LO21ProjetCode/litteral/litteral.h \

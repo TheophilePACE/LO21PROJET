@@ -6,11 +6,14 @@ void OperatorBinary::loadOperand(Stack *s) {
 
     l1=s->top();
     s->pop();
+    verify(s);
 }
 
 void OperatorUnary::loadOperand(Stack * s) {
     l1=s->top();
     s->pop();
+    verify(s);
+
 }
 
 
@@ -55,13 +58,9 @@ Litteral* OperatorSum::execute()
         return N;
     }
 }
-void OperatorSum::loadOperand(Stack *s)
+void OperatorSum::verify(Stack *s)
 {
-    l2=s->top();
-    s->pop();
 
-    l1=s->top();
-    s->pop();
     if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
     {
         Item * I1 =new Item();
@@ -110,13 +109,9 @@ Litteral* OperatorSub::execute()
         return N;
     }
 }
-void OperatorSub::loadOperand(Stack *s)
+void OperatorSub::verify(Stack *s)
 {
-    l2=s->top();
-    s->pop();
 
-    l1=s->top();
-    s->pop();
     if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
     {
         Item * I1 =new Item();
@@ -169,12 +164,8 @@ Litteral* OperatorMul::execute()
         return N;
     }
 }
-void OperatorMul::loadOperand(Stack *s){
-l2=s->top();
-s->pop();
+void OperatorMul::verify(Stack *s){
 
-l1=s->top();
-s->pop();
 if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
 {
     Item * I1 =new Item();
@@ -253,12 +244,8 @@ Litteral*  OperatorDivision::execute()
     }
 
 }
-void OperatorDivision::loadOperand(Stack *s) {
-    l2=s->top();
-    s->pop();
+void OperatorDivision::verify(Stack *s) {
 
-    l1=s->top();
-    s->pop();
     if((!(typeid(*l1)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l1)))||(!(typeid(*l2)==typeid(Complex))&&(!dynamic_cast<Numeric*>(l2))))
     {
         Item * I1 =new Item();
@@ -289,12 +276,8 @@ Litteral*  OperatorDiv::execute()
         *Rslt =(*I1).DIV(*I2);
         return Rslt;
 }
-void OperatorDiv::loadOperand(Stack *s){
-    l2=s->top();
-    s->pop();
+void OperatorDiv::verify(Stack *s){
 
-    l1=s->top();
-    s->pop();
     if(typeid(*l1)!=typeid(Integer)||typeid(*l2)!=typeid(Integer))
     {
         Item * I1 =new Item();
@@ -325,12 +308,8 @@ Litteral*  OperatorMod::execute()
         *Rslt =(*I1).MOD(*I2);
         return Rslt;
 }
-void OperatorMod::loadOperand(Stack *s){
-    l2=s->top();
-    s->pop();
+void OperatorMod::verify(Stack *s){
 
-    l1=s->top();
-    s->pop();
     if(typeid(*l1)!=typeid(Integer)||typeid(*l2)!=typeid(Integer))
     {
         Item * I1 =new Item();
@@ -365,12 +344,8 @@ Litteral*  OperatorSupS::execute()
         Integer* Rslt = new Integer(0);
         return Rslt;
 }
-void OperatorSupS::loadOperand(Stack *s){
-    l2=s->top();
-    s->pop();
+void OperatorSupS::verify(Stack *s){
 
-    l1=s->top();
-    s->pop();
     if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
         Item * I1 =new Item();
@@ -394,12 +369,8 @@ Litteral*  OperatorSupE::execute()
         Integer* Rslt = new Integer(0);
         return Rslt;
 }
-void OperatorSupE::loadOperand(Stack *s){
-    l2=s->top();
-    s->pop();
+void OperatorSupE::verify(Stack *s){
 
-    l1=s->top();
-    s->pop();
     if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
         Item * I1 =new Item();
@@ -423,7 +394,7 @@ Litteral*  OperatorLessS::execute()
         Integer* Rslt = new Integer(0);
         return Rslt;
 }
-void OperatorLessS::loadOperand(Stack *s){
+void OperatorLessS::verify(Stack *s){
     l2=s->top();
     s->pop();
 
@@ -451,12 +422,8 @@ Litteral*  OperatorLessE::execute()
         }
         Integer* Rslt = new Integer(0);
         return Rslt;}
-void OperatorLessE::loadOperand(Stack *s){
-    l2=s->top();
-    s->pop();
+void OperatorLessE::verify(Stack *s){
 
-    l1=s->top();
-    s->pop();
     if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
         Item * I1 =new Item();
@@ -490,12 +457,8 @@ Litteral*  OperatorEqu::execute()
         Integer* Rslt = new Integer(0);
         return Rslt;}
 }
-void OperatorEqu::loadOperand(Stack *s){
-    l2=s->top();
-    s->pop();
+void OperatorEqu::verify(Stack *s){
 
-    l1=s->top();
-    s->pop();
     if(!(((dynamic_cast<Numeric*>(l1))&&(dynamic_cast<Numeric*>(l2)))||((dynamic_cast<Complex*>(l1))&&(dynamic_cast<Complex*>(l2))))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
         Item * I1 =new Item();
@@ -530,7 +493,7 @@ Litteral*  OperatorNEqu::execute()
         Integer* Rslt = new Integer(0);
         return Rslt;}
 }
-void OperatorNEqu::loadOperand(Stack *s){
+void OperatorNEqu::verify(Stack *s){
     l2=s->top();
     s->pop();
 
@@ -557,12 +520,8 @@ Litteral*  OperatorCplx::execute()
 
         return Rslt;
 }
-void OperatorCplx::loadOperand(Stack *s){
-    l2=s->top();
-    s->pop();
+void OperatorCplx::verify(Stack *s){
 
-    l1=s->top();
-    s->pop();
     if((!dynamic_cast<Numeric*>(l1))||(!dynamic_cast<Numeric*>(l2))) //L1 ou L2 n'est pas convertible en numcad pointe vers complx  ou autre type non numerique
     {
         Item * I1 =new Item();
@@ -587,12 +546,7 @@ Litteral*  OperatorAND::execute()
         Integer* I = new Integer(0);
         return I;
 }
-void OperatorAND::loadOperand(Stack *s){
-    l2=s->top();
-    s->pop();
-
-    l1=s->top();
-    s->pop();
+void OperatorAND::verify(Stack *s){
     if(typeid(*l1)!=typeid(Integer)||typeid(*l2)!=typeid(Integer))
     {
         Item * I1 =new Item();
@@ -617,12 +571,8 @@ Litteral*  OperatorOR::execute()
         Integer* I = new Integer(0);
         return I;
 }
-void OperatorOR::loadOperand(Stack *s){
-    l2=s->top();
-    s->pop();
+void OperatorOR::verify(Stack *s){
 
-    l1=s->top();
-    s->pop();
     if(typeid(*l1)!=typeid(Integer)||typeid(*l2)!=typeid(Integer))
     {
         Item * I1 =new Item();
@@ -646,9 +596,8 @@ Litteral*  OperatorNOT::execute()
         Integer* I = new Integer(1);
         return I;
 }
-void OperatorNOT::loadOperand(Stack *s){
-    l1=s->top();
-    s->pop();
+void OperatorNOT::verify(Stack *s){
+
     if(typeid(*l1)!=typeid(Integer))
     {
         Item * I1 =new Item();
@@ -672,9 +621,8 @@ Litteral*  OperatorNEG::execute()
     return Rslt;
 
 }
-void OperatorNEG::loadOperand(Stack *s){
-    l1=s->top();
-    s->pop();
+void OperatorNEG::verify(Stack *s){
+
     if(!(dynamic_cast<Numeric*>(l1)||dynamic_cast<Complex*>(l1)))
     {
         Item * I1 =new Item();
@@ -684,10 +632,8 @@ void OperatorNEG::loadOperand(Stack *s){
     }
 }
 
-void OperatorSTO::loadOperand(Stack *s){
-    l1=s->top();
-    s->pop();
-
+void OperatorSTO::verify(Stack *s){
+    
     //Litteral* I1 =dynamic_cast<Litteral*>(l1);
     Item * I = new Item;
     I->setLit(l1);
@@ -739,9 +685,8 @@ Litteral*  OperatorNUM::execute()
     return Rslt;
 
 }
-void OperatorNUM::loadOperand(Stack *s){
-    l1=s->top();
-    s->pop();
+void OperatorNUM::verify(Stack *s){
+
     if(!(dynamic_cast<Integer*>(l1)||dynamic_cast<Rationnal*>(l1)))
     {
         Item * I1 =new Item();
@@ -759,9 +704,8 @@ Litteral*  OperatorDEN::execute()
     return Rslt;
 
 }
-void OperatorDEN::loadOperand(Stack *s){
-    l1=s->top();
-    s->pop();
+void OperatorDEN::verify(Stack *s){
+
     if(!(dynamic_cast<Integer*>(l1)||dynamic_cast<Rationnal*>(l1)))
     {
         Item * I1 =new Item();
@@ -782,9 +726,8 @@ Litteral*  OperatorRE::execute()
     return Rslt;
 
 }
-void OperatorRE::loadOperand(Stack *s){
-    l1=s->top();
-    s->pop();
+void OperatorRE::verify(Stack *s){
+
     if(!(dynamic_cast<Numeric*>(l1)||dynamic_cast<Complex*>(l1)))
     {
         Item * I1 =new Item();
@@ -806,9 +749,8 @@ Litteral*  OperatorIM::execute()
     return Rslt;
 
 }
-void OperatorIM::loadOperand(Stack *s){
-    l1=s->top();
-    s->pop();
+void OperatorIM::verify(Stack *s){
+
     if(!(dynamic_cast<Numeric*>(l1)||dynamic_cast<Complex*>(l1)))
     {
         Item * I1 =new Item();
@@ -817,9 +759,9 @@ void OperatorIM::loadOperand(Stack *s){
         throw ComputerException("Erreur : Il faut 1 Complexe pour IM");
     }
 }
-void OperatorEVAL::loadOperand(Stack *s){
-    l1=s->top();
-    s->pop();
+
+void OperatorEVAL::verify(Stack *s){
+
 }
 Litteral * OperatorEVAL::execute(){
     Parser p = Parser::getInstance();
@@ -874,6 +816,7 @@ Litteral * OperatorEVAL::execute(){
     ctrl->command(temp);
     return nullptr;
 }
+
 Litteral*  OperatorFORGET::execute()
 {
     QString str = toQString(l1->toString());
@@ -889,10 +832,10 @@ Litteral*  OperatorFORGET::execute()
     return l1;
 
 }
-void OperatorFORGET::loadOperand(Stack *s){
-    l1=s->top();
-    s->pop();
+void OperatorFORGET::verify(Stack *s){
+
 }
+
 Litteral*  OperatorEDIT::execute()
 {
 
@@ -917,16 +860,14 @@ Litteral*  OperatorEDIT::execute()
     return nullptr;
 
 }
-void OperatorEDIT::loadOperand(Stack *s){
-    l1=s->top();
-}
 
+void OperatorEDIT::verify(Stack *s){}
 Litteral*  OperatorCLEAR::execute()
 {
     return nullptr;
 }
 
-void  OperatorCLEAR::loadOperand(Stack *s)
+void  OperatorCLEAR::verify(Stack *s)
 {
     do{
     s->pop();
@@ -935,13 +876,17 @@ void  OperatorCLEAR::loadOperand(Stack *s)
 }
 
 
-
-
-Litteral* OperatorIFT::execute( )
+void  OperatorIFT::verify(Stack *s)
 {
     if(!dynamic_cast<Numeric*>(l1)){
         throw ComputerException("Erreur : Le 1er Argument doit être un Test Logique");
     }
+
+
+
+Litteral* OperatorIFT::execute( )
+{
+
     Numeric* N =dynamic_cast<Numeric*>(l1);
     if(N->isNull()){ ///Le test est négatif
         return nullptr;
