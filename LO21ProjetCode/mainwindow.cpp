@@ -88,7 +88,7 @@ MainWindow::MainWindow(QWidget *parent) :
     xml_node<> * stack,* var,* prog;
 
     GeneralManager * genMng = &(GeneralManager::getInstance());
-    std::ifstream theFile ("../UTComputer.xml");
+    std::ifstream theFile ("/Users/pascalereghem/Documents/P16/LO21/LO21_PROJET/UTComputerGIT/UTComputer/LO21PROJET/UTComputer.xml");
     std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
     buffer.push_back('\0');
 
@@ -172,7 +172,7 @@ MainWindow::~MainWindow()
     xml_node<> *node3 = doc.allocate_node(node_element, "Programmes", s3.c_str(), 10, s3.size());
     doc.append_node(node3);
 
-    std::ofstream theFile ("../UTComputer.xml");
+    std::ofstream theFile ("/Users/pascalereghem/Documents/P16/LO21/LO21_PROJET/UTComputerGIT/UTComputer/LO21PROJET/UTComputer.xml");
     theFile << doc;
     delete ui;
 }

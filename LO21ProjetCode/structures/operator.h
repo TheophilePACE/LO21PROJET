@@ -193,7 +193,9 @@ public:
 class  OperatorOR : public OperatorBinary {
 public:
      OperatorOR(): OperatorBinary(){}
+     ///Crée un nouvel Identifier et y associe l'atom et la valeur présents dans les attributs de l'operateur
         Litteral* execute( );
+        ///vérifie que le premier element est un atome et que le second n'est ni un programme ni un atome
       void correctType(Stack * s);
 
 };
@@ -248,23 +250,29 @@ public:
 class  OperatorEVAL : public OperatorUnary {
     Controller * ctrl;
 public:
+    ///Utilise le shunting-yard algorithm pour transformer l'expression en RPN puis appelle le controller pour qu'il l'éxécute.
+
     OperatorEVAL(Controller * c): OperatorUnary(), ctrl(c){}
 
         Litteral* execute( );
+        ///vérifie que l'on évalue une expression
       void correctType(Stack * s);
 };
 class  OperatorFORGET : public OperatorUnary {
 public:
     OperatorFORGET(): OperatorUnary(){}
-
+    ///vérifie que l'on applique l'opérateur sur une expression
         Litteral* execute( );
+        ///Enlève un identifier de l'identifierManager (uniquement celui d'une variable)
       void correctType(Stack * s);
 };
 class  OperatorEDIT : public OperatorUnary {
 public:
     OperatorEDIT(): OperatorUnary(){}
-
+        ///Retrouve le Programme à éditer dans l'IdentifierManager puis redirige vers l'onglet d'édition de programme en sélectionnant le bon dans la comboBox
         Litteral* execute( );
+        ///verifie que l'on applique l'operateur sur un Expression
+
       void correctType(Stack * s);
 };
 

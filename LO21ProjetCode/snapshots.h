@@ -34,10 +34,10 @@ class SnapshotManager {
     Snapshot ** snapshots;
     ///Désigne le  snapshot actuel.Il n'estréllement actualisé que lors de l'utilisation de updateCurrentSnapshot (avant Undo/Redo).
     unsigned int nb;
-
+    unsigned int currentState;
     unsigned int maxi;
     void increaseCap();
-    SnapshotManager():snapshots(nullptr),currentState(0),nb(0),maxi(0){}
+    SnapshotManager():snapshots(nullptr),nb(0),currentState(0),maxi(0){}
     struct Singleton{
         SnapshotManager* instance;
         Singleton():instance(nullptr){}

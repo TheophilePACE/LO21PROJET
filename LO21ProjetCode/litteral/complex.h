@@ -23,13 +23,13 @@ public:
     ~Complex(){}
      /*! \brief Operateurs dans C. le retour se fait également dans C
     */
-    //@{
+    ///@{
    Complex operator=(const Complex& Cx );
    Complex operator+(const Complex& Cx) const;
    Complex operator-(const Complex& Cx)const ;
    Complex operator*(const Complex& Cx) const ;
    Complex operator/(const Complex& Cx) const;
-   //@}
+   ///@}
    ///Comparaison des deux membres pointés par pReal et pImag.
    bool operator==(const Complex& Cx) const ;
    Complex NEG() const;

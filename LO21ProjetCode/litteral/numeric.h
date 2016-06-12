@@ -29,11 +29,11 @@ public:
     Numeric NEG() const;
     /*! Fonctions surchargées dans les classes filles de manière à n'afficher que les parties utiles (différentes des valeurs standards) du nombre.
     */
-    //@{
+    ///@{
     virtual void print(QTextStream& f)const; //implémentée
     virtual std::string toString()const;//implémentée
     virtual QString toQStringPars()const;//implémentée
-    //@}
+    ///@}
 
     ~Numeric(){}
     Numeric(long n,long d,double m): num(n), denum(d), mantisse(m) {}
@@ -45,14 +45,14 @@ public:
     Numeric (const Numeric& N): num(N.num), denum(N.denum), mantisse(N.mantisse) {}
     /*! \brief Fonctions pour les conversions vers classes filles
      */
-    //@{
+    ///@{
       //! Teste si le numeric est dans Z, ensemble des entiers.
     bool numIsInteger() const {return ((mantisse==0)&&(denum==1));}
     //! Teste si le numeric est dans Q, ensemble des rationnels.
     bool numIsRationnal() const {return ((mantisse==0)&&(denum!=1));}
     //! Teste si le numeric est dans R, ensemble des réels.
     bool numIsReal() const {return ((mantisse!=0)&&(denum==1));}
-    //@}
+    ///@}
     //! retourne la valeur approchée du nombre, c'est à dire Num/denum pour Q, num+mantisse pour R. La valeur est donc un double.
 
 

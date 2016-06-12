@@ -26,14 +26,14 @@ public:
       *  La division exacte créant un rationnel, elle est implémentée avec la classe rationnal dans la fichier rationnal.h
       * Retour par valeur car on connait à l'avance le type de retour.
     */
-    //@{
+    ///@{
 
     Integer operator+(Integer integer) const;
     Integer operator-(Integer integer)const ;
     Integer operator*(Integer integer) const ;
     Integer MOD(Integer integer) const ;
     Integer DIV(Integer integer) const ;
-    //@}
+    ///@}
 
 
 };

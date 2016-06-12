@@ -29,20 +29,20 @@ public:
     /*! \brief       Operateurs de R vers R
     * Le changement de type sera assuré par la classe operateur au travers de numericcast.
    */
-    //@{
+    ///@{
     Real operator+(Real re) const;
     Real operator-(Real re)const ;
     Real operator*(Real re) const ;
     Real operator/(Real re) const;
-    //@}
+    ///@}
 
 };
 
  /*! Le changement de type sera assuré par la classe operateur au travers de numericcast.*/
-//@{
+///@{
  /*! Operateurs de R et Q vers R*/
 
-//@{
+///@{
 Real operator+(Real Re, Rationnal Ra);
 Real operator+(Rationnal Ra, Real Re);
 Real operator-(Real Re, Rationnal Ra);
@@ -50,15 +50,15 @@ Real operator-(Rationnal Ra,Real Re);
 Real operator*(Real Re, Rationnal Ra);
 Real operator/(Real Re, Rationnal Ra);
 Real operator/(Rationnal Ra, Real Re);
-//@}
+///@}
  /*! Operateurs de R et Z vers R*/
-//@{
+///@{
 Real operator+(Integer a, Real Re);
 Real operator-(Integer a, Real Re);
 Real operator-(Real Re, Integer a);
 Real operator*(Integer a, Real Re);
 Real operator/(Integer a, Real Re);
 Real operator/(Real Re, Integer a);
-//@}
-//@}
+///@}
+///@}
 #endif // REAL_H

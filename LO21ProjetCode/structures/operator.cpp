@@ -554,7 +554,7 @@ void OperatorNEG::correctType(Stack *s){
 }
 
 void OperatorSTO::correctType(Stack *s){
-    
+
     //Litteral* I1 =dynamic_cast<Litteral*>(l1);
     Item * I = new Item;
     I->setLit(l1);

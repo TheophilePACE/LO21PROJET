@@ -6,7 +6,7 @@
 #include "../intermediary.h"
 #include "computerException.h"
 
-/*! \brief      La Stack ets la structure chargé de stocker les items. Elle est géré en FILO.
+/*! \brief      La Stack est la structure chargée de stocker les items. Elle est gérée en FILO.
 * La création des items est gérée par le GeneralManager, la pile ne fait que les stocker.
 *
 */
@@ -14,11 +14,11 @@
 class Stack {
     /*! \brief     Attributs classiques de gestion de la pile :
     */
-    //@{
+    ///@{
     Item* items;
     unsigned int nb;
     unsigned int nbMax;
-    //@}
+    ///@}
     QString message;
     unsigned int nbItemsDisplayed;
     void increaseCap();
@@ -26,18 +26,19 @@ public:
     Stack():items(nullptr),nb(0),nbMax(0),message(""),nbItemsDisplayed(4){}
     Stack(const Stack& s);
     ~Stack();
-    /*! \brief     Méthodes classiques de gestion de la pile :
+
+    ///@{
+    /** \brief     Méthodes classiques de gestion de la pile :
     */
-    //@{
     void push(Item e);
     void pop();
     bool empty() const { return nb==0; }
     unsigned int size() const { return nb; }
     Litteral* top() const;
-    //@}
+    ///@}
     ///Renvoie la pile sous forme d'une string où les éléments sont séparées par _
     const QString display() const;
-    ///Changer le nombre d'item afficher dans la pile (sur l'interface).
+    ///Changer le nombre d'item affichés dans la pile (l'interface est liée à la pile).
     void setNbItemsDisplayed(unsigned int n) { nbItemsDisplayed=n; }
     unsigned int getNbItemsDisplayed() const { return nbItemsDisplayed; }
     void setMessage(const QString& m) { message=m; }

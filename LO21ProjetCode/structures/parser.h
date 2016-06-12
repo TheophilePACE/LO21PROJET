@@ -28,7 +28,7 @@ public:
 
     /*! \brief       A l'aide d'un split sur s, ces fnction retourne une partie de la chaine correspodante à la valeur de l'objet à créer.
    */
-    //@{
+    ///@{
     long getNum(QString s);
     long getDenum(QString s);
     long getInteger(QString s); //renvoie tout ce qu'il y a avant le .
@@ -37,7 +37,7 @@ public:
     float getFloat(QString s); //non implémentée
     QString getRealPart(QString s); //renvoie la premiereparti du ima
     QString getImPart(QString s);
-    //@}
+    ///@}
 
 };
 
